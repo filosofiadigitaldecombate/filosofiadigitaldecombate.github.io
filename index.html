@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇻🇪 Filosofia Digital de Combate</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+--gold:#C9A84C;
+--gold-light:#E8C97A;
+--cream:#F5EDD8;
+--dark:#0D0A06;
+--dark2:#1A1510;
+--red:#CC2936;
+--text:#D4C9A8;
+--muted:#7A6E56;
+}
+
+html{scroll-behavior:smooth;}
+
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--dark);
+color:var(--text);
+min-height:100vh;
+overflow-x:hidden;
+}
+
+body::before{
+content:'';
+position:fixed;
+inset:0;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+pointer-events:none;
+z-index:100;
+opacity:0.4;
+}
+
+.bg-glow{
+position:fixed;
+inset:0;
+background:
+radial-gradient(ellipse 60% 50% at 50% 0%,rgba(201,168,76,0.08) 0%,transparent 70%),
+radial-gradient(ellipse 40% 40% at 80% 80%,rgba(204,41,54,0.06) 0%,transparent 60%);
+pointer-events:none;
+z-index:0;
+}
+
+.container{
+position:relative;
+z-index:1;
+max-width:480px;
+margin:0 auto;
+padding:48px 24px 80px;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.flags{font-size:22px;letter-spacing:4px;margin-bottom:12px;}
+
+.name{
+font-family:'Playfair Display',serif;
+font-size:34px;
+font-weight:700;
+color:var(--cream);
+text-align:center;
+margin-bottom:8px;
+}
+
+.name em{color:var(--gold);}
+
+.tagline{
+font-size:13px;
+letter-spacing:3px;
+text-transform:uppercase;
+color:var(--muted);
+margin-bottom:32px;
+}
+
+.divider{
+width:100%;
+height:1px;
+background:linear-gradient(to right,transparent,var(--gold),transparent);
+margin-bottom:32px;
+}
+
+.bio-block{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:16px;
+width:100%;
+margin-bottom:32px;
+}
+
+.bio-card{
+background:rgba(255,255,255,0.03);
+border:1px solid rgba(201,168,76,0.15);
+border-radius:12px;
+padding:16px;
+}
+
+.bio-lang{
+font-size:10px;
+letter-spacing:2px;
+text-transform:uppercase;
+color:var(--gold);
+margin-bottom:8px;
+}
+
+.bio-text{
+font-size:13px;
+line-height:1.7;
+}
+
+.mystery{
+width:100%;
+text-align:center;
+font-family:'Playfair Display',serif;
+font-style:italic;
+font-size:18px;
+color:var(--cream);
+margin-bottom:36px;
+padding:20px;
+border-top:1px solid rgba(201,168,76,0.35);
+border-bottom:1px solid rgba(201,168,76,0.35);
+}
+
+.section-label{
+font-size:13px;
+letter-spacing:2px;
+text-transform:uppercase;
+margin-bottom:16px;
+}
+
+.pix-card{
+background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));
+border:1px solid rgba(201,168,76,0.3);
+border-radius:16px;
+padding:24px;
+text-align:center;
+}
+
+.pix-key-wrap{
+background:rgba(0,0,0,0.3);
+border:1px solid rgba(201,168,76,0.2);
+border-radius:10px;
+padding:12px 16px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+margin-top:14px;
+}
+
+.pix-key{
+font-size:13px;
+color:var(--gold-light);
+word-break:break-all;
+font-family:monospace;
+}
+
+.copy-btn{
+background:var(--gold);
+color:var(--dark);
+border:none;
+border-radius:7px;
+padding:6px 12px;
+font-size:11px;
+font-weight:600;
+cursor:pointer;
+}
+
+.social{
+width:100%;
+display:flex;
+flex-direction:column;
+gap:12px;
+margin-top:30px;
+}
+
+.social a{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+width:100%;
+padding:16px 24px;
+border:1px solid rgba(255,255,255,0.15);
+border-radius:14px;
+color:var(--text);
+text-decoration:none;
+font-size:14px;
+}
+
+.footer{
+margin-top:48px;
+text-align:center;
+}
+
+.footer-quote{
+font-family:'Playfair Display',serif;
+font-style:italic;
+font-size:13px;
+color:var(--muted);
+line-height:1.8;
+}
+
+.toast{
+position:fixed;
+bottom:32px;
+left:50%;
+transform:translateX(-50%) translateY(80px);
+background:var(--gold);
+color:var(--dark);
+padding:10px 22px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+transition:0.4s;
+}
+
+.toast.show{transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+
+<body>
+
+<div class="bg-glow"></div>
+
+<div class="container">
+
+<div class="flags">🇻🇪 🎵 🇧🇷</div>
+
+<h1 class="name"><em>Filosofia Digital</em><br>de Combate</h1>
+
+<p class="tagline">voz · filosofia · combate</p>
+
+<div class="divider"></div>
+
+<div class="bio-block">
+
+<div class="bio-card">
+<div class="bio-lang">🇧🇷 Português</div>
+<p class="bio-text">
+Um venezuelano no Brasil com uma história para contar.  
+Por enquanto, só a minha voz. Em breve... muito mais.
+</p>
+</div>
+
+<div class="bio-card">
+<div class="bio-lang">🇻🇪 Español</div>
+<p class="bio-text">
+Un venezolano en Brasil con una historia que contar.  
+Por ahora, solo mi voz. Pronto... mucho más.
+</p>
+</div>
+
+</div>
+
+<div class="mystery">
+"Ainda não sei quem soy"<br>
+<small>mas em breve você vai saber · pero pronto sabrás</small>
+</div>
+
+<div class="section-label">apoie a jornada · apoya el viaje</div>
+
+<div class="pix-card">
+
+<div class="pix-title">☕ Manda um café</div>
+
+<div class="pix-key-wrap">
+<span class="pix-key" id="pixKey">SrBarbado@gmail.com</span>
+<button class="copy-btn" onclick="copyPix()">Copiar</button>
+</div>
+
+</div>
+
+<div class="social">
+
+<a href="https://whatsapp.com/channel/0029VbCHNym1NCrX0KsyP71Y" target="_blank">
+💬 Canal WhatsApp — Filosofia Digital
+</a>
+
+<a href="https://tiktok.com/@filosofiadigitalcombate" target="_blank">
+🎵 TikTok
+</a>
+
+<a href="https://instagram.com/filosofiadigitaldecombate" target="_blank">
+📸 Instagram
+</a>
+
+<a href="https://youtube.com/@Filosofiadigitaldecombate" target="_blank">
+▶️ YouTube
+</a>
+
+</div>
+
+<div class="footer">
+<p class="footer-quote">
+"A voz não mente.  
+A história ainda está sendo escrita."
+</p>
+</div>
+
+</div>
+
+<div class="toast" id="toast">✓ Pix copiado</div>
+
+<script>
+function copyPix(){
+const key=document.getElementById("pixKey").textContent;
+navigator.clipboard.writeText(key);
+
+const toast=document.getElementById("toast");
+toast.classList.add("show");
+
+setTimeout(()=>{toast.classList.remove("show");},2000);
+}
+</script>
+
+</body>
+</html>
