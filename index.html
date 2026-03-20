@@ -3,531 +3,709 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🇻🇪 Filosofia Digital de Combate</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Ecosistema Digital · Creaty Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --gold:#C9A84C;--gold2:#E8C97A;--dark:#06050A;--dark2:#1A1510;
-  --parchment:#F0E6CC;--cream:#DDD0AA;--text:#C8BFA0;--muted:#8A7D60;
-  --red:#CC2936;--blue:#1A3A5C;
+  --gold:#C9A84C;--gold2:#E8C97A;--dark:#06050A;--parchment:#F0E6CC;
+  --cream:#DDD0AA;--text:#C8BFA0;--muted:#8A7D60;--purple:#4A1E6A;
+  --red:#CC2936;--green:#00FF41;
 }
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;overflow-x:hidden;}
-
-/* ── STARFIELD ── */
 #starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
-#globalRainbow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.06;}
+#globalRainbow{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.05;}
 .bg-glow{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:radial-gradient(ellipse 70% 50% at 50% -10%,rgba(201,168,76,0.1) 0%,transparent 60%),
-  radial-gradient(ellipse 40% 60% at 90% 100%,rgba(204,41,54,0.06) 0%,transparent 50%);}
-body::after{content:'';position:fixed;inset:0;z-index:200;pointer-events:none;opacity:0.025;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  radial-gradient(ellipse 40% 60% at 90% 100%,rgba(74,30,106,0.1) 0%,transparent 50%);}
+.wrap{position:relative;z-index:10;max-width:500px;margin:0 auto;padding:0 0 100px;display:flex;flex-direction:column;align-items:center;}
 
-/* ── WRAPPER ── */
-.wrap{position:relative;z-index:10;max-width:480px;margin:0 auto;padding:48px 24px 80px;display:flex;flex-direction:column;align-items:center;}
+/* ══ HEADER ══ */
+.site-header{width:100%;text-align:center;padding:32px 24px 20px;}
+.header-eco{font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;}
+.header-brand{font-family:'UnifrakturMaguntia',serif;font-size:44px;color:var(--gold);line-height:1;margin-bottom:8px;text-shadow:0 0 30px rgba(201,168,76,0.4);}
+.header-ceo{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--parchment);letter-spacing:2px;margin-bottom:4px;}
+.header-role{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--muted);line-height:1.7;}
+.header-seal{font-family:'Cinzel',serif;font-size:10px;color:var(--gold);letter-spacing:3px;margin-top:8px;text-shadow:0 0 15px rgba(201,168,76,0.3);}
 
-/* ── SECCIÓN PRINCIPAL — MÚSICA Y VOZ ── */
-.flags{font-size:22px;letter-spacing:4px;margin-bottom:14px;opacity:0;animation:fadeUp 1s 0.2s forwards;}
-.name{font-family:'Playfair Display',serif;font-size:34px;font-weight:700;color:var(--parchment);text-align:center;margin-bottom:8px;opacity:0;animation:fadeUp 1s 0.4s forwards;}
-.name em{color:var(--gold);}
-.tagline{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.5s forwards;text-shadow:0 1px 3px rgba(0,0,0,0.8);}
-.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.6s forwards;}
-
-/* BIO */
-.bio-block{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.7s forwards;}
-.bio-card{background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.15);border-radius:12px;padding:14px;}
-.bio-lang{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:7px;}
-.bio-text{font-size:13px;line-height:1.7;color:var(--cream);text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-
-/* FRASE */
-.mystery{width:100%;text-align:center;font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--parchment);margin-bottom:28px;padding:18px;
-  border-top:1px solid rgba(201,168,76,0.3);border-bottom:1px solid rgba(201,168,76,0.3);
-  opacity:0;animation:fadeUp 1s 0.8s forwards;text-shadow:0 1px 3px rgba(0,0,0,0.7);}
-
-/* VIDEO */
-.video-section{width:100%;margin-bottom:28px;opacity:0;animation:fadeUp 1s 0.9s forwards;}
-.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:12px;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.video-wrap{position:relative;width:100%;max-width:300px;margin:0 auto 14px;border-radius:14px;overflow:hidden;border:1px solid rgba(201,168,76,0.2);box-shadow:0 0 30px rgba(201,168,76,0.08);}
-.video-links{display:flex;flex-direction:column;gap:8px;}
-.vlink{display:flex;align-items:center;gap:10px;padding:11px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;text-decoration:none;color:var(--cream);font-size:13px;transition:all 0.3s;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.vlink:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);transform:translateX(3px);}
-.vi{font-size:17px;}
-.vh{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:1px;}
-
-/* PIX */
-.pix-section{width:100%;margin-bottom:28px;opacity:0;animation:fadeUp 1s 1.0s forwards;}
-.pix-card{background:linear-gradient(135deg,rgba(201,168,76,0.08),rgba(201,168,76,0.02));border:1px solid rgba(201,168,76,0.2);border-radius:14px;padding:20px;text-align:center;}
-.pix-title{font-family:'Cinzel',serif;font-size:12px;color:var(--parchment);margin-bottom:5px;letter-spacing:2px;text-shadow:0 1px 3px rgba(0,0,0,0.7);}
-.pix-desc{font-family:'Crimson Pro',serif;font-size:13px;color:var(--muted);font-style:italic;margin-bottom:12px;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.pix-row{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.3);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:10px 14px;}
-.pix-key{flex:1;font-family:monospace;font-size:13px;color:var(--gold2);}
-.btn-copy{background:var(--gold);color:#0E0A04;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px;white-space:nowrap;}
-
-/* SOCIAL */
-.social-section{width:100%;margin-bottom:28px;opacity:0;animation:fadeUp 1s 1.1s forwards;}
-.social-grid{display:flex;flex-direction:column;gap:8px;}
-.social-link{display:flex;align-items:center;gap:11px;padding:12px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:13px;text-decoration:none;color:var(--cream);font-size:13px;transition:all 0.3s;background:rgba(255,255,255,0.02);text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.social-link:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);transform:translateX(3px);}
-.social-icon{font-size:17px;}
-.social-handle{margin-left:auto;font-size:10px;color:var(--muted);letter-spacing:1px;}
-
-/* QUOTE */
-.footer-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:13px;color:var(--muted);text-align:center;line-height:1.8;margin-bottom:32px;opacity:0;animation:fadeUp 1s 1.2s forwards;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-
-/* ══════════════════════════════════════
-   BOTÓN PAPIRO — EL PORTAL
-   ══════════════════════════════════════ */
-.papiro-portal{width:100%;margin-bottom:0;opacity:0;animation:fadeUp 1s 1.3s forwards;}
-
-.btn-papiro{
-  width:100%;padding:22px 24px;
-  background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));
-  border:1px solid rgba(201,168,76,0.4);border-radius:18px;
-  cursor:pointer;transition:all 0.4s;
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  position:relative;overflow:hidden;
-}
-.btn-papiro:hover{
-  border-color:var(--gold);background:linear-gradient(135deg,rgba(201,168,76,0.2),rgba(201,168,76,0.08));
-  transform:translateY(-2px);box-shadow:0 10px 40px rgba(201,168,76,0.2);
-}
-.btn-papiro::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,0.05) 50%,transparent 100%);
-  animation:btnShimmer 3s infinite;
-}
-@keyframes btnShimmer{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
-
-.btn-papiro-icon{font-size:28px;margin-bottom:2px;}
-.btn-papiro-title{font-family:'Cinzel',serif;font-size:15px;font-weight:600;color:var(--parchment);letter-spacing:3px;text-shadow:0 0 20px rgba(201,168,76,0.4),0 1px 3px rgba(0,0,0,0.8);}
-.btn-papiro-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--gold2);text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.btn-papiro-hint{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-shadow:0 1px 2px rgba(0,0,0,0.7);margin-top:4px;}
-
-.btn-papiro-arrow{
-  font-size:20px;color:var(--gold);margin-top:4px;
-  transition:transform 0.4s;
-}
-.btn-papiro.open .btn-papiro-arrow{transform:rotate(180deg);}
-
-/* ══════════════════════════════════════
-   SECCIÓN PAPIRO — DESPLEGABLE
-   ══════════════════════════════════════ */
-.papiro-section{
-  width:100%;
-  max-height:0;overflow:hidden;
-  transition:max-height 1.2s cubic-bezier(0.4,0,0.2,1);
-}
-.papiro-section.open{max-height:9999px;}
-
-.papiro-inner{padding:28px 0 0;}
-
-/* LIBRO */
-.book-wrap{position:relative;width:220px;margin:0 auto 40px;}
-.book-cover{width:100%;aspect-ratio:2/3;
-  background:radial-gradient(ellipse at 30% 20%,rgba(232,201,122,0.2) 0%,transparent 50%),
-  radial-gradient(ellipse at 70% 80%,rgba(139,26,26,0.2) 0%,transparent 40%),
+/* ══ LIBRO HERO ══ */
+.book-hero{width:100%;padding:0 12px;}
+.book-cover-hero{
+  width:100%;min-height:88vh;
+  background:radial-gradient(ellipse at 30% 20%,rgba(232,201,122,0.15) 0%,transparent 50%),
   linear-gradient(145deg,#2A1F0E 0%,#1A1208 40%,#0E0A04 100%);
-  border-radius:4px 12px 12px 4px;border:1px solid rgba(201,168,76,0.35);
-  box-shadow:-6px 0 0 #0A0705,-10px 4px 30px rgba(0,0,0,0.9),0 0 60px rgba(201,168,76,0.12),inset 2px 0 8px rgba(0,0,0,0.5);
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:18px 14px;overflow:hidden;position:relative;cursor:pointer;
-  transition:transform 0.5s ease,box-shadow 0.5s ease;}
-.book-wrap:hover .book-cover{transform:perspective(800px) rotateY(-8deg);
-  box-shadow:-12px 0 0 #0A0705,-16px 8px 50px rgba(0,0,0,0.95),0 0 80px rgba(201,168,76,0.2);}
-.book-spine{position:absolute;left:-8px;top:0;width:8px;height:100%;background:linear-gradient(to right,#0A0705,#1A1208);border-radius:2px 0 0 2px;}
-#rainbowCanvas{position:absolute;inset:0;border-radius:4px 12px 12px 4px;pointer-events:none;z-index:0;}
-#bookStars{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:1;}
+  border-radius:4px 14px 14px 4px;
+  border:1px solid rgba(201,168,76,0.35);
+  box-shadow:-8px 0 0 #0A0705,-14px 6px 40px rgba(0,0,0,0.95),0 0 80px rgba(201,168,76,0.1);
+  display:flex;flex-direction:column;align-items:center;
+  padding:22px 16px;overflow:hidden;position:relative;cursor:pointer;
+  transition:transform 0.5s ease;
+}
+.book-cover-hero:hover{transform:perspective(1000px) rotateY(-4deg);}
+.book-spine-h{position:absolute;left:-10px;top:0;width:10px;height:100%;background:linear-gradient(to right,#080605,#1A1208);}
+#rainbowHero,#bookStarsHero{position:absolute;inset:0;pointer-events:none;}
+#rainbowHero{z-index:0;border-radius:4px 14px 14px 4px;}
+#bookStarsHero{z-index:1;}
 
 /* BANDERAS */
-.flag-patches{position:relative;z-index:5;display:grid;grid-template-columns:1fr 1fr;gap:5px;width:100%;margin-bottom:5px;}
-.flag-patch{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;
-  background:rgba(0,0,0,0.5);border:1px solid rgba(201,168,76,0.25);border-radius:5px;padding:4px 3px;transition:all 0.3s;}
-.flag-patch:hover,.flag-patch.active{border-color:var(--gold);background:rgba(201,168,76,0.18);box-shadow:0 0 8px rgba(201,168,76,0.3);}
-.flag-emoji{font-size:16px;line-height:1;}
-.flag-label{font-size:6px;letter-spacing:1px;text-transform:uppercase;color:var(--gold2);font-family:'Cinzel',serif;}
+.flags-hero{position:relative;z-index:5;display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%;margin-bottom:10px;}
+.flag-hero{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;
+  background:rgba(0,0,0,0.55);border:1px solid rgba(201,168,76,0.25);border-radius:6px;padding:6px 4px;transition:all 0.3s;}
+.flag-hero:hover,.flag-hero.active{border-color:var(--gold);background:rgba(201,168,76,0.18);box-shadow:0 0 12px rgba(201,168,76,0.3);}
+.flag-emoji{font-size:20px;line-height:1;}
+.flag-label{font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--gold2);font-family:'Cinzel',serif;}
 
-.book-ornament-top{position:relative;z-index:3;text-align:center;width:100%;}
-.bol{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:3px 0;}
-.bos{font-size:12px;color:var(--gold2);}
-.book-title-wrap{position:relative;z-index:3;text-align:center;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
-.book-eyebrow{font-family:'Cinzel',serif;font-size:6px;letter-spacing:4px;color:var(--gold2);text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,0.9);}
-.book-title-txt{font-family:'Cinzel',serif;font-size:26px;font-weight:900;color:var(--parchment);line-height:1;text-shadow:0 0 30px rgba(201,168,76,0.5),0 2px 4px rgba(0,0,0,0.9);letter-spacing:4px;}
-.book-subtitle{font-family:'Crimson Pro',serif;font-size:9px;font-style:italic;color:var(--gold2);letter-spacing:2px;text-shadow:0 1px 2px rgba(0,0,0,0.8);}
-.book-ornament-bottom{position:relative;z-index:3;text-align:center;width:100%;}
-.bdiv{display:flex;align-items:center;gap:5px;margin-bottom:3px;}
-.bdiv::before{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold));}
-.bdiv::after{content:'';flex:1;height:1px;background:linear-gradient(to left,transparent,var(--gold));}
-.bdiv span{color:var(--gold);font-size:8px;}
-.book-author{font-family:'Crimson Pro',serif;font-size:7px;letter-spacing:3px;color:#8A7D60;text-transform:uppercase;text-shadow:0 1px 2px rgba(0,0,0,0.8);}
-.book-open-hint{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;white-space:nowrap;animation:pulse 2s infinite;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
+/* POSTAL EN EL LIBRO */
+.postal-wrap{position:relative;z-index:5;width:88%;margin:6px auto 12px;transform:rotate(-1.5deg);}
+.postal-tape{position:absolute;top:-9px;left:50%;transform:translateX(-50%);width:52px;height:15px;background:rgba(210,185,120,0.3);border:1px solid rgba(210,185,120,0.15);border-radius:2px;z-index:10;}
+.postal-tape::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.04) 0px,transparent 2px,transparent 4px);}
+.postal-frame{border:3px solid rgba(210,185,120,0.35);border-radius:2px;overflow:hidden;
+  box-shadow:2px 2px 10px rgba(0,0,0,0.8),inset 0 0 20px rgba(0,0,0,0.3);background:#0a0805;}
+.postal-stain{position:absolute;bottom:5px;right:7px;font-size:8px;color:rgba(210,185,120,0.3);font-family:'Special Elite',serif;z-index:3;letter-spacing:1px;}
 
-/* TÍTULO PAPIRO */
-.papiro-main-title{font-family:'Cinzel',serif;font-size:36px;font-weight:900;color:var(--parchment);text-align:center;letter-spacing:6px;margin-bottom:5px;text-shadow:0 0 40px rgba(201,168,76,0.3),0 2px 6px rgba(0,0,0,0.9);}
-.papiro-main-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:var(--gold2);letter-spacing:3px;text-align:center;margin-bottom:24px;text-shadow:0 1px 3px rgba(0,0,0,0.7);}
-.gold-div{width:100%;display:flex;align-items:center;gap:10px;margin:4px 0 24px;}
-.gold-div::before{content:'';flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold));}
-.gold-div::after{content:'';flex:1;height:1px;background:linear-gradient(to left,transparent,var(--gold));}
-.gold-div span{color:var(--gold);font-size:13px;}
+/* ORNAMENTOS LIBRO */
+.bol{height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:4px 0;}
+.bos{font-size:13px;color:var(--gold2);text-align:center;}
+.book-eyebrow-h{font-family:'Cinzel',serif;font-size:7px;letter-spacing:4px;color:var(--gold2);text-transform:uppercase;}
+.book-title-h{font-family:'Cinzel',serif;font-size:30px;font-weight:900;color:var(--parchment);letter-spacing:4px;text-shadow:0 0 40px rgba(201,168,76,0.6);}
+.book-sub-h{font-family:'Crimson Pro',serif;font-size:10px;font-style:italic;color:var(--gold2);letter-spacing:2px;}
+.book-author-h{font-family:'Crimson Pro',serif;font-size:8px;letter-spacing:3px;color:#8A7D60;text-transform:uppercase;}
+.book-tap{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-top:8px;animation:pulse 2s infinite;}
 
-/* DESC */
-.papiro-desc{font-family:'Crimson Pro',serif;font-size:17px;font-weight:400;line-height:1.9;text-align:center;color:var(--cream);margin-bottom:28px;text-shadow:0 1px 3px rgba(0,0,0,0.6);}
-.papiro-desc em{color:var(--gold2);font-style:italic;}
+/* ══ FLECHAS ══ */
+.arrows-down{width:100%;display:flex;flex-direction:column;align-items:center;padding:14px 0;gap:4px;}
+.arr-text{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--green);text-shadow:0 0 8px rgba(0,255,65,0.6);text-transform:uppercase;text-align:center;}
+.arr-row{display:flex;align-items:center;gap:10px;justify-content:center;}
+.arr-b{border:2px solid var(--red);border-radius:50%;padding:4px;display:flex;box-shadow:0 0 8px rgba(204,41,54,0.4);}
+.arr-b span{font-size:22px;color:var(--green);text-shadow:0 0 10px rgba(0,255,65,0.8);animation:arrBounce 1.5s ease-in-out infinite;}
+.arr-b:nth-child(1) span{animation-delay:0s;}
+.arr-b:nth-child(2) span{animation-delay:0.15s;}
+.arr-b:nth-child(3) span{animation-delay:0.3s;}
+@keyframes arrBounce{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
 
-/* RED STATUS */
-.network-status{width:100%;background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.15);border-radius:14px;padding:16px;margin-bottom:28px;}
-.net-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:12px;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.net-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
-.net-stat{text-align:center;}
-.net-stat-num{font-family:'Cinzel',serif;font-size:20px;color:var(--gold2);display:block;text-shadow:0 0 15px rgba(201,168,76,0.4);}
-.net-stat-label{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);}
-.net-live{display:flex;align-items:center;justify-content:center;gap:5px;margin-top:8px;}
-.net-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);animation:blink 1.5s infinite;}
-.net-live-text{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+/* ══ LÁMPARA EN VIVO ══ */
+.lamp-section{width:100%;padding:8px 24px 16px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.lamp-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+/* Llama */
+.lamp-flame{width:22px;height:30px;display:none;margin-bottom:-4px;}
+.lamp-flame.on{display:block;}
+.flame-inner{width:100%;height:100%;background:radial-gradient(ellipse at 50% 80%,#FFE066 0%,#FF8C00 40%,#FF4500 70%,transparent 100%);border-radius:50% 50% 30% 30%;animation:flicker 0.7s ease-in-out infinite alternate;filter:drop-shadow(0 0 8px rgba(255,140,0,0.9));}
+@keyframes flicker{0%{transform:scaleX(1) scaleY(1) rotate(-2deg);}100%{transform:scaleX(0.82) scaleY(1.12) rotate(2deg);}}
+/* Cuerpo lámpara */
+.lamp-body{position:relative;width:52px;}
+.lamp-top{width:30px;height:8px;background:linear-gradient(to bottom,#4A3A1A,#2A1F08);border-radius:4px 4px 0 0;margin:0 auto;}
+.lamp-glass{width:46px;height:38px;margin:0 auto;background:rgba(120,100,50,0.15);border:2px solid rgba(160,130,60,0.35);border-radius:6px 6px 10px 10px;position:relative;overflow:hidden;transition:all 0.6s;}
+.lamp-glass.on{background:linear-gradient(135deg,rgba(255,220,80,0.4),rgba(255,160,30,0.5));border-color:rgba(255,200,60,0.8);box-shadow:0 0 25px rgba(255,180,30,0.7),0 0 50px rgba(255,140,0,0.35),inset 0 0 18px rgba(255,220,80,0.4);}
+.lamp-glow{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(255,220,80,0.8),transparent 70%);opacity:0;transition:opacity 0.6s;}
+.lamp-glass.on .lamp-glow{opacity:1;animation:lampGlow 2s ease-in-out infinite alternate;}
+@keyframes lampGlow{0%{opacity:0.6;}100%{opacity:1;}}
+.lamp-wick{position:absolute;bottom:4px;left:50%;transform:translateX(-50%);width:2px;height:12px;background:rgba(120,90,40,0.6);border-radius:1px;}
+.lamp-base{width:50px;height:10px;background:linear-gradient(to bottom,#3A2A0A,#1A1005);border-radius:0 0 8px 8px;margin:0 auto;}
+.lamp-handle{position:absolute;right:-10px;top:10px;width:14px;height:20px;border:2px solid rgba(120,90,30,0.5);border-left:none;border-radius:0 8px 8px 0;}
+/* Textos lámpara */
+.lamp-live-badge{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--red);text-shadow:0 0 12px rgba(204,41,54,0.9);animation:livePulse 1s ease-in-out infinite;display:none;text-align:center;}
+.lamp-live-badge.on{display:block;}
+.lamp-viewers{font-family:'Cinzel',serif;font-size:11px;color:var(--gold2);text-align:center;display:none;margin-top:2px;}
+.lamp-viewers.on{display:block;}
+.lamp-off-msg{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--muted);text-align:center;line-height:1.8;max-width:280px;}
+.lamp-live-cta{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--parchment);text-align:center;display:none;background:rgba(204,41,54,0.15);border:1px solid rgba(204,41,54,0.3);border-radius:8px;padding:8px 16px;cursor:pointer;transition:all 0.3s;}
+.lamp-live-cta.on{display:block;}
+.lamp-live-cta:hover{background:rgba(204,41,54,0.3);}
+@keyframes livePulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-/* WAITLIST */
-.waitlist-section{width:100%;margin-bottom:28px;}
-.waitlist-form{display:flex;flex-direction:column;gap:9px;}
-.input-wrap input,.select-wrap select{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:11px;padding:12px 16px;color:var(--parchment);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color 0.3s;}
-.input-wrap input::placeholder{color:#6A5F45;}
-.input-wrap input:focus,.select-wrap select:focus{border-color:rgba(201,168,76,0.5);}
-.select-wrap select{appearance:none;cursor:pointer;}
-.select-wrap select option{background:#1A1208;color:var(--parchment);}
-.btn-primary{width:100%;background:linear-gradient(135deg,var(--gold),#A0782A);border:none;border-radius:11px;padding:14px;color:#0E0A04;font-family:'Cinzel',serif;font-size:12px;font-weight:600;letter-spacing:3px;cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(201,168,76,0.3);}
-.form-note{font-size:11px;color:var(--muted);text-align:center;line-height:1.6;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.success-msg{display:none;text-align:center;padding:20px;background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);border-radius:14px;}
-.success-msg .icon{font-size:28px;margin-bottom:6px;}
-.success-msg p{font-family:'Crimson Pro',serif;font-size:16px;color:var(--gold2);line-height:1.7;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
+/* ══ DOS VIDEOS ══ */
+.videos-section{width:100%;padding:0 14px;margin-bottom:18px;}
+.video-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.video-col{display:flex;flex-direction:column;gap:5px;}
+.video-col-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:var(--parchment);text-align:center;}
+.video-col-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:10px;color:var(--muted);text-align:center;}
+.video-box{border-radius:10px;overflow:hidden;border:1px solid rgba(201,168,76,0.25);}
+.video-box.current{border-color:rgba(74,30,106,0.5);}
 
-/* PAPIRO SOCIAL */
-.papiro-social{width:100%;margin-bottom:28px;}
-.papiro-social-grid{display:flex;flex-direction:column;gap:8px;}
+/* PIX */
+.pix-center{width:100%;padding:0 14px;margin-bottom:16px;}
+.pix-card-c{background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(201,168,76,0.03));border:1px solid rgba(201,168,76,0.25);border-radius:14px;padding:18px;text-align:center;}
+.pix-title-c{font-family:'Cinzel',serif;font-size:13px;color:var(--parchment);letter-spacing:2px;margin-bottom:4px;}
+.pix-desc-c{font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:var(--muted);margin-bottom:12px;}
+.pix-row-c{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,0.35);border:1px solid rgba(201,168,76,0.15);border-radius:10px;padding:10px 14px;}
+.pix-key-c{flex:1;font-family:monospace;font-size:12px;color:var(--gold2);}
+.btn-copy-c{background:var(--gold);color:#0E0A04;border:none;border-radius:7px;padding:6px 12px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px;white-space:nowrap;}
 
-/* FINAL QUOTE */
-.papiro-final{text-align:center;padding-bottom:20px;}
-.papiro-final blockquote{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:var(--muted);line-height:2;margin-bottom:12px;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.papiro-final blockquote em{color:var(--gold2);}
-.papiro-seal{font-size:11px;letter-spacing:3px;color:var(--gold);text-shadow:0 0 12px rgba(201,168,76,0.3);}
+/* ══ TEAM ══ */
+.team-section{width:100%;padding:0 14px;margin-bottom:18px;}
+.team-card{background:rgba(74,30,106,0.08);border:1px solid rgba(74,30,106,0.3);border-radius:16px;padding:22px;}
+.team-title{font-family:'Cinzel',serif;font-size:14px;color:var(--parchment);letter-spacing:2px;margin-bottom:6px;}
+.team-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:#8A7A9E;margin-bottom:16px;line-height:1.7;}
+.team-form{display:flex;flex-direction:column;gap:9px;}
+.team-input,.team-select,.team-msg{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(74,30,106,0.3);border-radius:10px;padding:12px 16px;color:var(--parchment);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color 0.3s;}
+.team-input:focus,.team-select:focus,.team-msg:focus{border-color:rgba(74,30,106,0.6);}
+.team-input::placeholder,.team-msg::placeholder{color:#6A5F45;}
+.team-select{appearance:none;cursor:pointer;}
+.team-select option{background:#1A0A28;color:var(--parchment);}
+.team-msg{resize:vertical;min-height:80px;}
+.btn-team{width:100%;background:linear-gradient(135deg,var(--purple),#2A0E3A);border:1px solid rgba(74,30,106,0.5);border-radius:10px;padding:14px;color:var(--gold2);font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:3px;cursor:pointer;transition:all 0.3s;}
+.btn-team:hover{background:linear-gradient(135deg,#6A2E9A,#3A1E5A);box-shadow:0 6px 20px rgba(74,30,106,0.4);}
+.team-success{display:none;text-align:center;padding:20px;background:rgba(74,30,106,0.1);border:1px solid rgba(74,30,106,0.3);border-radius:14px;}
+.team-success p{font-family:'Crimson Pro',serif;font-size:15px;color:#C8B8E8;line-height:1.7;}
 
-/* MODAL LIBRO */
-.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(6,5,10,0.96);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:16px;}
+/* SOCIAL */
+.social-section{width:100%;padding:0 14px;margin-bottom:18px;}
+.section-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:12px;}
+.social-grid{display:flex;flex-direction:column;gap:8px;}
+.social-link{display:flex;align-items:center;gap:11px;padding:11px 16px;border:1px solid rgba(255,255,255,0.08);border-radius:12px;text-decoration:none;color:var(--cream);font-size:13px;transition:all 0.3s;background:rgba(255,255,255,0.02);}
+.social-link:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.06);transform:translateX(3px);}
+.social-icon{font-size:17px;}
+.social-handle{margin-left:auto;font-size:10px;color:var(--muted);}
+.footer-quote{text-align:center;padding:20px 24px 0;font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--muted);line-height:1.8;}
+
+/* ══ MODAL LIBRO ══ */
+.modal-overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(6,5,10,0.97);backdrop-filter:blur(12px);align-items:center;justify-content:center;padding:12px;}
 .modal-overlay.active{display:flex;}
-.book-page{position:relative;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;
-  background:radial-gradient(ellipse at 20% 10%,rgba(232,201,122,0.1) 0%,transparent 40%),
-  linear-gradient(160deg,#2A1F0E 0%,#1E1508 60%,#160F06 100%);
-  border:1px solid rgba(201,168,76,0.3);border-radius:10px;padding:32px 26px;
+.book-page{position:relative;width:100%;max-width:480px;max-height:92vh;overflow-y:auto;
+  background:linear-gradient(160deg,#2A1F0E 0%,#1E1508 60%,#160F06 100%);
+  border:1px solid rgba(201,168,76,0.3);border-radius:8px;padding:28px 22px;
   box-shadow:0 0 80px rgba(201,168,76,0.1);}
-.book-page::-webkit-scrollbar{width:4px;}
-.book-page::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);border-radius:2px;}
-#modalRainbow{position:absolute;inset:0;pointer-events:none;border-radius:10px;z-index:0;opacity:0.1;}
-#modalStars{position:absolute;inset:0;pointer-events:none;border-radius:inherit;z-index:1;}
-.page-header{text-align:center;margin-bottom:20px;position:relative;z-index:2;}
+.book-page::-webkit-scrollbar{width:3px;}
+.book-page::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.3);}
+#modalRainbow,#modalStars{position:absolute;inset:0;pointer-events:none;border-radius:8px;}
+#modalRainbow{z-index:0;opacity:0.1;}
+#modalStars{z-index:1;}
+.btn-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(201,168,76,0.3);color:#8A7D60;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;}
+.btn-close:hover{color:var(--gold);border-color:var(--gold);}
+.page-header{text-align:center;margin-bottom:18px;position:relative;z-index:2;}
 .page-ornament{font-family:'Cinzel',serif;font-size:16px;color:var(--gold);display:block;margin-bottom:5px;}
-.page-chapter{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A7D60;margin-bottom:8px;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.page-title{font-family:'Cinzel',serif;font-size:18px;color:var(--parchment);font-weight:900;letter-spacing:2px;text-shadow:0 0 20px rgba(201,168,76,0.3),0 2px 4px rgba(0,0,0,0.9);}
+.page-chapter{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:#8A7D60;margin-bottom:6px;}
+.page-title{font-family:'Cinzel',serif;font-size:20px;color:var(--parchment);font-weight:900;letter-spacing:2px;text-shadow:0 0 20px rgba(201,168,76,0.3);}
 .page-rule{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:14px 0;}
-.page-text{font-family:'Crimson Pro',serif;font-size:16px;font-weight:400;line-height:2;color:var(--cream);position:relative;z-index:2;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.page-text p{margin-bottom:14px;text-indent:2em;}
-.page-text .dropcap{float:left;font-family:'Cinzel',serif;font-size:50px;line-height:0.8;color:var(--gold2);margin-right:8px;margin-top:8px;text-shadow:0 0 25px rgba(201,168,76,0.5);}
+.page-text{font-family:'Crimson Pro',serif;font-size:19px;line-height:2.1;color:var(--cream);position:relative;z-index:2;}
+.page-text p{margin-bottom:16px;text-indent:2em;}
+.page-text .dropcap{float:left;font-family:'Cinzel',serif;font-size:56px;line-height:0.8;color:var(--gold2);margin-right:8px;margin-top:8px;text-shadow:0 0 25px rgba(201,168,76,0.5);}
 .page-text em{color:var(--gold2);}
 .page-nav{display:flex;align-items:center;justify-content:space-between;margin-top:18px;position:relative;z-index:2;}
 .btn-page{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);color:var(--gold2);border-radius:9px;padding:9px 16px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;cursor:pointer;transition:all 0.2s;}
 .btn-page:hover{background:rgba(201,168,76,0.2);}
 .btn-page:disabled{opacity:0.25;cursor:not-allowed;}
 .page-indicator{font-family:'Cinzel',serif;font-size:10px;color:#8A7D60;letter-spacing:2px;}
-.btn-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(201,168,76,0.3);color:#8A7D60;width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;transition:all 0.2s;z-index:10;}
-.btn-close:hover{color:var(--gold);border-color:var(--gold);}
 
-/* PAGINA VZLA */
+/* ══ BANDERA VENEZOLANA — COMBATE REAL ══ */
 .vzla-page{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
-.vzla-patch{width:160px;height:100px;border-radius:7px;overflow:hidden;position:relative;margin-bottom:18px;
-  box-shadow:0 0 0 2px #3A1F5C,0 0 0 4px #2A1545,0 0 0 5px #5A3080,0 5px 20px rgba(80,30,130,0.6);}
-.vzla-patch::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:4;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='v'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.9' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23v)' opacity='0.15'/%3E%3C/svg%3E");}
-.vzla-patch-shadow{position:absolute;inset:0;border-radius:7px;z-index:5;pointer-events:none;box-shadow:inset 0 2px 10px rgba(0,0,0,0.45),inset 0 -2px 8px rgba(0,0,0,0.35);}
-.vp-top{position:absolute;top:0;left:0;right:0;height:33.33%;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.018) 0px,transparent 1px,transparent 2px),
-  linear-gradient(180deg,#7B3FA8 0%,#6B2F98 60%,#5D2888 100%);border-bottom:1px solid rgba(180,120,240,0.2);}
-.vp-top::before{content:'';position:absolute;top:0;left:0;right:0;height:45%;background:linear-gradient(to bottom,rgba(255,255,255,0.07),transparent);}
-.vp-mid{position:absolute;top:33.33%;left:0;right:0;height:33.34%;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.02) 0px,transparent 1px,transparent 2px),
-  linear-gradient(180deg,#4A1E7A 0%,#3D1868 50%,#351460 100%);
-  display:flex;align-items:center;justify-content:center;z-index:2;}
-.vp-bot{position:absolute;bottom:0;left:0;right:0;height:33.33%;
-  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.01) 0px,transparent 1px,transparent 2px),
-  linear-gradient(180deg,#2A1048 0%,#220D3C 50%,#1A0A30 100%);border-top:1px solid rgba(80,30,120,0.25);}
-.vp-shimmer{position:absolute;inset:0;pointer-events:none;z-index:3;
-  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,0.04) 50%,transparent 70%);animation:vShimmer 4s ease-in-out infinite;}
-@keyframes vShimmer{0%,100%{opacity:0.4;}50%{opacity:1;}}
-.stars-arc{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
-.vstar{position:absolute;font-size:9px;line-height:1;color:rgba(225,195,255,0.92);text-shadow:0 0 5px rgba(200,150,255,0.9);}
-.vs1{transform:translate(-38px,4px);}.vs2{transform:translate(-26px,-5px);}
-.vs3{transform:translate(-11px,-10px);}.vs4{transform:translate(0px,-12px);}
-.vs5{transform:translate(11px,-10px);}.vs6{transform:translate(26px,-5px);}
-.vs7{transform:translate(38px,4px);}
-.vzla-author-name{font-family:'Cinzel',serif;font-size:11px;font-weight:600;color:#C8B8E8;letter-spacing:2px;text-align:center;line-height:1.5;text-shadow:0 0 20px rgba(150,80,220,0.4),0 1px 3px rgba(0,0,0,0.9);margin-bottom:4px;}
-.vzla-from{font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:#8A7A9E;letter-spacing:1px;text-shadow:0 1px 2px rgba(0,0,0,0.8);margin-bottom:3px;text-align:center;}
-.vzla-eco-text{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#6A5A7E;text-transform:uppercase;text-align:center;margin-bottom:16px;}
-.vzla-divider{width:60%;height:1px;background:linear-gradient(to right,transparent,rgba(180,130,220,0.4),transparent);margin:0 auto 14px;}
-.vzla-quote{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#9A8E72;text-align:center;line-height:1.8;text-shadow:0 1px 2px rgba(0,0,0,0.7);}
-.vzla-quote em{color:var(--gold2);}
+.vzla-patch-combat{width:210px;height:136px;position:relative;margin-bottom:20px;overflow:visible;}
+.vpc-body{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 30% at 15% 60%,rgba(15,8,3,0.85) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 50% at 85% 25%,rgba(30,15,8,0.75) 0%,transparent 50%),
+    radial-gradient(ellipse 70% 20% at 50% 95%,rgba(12,8,3,0.7) 0%,transparent 60%),
+    radial-gradient(ellipse 35% 45% at 70% 60%,rgba(45,10,10,0.5) 0%,transparent 50%),
+    radial-gradient(ellipse 25% 35% at 30% 20%,rgba(20,12,30,0.4) 0%,transparent 50%),
+    linear-gradient(180deg,
+      #3D2255 0%,#2E1840 33.33%,
+      #261432 33.33%,#1A0D24 66.66%,
+      #120820 66.66%,#0A0515 100%);
+  filter:contrast(1.2) saturate(0.55) brightness(0.85);}
+.vpc-body::before{content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.85' numOctaves='4' seed='12' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='0.18'/%3E%3C/svg%3E");
+  mix-blend-mode:overlay;pointer-events:none;}
+.vpc-dirt{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(circle 20px at 82% 72%,rgba(90,15,15,0.5) 0%,transparent 100%),
+    radial-gradient(circle 14px at 12% 28%,rgba(70,50,18,0.45) 0%,transparent 100%),
+    radial-gradient(circle 26px at 55% 88%,rgba(45,35,12,0.4) 0%,transparent 100%),
+    radial-gradient(circle 10px at 35% 15%,rgba(60,18,8,0.35) 0%,transparent 100%),
+    radial-gradient(circle 16px at 90% 40%,rgba(50,40,18,0.3) 0%,transparent 100%);}
+.vpc-mold{position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 35px 20px at 8% 85%,rgba(40,55,35,0.5) 0%,transparent 100%),
+    radial-gradient(ellipse 25px 30px at 95% 10%,rgba(35,50,30,0.45) 0%,transparent 100%),
+    radial-gradient(ellipse 20px 15px at 5% 45%,rgba(30,45,25,0.38) 0%,transparent 100%),
+    radial-gradient(ellipse 18px 22px at 88% 78%,rgba(38,52,33,0.42) 0%,transparent 100%);}
+.vpc-age{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(70,55,25,0.15) 0%,transparent 40%,rgba(15,8,3,0.2) 100%);
+  mix-blend-mode:multiply;}
+.vpc-border{position:absolute;inset:-2px;
+  border:3px solid rgba(100,60,130,0.45);
+  box-shadow:inset 0 0 0 1px rgba(80,40,90,0.3),0 0 0 1px rgba(15,8,20,0.9),0 4px 18px rgba(0,0,0,0.8);}
+.vpc-tear{position:absolute;bottom:-5px;right:-3px;width:32px;height:26px;background:var(--dark);
+  clip-path:polygon(100% 0,100% 100%,0 100%,25% 45%,55% 5%);z-index:5;}
+.vpc-stripe-div{position:absolute;left:0;right:0;height:1px;background:rgba(80,40,100,0.4);}
+.vpc-stars{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;}
+.vpc-star{position:absolute;color:rgba(180,150,210,0.75);font-size:16px;
+  text-shadow:0 0 5px rgba(150,100,200,0.5);filter:sepia(0.5) saturate(0.7) brightness(0.75);}
+.vps1{transform:translate(-50px,7px);}
+.vps2{transform:translate(-34px,-9px);}
+.vps3{transform:translate(-16px,-15px);}
+.vps4{transform:translate(0px,-17px);}
+.vps5{transform:translate(16px,-15px);}
+.vps6{transform:translate(34px,-9px);}
+.vps7{transform:translate(50px,7px);}
+.vpc-shimmer{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.025) 50%,transparent 70%);
+  animation:vShimmer 6s ease-in-out infinite;}
+/* TEXTOS BAJO LA BANDERA */
+.vzla-name{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:#C8B8E8;letter-spacing:2px;text-align:center;line-height:1.6;text-shadow:0 0 20px rgba(150,80,220,0.3);margin-bottom:5px;}
+.vzla-origin{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#8A7A9E;text-align:center;margin-bottom:4px;}
+.vzla-eco-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:#6A5A7E;text-transform:uppercase;text-align:center;margin-bottom:14px;}
+.vzla-div{width:60%;height:1px;background:linear-gradient(to right,transparent,rgba(180,130,220,0.35),transparent);margin:0 auto 14px;}
+/* Pensamiento libreta */
+.vzla-thought{position:relative;background:rgba(255,250,240,0.03);border:1px solid rgba(180,160,120,0.18);border-radius:4px;padding:16px 18px;margin-bottom:6px;}
+.vzla-thought::before{content:'\201C';font-family:'UnifrakturMaguntia',serif;font-size:40px;color:rgba(201,168,76,0.25);position:absolute;top:-10px;left:8px;line-height:1;}
+.vzla-thought-text{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:var(--cream);line-height:1.9;text-indent:12px;}
+.vzla-thought-date{font-family:'Special Elite',serif;font-size:11px;color:#8A7A6E;text-align:right;margin-top:8px;letter-spacing:1px;}
+/* Foto libreta */
+.libreta-photo{width:100%;margin-top:14px;display:none;}
+.libreta-photo img{width:100%;border-radius:4px;border:2px solid rgba(180,160,120,0.3);box-shadow:2px 3px 14px rgba(0,0,0,0.7);filter:sepia(0.35) contrast(1.05);}
+.libreta-caption{font-family:'Crimson Pro',serif;font-style:italic;font-size:11px;color:var(--muted);text-align:center;margin-top:6px;}
 
-/* PAGINA CONTACTOS */
-.contact-page{position:relative;z-index:2;}
+/* MAPA */
+.map-container{position:relative;padding:8px 0;}
+.mil-stamp{position:absolute;right:8px;top:8px;width:48px;height:48px;border:2px solid rgba(74,30,106,0.3);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-15deg);opacity:0.35;}
+.mil-stamp-text{font-family:'Special Elite',serif;font-size:6px;color:rgba(74,30,106,0.8);letter-spacing:0.5px;text-transform:uppercase;text-align:center;line-height:1.3;}
+.vzla-sil{font-size:8px;color:rgba(201,168,76,0.12);letter-spacing:2px;text-align:center;font-family:'Cinzel',serif;margin-bottom:6px;}
+.map-node{display:flex;align-items:flex-start;gap:12px;margin-bottom:22px;position:relative;z-index:2;}
+.map-node.r{flex-direction:row-reverse;text-align:right;}
+.map-icon{width:48px;height:48px;min-width:48px;border-radius:8px;background:rgba(201,168,76,0.07);border:1px solid rgba(201,168,76,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;}
+.map-content{flex:1;}
+.map-node-title{font-family:'Cinzel',serif;font-size:12px;font-weight:600;color:var(--parchment);letter-spacing:1px;margin-bottom:4px;}
+.map-node-desc{font-family:'Crimson Pro',serif;font-size:14px;color:#9A8E72;line-height:1.6;}
+.map-connector{display:flex;justify-content:center;margin:2px 0 6px;color:rgba(201,168,76,0.35);font-size:15px;letter-spacing:3px;}
+
+/* METAS */
+.goal-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px;padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;}
+.goal-check{min-width:36px;height:36px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;}
+.goal-check.done{background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);}
+.goal-check.done::after{content:'🔥';font-size:18px;}
+.goal-check.pending{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);}
+.goal-check.pending::after{content:'⬜';font-size:16px;opacity:0.3;}
+.goal-text{flex:1;}
+.goal-title{font-family:'Special Elite',serif;font-size:15px;color:var(--cream);margin-bottom:3px;line-height:1.4;}
+.goal-sub{font-family:'Crimson Pro',serif;font-size:12px;color:var(--muted);font-style:italic;}
+.goal-right{display:flex;align-items:center;padding-left:8px;}
+.goal-paloma.done{font-size:15px;filter:drop-shadow(0 0 5px rgba(255,100,0,0.9)) drop-shadow(0 0 10px rgba(255,50,0,0.7));animation:firePaloma 2s ease-in-out infinite;}
+@keyframes firePaloma{0%,100%{filter:drop-shadow(0 0 4px rgba(255,100,0,0.8)) drop-shadow(0 0 8px rgba(255,50,0,0.6));}50%{filter:drop-shadow(0 0 8px rgba(255,150,0,1)) drop-shadow(0 0 16px rgba(255,80,0,0.8));}}
+.goal-paloma.pending{font-size:15px;opacity:0.25;}
+.dev-video-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A7A9E;text-align:center;margin-bottom:8px;text-transform:uppercase;}
+.dev-video-wrap{margin:14px 0;border-radius:10px;overflow:hidden;border:1px solid rgba(74,30,106,0.3);}
+
+/* CUENTAS */
+.account-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.07);border-radius:11px;margin-bottom:9px;cursor:pointer;transition:all 0.3s;}
+.account-item:hover{border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.05);}
+.acc-icon{font-size:20px;}
+.acc-info{flex:1;}
+.acc-name{font-family:'Cinzel',serif;font-size:11px;color:var(--parchment);letter-spacing:1px;}
+.acc-id{font-family:monospace;font-size:11px;color:var(--gold2);}
+.acc-action{font-size:10px;color:var(--muted);}
 .contact-section-title{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#8A7D60;margin:14px 0 7px;text-align:center;}
 .contact-links{display:flex;flex-direction:column;gap:8px;}
-.contact-link{display:flex;align-items:center;gap:11px;padding:11px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(201,168,76,0.2);border-radius:11px;text-decoration:none;color:var(--cream);font-size:12px;transition:all 0.3s;text-shadow:0 1px 2px rgba(0,0,0,0.6);}
-.contact-link:hover{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.08);transform:translateX(3px);}
-.ci{font-size:18px;}.cn{flex:1;font-size:12px;}.ch{font-size:9px;color:#7A6E56;letter-spacing:1px;}
+.contact-link{display:flex;align-items:center;gap:11px;padding:11px 14px;background:rgba(255,255,255,0.02);border:1px solid rgba(201,168,76,0.18);border-radius:10px;text-decoration:none;color:var(--cream);font-size:13px;transition:all 0.3s;}
+.contact-link:hover{border-color:rgba(201,168,76,0.45);transform:translateX(3px);}
+.ci{font-size:17px;}.cn{flex:1;font-size:13px;}.ch{font-size:9px;color:#7A6E56;}
+
+/* ══ TELÓN DE TEATRO ══ */
+.curtain-overlay{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.96);align-items:center;justify-content:center;}
+.curtain-overlay.active{display:flex;}
+.curtain-left,.curtain-right{position:absolute;top:0;bottom:0;width:55%;background:linear-gradient(to right,#3A1A08,#1A0A03);transition:transform 1.3s cubic-bezier(0.4,0,0.2,1);z-index:2;}
+.curtain-left{left:0;box-shadow:inset -20px 0 40px rgba(0,0,0,0.5),4px 0 20px rgba(0,0,0,0.8);}
+.curtain-right{right:0;background:linear-gradient(to left,#3A1A08,#1A0A03);box-shadow:inset 20px 0 40px rgba(0,0,0,0.5);}
+.curtain-left::before,.curtain-right::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(255,255,255,0.012) 0px,transparent 4px,transparent 10px);}
+.curtain-fringe-l{position:absolute;right:0;top:0;bottom:0;width:18px;background:repeating-linear-gradient(180deg,#C9A84C 0px,#C9A84C 3px,transparent 3px,transparent 12px);opacity:0.35;}
+.curtain-fringe-r{position:absolute;left:0;top:0;bottom:0;width:18px;background:repeating-linear-gradient(180deg,#C9A84C 0px,#C9A84C 3px,transparent 3px,transparent 12px);opacity:0.35;}
+.curtain-overlay.open .curtain-left{transform:translateX(-100%);}
+.curtain-overlay.open .curtain-right{transform:translateX(100%);}
+.curtain-video-wrap{position:relative;z-index:1;width:100%;max-width:500px;background:#000;}
+.curtain-video-wrap iframe{width:100%;aspect-ratio:16/9;border:none;display:block;}
+.curtain-close{position:absolute;top:14px;right:14px;z-index:10;background:rgba(0,0,0,0.7);border:1px solid rgba(201,168,76,0.4);color:var(--gold);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.curtain-label{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--red);text-shadow:0 0 10px rgba(204,41,54,0.8);animation:livePulse 1s ease-in-out infinite;white-space:nowrap;z-index:10;}
+
+/* ══ FRASE FFEE — LAVA ══ */
+.ffee-wrap{position:relative;width:100%;text-align:center;margin:10px 0 6px;z-index:4;}
+.ffee-phrase{font-family:'Cinzel',serif;font-size:15px;font-weight:900;letter-spacing:3px;
+  background:linear-gradient(90deg,#FF4500,#FF8C00,#FFD700,#FF8C00,#FF4500);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:lavaFlow 3s linear infinite;
+  text-shadow:none;filter:drop-shadow(0 0 8px rgba(255,100,0,0.8));}
+@keyframes lavaFlow{0%{background-position:0% center;}100%{background-position:200% center;}}
+.ffee-sub{font-family:'Special Elite',serif;font-size:9px;letter-spacing:2px;
+  background:linear-gradient(90deg,#FF6000,#FFA500,#FF6000);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:lavaFlow 2s linear infinite;
+  text-align:right;padding-right:4px;margin-top:3px;
+  filter:drop-shadow(0 0 4px rgba(255,80,0,0.6));}
+
+/* ══ FOOTER STAMP FRASE ══ */
+.footer-stamp{width:100%;text-align:center;padding:12px 16px;
+  border-top:2px solid rgba(0,180,60,0.4);margin-top:16px;
+  background:rgba(0,0,0,0.3);}
+.stamp-phrase{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;
+  color:#D4C898;text-shadow:0 0 1px rgba(212,200,152,0.8);
+  border:1px solid rgba(0,180,60,0.5);border-radius:4px;
+  display:inline-block;padding:6px 14px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:9px;color:rgba(0,200,70,0.7);
+  letter-spacing:2px;margin-top:4px;text-align:right;padding-right:8px;}
+
+/* ══ CORAZÓN PÚRPURA ══ */
+.heart-section{width:100%;display:flex;justify-content:center;margin:20px 0;position:relative;z-index:2;}
+.heart-wrap{position:relative;cursor:pointer;transition:transform 0.3s;}
+.heart-wrap:hover{transform:scale(1.04);}
+.heart-svg{position:relative;width:240px;height:220px;}
+.heart-canvas{position:absolute;inset:0;pointer-events:none;}
+.heart-content{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;z-index:3;}
+.heart-question{font-family:'Cinzel',serif;font-size:11px;color:#E8D8F8;letter-spacing:1px;text-align:center;line-height:1.6;margin-bottom:10px;text-shadow:0 1px 4px rgba(0,0,0,0.8);}
+.heart-btn{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--gold);background:rgba(0,0,0,0.5);border:1px solid rgba(201,168,76,0.4);border-radius:6px;padding:6px 12px;text-transform:uppercase;}
+
+/* ══ MODAL REGISTRO ÍNTIMO ══ */
+.beta-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(6,5,10,0.97);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:16px;}
+.beta-overlay.active{display:flex;}
+.beta-modal{width:100%;max-width:420px;max-height:90vh;overflow-y:auto;
+  background:linear-gradient(160deg,#1A0A28 0%,#0E0618 60%,#080310 100%);
+  border:1px solid rgba(100,50,150,0.4);border-radius:14px;padding:28px 22px;
+  box-shadow:0 0 60px rgba(74,30,106,0.3);}
+.beta-header{text-align:center;margin-bottom:20px;}
+.beta-heart-mini{font-size:32px;margin-bottom:8px;display:block;
+  filter:drop-shadow(0 0 12px rgba(120,40,180,0.8));}
+.beta-title{font-family:'Cinzel',serif;font-size:16px;color:#E8D8F8;letter-spacing:2px;margin-bottom:6px;}
+.beta-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#8A7A9E;line-height:1.7;}
+.beta-rule{height:1px;background:linear-gradient(to right,transparent,rgba(100,50,150,0.5),transparent);margin:16px 0;}
+.beta-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:#8A7A9E;margin-bottom:5px;display:block;text-transform:uppercase;}
+.beta-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(100,50,150,0.3);border-radius:10px;padding:11px 14px;color:#E8D8F8;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;margin-bottom:12px;}
+.beta-input:focus{border-color:rgba(150,80,200,0.6);}
+.beta-input::placeholder{color:#5A4A6E;}
+.beta-options{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
+.beta-option{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:rgba(255,255,255,0.03);border:1px solid rgba(100,50,150,0.2);border-radius:10px;cursor:pointer;transition:all 0.2s;}
+.beta-option.selected{background:rgba(100,50,150,0.15);border-color:rgba(150,80,200,0.5);}
+.beta-option-radio{width:16px;height:16px;border-radius:50%;border:2px solid rgba(150,80,200,0.5);flex-shrink:0;margin-top:2px;transition:all 0.2s;}
+.beta-option.selected .beta-option-radio{background:rgba(150,80,200,0.8);border-color:rgba(200,130,255,0.8);}
+.beta-option-text{font-family:'Crimson Pro',serif;font-size:13px;color:#C8B8E8;line-height:1.6;}
+.btn-beta-submit{width:100%;background:linear-gradient(135deg,#5A1E8A,#2A0E3A);border:1px solid rgba(150,80,200,0.5);border-radius:10px;padding:14px;color:var(--gold2);font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:3px;cursor:pointer;margin-bottom:10px;transition:all 0.3s;}
+.btn-beta-submit:hover{background:linear-gradient(135deg,#7A2EAA,#3A1E5A);box-shadow:0 4px 20px rgba(100,40,150,0.4);}
+.beta-close{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(150,80,200,0.3);color:#8A7A9E;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;}
+.beta-close:hover{color:var(--gold);border-color:var(--gold);}
+.beta-success{display:none;text-align:center;padding:20px;}
+.beta-success-icon{font-size:40px;margin-bottom:10px;display:block;}
+.beta-success-text{font-family:'Crimson Pro',serif;font-size:15px;color:#C8B8E8;line-height:1.8;}
+.beta-link-wrap{margin-top:14px;background:rgba(0,0,0,0.4);border:1px solid rgba(201,168,76,0.25);border-radius:8px;padding:10px 14px;display:flex;align-items:center;gap:8px;}
+.beta-link-txt{flex:1;font-family:monospace;font-size:11px;color:var(--gold2);word-break:break-all;}
+.beta-link-copy{background:var(--gold);color:#0E0A04;border:none;border-radius:6px;padding:5px 10px;font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;}
+
+/* ══ MURO DE HONOR ══ */
+.honor-wall{position:relative;z-index:2;}
+.honor-title{font-family:'Cinzel',serif;font-size:13px;color:var(--parchment);letter-spacing:2px;text-align:center;margin-bottom:14px;}
+.honor-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:6px;}
+.honor-list::-webkit-scrollbar{width:3px;}
+.honor-list::-webkit-scrollbar-thumb{background:rgba(150,80,200,0.3);}
+.honor-item{display:flex;align-items:center;gap:10px;padding:8px 12px;background:rgba(100,50,150,0.07);border:1px solid rgba(100,50,150,0.2);border-radius:8px;animation:honorFadeIn 0.5s ease;}
+@keyframes honorFadeIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
+.honor-num{font-family:'Cinzel',serif;font-size:9px;color:#6A5A7E;min-width:24px;}
+.honor-name{font-family:'Crimson Pro',serif;font-size:14px;color:#C8B8E8;flex:1;}
+.honor-flag{font-size:14px;}
+.honor-empty{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#6A5A7E;text-align:center;padding:20px;}
+
+/* ══ BOTONES 8-BIT LAVA ══ */
+.btn-page-lava{
+  position:relative;overflow:hidden;
+  background:rgba(0,0,0,0.7);
+  border:2px solid transparent;
+  border-radius:8px;padding:10px 18px;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;
+  cursor:pointer;transition:transform 0.15s;
+  color:#FFD700;
+}
+.btn-page-lava:hover{transform:scale(1.05);}
+.btn-page-lava canvas{position:absolute;inset:0;pointer-events:none;}
+.btn-page-lava span{position:relative;z-index:2;}
+#crossCanvas{position:relative;z-index:4;display:block;margin:6px auto 4px;}
+/* ══ VOZ CEO ══ */
+.ceo-voice-section{position:relative;z-index:2;width:100%;margin:14px 0 4px;}
+.ceo-voice-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:10px;}
+.ceo-voice-card{background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.2);border-radius:12px;padding:16px 18px;}
+.ceo-voice-title{font-family:'Cinzel',serif;font-size:12px;color:var(--parchment);letter-spacing:2px;margin-bottom:8px;text-align:center;}
+.ceo-voice-placeholder{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--muted);text-align:center;line-height:1.8;}
+.ceo-voice-player{display:none;width:100%;margin-bottom:10px;}
+.ceo-voice-player audio{width:100%;height:36px;}
+.ceo-voice-subtitle{font-family:'Crimson Pro',serif;font-size:14px;color:var(--cream);line-height:1.9;text-align:center;padding:8px 4px;display:none;}
+.ceo-voice-subtitle em{color:var(--gold2);}
+.ceo-share-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:9px 16px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:9px;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;color:var(--gold2);letter-spacing:2px;transition:all 0.3s;width:100%;}
+.ceo-share-btn:hover{background:rgba(201,168,76,0.2);}
+/* MÚSICA BTN */
+.music-btn{position:fixed;bottom:20px;right:16px;z-index:300;width:46px;height:46px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.5);}
+.music-btn:hover{background:rgba(201,168,76,0.28);transform:scale(1.1);}
+.music-btn.playing{animation:musicPulse 2s ease-in-out infinite;}
+@keyframes musicPulse{0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.4);}50%{box-shadow:0 0 0 10px rgba(201,168,76,0);}}
+
+/* ALMA LLANERA hidden iframe */
+#almaIframe{position:fixed;width:1px;height:1px;opacity:0.01;pointer-events:none;bottom:0;left:0;z-index:-1;}
 
 /* ANIMACIONES */
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 @keyframes pulse{0%,100%{opacity:0.5;}50%{opacity:1;}}
-@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-
-/* TOAST */
-.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--gold);color:#0E0A04;padding:9px 22px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1px;transition:transform 0.4s;z-index:1000;}
+@keyframes vShimmer{0%,100%{opacity:0.15;}50%{opacity:0.6;}}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--gold);color:#0E0A04;padding:9px 22px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1px;transition:transform 0.4s;z-index:1000;}
 .toast.show{transform:translateX(-50%) translateY(0);}
-::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--dark);}
 ::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);border-radius:3px;}
 </style>
 </head>
 <body>
-
 <canvas id="starfield"></canvas>
 <canvas id="globalRainbow"></canvas>
 <div class="bg-glow"></div>
+<!-- Alma Llanera iframe oculto -->
+<iframe id="almaIframe" src="" allow="autoplay" allowfullscreen></iframe>
 
 <div class="wrap">
 
-  <!-- ══ SECCIÓN PRINCIPAL ══ -->
-  <div class="flags">🇻🇪 🎵 🇧🇷</div>
-
-  <h1 class="name"><em>Filosofia Digital</em><br>de Combate</h1>
-  <p class="tagline">voz · filosofia · combate</p>
-  <div class="divider"></div>
-
-  <!-- BIO BILINGÜE -->
-  <div class="bio-block">
-    <div class="bio-card">
-      <div class="bio-lang">🇧🇷 Português</div>
-      <p class="bio-text">Um venezuelano no Brasil com uma história para contar. Por enquanto, só a minha voz. Em breve... muito mais.</p>
+  <!-- ══ HEADER ══ -->
+  <div class="site-header" style="opacity:0;animation:fadeUp 1s 0.2s forwards;">
+    <div class="header-eco" id="hEco">Ecosistema Digital</div>
+    <!-- FRASE FFEE EN LAVA -->
+    <div class="ffee-wrap">
+      <div class="ffee-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
+      <div class="ffee-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
     </div>
-    <div class="bio-card">
-      <div class="bio-lang">🇻🇪 Español</div>
-      <p class="bio-text">Un venezolano en Brasil con una historia que contar. Por ahora, solo mi voz. Pronto... mucho más.</p>
+    <div class="header-brand">Creaty Papiro</div>
+    <div class="header-ceo">C.E.O · Luis Alfonso Castillejo Ventura</div>
+    <div class="header-role" id="hRole">Aspirante a la Candidatura Presidencial de Venezuela<br>Exiliado en Brasil · Arroio do Meio, RS</div>
+    <div class="header-seal">X-7777777-LC7° · SI° · 350 · 777</div>
+  </div>
+
+  <!-- ══ LIBRO HERO ══ -->
+  <div class="book-hero" style="opacity:0;animation:fadeUp 1.2s 0.4s forwards;">
+    <div class="book-cover-hero" onclick="openBook()">
+      <div class="book-spine-h"></div>
+      <canvas id="rainbowHero"></canvas>
+      <canvas id="bookStarsHero"></canvas>
+
+      <div class="flags-hero">
+        <div class="flag-hero active" data-lang="es" onclick="event.stopPropagation();selectLang('es')"><span class="flag-emoji">🇪🇸</span><span class="flag-label">ESP</span></div>
+        <div class="flag-hero" data-lang="pt" onclick="event.stopPropagation();selectLang('pt')"><span class="flag-emoji">🇵🇹</span><span class="flag-label">POR</span></div>
+        <div class="flag-hero" data-lang="en" onclick="event.stopPropagation();selectLang('en')"><span class="flag-emoji">🇬🇧</span><span class="flag-label">ENG</span></div>
+        <div class="flag-hero" data-lang="el" onclick="event.stopPropagation();selectLang('el')"><span class="flag-emoji">🇬🇷</span><span class="flag-label">GRE</span></div>
+      </div>
+
+      <!-- CRUZ PIXELADA CREPITANTE — Cruz de Cristo -->
+      <canvas id="crossCanvas" width="60" height="72" onclick="event.stopPropagation();"></canvas>
+
+      <div class="postal-wrap" onclick="event.stopPropagation();">
+        <div class="postal-tape"></div>
+        <div class="postal-frame">
+          <iframe src="https://www.youtube.com/embed/JtaS_EIdGeA?autoplay=0&mute=1"
+            style="width:100%;aspect-ratio:16/9;border:none;display:block;"
+            allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+          <div class="postal-stain" id="postalStain">▣ X-7777777-LC7°</div>
+        </div>
+      </div>
+
+      <div style="position:relative;z-index:3;text-align:center;width:100%;margin-top:8px;">
+        <div class="bos">✦ ✦ ✦</div><div class="bol"></div>
+      </div>
+      <div style="position:relative;z-index:3;text-align:center;margin:6px 0;">
+        <div class="book-eyebrow-h" id="bookEyebrow">El Libro de</div>
+        <div class="book-title-h">PAPIRO</div>
+        <div class="book-sub-h" id="bookSubtitle">Crónicas del Bit Eterno</div>
+      </div>
+      <div style="position:relative;z-index:3;text-align:center;width:100%;margin-top:6px;">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+          <div style="flex:1;height:1px;background:linear-gradient(to right,transparent,var(--gold));"></div>
+          <span style="color:var(--gold);font-size:9px;">✦</span>
+          <div style="flex:1;height:1px;background:linear-gradient(to left,transparent,var(--gold));"></div>
+        </div>
+        <div class="book-author-h">X · 7777777 · LC7</div>
+      </div>
+      <div class="book-tap" id="openHint">toca para leer el libro</div>
     </div>
   </div>
 
-  <!-- FRASE -->
-  <div class="mystery">
-    "Ainda não sei quem soy"<br>
-    <small style="font-size:12px;color:var(--muted);">mas em breve você vai saber · pero pronto sabrás</small>
-  </div>
-
-  <!-- PRIMER VIDEO -->
-  <div class="video-section">
-    <div class="section-label">El Primer Mensaje · A Primeira Mensagem</div>
-    <div class="video-wrap">
-      <iframe src="https://www.youtube.com/embed/JtaS_EIdGeA" style="width:100%;aspect-ratio:9/16;border:none;display:block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-    <div class="video-links">
-      <a href="https://youtube.com/shorts/JtaS_EIdGeA" target="_blank" class="vlink"><span class="vi">▶️</span><span>Ver en YouTube</span><span class="vh">Shorts</span></a>
-      <a href="https://x.com/i/status/2034198158126010550" target="_blank" class="vlink"><span class="vi">𝕏</span><span>Ver en Twitter / X</span><span class="vh">@UntalCastillejo</span></a>
-      <a href="https://www.instagram.com/reel/DWBR5XYDgJW/" target="_blank" class="vlink"><span class="vi">📸</span><span>Ver en Instagram</span><span class="vh">Reel</span></a>
-      <a href="https://vm.tiktok.com/ZGduH9agQ/" target="_blank" class="vlink"><span class="vi">🎵</span><span>Ver en TikTok</span><span class="vh">@filosofiadigitalcombate</span></a>
+  <!-- ══ FLECHAS ══ -->
+  <div class="arrows-down">
+    <div class="arr-text" id="arrText">↓ Baja para contactos y más ↓</div>
+    <div class="arr-row">
+      <div class="arr-b"><span>▼</span></div>
+      <div class="arr-b"><span>▼</span></div>
+      <div class="arr-b"><span>▼</span></div>
     </div>
   </div>
 
-  <!-- PIX -->
-  <div class="pix-section">
-    <div class="section-label">Apoie a jornada · Apoya el viaje</div>
-    <div class="pix-card">
-      <div class="pix-title">☕ Manda um café · Manda un café</div>
-      <div class="pix-desc">"Cada contribución sostiene la voz y la visión."</div>
-      <div class="pix-row">
-        <span class="pix-key" id="pixKeyMain">SrBarbado@gmail.com</span>
-        <button class="btn-copy" onclick="copyPix('main')">PIX</button>
+  <!-- ══ LÁMPARA EN VIVO ══ -->
+  <div class="lamp-section">
+    <div class="lamp-wrap">
+      <div class="lamp-flame" id="lampFlame"><div class="flame-inner"></div></div>
+      <div class="lamp-body">
+        <div class="lamp-top"></div>
+        <div class="lamp-glass" id="lampGlass">
+          <div class="lamp-glow"></div>
+          <div class="lamp-wick"></div>
+        </div>
+        <div class="lamp-base"></div>
+        <div class="lamp-handle"></div>
+      </div>
+    </div>
+    <div class="lamp-live-badge" id="lampLiveText">⬤ ESTAMOS EN VIVO · AO VIVO · LIVE</div>
+    <div class="lamp-viewers" id="lampViewers">👁 <span id="viewerCount">0</span> <span id="viewerLabel">viendo ahora</span></div>
+    <div class="lamp-off-msg" id="lampOffMsg">Date luego una vuelta por aquí —<br>en cualquier momento podríamos estar transmitiendo</div>
+    <div class="lamp-live-cta" id="lampLiveCta" onclick="openLive()">🎭 Toca para entrar al show en vivo</div>
+  </div>
+
+  <!-- FLECHAS 2 -->
+  <div class="arrows-down">
+    <div class="arr-text" id="arrText2">↓ Videos · Contacto · Equipo ↓</div>
+    <div class="arr-row">
+      <div class="arr-b"><span>▼</span></div>
+      <div class="arr-b"><span>▼</span></div>
+    </div>
+  </div>
+
+  <!-- ══ DOS VIDEOS ══ -->
+  <div class="videos-section">
+    <div class="video-pair">
+      <div class="video-col">
+        <div class="video-col-title" id="v1title">Video Inicial de Combate</div>
+        <div class="video-box">
+          <iframe src="https://www.youtube.com/embed/JtaS_EIdGeA"
+            style="width:100%;aspect-ratio:9/16;border:none;display:block;"
+            allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-col-sub" id="v1sub">Así inició la batalla</div>
+      </div>
+      <div class="video-col">
+        <div class="video-col-title" id="v2title">Video Actual de Combate</div>
+        <div class="video-box current">
+          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Filosofiadigitaldecombate&index=1"
+            style="width:100%;aspect-ratio:9/16;border:none;display:block;"
+            allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-col-sub" id="v2sub">Actualidad de la batalla</div>
+      </div>
+    </div>
+
+    <!-- PIX CENTRAL -->
+    <div class="pix-center" style="padding:0;">
+      <div class="pix-card-c">
+        <div class="pix-title-c" id="pixTitle">☕ Apoyo · Apoio · Support</div>
+        <div class="pix-desc-c" id="pixDesc">"Cada contribución sostiene la voz y la visión."</div>
+        <div class="pix-row-c">
+          <span class="pix-key-c">FilosofiaDigitaldeCombate@Proton.me</span>
+          <button class="btn-copy-c" onclick="copyPix()">PIX · WISE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLECHAS 3 -->
+  <div class="arrows-down">
+    <div class="arr-text" id="arrText3">↓ Únete al Equipo ↓</div>
+    <div class="arr-row">
+      <div class="arr-b"><span>▼</span></div>
+      <div class="arr-b"><span>▼</span></div>
+    </div>
+  </div>
+
+  <!-- ══ REGISTRO EQUIPO ══ -->
+  <div class="team-section">
+    <div class="team-card">
+      <div class="team-title" id="teamTitle">▣ Únete al Ecosistema</div>
+      <div class="team-sub" id="teamSub">¿Eres desarrollador experto o junior y quieres apoyar? ¿Eres inversor y quieres invertir? Agradecemos tu interés — escribe tu correo y con gusto te contactaremos.</div>
+      <div class="team-form" id="teamForm">
+        <input class="team-input" type="text" id="tName" placeholder="Tu nombre completo" autocomplete="off">
+        <input class="team-input" type="email" id="tEmail" placeholder="Tu correo electrónico" autocomplete="off">
+        <select class="team-select" id="tRole">
+          <option value="" disabled selected>¿Cuál es tu perfil?</option>
+          <option value="dev-senior">💻 Desarrollador Senior</option>
+          <option value="dev-junior">🌱 Desarrollador Junior</option>
+          <option value="inversor">💰 Inversor</option>
+          <option value="diseno">🎨 Diseñador</option>
+          <option value="marketing">📣 Marketing</option>
+          <option value="otro">🤝 Otro perfil</option>
+        </select>
+        <textarea class="team-msg" id="tMsg" placeholder="Cuéntanos brevemente tu experiencia o propuesta..."></textarea>
+        <button class="btn-team" onclick="submitTeam()" id="btnTeam">▣ ENVIAR MI INTERÉS · X-7777777-LC7° ▣</button>
+      </div>
+      <div class="team-success" id="teamSuccess">
+        <p id="teamSuccessText">✦ Recibido y registrado.<br>Tu interés está en el libro.<br>Te contactaremos pronto. · SI° ▣</p>
       </div>
     </div>
   </div>
 
   <!-- SOCIAL -->
   <div class="social-section">
-    <div class="section-label">Síguenos · Siga-nos</div>
+    <div class="section-label" id="lblFollow">Síguenos · Siga-nos · Follow</div>
     <div class="social-grid">
       <a href="https://whatsapp.com/channel/0029VbBv1IK7DAX1EynuSJ39" target="_blank" class="social-link"><span class="social-icon">📡</span><span>Canal WhatsApp Oficial</span><span class="social-handle">canal</span></a>
       <a href="https://chat.whatsapp.com/CoECyOStzuODvcpEDGTvlW" target="_blank" class="social-link"><span class="social-icon">💬</span><span>Comunidad WhatsApp</span><span class="social-handle">grupo</span></a>
       <a href="https://t.me/bitacora350" target="_blank" class="social-link"><span class="social-icon">✈️</span><span>Telegram — Bitácora 350</span><span class="social-handle">canal</span></a>
-      <a href="https://x.com/UntalCastillejo" target="_blank" class="social-link"><span class="social-icon">𝕏</span><span>Twitter / X</span><span class="social-handle">@UntalCastillejo</span></a>
+      <a href="https://x.com/UntalCastillejo" target="_blank" class="social-link"><span class="social-icon">𝕏</span><span>Twitter / X — @UntalCastillejo</span><span class="social-handle">noticias</span></a>
       <a href="https://tiktok.com/@filosofiadigitalcombate" target="_blank" class="social-link"><span class="social-icon">🎵</span><span>TikTok</span><span class="social-handle">@filosofiadigitalcombate</span></a>
       <a href="https://instagram.com/filosofiadigitaldecombate" target="_blank" class="social-link"><span class="social-icon">📸</span><span>Instagram</span><span class="social-handle">@filosofiadigitaldecombate</span></a>
       <a href="https://youtube.com/@Filosofiadigitaldecombate" target="_blank" class="social-link"><span class="social-icon">▶️</span><span>YouTube</span><span class="social-handle">@Filosofiadigitaldecombate</span></a>
+      <a href="https://wattpad.com/user/filosofiadigitaldecombate" target="_blank" class="social-link"><span class="social-icon">📖</span><span>Wattpad — El Rey Púrpura</span><span class="social-handle">libro</span></a>
     </div>
   </div>
 
-  <!-- QUOTE -->
-  <div class="footer-quote">
-    "A voz não mente.<br>A história ainda está sendo escrita."
+  <div class="footer-quote">"A voz não mente. A história ainda está sendo escrita.<br><em style="color:var(--gold2);">El libro guía. La red vive. Dios dirige.</em>"<br><br><span style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;">✦ X-7777777-LC7° · PAPIRO · SI° · Art. 350 ✦</span></div>
+
+  <!-- STAMP PIE DE PÁGINA -->
+  <div class="footer-stamp" style="width:100%;margin-top:16px;">
+    <div class="stamp-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+  </div>
+  <div style="text-align:center;padding:12px 0;font-family:'Special Elite',serif;font-size:11px;letter-spacing:1px;color:rgba(255,100,0,0.6);">
+    #SI° · #LC7° · #X7777777LC7 · #PAPIRO777 · #CRIXUS777
   </div>
 
-  <!-- ══ BOTÓN PORTAL PAPIRO ══ -->
-  <div class="papiro-portal">
-    <button class="btn-papiro" id="btnPapiro" onclick="togglePapiro()">
-      <span class="btn-papiro-icon">📖</span>
-      <span class="btn-papiro-title" id="btnPapiroTitle">¿QUIERES SABER MÁS?</span>
-      <span class="btn-papiro-sub" id="btnPapiroSub">El Libro te espera · O Livro te espera</span>
-      <span class="btn-papiro-hint" id="btnPapiroHint">Toca para abrir · Toque para abrir</span>
-      <span class="btn-papiro-arrow">▼</span>
-    </button>
-  </div>
+</div><!-- /wrap -->
 
-  <!-- ══ SECCIÓN PAPIRO DESPLEGABLE ══ -->
-  <div class="papiro-section" id="papiroSection">
-    <div class="papiro-inner">
-
-      <!-- LIBRO -->
-      <div class="book-wrap">
-        <div class="book-cover">
-          <div class="book-spine"></div>
-          <canvas id="rainbowCanvas"></canvas>
-          <canvas id="bookStars"></canvas>
-          <div class="flag-patches">
-            <div class="flag-patch active" data-lang="es" onclick="selectLang('es')"><span class="flag-emoji">🇪🇸</span><span class="flag-label">ESP</span></div>
-            <div class="flag-patch" data-lang="pt" onclick="selectLang('pt')"><span class="flag-emoji">🇵🇹</span><span class="flag-label">POR</span></div>
-            <div class="flag-patch" data-lang="en" onclick="selectLang('en')"><span class="flag-emoji">🇬🇧</span><span class="flag-label">ENG</span></div>
-            <div class="flag-patch" data-lang="el" onclick="selectLang('el')"><span class="flag-emoji">🇬🇷</span><span class="flag-label">GRE</span></div>
-          </div>
-          <div class="book-ornament-top"><div class="bos">✦ ✦ ✦</div><div class="bol"></div></div>
-          <div class="book-title-wrap">
-            <span class="book-eyebrow" id="bookEyebrow">El Libro de</span>
-            <div class="book-title-txt">PAPIRO</div>
-            <div class="book-subtitle" id="bookSubtitle">Crónicas del Bit Eterno</div>
-          </div>
-          <div class="book-ornament-bottom">
-            <div class="bdiv"><span>✦</span></div>
-            <div class="book-author">X · 7777777 · LC7</div>
-          </div>
-        </div>
-        <div class="book-open-hint" id="openHint">toca para leer</div>
-      </div>
-
-      <!-- TITULO PAPIRO -->
-      <h2 class="papiro-main-title">PAPIRO</h2>
-      <p class="papiro-main-sub" id="mainSubtitle">La Ultranet</p>
-      <div class="gold-div"><span>✦</span></div>
-
-      <p class="papiro-desc" id="mainDesc">
-        Una red descentralizada, soberana y libre.<br>
-        <em>Guiada por un libro. Sostenida por sus usuarios.</em><br><br>
-        No es internet. No es la dark web.<br>
-        Es algo que el mundo aún no tiene.<br>
-        <em>Y está siendo construida ahora.</em>
-      </p>
-
-      <!-- RED STATUS -->
-      <div class="network-status">
-        <div class="net-title" id="netTitle">Estado de la Red</div>
-        <div class="net-stats">
-          <div class="net-stat"><span class="net-stat-num" id="nodeCount">1</span><span class="net-stat-label" id="lblNodes">Nodos</span></div>
-          <div class="net-stat"><span class="net-stat-num" id="waitCount">0</span><span class="net-stat-label" id="lblWait">En Espera</span></div>
-          <div class="net-stat"><span class="net-stat-num">∞</span><span class="net-stat-label" id="lblPoss">Posibilidad</span></div>
-        </div>
-        <div class="net-live"><div class="net-dot"></div><span class="net-live-text" id="netLive">Inicializando...</span></div>
-      </div>
-
-      <!-- WAITLIST -->
-      <div class="waitlist-section">
-        <div class="section-label" id="lblWaitlist">Únete a la lista de espera</div>
-        <div class="waitlist-form" id="waitlistForm">
-          <div class="input-wrap"><input type="text" id="wName" placeholder="Tu nombre · Seu nome" autocomplete="off"></div>
-          <div class="input-wrap"><input type="email" id="wEmail" placeholder="Tu correo · Seu email" autocomplete="off"></div>
-          <div class="select-wrap">
-            <select id="wRole">
-              <option value="" disabled selected>¿Cómo quieres contribuir?</option>
-              <option value="usuario">📱 Usuario — quiero ser el primero</option>
-              <option value="dev">💻 Desarrollador — quiero construir</option>
-              <option value="inversor">💰 Inversor — quiero invertir</option>
-              <option value="contenido">🎬 Creador — quiero difundir</option>
-              <option value="apoyo">🙏 Solo quiero apoyar</option>
-            </select>
-          </div>
-          <button class="btn-primary" onclick="joinWaitlist()" id="btnJoin">✦ UNIRME A LA RED ✦</button>
-          <p class="form-note" id="formNote">Tu información es privada. No spam, jamás.</p>
-        </div>
-        <div class="success-msg" id="successMsg">
-          <div class="icon">🧿</div>
-          <p id="successText">¡Bienvenido a la red!<br>Tu nombre está inscrito en el libro.</p>
-        </div>
-      </div>
-
-      <!-- PAPIRO PIX -->
-      <div class="pix-section">
-        <div class="section-label" id="lblSupport">Apoya la misión</div>
-        <div class="pix-card">
-          <div class="pix-title" id="pixTitle">☕ Contribuir con el desarrollo</div>
-          <div class="pix-desc" id="pixDesc">"Cada bit que aportas construye la red que el mundo necesita."</div>
-          <div class="pix-row">
-            <span class="pix-key">SrBarbado@gmail.com</span>
-            <button class="btn-copy" onclick="copyPix('papiro')">PIX</button>
-          </div>
-        </div>
-      </div>
-
-      <!-- PAPIRO SOCIAL -->
-      <div class="papiro-social">
-        <div class="section-label" id="lblFollow">Síguenos en el ecosistema</div>
-        <div class="papiro-social-grid">
-          <a href="https://filosofiadigitaldecombate.github.io" target="_blank" class="social-link"><span class="social-icon">🌐</span><span>Filosofia Digital de Combate</span><span class="social-handle">web</span></a>
-          <a href="https://chat.whatsapp.com/CoECyOStzuODvcpEDGTvlW" target="_blank" class="social-link"><span class="social-icon">💬</span><span id="waGroupText">Comunidad WhatsApp</span><span class="social-handle">grupo</span></a>
-          <a href="https://whatsapp.com/channel/0029VbBv1IK7DAX1EynuSJ39" target="_blank" class="social-link"><span class="social-icon">📡</span><span id="waChannelText">Canal WhatsApp Oficial</span><span class="social-handle">canal</span></a>
-          <a href="https://t.me/bitacora350" target="_blank" class="social-link"><span class="social-icon">✈️</span><span>Telegram — Bitácora 350</span><span class="social-handle">canal</span></a>
-          <a href="https://x.com/UntalCastillejo" target="_blank" class="social-link"><span class="social-icon">𝕏</span><span>Twitter / X — @UntalCastillejo</span><span class="social-handle">noticias</span></a>
-          <a href="https://tiktok.com/@filosofiadigitalcombate" target="_blank" class="social-link"><span class="social-icon">🎵</span><span>TikTok</span><span class="social-handle">@filosofiadigitalcombate</span></a>
-          <a href="https://instagram.com/filosofiadigitaldecombate" target="_blank" class="social-link"><span class="social-icon">📸</span><span>Instagram</span><span class="social-handle">@filosofiadigitaldecombate</span></a>
-          <a href="https://youtube.com/@Filosofiadigitaldecombate" target="_blank" class="social-link"><span class="social-icon">▶️</span><span>YouTube</span><span class="social-handle">@Filosofiadigitaldecombate</span></a>
-          <a href="https://odysee.com/@filosofiadigitaldecombate" target="_blank" class="social-link" style="opacity:0.6;"><span class="social-icon">📺</span><span>Odysee — Video libre</span><span class="social-handle">sincronizando</span></a>
-        </div>
-      </div>
-
-      <!-- FINAL -->
-      <div class="papiro-final">
-        <blockquote id="finalQuote">
-          "La historia aún está siendo escrita.<br>
-          <em>El libro guía. La red vive. Dios dirige.</em>"
-        </blockquote>
-        <div class="papiro-seal">✦ X-7777777-LC7° · PAPIRO · SI° · Art. 350 ✦</div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-<!-- MODAL DEL LIBRO -->
+<!-- ══ MODAL LIBRO ══ -->
 <div class="modal-overlay" id="bookModal">
   <div class="book-page">
     <canvas id="modalRainbow"></canvas>
     <canvas id="modalStars"></canvas>
     <button class="btn-close" onclick="closeBook()">✕</button>
 
-    <!-- PAGINA 0 — BANDERA -->
+    <!-- PÁGINA 0 — BANDERA + LIBRETA -->
     <div id="page0">
       <div class="vzla-page">
-        <div class="vzla-patch">
-          <div class="vp-top"></div>
-          <div class="vp-mid"><div class="stars-arc"><span class="vstar vs1">★</span><span class="vstar vs2">★</span><span class="vstar vs3">★</span><span class="vstar vs4">★</span><span class="vstar vs5">★</span><span class="vstar vs6">★</span><span class="vstar vs7">★</span></div></div>
-          <div class="vp-bot"></div>
-          <div class="vp-shimmer"></div>
-          <div class="vzla-patch-shadow"></div>
+        <div class="vzla-patch-combat">
+          <div class="vpc-body"></div>
+          <div class="vpc-age"></div>
+          <div class="vpc-mold"></div>
+          <div class="vpc-dirt"></div>
+          <div class="vpc-border"></div>
+          <div class="vpc-stripe-div" style="top:33.33%;"></div>
+          <div class="vpc-stripe-div" style="top:66.66%;"></div>
+          <div class="vpc-stars">
+            <span class="vpc-star vps1">★</span><span class="vpc-star vps2">★</span>
+            <span class="vpc-star vps3">★</span><span class="vpc-star vps4">★</span>
+            <span class="vpc-star vps5">★</span><span class="vpc-star vps6">★</span>
+            <span class="vpc-star vps7">★</span>
+          </div>
+          <div class="vpc-shimmer"></div>
+          <div class="vpc-tear"></div>
         </div>
-        <div class="vzla-author-name">Luis Alfonso Castillejo Ventura</div>
-        <div class="vzla-from" id="vzlaFrom">Margariteño y Venezolano</div>
-        <div class="vzla-eco-text" id="vzlaEcoText">Ecosistema Digital Papiro</div>
-        <div class="vzla-divider"></div>
-        <div class="vzla-quote" id="vzlaQuote"><em>"De la Isla de Margarita al mundo.<br>Un bit a la vez. Bajo la bendición de Dios."</em></div>
+        <div class="vzla-name">Luis Alfonso Castillejo Ventura</div>
+        <div class="vzla-origin" id="vzlaFrom">Margariteño y Venezolano</div>
+        <div class="vzla-eco-lbl" id="vzlaEcoText">Ecosistema Digital Papiro</div>
+        <div class="vzla-div"></div>
+        <div class="vzla-thought">
+          <div class="vzla-thought-text" id="vzlaThought">Solo quiero vivir dependiendo de mi pluma y el talento por las palabras. Creo que es una buena forma de vivir. <em>"Ser un mantenido de mis dones"</em></div>
+          <div class="vzla-thought-date">28 / 06 / 2018</div>
+        </div>
+        <!-- FOTO LIBRETA — activar con: activarLibreta('URL') -->
+        <div class="libreta-photo" id="libretaPhotoWrap">
+          <img id="libretaPhoto" src="" alt="La libreta — 28/06/2018">
+          <div class="libreta-caption">La libreta original · A caderneta original · 28/06/2018</div>
+        </div>
+        <!-- VOZ CEO — activar con: activarVoz('URL') -->
+        <div class="ceo-voice-section">
+          <div class="ceo-voice-label" id="voiceLabel">Filosofía y Pensamiento del C.E.O</div>
+          <div class="ceo-voice-card">
+            <div class="ceo-voice-title">Luis Alfonso Castillejo Ventura</div>
+            <div class="ceo-voice-placeholder" id="voicePlaceholder">🎙️ Próximamente — La voz del C.E.O<br><span style="font-size:11px;">Soon · Em breve · Σύντομα</span></div>
+            <div class="ceo-voice-player" id="voicePlayerWrap"><audio id="voiceAudio" controls preload="none" style="width:100%;"></audio></div>
+            <div class="ceo-voice-subtitle" id="voiceSubtitle"></div>
+            <button class="ceo-share-btn" onclick="shareWithLang()">🔗 <span id="voiceShareText">Compartir en mi idioma</span></button>
+          </div>
+        </div>
       </div>
       <div class="page-rule"></div>
       <div class="page-nav">
@@ -537,7 +715,7 @@ body::after{content:'';position:fixed;inset:0;z-index:200;pointer-events:none;op
       </div>
     </div>
 
-    <!-- PAGINA 1 — EL BIT -->
+    <!-- PÁGINA 1 — EL BIT ETERNO -->
     <div id="page1" style="display:none;">
       <div class="page-header">
         <span class="page-ornament">⚔ ✦ ⚔</span>
@@ -561,360 +739,1077 @@ body::after{content:'';position:fixed;inset:0;z-index:200;pointer-events:none;op
       </div>
     </div>
 
-    <!-- PAGINA 2 — CONTACTOS -->
+    <!-- PÁGINA 2 — MAPA UNIVERSO PAPIRO + ALMA LLANERA -->
     <div id="page2" style="display:none;">
-      <div class="contact-page">
-        <div class="page-header">
-          <span class="page-ornament">✦ 🌐 ✦</span>
-          <div class="page-chapter" id="contactChapter">Capítulo Segundo</div>
-          <h2 class="page-title" id="contactTitle">La Red de Contacto</h2>
+      <div class="page-header">
+        <span class="page-ornament">🗺️ ✦ ⚙️</span>
+        <div class="page-chapter" id="mapChapter">El Universo en Construcción</div>
+        <h2 class="page-title" id="mapTitle">Ruta del Ecosistema PAPIRO</h2>
+      </div>
+      <div class="page-rule"></div>
+      <div class="map-container" id="mapContainer">
+        <div class="mil-stamp"><div class="mil-stamp-text">CREATY<br>PAPIRO<br>X-7777777</div></div>
+        <div class="vzla-sil">▲ ▲ · · · ▲ ▲</div>
+        <!-- BOTÓN ALMA LLANERA -->
+        <div id="almaBtn" onclick="userStartAlma()" style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:11px 14px;background:linear-gradient(135deg,rgba(201,168,76,0.12),rgba(201,168,76,0.04));border:1px solid rgba(201,168,76,0.3);border-radius:12px;cursor:pointer;transition:all 0.3s;">
+          <span style="font-size:20px;">🎻</span>
+          <div style="flex:1;">
+            <div style="font-family:'Cinzel',serif;font-size:10px;color:var(--parchment);letter-spacing:2px;" id="almaLabel">El Alma Llanera · OSV desde Grecia</div>
+            <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:11px;color:var(--muted);" id="almaSubLabel">Toca para escuchar mientras exploras el mapa</div>
+          </div>
+          <span id="almaBtnIcon" style="font-size:16px;color:var(--gold);">▶</span>
         </div>
-        <div class="page-rule"></div>
-        <div class="contact-links">
-          <div class="contact-section-title" id="lblDirectContact">Contacto Directo</div>
-          <a href="https://chat.whatsapp.com/CoECyOStzuODvcpEDGTvlW" target="_blank" class="contact-link"><span class="ci">💬</span><span class="cn" id="waGroupTextM">Comunidad WhatsApp</span><span class="ch">grupo</span></a>
-          <div class="contact-section-title" id="lblChannels">Canales Oficiales</div>
-          <a href="https://whatsapp.com/channel/0029VbBv1IK7DAX1EynuSJ39" target="_blank" class="contact-link"><span class="ci">📡</span><span class="cn" id="waChannelTextM">Canal WhatsApp Oficial</span><span class="ch">canal</span></a>
-          <a href="https://t.me/bitacora350" target="_blank" class="contact-link"><span class="ci">✈️</span><span class="cn">Telegram — Bitácora 350</span><span class="ch">canal</span></a>
-          <a href="https://x.com/UntalCastillejo" target="_blank" class="contact-link"><span class="ci">𝕏</span><span class="cn">Twitter / X — @UntalCastillejo</span><span class="ch">noticias</span></a>
-          <a href="https://tiktok.com/@filosofiadigitalcombate" target="_blank" class="contact-link"><span class="ci">🎵</span><span class="cn">TikTok — @filosofiadigitalcombate</span><span class="ch">videos</span></a>
-          <a href="https://instagram.com/filosofiadigitaldecombate" target="_blank" class="contact-link"><span class="ci">📸</span><span class="cn">Instagram — @filosofiadigitaldecombate</span><span class="ch">fotos</span></a>
-          <a href="https://youtube.com/@Filosofiadigitaldecombate" target="_blank" class="contact-link"><span class="ci">▶️</span><span class="cn">YouTube — @Filosofiadigitaldecombate</span><span class="ch">videos</span></a>
-          <a href="https://filosofiadigitaldecombate.github.io" target="_blank" class="contact-link"><span class="ci">🌐</span><span class="cn" id="webTextM">Página Principal</span><span class="ch">web</span></a>
-          <div class="contact-section-title" id="lblEconomy">Apoyo Económico</div>
-          <div class="contact-link" style="cursor:pointer;" onclick="copyPix('modal')"><span class="ci">💛</span><span class="cn" id="pixModalText">PIX Brasil — SrBarbado@gmail.com</span><span class="ch" style="color:var(--gold);">copiar</span></div>
-          <div class="contact-section-title" id="lblComingSoon">Próximamente</div>
-          <div class="contact-link" style="opacity:0.45;cursor:default;"><span class="ci">📺</span><span class="cn" id="odyseeModalText">Odysee — Videos sin censura</span><span class="ch">pronto</span></div>
+        <div class="map-node">
+          <div class="map-icon">👨‍💻🧑‍💻</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn1t">JÓVENES CONSTRUCTORES</div>
+            <div class="map-node-desc" id="mn1d">Dos jóvenes con careta de soldar. La chispa inicial. El sueño que arranca en el exilio.</div>
+          </div>
         </div>
-        <div class="page-rule"></div>
-        <div class="page-nav">
-          <button class="btn-page" onclick="goPage(1)">← <span id="lblP2Prev">Anterior</span></button>
-          <span class="page-indicator">· III ·</span>
-          <button class="btn-page" onclick="closeBook()"><span id="lblClose">Cerrar</span> ✕</button>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node r">
+          <div class="map-icon">🌐✨</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn2t">ORBIT SYNC</div>
+            <div class="map-node-desc" id="mn2d">La IA personal persistente. Esfera flotante. Biometría de voz. El primer producto del sueño.</div>
+          </div>
         </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node">
+          <div class="map-icon">🧓🔬</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn3t">EL ANCIANO SABIO</div>
+            <div class="map-node-desc" id="mn3d">Con lupa y microscopio. El conocimiento acumulado de generaciones. Crea PAPIRO KEY.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node r">
+          <div class="map-icon">🔑🛡️</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn4t">PAPIRO KEY</div>
+            <div class="map-node-desc" id="mn4d">Identidad digital soberana. Un pendrive que contiene tu mundo. Conectas y vives.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node">
+          <div class="map-icon">👔👔👔</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn5t">TRES SEÑORES DE TRAJE</div>
+            <div class="map-node-desc" id="mn5d">Tres figuras formales creando la bóveda digital del pueblo soberano.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node r">
+          <div class="map-icon">🔒📜</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn6t">PAPIRO 777</div>
+            <div class="map-node-desc" id="mn6d">La bóveda digital indestructible. Sistema CHOQUE. El guardián de lo que no puede perderse.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node">
+          <div class="map-icon">🧞📱</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn7t">ALADÍN</div>
+            <div class="map-node-desc" id="mn7d">Mensajería de voz con un genio animado. Frota la lámpara. El genio lleva tu mensaje.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node r">
+          <div class="map-icon">⭐🌐</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn8t">PAPIRO PIXEL</div>
+            <div class="map-node-desc" id="mn8d">La red social soberana. 1200 estrellas. Sin algoritmos. Sin censura. La voz libre.</div>
+          </div>
+        </div>
+        <div class="map-connector">· · · ▼ · · ·</div>
+        <div class="map-node">
+          <div class="map-icon">📖🌍</div>
+          <div class="map-content">
+            <div class="map-node-title" id="mn9t">PAPIRO — LA ULTRANET</div>
+            <div class="map-node-desc" id="mn9d">El terreno digital soberano. El libro vivo que guía la red. Indetenible. Bajo la bendición de Dios.</div>
+          </div>
+        </div>
+      </div>
+      <div class="page-rule"></div>
+      <div class="page-nav">
+        <button class="btn-page" onclick="goPage(1)">← <span id="lblP2Prev">Anterior</span></button>
+        <span class="page-indicator">· III ·</span>
+        <button class="btn-page" onclick="goPage(3)"><span id="lblP2Next">Siguiente</span> →</button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 3 — METAS CON FUEGO -->
+    <div id="page3" style="display:none;">
+      <div class="page-header">
+        <span class="page-ornament">🔥 ✦ 📋</span>
+        <div class="page-chapter" id="goalsChapter">Estado de la Misión</div>
+        <h2 class="page-title" id="goalsTitle">Metas del Ecosistema</h2>
+      </div>
+      <div class="page-rule"></div>
+      <div class="dev-video-label" id="devVideoLabel">▣ Desarrollo en Tiempo Real · Video Actual</div>
+      <div class="dev-video-wrap">
+        <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Filosofiadigitaldecombate&index=1"
+          style="width:100%;aspect-ratio:16/9;border:none;display:block;"
+          allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="page-rule"></div>
+      <div class="goal-item"><div class="goal-check done"></div><div class="goal-text"><div class="goal-title" id="g1">Salir del asedio y el anonimato</div><div class="goal-sub">Presencia digital establecida en todas las plataformas</div></div><div class="goal-right"><span class="goal-paloma done">✔</span></div></div>
+      <div class="goal-item"><div class="goal-check done"></div><div class="goal-text"><div class="goal-title" id="g2">Desarrollar estrategia de combate</div><div class="goal-sub">Plan Maestro 60 Días activo</div></div><div class="goal-right"><span class="goal-paloma done">✔</span></div></div>
+      <div class="goal-item"><div class="goal-check done"></div><div class="goal-text"><div class="goal-title" id="g3">Crear canales y plataformas de expansión</div><div class="goal-sub">YouTube · TikTok · Instagram · Twitter/X · Telegram · WhatsApp</div></div><div class="goal-right"><span class="goal-paloma done">✔</span></div></div>
+      <div class="goal-item"><div class="goal-check done"></div><div class="goal-text"><div class="goal-title" id="g4">Desarrollo y organización de ideas</div><div class="goal-sub">9 Documentos Maestros del Ecosistema completados</div></div><div class="goal-right"><span class="goal-paloma done">✔</span></div></div>
+      <div class="goal-item"><div class="goal-check done"></div><div class="goal-text"><div class="goal-title" id="g5">Crear página web y centro de operaciones</div><div class="goal-sub">filosofiadigitaldecombate.github.io · LIVE</div></div><div class="goal-right"><span class="goal-paloma done">✔</span></div></div>
+      <div class="goal-item"><div class="goal-check pending"></div><div class="goal-text"><div class="goal-title" id="g6">Lanzamiento El Rey Púrpura</div><div class="goal-sub">Amazon KDP · Wattpad · Distribución global</div></div><div class="goal-right"><span class="goal-paloma pending">☐</span></div></div>
+      <div class="goal-item"><div class="goal-check pending"></div><div class="goal-text"><div class="goal-title" id="g7">Operación Creación ALADÍN</div><div class="goal-sub">Beta en 2 meses · Genio animado · Modo Auditorio</div></div><div class="goal-right"><span class="goal-paloma pending">☐</span></div></div>
+      <div class="goal-item"><div class="goal-check pending"></div><div class="goal-text"><div class="goal-title" id="g8">PAPIRO KEY — Primer prototipo</div><div class="goal-sub">50 unidades beta · Identidad digital soberana física</div></div><div class="goal-right"><span class="goal-paloma pending">☐</span></div></div>
+      <div class="goal-item"><div class="goal-check pending"></div><div class="goal-text"><div class="goal-title" id="g9">Ecosistema PAPIRO — Cierre completo</div><div class="goal-sub">ORBIT + PIXEL + 777 + ALADÍN + KEY + Ultranet operativos</div></div><div class="goal-right"><span class="goal-paloma pending">☐</span></div></div>
+      <div class="page-rule"></div>
+      <div class="page-nav">
+        <button class="btn-page" onclick="goPage(2)">← <span id="lblP3Prev">Anterior</span></button>
+        <span class="page-indicator">· IV ·</span>
+        <button class="btn-page" onclick="goPage(4)"><span id="lblP3Next">Siguiente</span> →</button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 4 — CUENTAS Y CONTACTOS -->
+    <div id="page4" style="display:none;">
+      <div class="page-header">
+        <span class="page-ornament">💛 ✦ 🌐</span>
+        <div class="page-chapter" id="acctChapter">Canales de Apoyo</div>
+        <h2 class="page-title" id="acctTitle">Apoya la Misión</h2>
+      </div>
+      <div class="page-rule"></div>
+      <div class="contact-section-title" id="lblEconomy">Apoyo Económico · Apoio Econômico</div>
+      <div class="account-item" onclick="copyText('FilosofiaDigitaldeCombate@Proton.me')"><span class="acc-icon">💛</span><div class="acc-info"><div class="acc-name">PIX · WISE Brasil</div><div class="acc-id">FilosofiaDigitaldeCombate@Proton.me</div></div><div class="acc-action">copiar</div></div>
+      <div class="account-item" onclick="copyText('SrBarbado@gmail.com')"><span class="acc-icon">💳</span><div class="acc-info"><div class="acc-name">PIX · Gmail</div><div class="acc-id">SrBarbado@gmail.com</div></div><div class="acc-action">copiar</div></div>
+      <div class="account-item" onclick="window.open('https://ko-fi.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">☕</span><div class="acc-info"><div class="acc-name">Ko-fi · Internacional</div><div class="acc-id">ko-fi.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
+      <div class="account-item" onclick="window.open('https://gumroad.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">📚</span><div class="acc-info"><div class="acc-name">Gumroad · Libros y Documentos</div><div class="acc-id">gumroad.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
+      <div class="account-item" onclick="window.open('https://patreon.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">🏛️</span><div class="acc-info"><div class="acc-name">Patreon · Membresía Mensual</div><div class="acc-id">patreon.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
+      <div class="contact-section-title" id="lblChannels">Canales Oficiales</div>
+      <div class="contact-links">
+        <a href="https://chat.whatsapp.com/CoECyOStzuODvcpEDGTvlW" target="_blank" class="contact-link"><span class="ci">💬</span><span class="cn" id="waGroupTextM">Comunidad WhatsApp</span><span class="ch">grupo</span></a>
+        <a href="https://whatsapp.com/channel/0029VbBv1IK7DAX1EynuSJ39" target="_blank" class="contact-link"><span class="ci">📡</span><span class="cn">Canal WhatsApp Oficial</span><span class="ch">canal</span></a>
+        <a href="https://t.me/bitacora350" target="_blank" class="contact-link"><span class="ci">✈️</span><span class="cn">Telegram — Bitácora 350</span><span class="ch">canal</span></a>
+        <a href="https://x.com/UntalCastillejo" target="_blank" class="contact-link"><span class="ci">𝕏</span><span class="cn">Twitter / X — @UntalCastillejo</span><span class="ch">noticias</span></a>
+        <a href="https://youtube.com/@Filosofiadigitaldecombate" target="_blank" class="contact-link"><span class="ci">▶️</span><span class="cn">YouTube</span><span class="ch">videos</span></a>
+        <a href="https://wattpad.com/user/filosofiadigitaldecombate" target="_blank" class="contact-link"><span class="ci">📖</span><span class="cn">Wattpad — El Rey Púrpura</span><span class="ch">libro</span></a>
+        <a href="https://filosofiadigitaldecombate.github.io" target="_blank" class="contact-link"><span class="ci">🌐</span><span class="cn" id="webTextM">Página Principal</span><span class="ch">web</span></a>
+      </div>
+
+      <!-- HASHTAGS MASTER -->
+      <div class="page-rule"></div>
+      <div style="text-align:center;padding:8px 0;">
+        <div style="font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px;">HASHTAGS MASTER · COMPARTE Y AMPLIFICA</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">
+          <span style="font-family:'Special Elite',serif;font-size:12px;background:linear-gradient(135deg,#FF4500,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(255,80,0,0.5));">#SI°</span>
+          <span style="font-family:'Special Elite',serif;font-size:12px;background:linear-gradient(135deg,#FF6000,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(255,100,0,0.5));">#LC7°</span>
+          <span style="font-family:'Special Elite',serif;font-size:12px;background:linear-gradient(135deg,#FF4500,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(255,80,0,0.5));">#X7777777LC7</span>
+          <span style="font-family:'Special Elite',serif;font-size:12px;background:linear-gradient(135deg,#FF6000,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(255,100,0,0.5));">#PAPIRO777</span>
+          <span style="font-family:'Special Elite',serif;font-size:12px;background:linear-gradient(135deg,#FF4500,#FF8C00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 0 4px rgba(255,80,0,0.5));">#CRIXUS777</span>
+        </div>
+      </div>
+
+      <!-- CORAZÓN PÚRPURA -->
+      <div class="page-rule"></div>
+      <div class="heart-section">
+        <div class="heart-wrap" onclick="openBetaModal()">
+          <svg width="240" height="220" viewBox="0 0 240 220" style="position:relative;z-index:2;filter:drop-shadow(0 0 18px rgba(80,20,120,0.7));">
+            <defs>
+              <filter id="heartGrain">
+                <feTurbulence type="turbulence" baseFrequency="0.9" numOctaves="4" seed="7" stitchTiles="stitch"/>
+                <feColorMatrix type="saturate" values="0"/>
+                <feBlend in="SourceGraphic" mode="overlay" result="blend"/>
+              </filter>
+            </defs>
+            <!-- Corazón con textura similar a la bandera -->
+            <path d="M120 195 C120 195 20 130 20 70 C20 35 50 15 80 15 C100 15 115 28 120 38 C125 28 140 15 160 15 C190 15 220 35 220 70 C220 130 120 195 120 195Z"
+              fill="url(#heartGrad)" stroke="rgba(120,60,180,0.5)" stroke-width="2"/>
+            <defs>
+              <radialGradient id="heartGrad" cx="40%" cy="30%">
+                <stop offset="0%" stop-color="#4A1E6A"/>
+                <stop offset="40%" stop-color="#2E1040"/>
+                <stop offset="100%" stop-color="#0E0518"/>
+              </radialGradient>
+            </defs>
+            <!-- Suciedad/textura del corazón -->
+            <path d="M120 195 C120 195 20 130 20 70 C20 35 50 15 80 15 C100 15 115 28 120 38 C125 28 140 15 160 15 C190 15 220 35 220 70 C220 130 120 195 120 195Z"
+              fill="url(#heartDirt)" opacity="0.4"/>
+            <defs>
+              <radialGradient id="heartDirt" cx="15%" cy="70%">
+                <stop offset="0%" stop-color="#0A0503" stop-opacity="0.8"/>
+                <stop offset="100%" stop-color="transparent"/>
+              </radialGradient>
+            </defs>
+          </svg>
+          <div class="heart-content">
+            <div class="heart-question" id="heartQuestion">¿Quieres recibir los betas de nuestro universo mientras van saliendo?</div>
+            <div class="heart-btn" id="heartBtn">✦ Entra y participa ✦</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-rule"></div>
+      <div class="page-nav">
+        <button class="btn-page-lava" onclick="goPage(3)"><canvas class="lava-btn-canvas"></canvas><span>← <span id="lblP4Prev">Anterior</span></span></button>
+        <span class="page-indicator">· V ·</span>
+        <button class="btn-page-lava" onclick="goPage(5)"><canvas class="lava-btn-canvas"></canvas><span><span id="lblP4Next">Siguiente</span> →</span></button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 5 — MURO DE HONOR -->
+    <div id="page5" style="display:none;">
+      <div class="page-header">
+        <span class="page-ornament">🏛️ ✦ 💜</span>
+        <div class="page-chapter" id="honorChapter">La Alianza</div>
+        <h2 class="page-title" id="honorTitle">Muro de Honor</h2>
+      </div>
+      <div class="page-rule"></div>
+      <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:var(--muted);text-align:center;margin-bottom:16px;line-height:1.8;" id="honorSub">
+        Estas personas decidieron ser parte de la historia.<br>Sus nombres quedan en el libro para siempre.
+      </div>
+      <div class="honor-wall">
+        <div class="honor-list" id="honorList">
+          <div class="honor-empty" id="honorEmpty">Sé el primero en el Muro de Honor.<br>Toca el corazón en la página anterior.</div>
+        </div>
+      </div>
+      <!-- FRASE FFEE ESTAMPADA -->
+      <div class="footer-stamp" style="margin-top:20px;">
+        <div class="stamp-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
+        <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+      </div>
+      <div class="page-rule"></div>
+      <div class="page-nav">
+        <button class="btn-page-lava" onclick="goPage(4)"><canvas class="lava-btn-canvas"></canvas><span>← <span id="lblP5Prev">Anterior</span></span></button>
+        <span class="page-indicator">· VI ·</span>
+        <button class="btn-page-lava" onclick="closeBook()"><canvas class="lava-btn-canvas"></canvas><span><span id="lblClose">Cerrar</span> ✕</span></button>
       </div>
     </div>
 
   </div>
+</div><!-- /modal -->
+
+<!-- TELÓN -->
+<div class="curtain-overlay" id="curtainOverlay">
+  <div class="curtain-left"><div class="curtain-fringe-l"></div></div>
+  <div class="curtain-right"><div class="curtain-fringe-r"></div></div>
+  <div class="curtain-video-wrap" id="curtainVideo"></div>
+  <button class="curtain-close" onclick="closeCurtain()">✕</button>
+  <div class="curtain-label">⬤ EN VIVO · AO VIVO · LIVE</div>
 </div>
+
+<!-- MODAL REGISTRO ÍNTIMO BETA -->
+<div class="beta-overlay" id="betaOverlay">
+  <div class="beta-modal" style="position:relative;">
+    <button class="beta-close" onclick="closeBetaModal()">✕</button>
+    <div class="beta-header">
+      <span class="beta-heart-mini">💜</span>
+      <div class="beta-title" id="betaTitle">Únete al Universo</div>
+      <div class="beta-sub" id="betaSub">Gracias por ser también ese tipo de persona que curiosamente suele pensar en la humanidad y le gusta ver, analizar y ser parte de los momentos que cambian el mundo y la historia.</div>
+    </div>
+    <div class="beta-rule"></div>
+    <!-- FORM -->
+    <div id="betaForm">
+      <span class="beta-label" id="betaLabelName">Tu nombre</span>
+      <input class="beta-input" type="text" id="betaName" placeholder="Nombre completo">
+      <span class="beta-label" id="betaLabelEmail">Tu correo</span>
+      <input class="beta-input" type="email" id="betaEmail" placeholder="correo@ejemplo.com">
+      <span class="beta-label" id="betaLabelWa">Tu WhatsApp</span>
+      <input class="beta-input" type="tel" id="betaWa" placeholder="+58 / +55 / +1...">
+      <span class="beta-label" id="betaLabelPref">¿Cómo quieres recibir los betas?</span>
+      <div class="beta-options">
+        <div class="beta-option selected" id="opt1" onclick="selectOpt(1)">
+          <div class="beta-option-radio"></div>
+          <div class="beta-option-text" id="betaOpt1">Todos los betas cuando vayan saliendo — ¡quiero estar en todo!</div>
+        </div>
+        <div class="beta-option" id="opt2" onclick="selectOpt(2)">
+          <div class="beta-option-radio"></div>
+          <div class="beta-option-text" id="betaOpt2">Solo el primero que entendí y me pareció genial</div>
+        </div>
+        <div class="beta-option" id="opt3" onclick="selectOpt(3)">
+          <div class="beta-option-radio"></div>
+          <div class="beta-option-text" id="betaOpt3">Uno por ahora y los demás mientras voy comprendiendo y vayan saliendo</div>
+        </div>
+      </div>
+      <button class="btn-beta-submit" onclick="submitBeta()" id="betaSubmitBtn">▣ ENTRAR Y PARTICIPAR · X-7777777-LC7° ▣</button>
+    </div>
+    <!-- SUCCESS -->
+    <div class="beta-success" id="betaSuccess">
+      <span class="beta-success-icon">💜</span>
+      <div class="beta-success-text" id="betaSuccessText">
+        Estás en el Muro de Honor.<br>Tu nombre es parte de la historia.<br>
+        <em style="color:var(--gold2);">Bienvenido al Universo PAPIRO · SI° ▣</em>
+      </div>
+      <div class="beta-link-wrap" id="betaLinkWrap" style="display:none;">
+        <span class="beta-link-txt" id="betaLinkTxt"></span>
+        <button class="beta-link-copy" onclick="copyBetaLink()">Copiar</button>
+      </div>
+      <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:var(--muted);margin-top:12px;text-align:center;">Comparte tu link personal y aparece en el Muro de Honor</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOTÓN MÚSICA -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Cajita musical — Himno Venezuela">🎵</button>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ══ TRADUCCIONES ══
+// ══════════════════════════════════
+// TRADUCCIONES
+// ══════════════════════════════════
 const T={
   es:{
-    bookEyebrow:"El Libro de",bookSubtitle:"Crónicas del Bit Eterno",openHint:"toca para leer",
-    mainSubtitle:"La Ultranet",
-    mainDesc:`Una red descentralizada, soberana y libre.<br><em>Guiada por un libro. Sostenida por sus usuarios.</em><br><br>No es internet. No es la dark web.<br>Es algo que el mundo aún no tiene.<br><em>Y está siendo construida ahora.</em>`,
-    netTitle:"Estado de la Red",lblNodes:"Nodos",lblWait:"En Espera",lblPoss:"Posibilidad",netLive:"Inicializando...",
-    lblWaitlist:"Únete a la lista de espera",btnJoin:"✦ UNIRME A LA RED ✦",
-    formNote:"Tu información es privada. No spam, jamás.",
-    successText:"¡Bienvenido a la red!<br>Tu nombre está inscrito en el libro.",
-    lblSupport:"Apoya la misión",pixTitle:"☕ Contribuir con el desarrollo",
-    pixDesc:'"Cada bit que aportas construye la red que el mundo necesita."',
-    lblFollow:"Síguenos en el ecosistema",
-    finalQuote:`"La historia aún está siendo escrita.<br><em>El libro guía. La red vive. Dios dirige.</em>"`,
+    hEco:"Ecosistema Digital",hRole:"Aspirante a la Candidatura Presidencial de Venezuela<br>Exiliado en Brasil · Arroio do Meio, RS",
+    bookEyebrow:"El Libro de",bookSubtitle:"Crónicas del Bit Eterno",openHint:"toca para leer el libro",
+    arrText:"↓ Baja para contactos y más ↓",arrText2:"↓ Videos · Contacto · Equipo ↓",arrText3:"↓ Únete al Equipo ↓",
+    lampOff:"Date luego una vuelta por aquí —<br>en cualquier momento podríamos estar transmitiendo",
+    lampLiveCta:"🎭 Toca para entrar al show en vivo",
+    viewerLabel:"viendo ahora",
+    v1title:"Video Inicial de Combate",v1sub:"Así inició la batalla",
+    v2title:"Video Actual de Combate",v2sub:"Actualidad de la batalla",
+    pixTitle:"☕ Apoyo · Apoio · Support",pixDesc:'"Cada contribución sostiene la voz y la visión."',
+    teamTitle:"▣ Únete al Ecosistema",
+    teamSub:"¿Eres desarrollador experto o junior y quieres apoyar? ¿Eres inversor y quieres invertir? Agradecemos tu interés — escribe tu correo y con gusto te contactaremos.",
+    btnTeam:"▣ ENVIAR MI INTERÉS · X-7777777-LC7° ▣",
+    teamSuccessText:"✦ Recibido y registrado.<br>Tu interés está en el libro.<br>Te contactaremos pronto. · SI° ▣",
+    lblFollow:"Síguenos · Siga-nos · Follow",
     vzlaFrom:"Margariteño y Venezolano",vzlaEcoText:"Ecosistema Digital Papiro",
-    vzlaQuote:`<em>"De la Isla de Margarita al mundo.<br>Un bit a la vez. Bajo la bendición de Dios."</em>`,
+    vzlaThought:'Solo quiero vivir dependiendo de mi pluma y el talento por las palabras. Creo que es una buena forma de vivir. <em>"Ser un mantenido de mis dones"</em>',
     chapterLabel:"Capítulo Primero",chapterTitle:"El Origen del Bit Eterno",
-    chapterBody:`<p><span class="dropcap">E</span>n el principio no había silencio. Había <em>vibración</em>. Millones de señales invisibles atravesando el aire, los cables y la oscuridad.</p><p>Nadie había pensado en preguntarles a los bits adónde querían ir. Nadie les había dado un <em>propósito</em> más allá de transportar datos sin memoria, sin destino, sin alma.</p><p>Hasta que un venezolano exiliado en Brasil se hizo la pregunta que nadie había hecho antes:</p><p><em>"¿Y si cada bit supiera por qué existe?"</em></p><p>Así nació PAPIRO. Como una <em>red viva</em>, sostenida por quienes creen que la tecnología puede servir al bien, a la verdad y a la libertad.</p><p>Este libro es su mapa. Su alma. Y tú, al leerlo, ya eres parte de la red.</p>`,
-    contactChapter:"Capítulo Segundo",contactTitle:"La Red de Contacto",
-    lblDirectContact:"Contacto Directo",waGroupText:"Comunidad WhatsApp",lblChannels:"Canales Oficiales",
-    waChannelText:"Canal WhatsApp Oficial",webText:"Página Principal",lblEconomy:"Apoyo Económico",
-    pixModalText:"PIX Brasil — SrBarbado@gmail.com",lblComingSoon:"Próximamente",
-    odyseeModalText:"Odysee — Videos sin censura",lblClose:"Cerrar",
-    prev:"Anterior",next:"Siguiente",btnPapiroTitle:"¿QUIERES SABER MÁS?",
-    btnPapiroSub:"El Libro te espera",btnPapiroHint:"Toca para abrir",
-    toastCopied:"✓ Pix copiado",toastJoined:"✦ Bienvenido a la red",
-    toastError:"⚠ Completa todos los campos",toastEmail:"⚠ Email no válido"
+    chapterText:`<p><span class="dropcap">E</span>n el principio no había silencio. Había <em>vibración</em>. Millones de señales invisibles atravesando el aire, los cables y la oscuridad.</p><p>Nadie había pensado en preguntarles a los bits adónde querían ir. Nadie les había dado un <em>propósito</em> más allá de transportar datos sin memoria, sin destino, sin alma.</p><p>Hasta que un venezolano exiliado en Brasil se hizo la pregunta que nadie había hecho antes:</p><p><em>"¿Y si cada bit supiera por qué existe?"</em></p><p>Así nació PAPIRO. Como una <em>red viva</em>, sostenida por quienes creen que la tecnología puede servir al bien, a la verdad y a la libertad.</p><p>Este libro es su mapa. Su alma. Y tú, al leerlo, ya eres parte de la red.</p>`,
+    mapChapter:"El Universo en Construcción",mapTitle:"Ruta del Ecosistema PAPIRO",
+    goalsChapter:"Estado de la Misión",goalsTitle:"Metas del Ecosistema",
+    devVideoLabel:"▣ Desarrollo en Tiempo Real · Video Actual",
+    acctChapter:"Canales de Apoyo",acctTitle:"Apoya la Misión",
+    lblEconomy:"Apoyo Económico",lblChannels:"Canales Oficiales",
+    webTextM:"Página Principal",waGroupTextM:"Comunidad WhatsApp",lblClose:"Cerrar",
+    g1:"Salir del asedio y el anonimato",g2:"Desarrollar estrategia de combate",
+    g3:"Crear canales y plataformas",g4:"Desarrollo y organización de ideas",
+    g5:"Crear página web y centro de operaciones",g6:"Operación Creación ALADÍN",
+    g7:"Lanzamiento El Rey Púrpura",g8:"PAPIRO KEY — Primer prototipo",g9:"Ecosistema PAPIRO — Cierre completo",
+    postalStain:"▣ X-7777777-LC7°",prev:"Anterior",next:"Siguiente",
+    mn1t:"JÓVENES CONSTRUCTORES",mn1d:"Dos jóvenes con careta de soldar. La chispa inicial. El sueño que arranca en el exilio.",
+    mn2t:"ORBIT SYNC",mn2d:"La IA personal persistente. Esfera flotante. Biometría de voz.",
+    mn3t:"EL ANCIANO SABIO",mn3d:"Con lupa y microscopio. Crea PAPIRO KEY — la identidad en el bolsillo.",
+    mn4t:"PAPIRO KEY",mn4d:"Identidad digital soberana. Un pendrive que contiene tu mundo.",
+    mn5t:"TRES SEÑORES DE TRAJE",mn5d:"Figuras formales creando la bóveda digital del pueblo.",
+    mn6t:"PAPIRO 777",mn6d:"La bóveda digital indestructible. Sistema CHOQUE. El guardián.",
+    mn7t:"ALADÍN",mn7d:"Mensajería con un genio animado. Frota la lámpara. Habla.",
+    mn8t:"PAPIRO PIXEL",mn8d:"La red social soberana. 1200 estrellas. Sin algoritmos.",
+    mn9t:"PAPIRO — LA ULTRANET",mn9d:"El terreno digital soberano. El libro vivo que guía la red."
   },
   pt:{
-    bookEyebrow:"O Livro de",bookSubtitle:"Crônicas do Bit Eterno",openHint:"toque para ler",
-    mainSubtitle:"A Ultranet",
-    mainDesc:`Uma rede descentralizada, soberana e livre.<br><em>Guiada por um livro. Sustentada pelos usuários.</em><br><br>Não é internet. Não é a dark web.<br>É algo que o mundo ainda não tem.<br><em>E está sendo construído agora.</em>`,
-    netTitle:"Estado da Rede",lblNodes:"Nós",lblWait:"Aguardando",lblPoss:"Possibilidade",netLive:"Inicializando...",
-    lblWaitlist:"Entre na lista de espera",btnJoin:"✦ ENTRAR NA REDE ✦",
-    formNote:"Sua informação é privada. Sem spam, jamais.",
-    successText:"Bem-vindo à rede!<br>Seu nome está inscrito no livro.",
-    lblSupport:"Apoie a missão",pixTitle:"☕ Contribuir com o desenvolvimento",
-    pixDesc:'"Cada bit que você aporta constrói a rede que o mundo precisa."',
-    lblFollow:"Siga-nos no ecossistema",
-    finalQuote:`"A história ainda está sendo escrita.<br><em>O livro guia. A rede vive. Deus dirige.</em>"`,
+    hEco:"Ecossistema Digital",hRole:"Aspirante à Candidatura Presidencial da Venezuela<br>Exilado no Brasil · Arroio do Meio, RS",
+    bookEyebrow:"O Livro de",bookSubtitle:"Crônicas do Bit Eterno",openHint:"toque para ler o livro",
+    arrText:"↓ Role para contatos e mais ↓",arrText2:"↓ Vídeos · Contato · Equipe ↓",arrText3:"↓ Junte-se à Equipe ↓",
+    lampOff:"Volte mais tarde por aqui —<br>a qualquer momento podemos estar transmitindo",
+    lampLiveCta:"🎭 Toque para entrar no show ao vivo",viewerLabel:"assistindo agora",
+    v1title:"Vídeo Inicial de Combate",v1sub:"Assim começou a batalha",
+    v2title:"Vídeo Atual de Combate",v2sub:"Atualidade da batalha",
+    pixTitle:"☕ Apoio · Apoyo · Support",pixDesc:'"Cada contribuição sustenta a voz e a visão."',
+    teamTitle:"▣ Junte-se ao Ecossistema",
+    teamSub:"Você é desenvolvedor e quer apoiar? É investidor? Agradecemos seu interesse — escreva seu e-mail e entraremos em contato.",
+    btnTeam:"▣ ENVIAR MEU INTERESSE · X-7777777-LC7° ▣",
+    teamSuccessText:"✦ Recebido e registrado.<br>Seu interesse está no livro.<br>Entraremos em contato em breve. · SI° ▣",
+    lblFollow:"Siga-nos · Síguenos · Follow",
     vzlaFrom:"Margaritano e Venezuelano",vzlaEcoText:"Ecossistema Digital Papiro",
-    vzlaQuote:`<em>"Da Ilha de Margarita ao mundo.<br>Um bit de cada vez. Sob a bênção de Deus."</em>`,
+    vzlaThought:'Só quero viver dependendo da minha pena e do talento pelas palavras. Acho que é uma boa forma de viver. <em>"Ser sustentado pelos meus dons"</em>',
     chapterLabel:"Capítulo Primeiro",chapterTitle:"A Origem do Bit Eterno",
-    chapterBody:`<p><span class="dropcap">N</span>o princípio não havia silêncio. Havia <em>vibração</em>. Milhões de sinais invisíveis atravessando o ar, os cabos e a escuridão.</p><p>Ninguém havia pensado em perguntar aos bits para onde queriam ir. Ninguém lhes havia dado um <em>propósito</em> além de transportar dados sem memória, sem destino, sem alma.</p><p>Até que um venezuelano exilado no Brasil fez a pergunta que ninguém havia feito antes:</p><p><em>"E se cada bit soubesse por que existe?"</em></p><p>Assim nasceu PAPIRO. Como uma <em>rede viva</em>, sustentada por quem acredita que a tecnologia pode servir ao bem, à verdade e à liberdade.</p><p>Este livro é o seu mapa. A sua alma. E você, ao lê-lo, já faz parte da rede.</p>`,
-    contactChapter:"Capítulo Segundo",contactTitle:"A Rede de Contato",
-    lblDirectContact:"Contato Direto",waGroupText:"Comunidade WhatsApp",lblChannels:"Canais Oficiais",
-    waChannelText:"Canal WhatsApp Oficial",webText:"Página Principal",lblEconomy:"Apoio Econômico",
-    pixModalText:"PIX Brasil — SrBarbado@gmail.com",lblComingSoon:"Em breve",
-    odyseeModalText:"Odysee — Vídeos sem censura",lblClose:"Fechar",
-    prev:"Anterior",next:"Próximo",btnPapiroTitle:"QUER SABER MAIS?",
-    btnPapiroSub:"O Livro te espera",btnPapiroHint:"Toque para abrir",
-    toastCopied:"✓ Pix copiado",toastJoined:"✦ Bem-vindo à rede",
-    toastError:"⚠ Preencha todos os campos",toastEmail:"⚠ Email inválido"
+    chapterText:`<p><span class="dropcap">N</span>o princípio não havia silêncio. Havia <em>vibração</em>. Milhões de sinais invisíveis atravessando o ar, os cabos e a escuridão.</p><p>Ninguém havia pensado em perguntar aos bits para onde queriam ir. Ninguém lhes havia dado um <em>propósito</em> além de transportar dados sem memória, sem destino, sem alma.</p><p>Até que um venezuelano exilado no Brasil fez a pergunta que ninguém havia feito antes:</p><p><em>"E se cada bit soubesse por que existe?"</em></p><p>Assim nasceu PAPIRO. Como uma <em>rede viva</em>, sustentada por quem acredita que a tecnologia pode servir ao bem, à verdade e à liberdade.</p><p>Este livro é o seu mapa. E você, ao lê-lo, já faz parte da rede.</p>`,
+    mapChapter:"O Universo em Construção",mapTitle:"Rota do Ecossistema PAPIRO",
+    goalsChapter:"Estado da Missão",goalsTitle:"Metas do Ecossistema",
+    devVideoLabel:"▣ Desenvolvimento em Tempo Real · Vídeo Atual",
+    acctChapter:"Canais de Apoio",acctTitle:"Apoie a Missão",
+    lblEconomy:"Apoio Econômico",lblChannels:"Canais Oficiais",
+    webTextM:"Página Principal",waGroupTextM:"Comunidade WhatsApp",lblClose:"Fechar",
+    g1:"Sair do cerco e do anonimato",g2:"Desenvolver estratégia de combate",
+    g3:"Criar canais e plataformas",g4:"Desenvolvimento e organização de ideias",
+    g5:"Criar site e centro de operações",g6:"Operação Criação ALADÍN",
+    g7:"Lançamento O Rei Púrpura",g8:"PAPIRO KEY — Primeiro protótipo",g9:"Ecossistema PAPIRO — Fechamento",
+    postalStain:"▣ X-7777777-LC7°",prev:"Anterior",next:"Próximo",
+    mn1t:"JOVENS CONSTRUTORES",mn1d:"Dois jovens com máscara de solda. A faísca inicial. O sonho no exílio.",
+    mn2t:"ORBIT SYNC",mn2d:"A IA pessoal persistente. Esfera flutuante. Biometria de voz.",
+    mn3t:"O ANCIÃO SÁBIO",mn3d:"Com lupa e microscópio. Cria o PAPIRO KEY.",
+    mn4t:"PAPIRO KEY",mn4d:"Identidade digital soberana. Um pendrive que contém o seu mundo.",
+    mn5t:"TRÊS SENHORES DE TERNO",mn5d:"Criando o cofre digital do povo.",
+    mn6t:"PAPIRO 777",mn6d:"O cofre digital indestrutível. Sistema CHOQUE. O guardião.",
+    mn7t:"ALADÍN",mn7d:"Mensagens com um gênio animado. Esfregue a lâmpada. Fale.",
+    mn8t:"PAPIRO PIXEL",mn8d:"A rede social soberana. 1200 estrelas. Sem algoritmos.",
+    mn9t:"PAPIRO — A ULTRANET",mn9d:"O terreno digital soberano. O livro vivo que guia a rede."
   },
   en:{
-    bookEyebrow:"The Book of",bookSubtitle:"Chronicles of the Eternal Bit",openHint:"tap to read",
-    mainSubtitle:"The Ultranet",
-    mainDesc:`A decentralized, sovereign and free network.<br><em>Guided by a book. Sustained by its users.</em><br><br>It is not the internet. It is not the dark web.<br>It is something the world does not yet have.<br><em>And it is being built right now.</em>`,
-    netTitle:"Network Status",lblNodes:"Nodes",lblWait:"Waiting",lblPoss:"Possibility",netLive:"Initializing...",
-    lblWaitlist:"Join the waiting list",btnJoin:"✦ JOIN THE NETWORK ✦",
-    formNote:"Your information is private. No spam, ever.",
-    successText:"Welcome to the network!<br>Your name is inscribed in the book.",
-    lblSupport:"Support the mission",pixTitle:"☕ Contribute to development",
-    pixDesc:'"Every bit you contribute builds the network the world needs."',
-    lblFollow:"Follow us",
-    finalQuote:`"The story is still being written.<br><em>The book guides. The network lives. God leads.</em>"`,
+    hEco:"Digital Ecosystem",hRole:"Presidential Candidate Aspirant in Venezuela<br>Exiled in Brazil · Arroio do Meio, RS",
+    bookEyebrow:"The Book of",bookSubtitle:"Chronicles of the Eternal Bit",openHint:"tap to read the book",
+    arrText:"↓ Scroll for contacts and more ↓",arrText2:"↓ Videos · Contact · Team ↓",arrText3:"↓ Join the Team ↓",
+    lampOff:"Come back later —<br>at any moment we could be live",
+    lampLiveCta:"🎭 Tap to enter the live show",viewerLabel:"watching now",
+    v1title:"Initial Combat Video",v1sub:"How the battle began",
+    v2title:"Current Combat Video",v2sub:"The battle today",
+    pixTitle:"☕ Support · Apoyo · Apoio",pixDesc:'"Every contribution sustains the voice and vision."',
+    teamTitle:"▣ Join the Ecosystem",
+    teamSub:"Are you a developer who wants to help? An investor? Write your email and we will contact you.",
+    btnTeam:"▣ SEND MY INTEREST · X-7777777-LC7° ▣",
+    teamSuccessText:"✦ Received and registered.<br>Your interest is in the book.<br>We will contact you soon. · SI° ▣",
+    lblFollow:"Follow us · Siga-nos · Síguenos",
     vzlaFrom:"Margaritan and Venezuelan",vzlaEcoText:"Papiro Digital Ecosystem",
-    vzlaQuote:`<em>"From Margarita Island to the world.<br>One bit at a time. Under God's blessing."</em>`,
+    vzlaThought:'I just want to live depending on my pen and my talent for words. I think it is a good way to live. <em>"Being sustained by my gifts"</em>',
     chapterLabel:"Chapter One",chapterTitle:"The Origin of the Eternal Bit",
-    chapterBody:`<p><span class="dropcap">I</span>n the beginning there was no silence. There was <em>vibration</em>. Millions of invisible signals crossing the air, cables and darkness.</p><p>No one had thought to ask the bits where they wanted to go. No one had given them a <em>purpose</em> beyond transporting data without memory, without destination, without soul.</p><p>Until a Venezuelan in exile in Brazil asked the question no one had asked before:</p><p><em>"What if every bit knew why it exists?"</em></p><p>That is how PAPIRO was born. As a <em>living network</em>, sustained by those who believe technology can serve good, truth and freedom.</p><p>This book is its map. Its soul. And you, by reading it, are already part of the network.</p>`,
-    contactChapter:"Chapter Two",contactTitle:"The Contact Network",
-    lblDirectContact:"Direct Contact",waGroupText:"WhatsApp Community",lblChannels:"Official Channels",
-    waChannelText:"WhatsApp Official Channel",webText:"Main Website",lblEconomy:"Economic Support",
-    pixModalText:"PIX Brazil — SrBarbado@gmail.com",lblComingSoon:"Coming soon",
-    odyseeModalText:"Odysee — Censorship-free video",lblClose:"Close",
-    prev:"Previous",next:"Next",btnPapiroTitle:"WANT TO KNOW MORE?",
-    btnPapiroSub:"The Book awaits you",btnPapiroHint:"Tap to open",
-    toastCopied:"✓ Pix copied",toastJoined:"✦ Welcome to the network",
-    toastError:"⚠ Fill in all fields",toastEmail:"⚠ Invalid email"
+    chapterText:`<p><span class="dropcap">I</span>n the beginning there was no silence. There was <em>vibration</em>. Millions of invisible signals crossing the air, cables and darkness.</p><p>No one had thought to ask the bits where they wanted to go. No one had given them a <em>purpose</em> beyond transporting data without memory, without soul.</p><p>Until a Venezuelan in exile in Brazil asked the question no one had asked before:</p><p><em>"What if every bit knew why it exists?"</em></p><p>That is how PAPIRO was born. As a <em>living network</em> for good, truth and freedom.</p>`,
+    mapChapter:"The Universe Under Construction",mapTitle:"PAPIRO Ecosystem Route",
+    goalsChapter:"Mission Status",goalsTitle:"Ecosystem Goals",
+    devVideoLabel:"▣ Real-Time Development · Current Video",
+    acctChapter:"Support Channels",acctTitle:"Support the Mission",
+    lblEconomy:"Economic Support",lblChannels:"Official Channels",
+    webTextM:"Main Website",waGroupTextM:"WhatsApp Community",lblClose:"Close",
+    g1:"Exit siege and anonymity",g2:"Develop combat strategy",
+    g3:"Create channels and platforms",g4:"Development and organization",
+    g5:"Create website and operations center",g6:"Operation Creation ALADÍN",
+    g7:"Launch The Purple King",g8:"PAPIRO KEY — First prototype",g9:"PAPIRO Ecosystem — Full closure",
+    postalStain:"▣ X-7777777-LC7°",prev:"Previous",next:"Next",
+    mn1t:"YOUNG BUILDERS",mn1d:"Two young people with welding masks. The initial spark.",
+    mn2t:"ORBIT SYNC",mn2d:"The persistent personal AI. Floating sphere. Voice biometrics.",
+    mn3t:"THE WISE ELDER",mn3d:"With magnifying glass. Creates PAPIRO KEY.",
+    mn4t:"PAPIRO KEY",mn4d:"Sovereign digital identity. A pendrive containing your world.",
+    mn5t:"THREE SUITED GENTLEMEN",mn5d:"Creating the people's digital vault.",
+    mn6t:"PAPIRO 777",mn6d:"The indestructible digital vault. CHOQUE system.",
+    mn7t:"ALADÍN",mn7d:"Voice messaging with an animated genie.",
+    mn8t:"PAPIRO PIXEL",mn8d:"The sovereign social network. 1200 stars. No algorithms.",
+    mn9t:"PAPIRO — THE ULTRANET",mn9d:"The sovereign digital ground. The living book."
   },
   el:{
+    hEco:"Ψηφιακό Οικοσύστημα",hRole:"Υποψήφιος Πρόεδρος Βενεζουέλας<br>Εξόριστος στη Βραζιλία · Arroio do Meio, RS",
     bookEyebrow:"Το Βιβλίο του",bookSubtitle:"Χρονικά του Αιώνιου Bit",openHint:"πατήστε για ανάγνωση",
-    mainSubtitle:"Το Ultranet",
-    mainDesc:`Ένα αποκεντρωμένο, κυρίαρχο και ελεύθερο δίκτυο.<br><em>Καθοδηγείται από ένα βιβλίο. Συντηρείται από τους χρήστες.</em><br><br>Δεν είναι το διαδίκτυο. Δεν είναι το dark web.<br>Είναι κάτι που ο κόσμος δεν έχει ακόμα.<br><em>Και κατασκευάζεται τώρα.</em>`,
-    netTitle:"Κατάσταση Δικτύου",lblNodes:"Κόμβοι",lblWait:"Αναμονή",lblPoss:"Δυνατότητα",netLive:"Αρχικοποίηση...",
-    lblWaitlist:"Εγγραφείτε στη λίστα",btnJoin:"✦ ΕΓΓΡΑΦΗ ΣΤΟ ΔΙΚΤΥΟ ✦",
-    formNote:"Τα στοιχεία σας είναι ιδιωτικά. Ποτέ spam.",
-    successText:"Καλώς ήλθατε!<br>Το όνομά σας είναι γραμμένο στο βιβλίο.",
-    lblSupport:"Υποστηρίξτε την αποστολή",pixTitle:"☕ Συνεισφορά",
-    pixDesc:'"Κάθε bit που συνεισφέρετε χτίζει το δίκτυο."',
-    lblFollow:"Ακολουθήστε μας",
-    finalQuote:`"Η ιστορία γράφεται ακόμα.<br><em>Το βιβλίο οδηγεί. Το δίκτυο ζει. Ο Θεός κατευθύνει.</em>"`,
+    arrText:"↓ Κυλήστε για περισσότερα ↓",arrText2:"↓ Βίντεο · Επαφή · Ομάδα ↓",arrText3:"↓ Γίνετε μέλος ↓",
+    lampOff:"Επιστρέψτε αργότερα —<br>ανά πάσα στιγμή μπορεί να μεταδίδουμε",
+    lampLiveCta:"🎭 Πατήστε για να μπείτε στο live show",viewerLabel:"παρακολουθούν τώρα",
+    v1title:"Αρχικό Βίντεο Μάχης",v1sub:"Έτσι ξεκίνησε η μάχη",
+    v2title:"Τρέχον Βίντεο Μάχης",v2sub:"Η μάχη σήμερα",
+    pixTitle:"☕ Υποστήριξη · Support · Apoio",pixDesc:'"Κάθε συνεισφορά υποστηρίζει τη φωνή."',
+    teamTitle:"▣ Γίνετε μέρος του Οικοσυστήματος",
+    teamSub:"Είστε προγραμματιστής ή επενδυτής; Γράψτε το email σας.",
+    btnTeam:"▣ ΑΠΟΣΤΟΛΗ ΕΝΔΙΑΦΕΡΟΝΤΟΣ ▣",
+    teamSuccessText:"✦ Ελήφθη και καταγράφηκε. · SI° ▣",
+    lblFollow:"Ακολουθήστε μας · Follow",
     vzlaFrom:"Μαργαριτάνος και Βενεζουελάνος",vzlaEcoText:"Ψηφιακό Οικοσύστημα Papiro",
-    vzlaQuote:`<em>"Από το νησί Μαργαρίτα στον κόσμο.<br>Ένα bit τη φορά. Με την ευλογία του Θεού."</em>`,
+    vzlaThought:'Θέλω απλώς να ζω εξαρτώμενος από την πένα μου. <em>"Να συντηρούμαι από τα χαρίσματά μου"</em>',
     chapterLabel:"Πρώτο Κεφάλαιο",chapterTitle:"Η Προέλευση του Αιώνιου Bit",
-    chapterBody:`<p><span class="dropcap">Σ</span>την αρχή δεν υπήρχε σιωπή. Υπήρχε <em>δόνηση</em>. Εκατομμύρια αόρατα σήματα.</p><p>Κανείς δεν είχε σκεφτεί να ρωτήσει τα bits πού ήθελαν να πάνε. Κανείς δεν τους είχε δώσει έναν <em>σκοπό</em> χωρίς μνήμη, χωρίς ψυχή.</p><p>Μέχρι που ένας Βενεζουελάνος εξόριστος στη Βραζιλία έθεσε την ερώτηση:</p><p><em>"Κι αν κάθε bit ήξερε γιατί υπάρχει;"</em></p><p>Έτσι γεννήθηκε το PAPIRO. Ως ένα <em>ζωντανό δίκτυο</em> για το καλό, την αλήθεια και την ελευθερία.</p>`,
-    contactChapter:"Δεύτερο Κεφάλαιο",contactTitle:"Το Δίκτυο Επικοινωνίας",
-    lblDirectContact:"Άμεση Επικοινωνία",waGroupText:"Κοινότητα WhatsApp",lblChannels:"Επίσημα Κανάλια",
-    waChannelText:"Κανάλι WhatsApp",webText:"Κύρια Ιστοσελίδα",lblEconomy:"Οικονομική Υποστήριξη",
-    pixModalText:"PIX Βραζιλία — SrBarbado@gmail.com",lblComingSoon:"Σύντομα",
-    odyseeModalText:"Odysee — Βίντεο χωρίς λογοκρισία",lblClose:"Κλείσιμο",
-    prev:"Προηγούμενο",next:"Επόμενο",btnPapiroTitle:"ΘΕΛΕΤΕ ΝΑ ΜΑΘΕΤΕ ΠΕΡΙΣΣΟΤΕΡΑ;",
-    btnPapiroSub:"Το Βιβλίο σας περιμένει",btnPapiroHint:"Πατήστε για να ανοίξετε",
-    toastCopied:"✓ Pix αντιγράφηκε",toastJoined:"✦ Καλώς ήλθατε",
-    toastError:"⚠ Συμπληρώστε όλα τα πεδία",toastEmail:"⚠ Μη έγκυρο email"
+    chapterText:`<p><span class="dropcap">Σ</span>την αρχή δεν υπήρχε σιωπή. Υπήρχε <em>δόνηση</em>. Εκατομμύρια αόρατα σήματα.</p><p>Κανείς δεν ρώτησε τα bits πού ήθελαν να πάνε. Κανείς δεν τους έδωσε <em>σκοπό</em>.</p><p>Μέχρι που ένας Βενεζουελάνος εξόριστος στη Βραζιλία έθεσε την ερώτηση:</p><p><em>"Κι αν κάθε bit ήξερε γιατί υπάρχει;"</em></p><p>Έτσι γεννήθηκε το PAPIRO. Για το καλό και την ελευθερία.</p>`,
+    mapChapter:"Το Σύμπαν υπό Κατασκευή",mapTitle:"Διαδρομή PAPIRO",
+    goalsChapter:"Κατάσταση Αποστολής",goalsTitle:"Στόχοι Οικοσυστήματος",
+    devVideoLabel:"▣ Ανάπτυξη σε Πραγματικό Χρόνο",
+    acctChapter:"Κανάλια Υποστήριξης",acctTitle:"Υποστηρίξτε την Αποστολή",
+    lblEconomy:"Οικονομική Υποστήριξη",lblChannels:"Επίσημα Κανάλια",
+    webTextM:"Κύρια Ιστοσελίδα",waGroupTextM:"Κοινότητα WhatsApp",lblClose:"Κλείσιμο",
+    g1:"Έξοδος από ανωνυμία",g2:"Στρατηγική μάχης",g3:"Δημιουργία καναλιών",
+    g4:"Ανάπτυξη ιδεών",g5:"Δημιουργία ιστοσελίδας",g6:"Δημιουργία ALADÍN",
+    g7:"Κυκλοφορία Ο Μωβ Βασιλιάς",g8:"PAPIRO KEY πρωτότυπο",g9:"Κλείσιμο Οικοσυστήματος",
+    postalStain:"▣ X-7777777-LC7°",prev:"Προηγούμενο",next:"Επόμενο",
+    mn1t:"ΝΕΟΙ ΚΑΤΑΣΚΕΥΑΣΤΕΣ",mn1d:"Δύο νέοι με μάσκα συγκόλλησης.",
+    mn2t:"ORBIT SYNC",mn2d:"Η επίμονη προσωπική ΤΝ.",
+    mn3t:"Ο ΣΟΦΟΣ ΓΕΡΟΝΤΑΣ",mn3d:"Δημιουργεί το PAPIRO KEY.",
+    mn4t:"PAPIRO KEY",mn4d:"Κυρίαρχη ψηφιακή ταυτότητα.",
+    mn5t:"ΤΡΕΙΣ ΚΥΡΙΟΙ",mn5d:"Δημιουργούν το ψηφιακό θησαυροφυλάκιο.",
+    mn6t:"PAPIRO 777",mn6d:"Το άθραυστο ψηφιακό θησαυροφυλάκιο.",
+    mn7t:"ALADÍN",mn7d:"Φωνητικά μηνύματα με κινούμενο τζίνι.",
+    mn8t:"PAPIRO PIXEL",mn8d:"Το κυρίαρχο κοινωνικό δίκτυο.",
+    mn9t:"PAPIRO — Η ULTRANET",mn9d:"Το κυρίαρχο ψηφιακό έδαφος."
   }
 };
 
 let currentLang='es';
 let currentPage=0;
-let papiroOpen=false;
 let modalAnimActive=false;
+let isLive=false;
+let liveVideoId='';
+let audioCtx=null;
+let musicPlaying=false;
+let masterGain=null;
+let musicNodes=[];
 
-// ══ DETECTAR IDIOMA AUTOMÁTICO ══
+// ══ IDIOMA ══
 function detectLang(){
-  const nav=(navigator.language||navigator.userLanguage||'es').toLowerCase();
-  if(nav.startsWith('pt')) return 'pt';
-  if(nav.startsWith('el')) return 'el';
-  if(nav.startsWith('en')) return 'en';
-  return 'es';
+  const n=(navigator.language||'es').toLowerCase();
+  if(n.startsWith('pt'))return'pt';if(n.startsWith('el'))return'el';if(n.startsWith('en'))return'en';return'es';
 }
-
-function selectLang(lang){
-  currentLang=lang;
-  applyLang(lang);
-  document.querySelectorAll('.flag-patch').forEach(p=>p.classList.remove('active'));
-  document.querySelector(`[data-lang="${lang}"]`).classList.add('active');
-  currentPage=0;
-  openBook();
+function selectLang(l){
+  currentLang=l;applyLang(l);
+  document.querySelectorAll('.flag-hero').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`[data-lang="${l}"]`).classList.add('active');
+  currentPage=0;openBook();
 }
-
-function applyLang(lang){
-  const t=T[lang];
-  const s=(id,val,html=false)=>{const el=document.getElementById(id);if(el){if(html)el.innerHTML=val;else el.textContent=val;}};
+function applyLang(l){
+  const t=T[l];
+  const s=(id,v,h=false)=>{const e=document.getElementById(id);if(e){h?e.innerHTML=v:e.textContent=v;}};
+  s('hEco',t.hEco);s('hRole',t.hRole,true);
   s('bookEyebrow',t.bookEyebrow);s('bookSubtitle',t.bookSubtitle);s('openHint',t.openHint);
-  s('mainSubtitle',t.mainSubtitle);s('mainDesc',t.mainDesc,true);
-  s('netTitle',t.netTitle);s('lblNodes',t.lblNodes);s('lblWait',t.lblWait);s('lblPoss',t.lblPoss);s('netLive',t.netLive);
-  s('lblWaitlist',t.lblWaitlist);s('btnJoin',t.btnJoin);s('formNote',t.formNote);s('successText',t.successText,true);
-  s('lblSupport',t.lblSupport);s('pixTitle',t.pixTitle);s('pixDesc',t.pixDesc);s('lblFollow',t.lblFollow);
-  s('finalQuote',t.finalQuote,true);s('waGroupText',t.waGroupText);s('waChannelText',t.waChannelText);
-  s('vzlaFrom',t.vzlaFrom);s('vzlaEcoText',t.vzlaEcoText);s('vzlaQuote',t.vzlaQuote,true);
-  s('chapterLabel',t.chapterLabel);s('chapterTitle',t.chapterTitle);s('chapterText',t.chapterBody,true);
-  s('contactChapter',t.contactChapter);s('contactTitle',t.contactTitle);
-  s('lblDirectContact',t.lblDirectContact);s('waGroupTextM',t.waGroupText);
-  s('lblChannels',t.lblChannels);s('waChannelTextM',t.waChannelText);
-  s('webTextM',t.webText);s('lblEconomy',t.lblEconomy);s('pixModalText',t.pixModalText);
-  s('lblComingSoon',t.lblComingSoon);s('odyseeModalText',t.odyseeModalText);s('lblClose',t.lblClose);
-  s('btnPapiroTitle',t.btnPapiroTitle);s('btnPapiroSub',t.btnPapiroSub);s('btnPapiroHint',t.btnPapiroHint);
-  ['P0Prev','P0Next','P1Prev','P1Next','P2Prev'].forEach(id=>{
-    const el=document.getElementById('lbl'+id);if(el)el.textContent=id.includes('Prev')?t.prev:t.next;
+  s('arrText',t.arrText);s('arrText2',t.arrText2);s('arrText3',t.arrText3);
+  s('lampOffMsg',t.lampOff,true);s('lampLiveCta',t.lampLiveCta);
+  s('viewerLabel',t.viewerLabel);
+  s('v1title',t.v1title);s('v1sub',t.v1sub);s('v2title',t.v2title);s('v2sub',t.v2sub);
+  s('pixTitle',t.pixTitle);s('pixDesc',t.pixDesc);
+  s('teamTitle',t.teamTitle);s('teamSub',t.teamSub);s('btnTeam',t.btnTeam);s('teamSuccessText',t.teamSuccessText,true);
+  s('lblFollow',t.lblFollow);
+  s('vzlaFrom',t.vzlaFrom);s('vzlaEcoText',t.vzlaEcoText);s('vzlaThought',t.vzlaThought,true);
+  s('chapterLabel',t.chapterLabel);s('chapterTitle',t.chapterTitle);s('chapterText',t.chapterText,true);
+  s('mapChapter',t.mapChapter);s('mapTitle',t.mapTitle);
+  s('goalsChapter',t.goalsChapter);s('goalsTitle',t.goalsTitle);s('devVideoLabel',t.devVideoLabel);
+  s('acctChapter',t.acctChapter);s('acctTitle',t.acctTitle);
+  s('lblEconomy',t.lblEconomy);s('lblChannels',t.lblChannels);
+  s('webTextM',t.webTextM);s('waGroupTextM',t.waGroupTextM);s('lblClose',t.lblClose);
+  s('postalStain',t.postalStain);
+  ['1','2','3','4','5','6','7','8','9'].forEach(n=>{s('mn'+n+'t',t['mn'+n+'t']);s('mn'+n+'d',t['mn'+n+'d']);s('g'+n,t['g'+n]);});
+  ['P0','P1','P2','P3','P4'].forEach(p=>{
+    const pn=document.getElementById('lbl'+p+'Prev');const nx=document.getElementById('lbl'+p+'Next');
+    if(pn)pn.textContent=t.prev;if(nx)nx.textContent=t.next;
   });
-  document.documentElement.lang=lang==='pt'?'pt-BR':lang==='el'?'el':lang==='en'?'en':'es';
+  document.documentElement.lang=l==='pt'?'pt-BR':l==='el'?'el':l==='en'?'en':'es';
+  // Voz CEO labels
+  const vLabels={es:'Filosofía y Pensamiento del C.E.O',pt:'Filosofia e Pensamento do C.E.O',en:'Philosophy and Thought of the C.E.O',el:'Φιλοσοφία και Σκέψη του C.E.O'};
+  const sText={es:'Compartir en mi idioma',pt:'Compartilhar no meu idioma',en:'Share in my language',el:'Κοινοποίηση στη γλώσσα μου'};
+  s('voiceLabel',vLabels[l]||vLabels.es);s('voiceShareText',sText[l]||sText.es);
+  if(typeof updateVoiceSubtitle==='function') updateVoiceSubtitle(l);
+  if(typeof updateHonorTranslations==='function') updateHonorTranslations(l);
 }
 
-// ══ TOGGLE PAPIRO ══
-function togglePapiro(){
-  papiroOpen=!papiroOpen;
-  const section=document.getElementById('papiroSection');
-  const btn=document.getElementById('btnPapiro');
-  section.classList.toggle('open',papiroOpen);
-  btn.classList.toggle('open',papiroOpen);
-  if(papiroOpen){
-    setTimeout(()=>{
-      section.scrollIntoView({behavior:'smooth',block:'start'});
-      initBookCanvases();
-    },300);
-  }
-}
-
-// ══ PÁGINAS DEL LIBRO ══
+// ══ LIBRO ══
 function goPage(n){
-  for(let i=0;i<=2;i++) document.getElementById('page'+i).style.display='none';
-  document.getElementById('page'+n).style.display='block';
+  for(let i=0;i<=5;i++){const e=document.getElementById('page'+i);if(e)e.style.display='none';}
+  const pg=document.getElementById('page'+n);if(pg)pg.style.display='block';
   document.querySelector('.book-page').scrollTop=0;
+  const prev=currentPage;
   currentPage=n;
+  handlePageMusic(n,prev);
+  // Lava buttons & honor wall
+  setTimeout(initLavaButtons,80);
+  if(n===5) renderHonorWall();
 }
 
-// ══ MODAL LIBRO ══
+// ══ AUDIO PARA AL SALIR DE LA PÁGINA ══
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden){
+    try{speechSynthesis&&speechSynthesis.cancel();}catch(e){}
+    stopAlma();
+    try{if(audioCtx&&audioCtx.state==='running')audioCtx.suspend();}catch(e){}
+  }
+});
+
 function openBook(){
   goPage(0);
   document.getElementById('bookModal').classList.add('active');
   document.body.style.overflow='hidden';
   setTimeout(initModalFX,100);
+  // Iniciar cajita musical al abrir
+  if(!musicPlaying) startMusicBoxSilent();
 }
+
 function closeBook(){
   document.getElementById('bookModal').classList.remove('active');
   document.body.style.overflow='';
   modalAnimActive=false;
+  // Parar Alma Llanera
+  stopAlma();
 }
+
 document.getElementById('bookModal').addEventListener('click',function(e){if(e.target===this)closeBook();});
-document.querySelector('.book-title-wrap').addEventListener('click',()=>openBook());
+
+// ══ MÚSICA POR PÁGINA ══
+function handlePageMusic(newPage,prevPage){
+  if(newPage===2){
+    // Página III — Mapa → fade in Alma Llanera, fade out cajita
+    fadeOutMusicBox();
+    startAlma();
+  } else {
+    // Otras páginas → fade out Alma Llanera, fade in cajita
+    if(prevPage===2) stopAlma();
+    if(newPage>=0&&newPage<=4) fadeInMusicBox();
+  }
+}
+
+// ══ CAJITA MUSICAL — HIMNO VENEZOLANO ══
+// Gloria al Bravo Pueblo — notas principales
+const HIMNO_NOTES=[
+  {freq:392,dur:0.4},{freq:392,dur:0.4},{freq:440,dur:0.4},{freq:494,dur:0.4},
+  {freq:523,dur:0.6},{freq:494,dur:0.3},{freq:440,dur:0.3},{freq:392,dur:0.6},
+  {freq:330,dur:0.4},{freq:330,dur:0.4},{freq:349,dur:0.4},{freq:392,dur:0.4},
+  {freq:440,dur:0.6},{freq:392,dur:0.4},{freq:349,dur:0.3},{freq:330,dur:0.3},
+  {freq:294,dur:0.6},{freq:294,dur:0.4},{freq:330,dur:0.4},{freq:349,dur:0.4},
+  {freq:392,dur:0.6},{freq:349,dur:0.3},{freq:330,dur:0.3},{freq:294,dur:0.6},
+  {freq:262,dur:0.4},{freq:262,dur:0.4},{freq:294,dur:0.4},{freq:330,dur:0.4},
+  {freq:349,dur:0.8},{freq:330,dur:0.4},{freq:294,dur:0.3},{freq:262,dur:0.6}
+];
+
+let musicBoxTimeout=null;
+let musicBoxGain=null;
+let musicBoxActive=false;
+
+function initAudio(){
+  if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+}
+
+function playMusicBox(volume=0.08){
+  initAudio();
+  if(musicBoxActive) return;
+  musicBoxActive=true;
+  musicBoxGain=audioCtx.createGain();
+  musicBoxGain.gain.value=volume;
+  musicBoxGain.connect(audioCtx.destination);
+  let time=audioCtx.currentTime+0.1;
+  function scheduleNote(i){
+    if(!musicBoxActive) return;
+    const note=HIMNO_NOTES[i%HIMNO_NOTES.length];
+    const osc=audioCtx.createOscillator();
+    const env=audioCtx.createGain();
+    osc.type='sine';
+    osc.frequency.value=note.freq;
+    env.gain.setValueAtTime(0.8,time);
+    env.gain.exponentialRampToValueAtTime(0.001,time+note.dur*1.8);
+    osc.connect(env);
+    env.connect(musicBoxGain);
+    osc.start(time);
+    osc.stop(time+note.dur*2);
+    time+=note.dur+0.05;
+    const delay=(time-audioCtx.currentTime)*1000;
+    musicBoxTimeout=setTimeout(()=>scheduleNote(i+1),Math.max(0,delay-200));
+  }
+  scheduleNote(0);
+}
+
+function startMusicBoxSilent(){
+  playMusicBox(0.04);
+}
+
+function fadeInMusicBox(){
+  if(!musicBoxActive) playMusicBox(0.04);
+  else if(musicBoxGain){
+    initAudio();
+    musicBoxGain.gain.setTargetAtTime(0.07,audioCtx.currentTime,1);
+  }
+}
+
+function fadeOutMusicBox(){
+  if(musicBoxGain&&audioCtx){
+    musicBoxGain.gain.setTargetAtTime(0.005,audioCtx.currentTime,0.8);
+  }
+}
+
+function stopMusicBox(){
+  musicBoxActive=false;
+  if(musicBoxTimeout) clearTimeout(musicBoxTimeout);
+  if(musicBoxGain&&audioCtx) musicBoxGain.gain.setTargetAtTime(0,audioCtx.currentTime,0.3);
+}
+
+// ══ BOTÓN MÚSICA EXTERNO ══
+function toggleMusic(){
+  const btn=document.getElementById('musicBtn');
+  initAudio();
+  if(!musicPlaying){
+    if(!musicBoxActive) playMusicBox(0.07);
+    else if(musicBoxGain) musicBoxGain.gain.setTargetAtTime(0.07,audioCtx.currentTime,0.5);
+    musicPlaying=true;
+    btn.textContent='🔊';btn.classList.add('playing');
+    showToast('♪ Cajita musical — Himno de Venezuela');
+  } else {
+    if(musicBoxGain) musicBoxGain.gain.setTargetAtTime(0,audioCtx.currentTime,0.5);
+    musicPlaying=false;
+    btn.textContent='🎵';btn.classList.remove('playing');
+    showToast('♪ Música pausada');
+  }
+}
+
+
+// ══ LÁMPARA Y EN VIVO ══
+const YT_CHANNEL_ID='UCxxxxxxxxxxxxxxxxxxxxxxxxxx';
+const YT_API_KEY='';
+
+async function checkLive(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('live')==='true'){
+    const vid=params.get('vid')||'';
+    const viewers=parseInt(params.get('v')||'0');
+    setLampOn(true,vid,viewers);return;
+  }
+  if(YT_API_KEY&&!YT_CHANNEL_ID.includes('xxxx')){
+    try{
+      const r=await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${YT_CHANNEL_ID}&eventType=live&type=video&key=${YT_API_KEY}`);
+      const d=await r.json();
+      if(d.items&&d.items.length>0){
+        const vid=d.items[0].id.videoId;
+        // Get viewer count
+        const r2=await fetch(`https://www.googleapis.com/youtube/v3/videos?part=liveStreamingDetails&id=${vid}&key=${YT_API_KEY}`);
+        const d2=await r2.json();
+        const viewers=d2.items?.[0]?.liveStreamingDetails?.concurrentViewers||0;
+        setLampOn(true,vid,viewers);
+      } else setLampOn(false,'',0);
+    } catch(e){setLampOn(false,'',0);}
+  }
+}
+
+function setLampOn(live,videoId,viewers){
+  isLive=live;liveVideoId=videoId;
+  const flame=document.getElementById('lampFlame');
+  const glass=document.getElementById('lampGlass');
+  const liveText=document.getElementById('lampLiveText');
+  const offMsg=document.getElementById('lampOffMsg');
+  const cta=document.getElementById('lampLiveCta');
+  const viewersEl=document.getElementById('lampViewers');
+  const viewerCount=document.getElementById('viewerCount');
+  if(live){
+    flame.classList.add('on');glass.classList.add('on');
+    liveText.classList.add('on');cta.classList.add('on');
+    offMsg.style.display='none';
+    if(viewers>0){viewersEl.classList.add('on');viewerCount.textContent=viewers.toLocaleString();}
+  } else {
+    flame.classList.remove('on');glass.classList.remove('on');
+    liveText.classList.remove('on');cta.classList.remove('on');
+    offMsg.style.display='block';viewersEl.classList.remove('on');
+  }
+}
+
+function openLive(){
+  if(!isLive) return;
+  const overlay=document.getElementById('curtainOverlay');
+  const vw=document.getElementById('curtainVideo');
+  const src=liveVideoId
+    ?`https://www.youtube.com/embed/${liveVideoId}?autoplay=1`
+    :`https://www.youtube.com/embed?listType=user_uploads&list=Filosofiadigitaldecombate&index=1&autoplay=1`;
+  vw.innerHTML=`<iframe src="${src}" style="width:100%;aspect-ratio:16/9;border:none;display:block;" allow="autoplay;accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe>`;
+  overlay.classList.add('active');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>overlay.classList.add('open'),350);
+}
+
+function closeCurtain(){
+  const overlay=document.getElementById('curtainOverlay');
+  overlay.classList.remove('open');
+  setTimeout(()=>{
+    overlay.classList.remove('active');
+    document.getElementById('curtainVideo').innerHTML='';
+    document.body.style.overflow='';
+  },1300);
+}
+
+// Chequear en vivo cada 90 segundos
+checkLive();
+setInterval(checkLive,90000);
 
 // ══ STARFIELD ══
 (function(){
   const c=document.getElementById('starfield'),ctx=c.getContext('2d');
-  let stars=[],W,H;
-  function resize(){W=c.width=innerWidth;H=c.height=innerHeight;init();}
-  function init(){stars=[];const n=Math.floor((W*H)/9000);for(let i=0;i<n;i++)stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,phase:Math.random()*Math.PI*2,spd:Math.random()*0.006+0.002});}
-  function draw(){ctx.clearRect(0,0,W,H);const t=Date.now()*0.001;stars.forEach(s=>{const a=(Math.sin(t*s.spd*10+s.phase)+1)/2*0.5+0.1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();});requestAnimationFrame(draw);}
-  window.addEventListener('resize',resize);resize();draw();
+  let s=[],W,H;
+  function r(){W=c.width=innerWidth;H=c.height=innerHeight;s=[];const n=Math.floor((W*H)/9000);for(let i=0;i<n;i++)s.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.1+0.2,p:Math.random()*Math.PI*2,sp:Math.random()*0.006+0.002});}
+  function d(){ctx.clearRect(0,0,W,H);const t=Date.now()*0.001;s.forEach(s=>{const a=(Math.sin(t*s.sp*10+s.p)+1)/2*0.5+0.1;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(201,168,76,${a})`;ctx.fill();});requestAnimationFrame(d);}
+  window.addEventListener('resize',r);r();d();
 })();
 
 // ══ GLOBAL RAINBOW ══
 (function(){
   const c=document.getElementById('globalRainbow'),ctx=c.getContext('2d');
-  function resize(){c.width=innerWidth;c.height=innerHeight;}
-  function draw(){
-    ctx.clearRect(0,0,c.width,c.height);
-    const t=Date.now()*0.0005,cx=c.width/2,cy=c.height/2;
-    for(let i=0;i<8;i++){
-      const r=Math.max(c.width,c.height)*(0.3+i*0.1)*(0.9+Math.sin(t+i)*0.1);
-      const hue=(i*40+t*15)%360;
-      const g=ctx.createRadialGradient(cx,cy,r*0.85,cx,cy,r);
-      g.addColorStop(0,`hsla(${hue},80%,55%,0)`);g.addColorStop(0.5,`hsla(${hue},80%,55%,0.05)`);g.addColorStop(1,`hsla(${hue},80%,55%,0)`);
-      ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=g;ctx.lineWidth=3;ctx.stroke();
-    }
-    requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',resize);resize();draw();
+  function r(){c.width=innerWidth;c.height=innerHeight;}
+  function d(){ctx.clearRect(0,0,c.width,c.height);const t=Date.now()*0.0005,cx=c.width/2,cy=c.height/2;
+    for(let i=0;i<8;i++){const r=Math.max(c.width,c.height)*(0.3+i*0.1)*(0.9+Math.sin(t+i)*0.1);const h=(i*40+t*15)%360;const g=ctx.createRadialGradient(cx,cy,r*0.85,cx,cy,r);g.addColorStop(0,`hsla(${h},80%,55%,0)`);g.addColorStop(0.5,`hsla(${h},80%,55%,0.04)`);g.addColorStop(1,`hsla(${h},80%,55%,0)`);ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.strokeStyle=g;ctx.lineWidth=3;ctx.stroke();}
+    requestAnimationFrame(d);}
+  window.addEventListener('resize',r);r();d();
 })();
 
-// ══ BOOK CANVASES (portada) ══
-function initBookCanvases(){
+// ══ BOOK CANVASES ══
+setTimeout(()=>{
   // Stars
-  const cs=document.getElementById('bookStars'),ctxs=cs.getContext('2d');
+  const cs=document.getElementById('bookStarsHero'),ctxs=cs.getContext('2d');
   const cover=cs.parentElement;cs.width=cover.offsetWidth;cs.height=cover.offsetHeight;
-  const stars=[];for(let i=0;i<1200;i++)stars.push({x:Math.random()*cs.width,y:Math.random()*cs.height,r:Math.random()*0.8+0.1,phase:Math.random()*Math.PI*2,spd:Math.random()*0.02+0.005});
-  function drawS(){ctxs.clearRect(0,0,cs.width,cs.height);const t=Date.now()*0.001;stars.forEach(s=>{const a=(Math.sin(t*s.spd*8+s.phase)+1)/2;ctxs.beginPath();ctxs.arc(s.x,s.y,s.r,0,Math.PI*2);ctxs.fillStyle=`rgba(232,201,122,${a*0.65})`;ctxs.fill();});requestAnimationFrame(drawS);}
+  const stars=[];for(let i=0;i<1200;i++)stars.push({x:Math.random()*cs.width,y:Math.random()*cs.height,r:Math.random()*0.8+0.1,p:Math.random()*Math.PI*2,sp:Math.random()*0.02+0.005});
+  function drawS(){ctxs.clearRect(0,0,cs.width,cs.height);const t=Date.now()*0.001;stars.forEach(s=>{const a=(Math.sin(t*s.sp*8+s.p)+1)/2;ctxs.beginPath();ctxs.arc(s.x,s.y,s.r,0,Math.PI*2);ctxs.fillStyle=`rgba(232,201,122,${a*0.6})`;ctxs.fill();});requestAnimationFrame(drawS);}
   drawS();
   // Rainbow
-  const cr=document.getElementById('rainbowCanvas'),ctxr=cr.getContext('2d');
+  const cr=document.getElementById('rainbowHero'),ctxr=cr.getContext('2d');
   cr.width=cover.offsetWidth;cr.height=cover.offsetHeight;
-  function drawR(){
-    ctxr.clearRect(0,0,cr.width,cr.height);
-    const t=Date.now()*0.0008,cx=cr.width/2,cy=cr.height*0.65;
-    for(let i=7;i>=0;i--){
-      const r=cr.width*0.75*(i/7)*(0.8+Math.sin(t+i*0.3)*0.1);
-      const hue=(i*45+t*20)%360;
-      const g=ctxr.createRadialGradient(cx,cy,r*0.8,cx,cy,r);
-      g.addColorStop(0,`hsla(${hue},70%,60%,0)`);g.addColorStop(0.5,`hsla(${hue},70%,60%,0.05)`);g.addColorStop(1,`hsla(${hue},70%,60%,0)`);
-      ctxr.beginPath();ctxr.arc(cx,cy,r,Math.PI,Math.PI*2);ctxr.strokeStyle=g;ctxr.lineWidth=2;ctxr.stroke();
-    }
-    requestAnimationFrame(drawR);
-  }
+  function drawR(){ctxr.clearRect(0,0,cr.width,cr.height);const t=Date.now()*0.0008,cx=cr.width/2,cy=cr.height*0.55;
+    for(let i=7;i>=0;i--){const r=cr.width*0.7*(i/7)*(0.8+Math.sin(t+i*0.3)*0.1);const h=(i*45+t*20)%360;const g=ctxr.createRadialGradient(cx,cy,r*0.8,cx,cy,r);g.addColorStop(0,`hsla(${h},70%,60%,0)`);g.addColorStop(0.5,`hsla(${h},70%,60%,0.05)`);g.addColorStop(1,`hsla(${h},70%,60%,0)`);ctxr.beginPath();ctxr.arc(cx,cy,r,Math.PI,Math.PI*2);ctxr.strokeStyle=g;ctxr.lineWidth=2;ctxr.stroke();}
+    requestAnimationFrame(drawR);}
   drawR();
-}
+},300);
 
 // ══ MODAL FX ══
 function initModalFX(){
   const cs=document.getElementById('modalStars'),ctxs=cs.getContext('2d');
   const p=cs.parentElement;cs.width=p.offsetWidth;cs.height=p.offsetHeight;
-  const stars=[];for(let i=0;i<1200;i++)stars.push({x:Math.random()*cs.width,y:Math.random()*cs.height,r:Math.random()*0.7+0.1,phase:Math.random()*Math.PI*2,spd:Math.random()*0.015+0.003});
+  const st=[];for(let i=0;i<800;i++)st.push({x:Math.random()*cs.width,y:Math.random()*cs.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.015+0.003});
   const cr=document.getElementById('modalRainbow'),ctxr=cr.getContext('2d');
   cr.width=p.offsetWidth;cr.height=p.offsetHeight;
   modalAnimActive=true;
   function draw(){
-    if(!modalAnimActive)return;
-    const t=Date.now()*0.001;
+    if(!modalAnimActive)return;const t=Date.now()*0.001;
     ctxs.clearRect(0,0,cs.width,cs.height);
-    stars.forEach(s=>{const a=(Math.sin(t*s.spd*8+s.phase)+1)/2;ctxs.beginPath();ctxs.arc(s.x,s.y,s.r,0,Math.PI*2);ctxs.fillStyle=`rgba(201,168,76,${a*0.35})`;ctxs.fill();});
-    ctxr.clearRect(0,0,cr.width,cr.height);
-    const cx=cr.width/2,cy=cr.height/2;
-    for(let i=0;i<6;i++){
-      const r=Math.max(cr.width,cr.height)*(0.2+i*0.12)*(0.9+Math.sin(t*0.8+i)*0.1);
-      const hue=(i*50+t*20)%360;
-      const g=ctxr.createRadialGradient(cx,cy,r*0.85,cx,cy,r);
-      g.addColorStop(0,`hsla(${hue},70%,55%,0)`);g.addColorStop(0.5,`hsla(${hue},70%,55%,0.07)`);g.addColorStop(1,`hsla(${hue},70%,55%,0)`);
-      ctxr.beginPath();ctxr.arc(cx,cy,r,0,Math.PI*2);ctxr.strokeStyle=g;ctxr.lineWidth=2;ctxr.stroke();
-    }
-    requestAnimationFrame(draw);
-  }
+    st.forEach(s=>{const a=(Math.sin(t*s.sp*8+s.ph)+1)/2;ctxs.beginPath();ctxs.arc(s.x,s.y,s.r,0,Math.PI*2);ctxs.fillStyle=`rgba(201,168,76,${a*0.3})`;ctxs.fill();});
+    ctxr.clearRect(0,0,cr.width,cr.height);const cx=cr.width/2,cy=cr.height/2;
+    for(let i=0;i<5;i++){const r=Math.max(cr.width,cr.height)*(0.2+i*0.12)*(0.9+Math.sin(t*0.8+i)*0.1);const h=(i*50+t*20)%360;const g=ctxr.createRadialGradient(cx,cy,r*0.85,cx,cy,r);g.addColorStop(0,`hsla(${h},70%,55%,0)`);g.addColorStop(0.5,`hsla(${h},70%,55%,0.06)`);g.addColorStop(1,`hsla(${h},70%,55%,0)`);ctxr.beginPath();ctxr.arc(cx,cy,r,0,Math.PI*2);ctxr.strokeStyle=g;ctxr.lineWidth=2;ctxr.stroke();}
+    requestAnimationFrame(draw);}
   draw();
 }
 
-// ══ WAITLIST ══
-let registros=JSON.parse(localStorage.getItem('papiro_waitlist')||'[]');
-document.getElementById('waitCount').textContent=registros.length;
-document.getElementById('nodeCount').textContent=Math.max(1,registros.length);
-
-function joinWaitlist(){
-  const t=T[currentLang];
-  const name=document.getElementById('wName').value.trim();
-  const email=document.getElementById('wEmail').value.trim();
-  const role=document.getElementById('wRole').value;
-  if(!name||!email||!role){showToast(t.toastError);return;}
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast(t.toastEmail);return;}
-  registros.push({nombre:name,email:email,rol:role,idioma:currentLang,fecha:new Date().toISOString(),id:Date.now()});
-  localStorage.setItem('papiro_waitlist',JSON.stringify(registros));
-  document.getElementById('waitCount').textContent=registros.length;
-  document.getElementById('nodeCount').textContent=registros.length+1;
-  document.getElementById('waitlistForm').style.display='none';
-  document.getElementById('successMsg').style.display='block';
-  showToast(T[currentLang].toastJoined+', '+name+'!');
+// ══ FORMULARIO EQUIPO ══
+let teamData=JSON.parse(localStorage.getItem('papiro_team')||'[]');
+function submitTeam(){
+  const name=document.getElementById('tName').value.trim();
+  const email=document.getElementById('tEmail').value.trim();
+  const role=document.getElementById('tRole').value;
+  const msg=document.getElementById('tMsg').value.trim();
+  if(!name||!email||!role){showToast('⚠ Completa los campos principales');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('⚠ Email no válido');return;}
+  teamData.push({nombre:name,email,rol:role,mensaje:msg,idioma:currentLang,fecha:new Date().toISOString()});
+  localStorage.setItem('papiro_team',JSON.stringify(teamData));
+  document.getElementById('teamForm').style.display='none';
+  document.getElementById('teamSuccess').style.display='block';
+  showToast('▣ SI° · '+name);
 }
 
 // ══ PIX ══
-function copyPix(src){
-  navigator.clipboard.writeText('SrBarbado@gmail.com')
-    .then(()=>showToast(T[currentLang].toastCopied))
-    .catch(()=>showToast(T[currentLang].toastCopied));
-}
+function copyPix(){navigator.clipboard.writeText('FilosofiaDigitaldeCombate@Proton.me').then(()=>showToast('✓ PIX · WISE copiado')).catch(()=>showToast('FilosofiaDigitaldeCombate@Proton.me'));}
+function copyText(t){navigator.clipboard.writeText(t).then(()=>showToast('✓ Copiado')).catch(()=>showToast('✓ '+t));}
 
 // ══ TOAST ══
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
-// ══ CEO — VER REGISTROS EN CONSOLA ══
-window.verRegistros=function(){const d=JSON.parse(localStorage.getItem('papiro_waitlist')||'[]');console.log('PAPIRO CEO — Lista');console.table(d);console.log('Total:',d.length);return d;};
+// ══ ACTIVAR FOTO LIBRETA ══
+window.activarLibreta=function(url){
+  document.getElementById('libretaPhotoWrap').style.display='block';
+  document.getElementById('libretaPhoto').src=url;
+  showToast('📸 Foto de la libreta activada');
+};
 
-// ══ INIT ══
-const autoLang=detectLang();
-currentLang=autoLang;
-applyLang(autoLang);
-document.querySelectorAll('.flag-patch').forEach(p=>p.classList.remove('active'));
-document.querySelector(`[data-lang="${autoLang}"]`).classList.add('active');
+
+// ══ ACTIVAR FOTO LIBRETA ══
+window.activarLibreta=function(url){
+  document.getElementById('libretaPhotoWrap').style.display='block';
+  document.getElementById('libretaPhoto').src=url;
+  showToast('📸 Foto de la libreta activada');
+};
+
+// ══ VOZ CEO ══
+const VOICE_SUBTITLES={
+  es:`<em>"Solo quiero vivir dependiendo de mi pluma y el talento por las palabras.<br>Creo que es una buena forma de vivir — Ser un mantenido de mis dones."</em><br><span style="font-size:12px;color:var(--muted);">— Luis Alfonso Castillejo Ventura · 28/06/2018</span>`,
+  pt:`<em>"Só quero viver dependendo da minha pena e do talento pelas palavras.<br>Acho que é uma boa forma de viver — Ser sustentado pelos meus dons."</em><br><span style="font-size:12px;color:var(--muted);">— Luis Alfonso Castillejo Ventura · 28/06/2018</span>`,
+  en:`<em>"I just want to live depending on my pen and talent for words.<br>I think it is a good way to live — Being sustained by my gifts."</em><br><span style="font-size:12px;color:var(--muted);">— Luis Alfonso Castillejo Ventura · 28/06/2018</span>`,
+  el:`<em>"Θέλω απλώς να ζω εξαρτώμενος από την πένα μου και το ταλέντο μου για τις λέξεις."</em><br><span style="font-size:12px;color:var(--muted);">— Luis Alfonso Castillejo Ventura · 28/06/2018</span>`
+};
+window.activarVoz=function(url){
+  document.getElementById('voicePlaceholder').style.display='none';
+  document.getElementById('voicePlayerWrap').style.display='block';
+  document.getElementById('voiceAudio').src=url;
+  const sub=document.getElementById('voiceSubtitle');
+  sub.style.display='block';
+  sub.innerHTML=VOICE_SUBTITLES[currentLang]||VOICE_SUBTITLES.es;
+};
+function updateVoiceSubtitle(lang){
+  const sub=document.getElementById('voiceSubtitle');
+  if(sub&&sub.style.display!=='none')sub.innerHTML=VOICE_SUBTITLES[lang]||VOICE_SUBTITLES.es;
+}
+
+// ══ COMPARTIR CON IDIOMA ══
+function shareWithLang(){
+  const url='https://filosofiadigitaldecombate.github.io?lang='+currentLang;
+  if(navigator.share){
+    navigator.share({title:'Ecosistema Digital · Creaty Papiro',url:url})
+    .then(()=>showToast('✓ Link compartido · SI°'))
+    .catch(()=>navigator.clipboard.writeText(url).then(()=>showToast('✓ Copiado')));
+  } else {
+    navigator.clipboard.writeText(url).then(()=>showToast('✓ Link copiado — ?lang='+currentLang));
+  }
+}
+
+// ══ ALMA LLANERA — PRIMER TOQUE DESBLOQUEA ══
+const ALMA_VIDEO_ID='dwsxg72qP2U';
+let almaPlaying=false;
+let almaUnlocked=false;
+document.addEventListener('click',function(){almaUnlocked=true;},{once:true});
+
+function userStartAlma(){
+  almaUnlocked=true;
+  if(almaPlaying){stopAlma();return;}
+  startAlma();
+}
+function startAlma(){
+  if(!almaUnlocked||almaPlaying)return;
+  document.getElementById('almaIframe').src=`https://www.youtube.com/embed/${ALMA_VIDEO_ID}?autoplay=1&mute=0&controls=0&loop=1&playlist=${ALMA_VIDEO_ID}`;
+  almaPlaying=true;
+  const btn=document.getElementById('almaBtnIcon');
+  if(btn)btn.textContent='⏹';
+  showToast('♫ El Alma Llanera · OSV desde Grecia');
+}
+function stopAlma(){
+  document.getElementById('almaIframe').src='';
+  almaPlaying=false;
+  const btn=document.getElementById('almaBtnIcon');
+  if(btn)btn.textContent='▶';
+}
+
+// ══ CRUZ PIXELADA CREPITANTE ══
+(function(){
+  const c=document.getElementById('crossCanvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  const CROSS=[
+    [0,0,1,0,0],  // top vertical
+    [0,0,1,0,0],  // 2nd pixel up
+    [1,1,1,1,1],  // horizontal beam — 2 cuadros arriba del centro
+    [0,0,1,0,0],  // below horizontal
+    [0,0,1,0,0],  // below
+    [0,0,1,0,0],  // bottom — vertical más largo
+  ];
+  const px=12;
+  const FIRE=[[255,255,200],[255,220,60],[255,160,20],[255,80,0],[200,30,0]];
+  let parts=[];
+  function rc(){const f=FIRE[Math.floor(Math.random()*FIRE.length)];return`rgb(${f[0]},${f[1]},${f[2]})`;}
+  function draw(){
+    ctx.clearRect(0,0,60,72);
+    const t=Date.now()*0.003;
+    CROSS.forEach((row,ri)=>row.forEach((cell,ci)=>{
+      if(!cell)return;
+      const x=ci*px,y=ri*px;
+      const fl=(Math.sin(t+ci*0.7+ri*0.9)+1)/2;
+      ctx.fillStyle=`rgb(${Math.round(160+fl*95)},${Math.round(20+fl*80)},0)`;
+      ctx.fillRect(x,y,px-1,px-1);
+      ctx.fillStyle=`rgba(255,${Math.round(120+fl*135)},0,0.5)`;
+      ctx.fillRect(x+2,y+2,px-5,px-5);
+      if(fl>0.75){ctx.fillStyle=`rgba(255,255,200,${(fl-0.75)*2.5})`;ctx.fillRect(x+4,y+4,px-9,px-9);}
+      if(Math.random()<0.06)parts.push({x:x+Math.random()*px,y:y+Math.random()*px,vx:(Math.random()-0.5)*0.7,vy:-Math.random()*1.4-0.3,life:1,color:rc()});
+    }));
+    parts=parts.filter(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.life-=0.045;
+      if(p.life<=0)return false;
+      ctx.globalAlpha=p.life*0.7;
+      ctx.fillStyle=p.color;
+      ctx.fillRect(p.x,p.y,Math.max(1,p.life*2),Math.max(1,p.life*2));
+      ctx.globalAlpha=1;
+      return true;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ══ CEO CONSOLA ══
+window.verEquipo=function(){const d=JSON.parse(localStorage.getItem('papiro_team')||'[]');console.log('▣ PAPIRO — Equipo e Inversores');console.table(d);console.log('Total:',d.length);return d;};
+
+// ══ BETA MODAL ══
+const BETA_LANGS={
+  es:{title:'Únete al Universo',sub:'Gracias por ser también ese tipo de persona que le gusta ver, analizar y ser parte de los momentos que cambian el mundo y la historia.',labelName:'Tu nombre',labelEmail:'Tu correo',labelWa:'Tu WhatsApp',labelPref:'¿Cómo quieres recibir los betas?',opt1:'Todos los betas cuando vayan saliendo — ¡quiero estar en todo!',opt2:'Solo el primero que entendí y me pareció genial',opt3:'Uno por ahora y los demás mientras voy comprendiendo',submit:'▣ ENTRAR Y PARTICIPAR · X-7777777-LC7° ▣',success:'Estás en el Muro de Honor.<br>Tu nombre es parte de la historia.<br><em style="color:var(--gold2);">Bienvenido al Universo PAPIRO · SI° ▣</em>',honorChapter:'La Alianza',honorTitle:'Muro de Honor',honorSub:'Estas personas decidieron ser parte de la historia.<br>Sus nombres quedan en el libro para siempre.',heartQ:'¿Quieres recibir los betas de nuestro universo mientras van saliendo?',heartBtn:'✦ Entra y participa ✦'},
+  pt:{title:'Junte-se ao Universo',sub:'Obrigado por ser também esse tipo de pessoa que gosta de ver, analisar e fazer parte dos momentos que mudam o mundo e a história.',labelName:'Seu nome',labelEmail:'Seu email',labelWa:'Seu WhatsApp',labelPref:'Como quer receber os betas?',opt1:'Todos os betas quando forem saindo — quero estar em tudo!',opt2:'Só o primeiro que entendi e me pareceu incrível',opt3:'Um por agora e os demais enquanto vou compreendendo',submit:'▣ ENTRAR E PARTICIPAR · X-7777777-LC7° ▣',success:'Você está no Muro de Honra.<br>Seu nome é parte da história.<br><em style="color:var(--gold2);">Bem-vindo ao Universo PAPIRO · SI° ▣</em>',honorChapter:'A Aliança',honorTitle:'Muro de Honra',honorSub:'Estas pessoas decidiram fazer parte da história.<br>Seus nomes ficam no livro para sempre.',heartQ:'Quer receber os betas do nosso universo enquanto vão saindo?',heartBtn:'✦ Entre e participe ✦'},
+  en:{title:'Join the Universe',sub:'Thank you for being that type of person who likes to see, analyze and be part of the moments that change the world and history.',labelName:'Your name',labelEmail:'Your email',labelWa:'Your WhatsApp',labelPref:'How do you want to receive the betas?',opt1:'All betas as they launch — I want to be part of everything!',opt2:'Just the first one I understood and loved',opt3:'One for now and the rest as I understand and they launch',submit:'▣ ENTER AND PARTICIPATE · X-7777777-LC7° ▣',success:'You are on the Wall of Honor.<br>Your name is part of history.<br><em style="color:var(--gold2);">Welcome to the PAPIRO Universe · SI° ▣</em>',honorChapter:'The Alliance',honorTitle:'Wall of Honor',honorSub:'These people decided to be part of history.<br>Their names stay in the book forever.',heartQ:'Do you want to receive our universe betas as they launch?',heartBtn:'✦ Enter and participate ✦'},
+  el:{title:'Γίνε μέρος του Σύμπαντος',sub:'Σας ευχαριστούμε που είστε αυτό το είδος ανθρώπου.',labelName:'Το όνομά σας',labelEmail:'Το email σας',labelWa:'Το WhatsApp σας',labelPref:'Πώς θέλετε να λαμβάνετε τα betas;',opt1:'Όλα τα betas',opt2:'Μόνο το πρώτο',opt3:'Ένα για τώρα',submit:'▣ ΕΙΣΟΔΟΣ ΚΑΙ ΣΥΜΜΕΤΟΧΗ ▣',success:'Είστε στο Τείχος Τιμής.<br><em style="color:var(--gold2);">Καλώς ήλθατε · SI° ▣</em>',honorChapter:'Η Συμμαχία',honorTitle:'Τείχος Τιμής',honorSub:'Αυτοί οι άνθρωποι αποφάσισαν να είναι μέρος της ιστορίας.',heartQ:'Θέλετε να λαμβάνετε τα betas;',heartBtn:'✦ Μπείτε ✦'}
+};
+let selectedOpt=1;
+let betaUsers=JSON.parse(localStorage.getItem('papiro_beta')||'[]');
+let myBetaLink='';
+
+function selectOpt(n){
+  selectedOpt=n;
+  [1,2,3].forEach(i=>{document.getElementById('opt'+i).classList.toggle('selected',i===n);});
+}
+function getLangFlag(){return{es:'🇻🇪',pt:'🇧🇷',en:'🇬🇧',el:'🇬🇷'}[currentLang]||'🌍';}
+
+function openBetaModal(){
+  const t=BETA_LANGS[currentLang]||BETA_LANGS.es;
+  const s=(id,v,h=false)=>{const e=document.getElementById(id);if(e){h?e.innerHTML=v:e.textContent=v;}};
+  s('betaTitle',t.title);s('betaSub',t.sub);
+  s('betaLabelName',t.labelName);s('betaLabelEmail',t.labelEmail);
+  s('betaLabelWa',t.labelWa);s('betaLabelPref',t.labelPref);
+  s('betaOpt1',t.opt1);s('betaOpt2',t.opt2);s('betaOpt3',t.opt3);
+  s('betaSubmitBtn',t.submit);
+  document.getElementById('betaForm').style.display='block';
+  document.getElementById('betaSuccess').style.display='none';
+  document.getElementById('betaOverlay').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+function closeBetaModal(){
+  document.getElementById('betaOverlay').classList.remove('active');
+  document.body.style.overflow='';
+}
+document.getElementById('betaOverlay').addEventListener('click',function(e){if(e.target===this)closeBetaModal();});
+
+function submitBeta(){
+  const name=document.getElementById('betaName').value.trim();
+  const email=document.getElementById('betaEmail').value.trim();
+  const wa=document.getElementById('betaWa').value.trim();
+  if(!name||!email){showToast('⚠ Nombre y correo son necesarios');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showToast('⚠ Email no válido');return;}
+  const prefs=['todos-los-betas','solo-el-primero','uno-por-ahora'];
+  const id='ref-'+Date.now()+'-'+Math.random().toString(36).substr(2,5);
+  const entry={id,name,email,wa,pref:prefs[selectedOpt-1],lang:currentLang,date:new Date().toISOString(),flag:getLangFlag()};
+  betaUsers.push(entry);
+  localStorage.setItem('papiro_beta',JSON.stringify(betaUsers));
+  myBetaLink='https://filosofiadigitaldecombate.github.io?ref='+id;
+  const t=BETA_LANGS[currentLang]||BETA_LANGS.es;
+  document.getElementById('betaForm').style.display='none';
+  document.getElementById('betaSuccess').style.display='block';
+  document.getElementById('betaSuccessText').innerHTML=t.success;
+  document.getElementById('betaLinkWrap').style.display='flex';
+  document.getElementById('betaLinkTxt').textContent=myBetaLink;
+  renderHonorWall();
+  showToast('💜 '+name+' · SI°');
+}
+function copyBetaLink(){navigator.clipboard.writeText(myBetaLink).then(()=>showToast('✓ Link copiado · compártelo'));}
+
+function renderHonorWall(){
+  const list=document.getElementById('honorList');
+  if(!list)return;
+  betaUsers=JSON.parse(localStorage.getItem('papiro_beta')||'[]');
+  const empty=document.getElementById('honorEmpty');
+  if(betaUsers.length===0){if(empty)empty.style.display='block';list.innerHTML='';list.appendChild(empty);return;}
+  list.innerHTML='';
+  betaUsers.slice().reverse().forEach((u,i)=>{
+    const div=document.createElement('div');
+    div.className='honor-item';
+    div.innerHTML=`<span class="honor-num">#${String(betaUsers.length-i).padStart(3,'0')}</span><span class="honor-name">${u.name}</span><span class="honor-flag">${u.flag||'🌍'}</span>`;
+    list.appendChild(div);
+  });
+}
+
+function updateHonorTranslations(lang){
+  const t=BETA_LANGS[lang]||BETA_LANGS.es;
+  const s=(id,v,h=false)=>{const e=document.getElementById(id);if(e){h?e.innerHTML=v:e.textContent=v;}};
+  s('honorChapter',t.honorChapter);s('honorTitle',t.honorTitle);
+  if(t.honorSub)s('honorSub',t.honorSub,true);
+  s('heartQuestion',t.heartQ);s('heartBtn',t.heartBtn);
+}
+
+// ══ BOTONES 8-BIT LAVA ══
+function initLavaButtons(){
+  document.querySelectorAll('.lava-btn-canvas').forEach(c=>{
+    if(c._lavaInit)return;c._lavaInit=true;
+    const btn=c.parentElement;
+    c.width=btn.offsetWidth||100;c.height=btn.offsetHeight||38;
+    const ctx=c.getContext('2d');
+    const px=4;
+    const cols=Math.ceil(c.width/px)+1;
+    const rows=Math.ceil(c.height/px)+1;
+    const LAVA=[[255,50,0,0.15],[255,100,0,0.12],[255,180,0,0.1],[200,30,0,0.18],[255,70,0,0.14]];
+    function draw(){
+      ctx.clearRect(0,0,c.width,c.height);
+      for(let r=0;r<rows;r++){
+        for(let co=0;co<cols;co++){
+          if(Math.random()<0.12){
+            const lc=LAVA[Math.floor(Math.random()*LAVA.length)];
+            ctx.fillStyle=`rgba(${lc[0]},${lc[1]},${lc[2]},${lc[3]*(0.5+Math.random())})`;
+            ctx.fillRect(co*px,r*px,px,px);
+          }
+        }
+      }
+      requestAnimationFrame(draw);
+    }
+    draw();
+  });
+}
+
+// CEO consola betas
+window.verBetas=function(){const d=JSON.parse(localStorage.getItem('papiro_beta')||'[]');console.log('💜 PAPIRO — Muro de Honor');console.table(d);console.log('Total:',d.length);return d;};
+
+// ══ INIT — lee ?lang= de la URL ══
+const urlLangParam=new URLSearchParams(window.location.search).get('lang');
+const initLang=(urlLangParam&&T[urlLangParam])?urlLangParam:detectLang();
+currentLang=initLang;applyLang(initLang);
+document.querySelectorAll('.flag-hero').forEach(p=>p.classList.remove('active'));
+document.querySelector(`[data-lang="${initLang}"]`).classList.add('active');
 </script>
 </body>
 </html>
