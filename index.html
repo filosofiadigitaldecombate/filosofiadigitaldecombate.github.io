@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ecosistema Digital · Creaty Papiro</title>
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#06050A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Creaty Papiro">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="description" content="Ecosistema Digital PAPIRO — Filosofía Digital de Combate · X-7777777-LC7°">
 <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -427,7 +435,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
 .ceo-voice-subtitle em{color:var(--gold2);}
 .ceo-share-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;padding:9px 16px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.3);border-radius:9px;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;color:var(--gold2);letter-spacing:2px;transition:all 0.3s;width:100%;}
 .ceo-share-btn:hover{background:rgba(201,168,76,0.2);}
-/* MÚSICA BTN */
+/* ══ BOTÓN SALÓN PAPIRO ══ */
+.salon-btn-wrap{width:100%;display:flex;justify-content:center;padding:8px 16px 0;}
+.btn-salon{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(74,30,106,0.3),rgba(40,10,60,0.4));border:1px solid rgba(150,80,200,0.45);border-radius:14px;padding:12px 22px;cursor:pointer;transition:all 0.3s;text-decoration:none;box-shadow:0 0 20px rgba(74,30,106,0.2);width:90%;}
+.btn-salon:hover{background:linear-gradient(135deg,rgba(74,30,106,0.5),rgba(40,10,60,0.6));border-color:rgba(200,130,255,0.6);box-shadow:0 0 30px rgba(100,40,150,0.4);transform:translateY(-2px);}
+.btn-salon-icon{font-size:24px;flex-shrink:0;}
+.btn-salon-text{flex:1;text-align:left;}
+.btn-salon-title{font-family:'Cinzel',serif;font-size:12px;color:#E8D8F8;letter-spacing:2px;display:block;margin-bottom:2px;}
+.btn-salon-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:11px;color:#8A7A9E;}
+.btn-salon-arrow{font-size:16px;color:rgba(200,130,255,0.7);}
+
+/* ══ CRUZ PIXELADA ══ */
 .music-btn{position:fixed;bottom:20px;right:16px;z-index:300;width:46px;height:46px;border-radius:50%;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all 0.3s;box-shadow:0 2px 12px rgba(0,0,0,0.5);}
 .music-btn:hover{background:rgba(201,168,76,0.28);transform:scale(1.1);}
 .music-btn.playing{animation:musicPulse 2s ease-in-out infinite;}
@@ -445,7 +463,33 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:var(--dark);}
 ::-webkit-scrollbar-thumb{background:rgba(201,168,76,0.2);border-radius:3px;}
-</style>
+
+/* ══ LOGO SALÓN PAPIRO ══ */
+.salon-logo-wrap{position:relative;cursor:pointer;display:inline-flex;flex-direction:column;align-items:center;gap:5px;transition:transform 0.3s;}
+.salon-logo-wrap:hover{transform:scale(1.07);}
+.salon-logo-cover{width:70px;height:70px;animation:salonGlow 2.5s ease-in-out infinite;}
+@keyframes salonGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(255,255,255,0.85)) drop-shadow(0 0 28px rgba(255,255,200,0.5));}50%{filter:drop-shadow(0 0 24px rgba(255,255,255,1)) drop-shadow(0 0 48px rgba(255,255,220,0.8));}}
+.salon-logo-page{width:32px;height:32px;opacity:0.7;transition:all 0.3s;cursor:pointer;}
+.salon-logo-page:hover{opacity:1;filter:drop-shadow(0 0 6px rgba(201,168,76,0.7));transform:scale(1.15);}
+.salon-logo-text{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;color:var(--gold2);text-align:center;line-height:1.6;max-width:180px;}
+.btn-salon-header{display:flex;align-items:center;gap:7px;background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.35);border-radius:999px;padding:6px 13px;cursor:pointer;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--gold2);transition:all 0.3s;white-space:nowrap;}
+.btn-salon-header:hover{background:rgba(201,168,76,0.22);box-shadow:0 0 14px rgba(201,168,76,0.3);}
+
+/* PÁGINA REALEZA DEL SALÓN */
+.salon-royal-page{background:linear-gradient(160deg,#0A1A0A 0%,#0D220D 50%,#081508 100%);border-radius:12px;padding:26px 18px;margin-bottom:14px;border:1px solid rgba(180,150,80,0.3);position:relative;overflow:hidden;}
+.salon-royal-page::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(255,255,255,0.007) 0px,transparent 2px,transparent 6px,rgba(255,255,255,0.007) 8px);pointer-events:none;}
+.royal-logo-center{display:flex;justify-content:center;margin-bottom:16px;position:relative;z-index:2;}
+.royal-title{font-family:'Cinzel',serif;font-size:17px;font-weight:900;text-align:center;letter-spacing:3px;margin-bottom:5px;position:relative;z-index:2;background:linear-gradient(135deg,#FFE8F0 0%,#E8F0FF 33%,#FFFFFF 66%,#FFE8F0 100%);background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:pearlShimmer 4s linear infinite;}
+@keyframes pearlShimmer{0%{background-position:0% center;}100%{background-position:300% center;}}
+.royal-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:rgba(220,200,170,0.8);text-align:center;line-height:1.8;margin-bottom:14px;position:relative;z-index:2;}
+.royal-welcome{font-family:'Crimson Pro',serif;font-size:13px;color:rgba(200,185,155,0.9);text-align:center;line-height:1.9;margin-bottom:16px;position:relative;z-index:2;}
+.royal-welcome em{color:#E8C97A;}
+.royal-corner{position:absolute;opacity:0.15;cursor:pointer;transition:opacity 0.3s;}
+.royal-corner:hover{opacity:0.45;}
+.royal-corner.tl{top:7px;left:7px;}.royal-corner.tr{top:7px;right:7px;}.royal-corner.bl{bottom:7px;left:7px;}.royal-corner.br{bottom:7px;right:7px;}
+.btn-enter-salon{width:100%;background:linear-gradient(135deg,rgba(180,150,80,0.18),rgba(180,150,80,0.04));border:1px solid rgba(180,150,80,0.45);border-radius:11px;padding:13px;cursor:pointer;transition:all 0.3s;position:relative;z-index:2;display:flex;align-items:center;justify-content:center;gap:10px;}
+.btn-enter-salon:hover{background:linear-gradient(135deg,rgba(180,150,80,0.32),rgba(180,150,80,0.08));box-shadow:0 0 18px rgba(180,150,80,0.2);}
+.btn-enter-salon-txt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;background:linear-gradient(135deg,#FFE8F0,#E8F0FF,#FFFFFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}</style>
 </head>
 <body>
 <canvas id="starfield"></canvas>
@@ -458,6 +502,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
 
   <!-- ══ HEADER ══ -->
   <div class="site-header" style="opacity:0;animation:fadeUp 1s 0.2s forwards;">
+    <!-- BOTÓN SALÓN HEADER -->
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+      <button class="btn-salon-header" onclick="window.location.href='salon.html'">
+        <canvas id="salonLogoHeaderCanvas" width="22" height="22"></canvas>
+        <span>Salón Papiro</span>
+      </button>
+    </div>
     <div class="header-eco" id="hEco">Ecosistema Digital</div>
     <!-- FRASE FFEE EN LAVA -->
     <div class="ffee-wrap">
@@ -468,6 +519,17 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
     <div class="header-ceo">C.E.O · Luis Alfonso Castillejo Ventura</div>
     <div class="header-role" id="hRole">Aspirante a la Candidatura Presidencial de Venezuela<br>Exiliado en Brasil · Arroio do Meio, RS</div>
     <div class="header-seal">X-7777777-LC7° · SI° · 350 · 777</div>
+    <!-- BOTÓN SALÓN PAPIRO — HEADER -->
+    <div class="salon-btn-wrap" style="margin-top:14px;">
+      <a href="salon.html" class="btn-salon">
+        <span class="btn-salon-icon">🏛️</span>
+        <span class="btn-salon-text">
+          <span class="btn-salon-title">SALÓN PAPIRO</span>
+          <span class="btn-salon-sub">Juegos venezolanos · Bolívares · TV Social</span>
+        </span>
+        <span class="btn-salon-arrow">▶</span>
+      </a>
+    </div>
   </div>
 
   <!-- ══ LIBRO HERO ══ -->
@@ -486,6 +548,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
 
       <!-- CRUZ PIXELADA CREPITANTE — Cruz de Cristo -->
       <canvas id="crossCanvas" width="60" height="72" onclick="event.stopPropagation();"></canvas>
+
+      <!-- LOGO SALÓN — LUZ RADIANTE EN PORTADA -->
+      <div style="position:relative;z-index:5;margin:8px 0;" onclick="event.stopPropagation();">
+        <div class="salon-logo-wrap" onclick="window.location.href='salon.html'">
+          <canvas id="salonLogoCoverCanvas" class="salon-logo-cover" width="70" height="70"></canvas>
+          <div class="salon-logo-text" id="salonLogoText">Salón Papiro</div>
+        </div>
+      </div>
 
       <div class="postal-wrap" onclick="event.stopPropagation();">
         <div class="postal-tape"></div>
@@ -585,7 +655,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
         <div class="pix-title-c" id="pixTitle">☕ Apoyo · Apoio · Support</div>
         <div class="pix-desc-c" id="pixDesc">"Cada contribución sostiene la voz y la visión."</div>
         <div class="pix-row-c">
-          <span class="pix-key-c">FilosofiaDigitaldeCombate@Proton.me</span>
+          <span class="pix-key-c"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="92d4fbfefde1fdf4fbf3d6fbf5fbe6f3fef6f7d1fdfff0f3e6f7d2c2e0fde6fdfcbcfff7">[email&#160;protected]</a></span>
           <button class="btn-copy-c" onclick="copyPix()">PIX · WISE</button>
         </div>
       </div>
@@ -643,6 +713,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
   </div>
 
   <div class="footer-quote">"A voz não mente. A história ainda está sendo escrita.<br><em style="color:var(--gold2);">El libro guía. La red vive. Dios dirige.</em>"<br><br><span style="font-family:'Cinzel',serif;font-size:11px;color:var(--gold);letter-spacing:2px;">✦ X-7777777-LC7° · PAPIRO · SI° · Art. 350 ✦</span></div>
+
+  <!-- BOTÓN SALÓN PAPIRO — FOOTER -->
+  <div class="salon-btn-wrap" style="margin-top:20px;margin-bottom:10px;">
+    <a href="salon.html" class="btn-salon">
+      <span class="btn-salon-icon">🏛️</span>
+      <span class="btn-salon-text">
+        <span class="btn-salon-title">ENTRA AL SALÓN PAPIRO</span>
+        <span class="btn-salon-sub">🦊 Zorro y Gallinas · Bolívares · Muro · TV Social</span>
+      </span>
+      <span class="btn-salon-arrow">▶</span>
+    </a>
+  </div>
 
   <!-- STAMP PIE DE PÁGINA -->
   <div class="footer-stamp" style="width:100%;margin-top:16px;">
@@ -880,8 +962,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
       </div>
       <div class="page-rule"></div>
       <div class="contact-section-title" id="lblEconomy">Apoyo Económico · Apoio Econômico</div>
-      <div class="account-item" onclick="copyText('FilosofiaDigitaldeCombate@Proton.me')"><span class="acc-icon">💛</span><div class="acc-info"><div class="acc-name">PIX · WISE Brasil</div><div class="acc-id">FilosofiaDigitaldeCombate@Proton.me</div></div><div class="acc-action">copiar</div></div>
-      <div class="account-item" onclick="copyText('SrBarbado@gmail.com')"><span class="acc-icon">💳</span><div class="acc-info"><div class="acc-name">PIX · Gmail</div><div class="acc-id">SrBarbado@gmail.com</div></div><div class="acc-action">copiar</div></div>
+      <div class="account-item" onclick="copyText('FilosofiaDigitaldeCombate@Proton.me')"><span class="acc-icon">💛</span><div class="acc-info"><div class="acc-name">PIX · WISE Brasil</div><div class="acc-id"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f8be9194978b979e9199bc919f918c99949c9dbb97959a998c9db8a88a978c9796d6959d">[email&#160;protected]</a></div></div><div class="acc-action">copiar</div></div>
+      <div class="account-item" onclick="copyText('SrBarbado@gmail.com')"><span class="acc-icon">💳</span><div class="acc-info"><div class="acc-name">PIX · Gmail</div><div class="acc-id"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="287b5a6a495a4a494c47684f45494144064b4745">[email&#160;protected]</a></div></div><div class="acc-action">copiar</div></div>
       <div class="account-item" onclick="window.open('https://ko-fi.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">☕</span><div class="acc-info"><div class="acc-name">Ko-fi · Internacional</div><div class="acc-id">ko-fi.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
       <div class="account-item" onclick="window.open('https://gumroad.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">📚</span><div class="acc-info"><div class="acc-name">Gumroad · Libros y Documentos</div><div class="acc-id">gumroad.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
       <div class="account-item" onclick="window.open('https://patreon.com/filosofiadigitaldecombate','_blank')"><span class="acc-icon">🏛️</span><div class="acc-info"><div class="acc-name">Patreon · Membresía Mensual</div><div class="acc-id">patreon.com/filosofiadigitaldecombate</div></div><div class="acc-action">abrir</div></div>
@@ -957,7 +1039,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
     </div>
 
     <!-- PÁGINA 5 — MURO DE HONOR -->
-    <div id="page5" style="display:none;">
+    <div id="page5" style="display:none;position:relative;">
+      <!-- LOGO ESQUINA -->
+      <canvas class="royal-corner tl salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
+      <canvas class="royal-corner tr salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
       <div class="page-header">
         <span class="page-ornament">🏛️ ✦ 💜</span>
         <div class="page-chapter" id="honorChapter">La Alianza</div>
@@ -972,7 +1057,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
           <div class="honor-empty" id="honorEmpty">Sé el primero en el Muro de Honor.<br>Toca el corazón en la página anterior.</div>
         </div>
       </div>
-      <!-- FRASE FFEE ESTAMPADA -->
       <div class="footer-stamp" style="margin-top:20px;">
         <div class="stamp-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
         <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
@@ -981,7 +1065,45 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
       <div class="page-nav">
         <button class="btn-page-lava" onclick="goPage(4)"><canvas class="lava-btn-canvas"></canvas><span>← <span id="lblP5Prev">Anterior</span></span></button>
         <span class="page-indicator">· VI ·</span>
-        <button class="btn-page-lava" onclick="closeBook()"><canvas class="lava-btn-canvas"></canvas><span><span id="lblClose">Cerrar</span> ✕</span></button>
+        <button class="btn-page-lava" onclick="goPage(6)"><canvas class="lava-btn-canvas"></canvas><span><span id="lblP5Next">Salón</span> 🏛️</span></button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 6 — SALÓN PAPIRO REALEZA -->
+    <div id="page6" style="display:none;position:relative;">
+      <!-- Logos carbón en las 4 esquinas -->
+      <canvas class="royal-corner tl salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
+      <canvas class="royal-corner tr salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
+      <canvas class="royal-corner bl salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
+      <canvas class="royal-corner br salon-corner-page" width="28" height="28" onclick="window.location.href='salon.html'"></canvas>
+
+      <div class="salon-royal-page">
+        <div class="royal-logo-center">
+          <canvas id="salonLogoRoyalCanvas" width="90" height="90" style="animation:salonGlow 2.5s ease-in-out infinite;cursor:pointer;" onclick="window.location.href='salon.html'"></canvas>
+        </div>
+        <div class="royal-title" id="royalTitle">SALÓN PAPIRO</div>
+        <div class="royal-sub" id="royalSub">Como en Casa · Juegos Venezolanos · Expresiones</div>
+        <div class="royal-welcome" id="royalWelcome">
+          Donde veas este logo — desde la portada del libro hasta su última página — puedes presionarlo para entrar al <em>Salón de Juegos</em>.<br><br>
+          Entra con toda la confianza. Te vamos a mostrar cuáles juegos tenemos, cuáles están por salir y cuáles son online y sus modalidades.<br><br>
+          Y si no sabes cómo se juega alguno... y te falta tierra en los talones 😄 — tranquil@, <em>nosotros te enseñamos</em>.<br><br>
+          Créate un usuario rápidito, anótate para recibir la beta de nuestra primera app en su lanzamiento, conviértete en ese <strong style="color:var(--gold);">Papfan</strong> que entiende lo importante y lo sagrado que es el regreso a casa...<br><br>
+          <em>(Disfruta y demuestra que tienes Fe y Creatividad)</em><br>
+          <span style="font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);letter-spacing:2px;">"Creativity by Papiro" · -Creatypap@-</span><br><br>
+          🇻🇪❤️ <strong style="color:var(--gold);">#Papfans</strong> 🇻🇪❤️<br>
+          <span style="font-size:10px;color:var(--muted);letter-spacing:1px;">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>
+        </div>
+        <button class="btn-enter-salon" onclick="window.location.href='salon.html'">
+          <canvas id="salonLogoBtnCanvas" width="24" height="24"></canvas>
+          <span class="btn-enter-salon-txt" id="royalBtnText">▣ ENTRAR AL SALÓN PAPIRO ▣</span>
+        </button>
+      </div>
+
+      <div class="page-rule"></div>
+      <div class="page-nav">
+        <button class="btn-page-lava" onclick="goPage(5)"><canvas class="lava-btn-canvas"></canvas><span>← <span id="lblP6Prev">Anterior</span></span></button>
+        <span class="page-indicator">· VII ·</span>
+        <button class="btn-page-lava" onclick="closeBook()"><canvas class="lava-btn-canvas"></canvas><span><span id="lblClose2">Cerrar</span> ✕</span></button>
       </div>
     </div>
 
@@ -1053,7 +1175,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--text);m
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════════
 // TRADUCCIONES
 // ══════════════════════════════════
@@ -1082,7 +1204,7 @@ const T={
     devVideoLabel:"▣ Desarrollo en Tiempo Real · Video Actual",
     acctChapter:"Canales de Apoyo",acctTitle:"Apoya la Misión",
     lblEconomy:"Apoyo Económico",lblChannels:"Canales Oficiales",
-    webTextM:"Página Principal",waGroupTextM:"Comunidad WhatsApp",lblClose:"Cerrar",
+    webTextM:"Página Principal",waGroupTextM:"Comunidad WhatsApp",lblClose:"Cerrar",lblClose2:"Cerrar",lblP6Prev:"Anterior",royalTitle:"SALÓN PAPIRO",royalSub:"Como en Casa · Juegos Venezolanos · Expresiones",royalBtnText:"▣ ENTRAR AL SALÓN PAPIRO ▣",royalWelcome:"Donde veas este logo — desde la portada del libro hasta su última página — puedes presionarlo para entrar al <em>Salón de Juegos</em>.<br><br> Entra con toda la confianza. Te vamos a mostrar cuáles juegos tenemos, cuáles están por salir y cuáles son online y sus modalidades.<br><br> Y si no sabes cómo se juega alguno... y te falta tierra en los talones 😄 — tranquil@, <em>nosotros te enseñamos</em>.<br><br> Créate un usuario rápidito, anótate para recibir la beta de nuestra primera app en su lanzamiento, conviértete en ese <strong style=\"color:var(--gold);\">Papfan</strong> que entiende lo importante y lo sagrado que es el regreso a casa...<br><br> <em>(Disfruta y demuestra que tienes Fe y Creatividad)</em><br> <span style=\"font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);letter-spacing:2px;\">\"Creativity by Papiro\" · -Creatypap@-</span><br><br> 🇻🇪❤️ <strong style=\"color:var(--gold);\">#Papfans</strong> 🇻🇪❤️<br> <span style=\"font-size:10px;color:var(--muted);letter-spacing:1px;\">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>",
     g1:"Salir del asedio y el anonimato",g2:"Desarrollar estrategia de combate",
     g3:"Crear canales y plataformas",g4:"Desarrollo y organización de ideas",
     g5:"Crear página web y centro de operaciones",g6:"Operación Creación ALADÍN",
@@ -1121,7 +1243,7 @@ const T={
     devVideoLabel:"▣ Desenvolvimento em Tempo Real · Vídeo Atual",
     acctChapter:"Canais de Apoio",acctTitle:"Apoie a Missão",
     lblEconomy:"Apoio Econômico",lblChannels:"Canais Oficiais",
-    webTextM:"Página Principal",waGroupTextM:"Comunidade WhatsApp",lblClose:"Fechar",
+    webTextM:"Página Principal",waGroupTextM:"Comunidade WhatsApp",lblClose:"Fechar",lblClose2:"Fechar",lblP6Prev:"Anterior",royalTitle:"SALÃO PAPIRO",royalSub:"Como em Casa · Jogos Venezuelanos · Expressões",royalBtnText:"▣ ENTRAR NO SALÃO PAPIRO ▣",royalWelcome:"Onde quer que você veja este logotipo — da capa do livro à última página — você pode pressioná-lo para entrar na <em>Sala de Jogos</em>.<br><br> Entre com total confiança. Mostraremos quais jogos temos, quais estão chegando em breve e quais estão online e seus modos.<br><br> E se você não souber como jogar nenhum deles... e estiver se sentindo um pouco perdido 😄 — não se preocupe, <em>nós ensinaremos</em>.<br><br> Crie uma conta de usuário rapidamente, inscreva-se para receber a versão beta do nosso primeiro aplicativo quando for lançado, torne-se aquele <strong style=\"color:var(--gold);\">Papfan</strong> que entende o quão importante e sagrado é voltar para casa...<br><br> <em>(Aproveite e mostre que você tem Fé e Criatividade)</em><br> <span style=\"font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);letter-spacing:2px;\">\"Criatividade por Papiro\" · -Creatypap@-</span><br><br> 🇻🇪❤️ <strong style=\"color:var(--gold);\">#Papfans</strong> 🇻🇪❤️<br> <span style=\"font-size:10px;color:var(--muted);letter-spacing:1px;\">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>",
     g1:"Sair do cerco e do anonimato",g2:"Desenvolver estratégia de combate",
     g3:"Criar canais e plataformas",g4:"Desenvolvimento e organização de ideias",
     g5:"Criar site e centro de operações",g6:"Operação Criação ALADÍN",
@@ -1160,7 +1282,7 @@ const T={
     devVideoLabel:"▣ Real-Time Development · Current Video",
     acctChapter:"Support Channels",acctTitle:"Support the Mission",
     lblEconomy:"Economic Support",lblChannels:"Official Channels",
-    webTextM:"Main Website",waGroupTextM:"WhatsApp Community",lblClose:"Close",
+    webTextM:"Main Website",waGroupTextM:"WhatsApp Community",lblClose:"Close",lblClose2:"Close",lblP6Prev:"Previous",royalTitle:"PAPIRO LOUNGE",royalSub:"Like Home · Venezuelan Games · Expressions",royalBtnText:"▣ ENTER THE PAPIRO LOUNGE ▣",royalWelcome:"Wherever you see this logo — from the book cover to its last page — you can press it to enter the <em>Game Room</em>.<br><br> Enter with complete confidence. We will show you which games we have, which ones are coming soon, and which ones are online and their modes.<br><br> And if you do not know how to play any of them... and you are feeling a bit lost 😄 — don&#39;t worry, <em>we will teach you</em>.<br><br> Create a user account quickly, sign up to receive the beta version of our first app when it launches, become that <strong style=\"color:var(--gold);\">Papfan</strong> who understands how important and sacred coming home is...<br><br> <em>(Enjoy and show that you have Faith and Creativity)</em><br> <span style=\"font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);letter-spacing:2px;\">\"Creativity by Papiro\" · -Creatypap@-</span><br><br> 🇻🇪❤️ <strong style=\"color:var(--gold);\">#Papfans</strong> 🇻🇪❤️<br> <span style=\"font-size:10px;color:var(--muted);letter-spacing:1px;\">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>",
     g1:"Exit siege and anonymity",g2:"Develop combat strategy",
     g3:"Create channels and platforms",g4:"Development and organization",
     g5:"Create website and operations center",g6:"Operation Creation ALADÍN",
@@ -1199,7 +1321,7 @@ const T={
     devVideoLabel:"▣ Ανάπτυξη σε Πραγματικό Χρόνο",
     acctChapter:"Κανάλια Υποστήριξης",acctTitle:"Υποστηρίξτε την Αποστολή",
     lblEconomy:"Οικονομική Υποστήριξη",lblChannels:"Επίσημα Κανάλια",
-    webTextM:"Κύρια Ιστοσελίδα",waGroupTextM:"Κοινότητα WhatsApp",lblClose:"Κλείσιμο",
+    webTextM:"Κύρια Ιστοσελίδα",waGroupTextM:"Κοινότητα WhatsApp",lblClose:"Κλείσιμο",lblClose2:"Κλείσιμο",lblP6Prev:"Προηγούμενο",royalTitle:"ΣΑΛΟΝΙ PAPIRO",royalSub:"Σαν στο Σπίτι · Βενεζουελάνικα Παιχνίδια · Εκφράσεις",royalBtnText:"▣ ΕΙΣΟΔΟΣ ΣΤΟ ΣΑΛΟΝΙ PAPIRO ▣",royalWelcome:"Όπου κι αν βλέπετε αυτό το λογότυπο — από το εξώφυλλο του βιβλίου μέχρι την τελευταία σελίδα — μπορείτε να το πατήσετε για να μπείτε στο <em>Game Room</em>.<br><br> Μπείτε με απόλυτη σιγουριά. Θα σας δείξουμε ποια παιχνίδια έχουμε, ποια θα έρθουν σύντομα και ποια είναι online και τις λειτουργίες τους.<br><br> Και αν δεν ξέρετε πώς να παίξετε κανένα από αυτά... και νιώθετε λίγο χαμένοι 😄 — μην ανησυχείτε, <em>θα σας μάθουμε</em>.<br><br> Δημιουργήστε γρήγορα έναν λογαριασμό χρήστη, εγγραφείτε για να λάβετε την beta έκδοση της πρώτης μας εφαρμογής όταν κυκλοφορήσει, γίνετε αυτός ο <strong style=\"color:var(--gold);\">Papfan</strong> που καταλαβαίνει πόσο σημαντική και ιερή είναι η επιστροφή στο σπίτι...<br><br> <em>(Απολαύστε το και δείξτε ότι έχετε Πίστη και Δημιουργικότητα)</em><br> <span style=\"font-family:'Cinzel',serif;font-size:12px;color:var(--gold2);letter-spacing:2px;\">«Creativity by Papiro» · -Creatypap@-</span><br><br> 🇻🇪❤️ <strong style=\"color:var(--gold);\">#Papfans</strong> 🇻🇪❤️<br> <span style=\"font-size:10px;color:var(--muted);letter-spacing:1px;\">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>",
     g1:"Έξοδος από ανωνυμία",g2:"Στρατηγική μάχης",g3:"Δημιουργία καναλιών",
     g4:"Ανάπτυξη ιδεών",g5:"Δημιουργία ιστοσελίδας",g6:"Δημιουργία ALADÍN",
     g7:"Κυκλοφορία Ο Μωβ Βασιλιάς",g8:"PAPIRO KEY πρωτότυπο",g9:"Κλείσιμο Οικοσυστήματος",
@@ -1269,19 +1391,25 @@ function applyLang(l){
   s('voiceLabel',vLabels[l]||vLabels.es);s('voiceShareText',sText[l]||sText.es);
   if(typeof updateVoiceSubtitle==='function') updateVoiceSubtitle(l);
   if(typeof updateHonorTranslations==='function') updateHonorTranslations(l);
+  // Página VII — Salón Realeza
+  if(t.royalTitle) s('royalTitle',t.royalTitle);
+  if(t.royalSub) s('royalSub',t.royalSub);
+  if(t.royalBtnText) s('royalBtnText',t.royalBtnText);
+  if(t.royalWelcome) s('royalWelcome',t.royalWelcome,true);
+  if(t.lblP6Prev) s('lblP6Prev',t.lblP6Prev);
+  if(t.lblClose2) s('lblClose2',t.lblClose2);
 }
 
 // ══ LIBRO ══
 function goPage(n){
-  for(let i=0;i<=5;i++){const e=document.getElementById('page'+i);if(e)e.style.display='none';}
+  for(let i=0;i<=6;i++){const e=document.getElementById('page'+i);if(e)e.style.display='none';}
   const pg=document.getElementById('page'+n);if(pg)pg.style.display='block';
   document.querySelector('.book-page').scrollTop=0;
-  const prev=currentPage;
-  currentPage=n;
+  const prev=currentPage;currentPage=n;
   handlePageMusic(n,prev);
-  // Lava buttons & honor wall
-  setTimeout(initLavaButtons,80);
+  setTimeout(()=>{initLavaButtons();drawAllSalonCorners();},80);
   if(n===5) renderHonorWall();
+  if(n===6) drawSalonLogoRoyal();
 }
 
 // ══ AUDIO PARA AL SALIR DE LA PÁGINA ══
@@ -1571,20 +1699,6 @@ function copyText(t){navigator.clipboard.writeText(t).then(()=>showToast('✓ Co
 function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
 
 // ══ ACTIVAR FOTO LIBRETA ══
-window.activarLibreta=function(url){
-  document.getElementById('libretaPhotoWrap').style.display='block';
-  document.getElementById('libretaPhoto').src=url;
-  showToast('📸 Foto de la libreta activada');
-};
-
-
-// ══ ACTIVAR FOTO LIBRETA ══
-window.activarLibreta=function(url){
-  document.getElementById('libretaPhotoWrap').style.display='block';
-  document.getElementById('libretaPhoto').src=url;
-  showToast('📸 Foto de la libreta activada');
-};
-
 // ══ VOZ CEO ══
 const VOICE_SUBTITLES={
   es:`<em>"Solo quiero vivir dependiendo de mi pluma y el talento por las palabras.<br>Creo que es una buena forma de vivir — Ser un mantenido de mis dones."</em><br><span style="font-size:12px;color:var(--muted);">— Luis Alfonso Castillejo Ventura · 28/06/2018</span>`,
@@ -1804,12 +1918,141 @@ function initLavaButtons(){
 // CEO consola betas
 window.verBetas=function(){const d=JSON.parse(localStorage.getItem('papiro_beta')||'[]');console.log('💜 PAPIRO — Muro de Honor');console.table(d);console.log('Total:',d.length);return d;};
 
-// ══ INIT — lee ?lang= de la URL ══
-const urlLangParam=new URLSearchParams(window.location.search).get('lang');
-const initLang=(urlLangParam&&T[urlLangParam])?urlLangParam:detectLang();
-currentLang=initLang;applyLang(initLang);
-document.querySelectorAll('.flag-hero').forEach(p=>p.classList.remove('active'));
-document.querySelector(`[data-lang="${initLang}"]`).classList.add('active');
-</script>
-</body>
-</html>
+// ══ SALON LOGO — DIBUJADO EN CANVAS ══
+// Salón clásico tipo tarjeta de boda — círculo con siluetas en curvas
+function drawSalonLogo(canvas, mode='cover'){
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2, R = Math.min(W,H)/2 - 2;
+  ctx.clearRect(0,0,W,H);
+
+  if(mode==='cover'){
+    // Luz radiante desde adentro
+    const glow = ctx.createRadialGradient(cx,cy,R*0.1,cx,cy,R);
+    glow.addColorStop(0,'rgba(255,255,240,1)');
+    glow.addColorStop(0.3,'rgba(255,255,220,0.95)');
+    glow.addColorStop(0.7,'rgba(255,240,200,0.7)');
+    glow.addColorStop(1,'rgba(255,220,150,0)');
+    // Fondo luminoso
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.fillStyle=glow;ctx.fill();
+    // Círculo exterior dorado
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(255,240,200,0.9)';ctx.lineWidth=2;ctx.stroke();
+  } else if(mode==='royal'){
+    // Fondo verde pino con glow dorado
+    const bg=ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+    bg.addColorStop(0,'rgba(200,170,80,0.25)');
+    bg.addColorStop(0.6,'rgba(150,120,60,0.1)');
+    bg.addColorStop(1,'transparent');
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.fillStyle=bg;ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(200,170,80,0.85)';ctx.lineWidth=2.5;ctx.stroke();
+    // Filigrana interior
+    ctx.beginPath();ctx.arc(cx,cy,R*0.88,0,Math.PI*2);
+    ctx.strokeStyle='rgba(200,170,80,0.3)';ctx.lineWidth=0.8;ctx.stroke();
+  } else if(mode==='carbon'){
+    // Carbón oscuro elegante
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.fillStyle='rgba(20,15,10,0.85)';ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(80,60,30,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+  } else if(mode==='header'){
+    // Dorado pequeño para header
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.fillStyle='rgba(201,168,76,0.15)';ctx.fill();
+    ctx.beginPath();ctx.arc(cx,cy,R,0,Math.PI*2);
+    ctx.strokeStyle='rgba(201,168,76,0.7)';ctx.lineWidth=1.5;ctx.stroke();
+  }
+
+  // SILUETA INTERIOR — Mesa de salon con sillas tipo curvas de tarjeta de boda
+  const sc = mode==='cover'?'rgba(80,50,10,0.7)':mode==='royal'?'rgba(200,170,80,0.9)':mode==='carbon'?'rgba(201,168,76,0.5)':'rgba(201,168,76,0.8)';
+  const s = R * 0.55; // escala silueta
+
+  ctx.fillStyle = sc;
+  ctx.strokeStyle = sc;
+  ctx.lineWidth = mode==='cover'?1.2:1;
+
+  // Mesa ovalada central
+  ctx.beginPath();
+  ctx.ellipse(cx, cy+s*0.1, s*0.35, s*0.18, 0, 0, Math.PI*2);
+  ctx.fill();
+
+  // Pata mesa
+  ctx.beginPath();ctx.moveTo(cx-s*0.08,cy+s*0.28);ctx.lineTo(cx+s*0.08,cy+s*0.28);
+  ctx.moveTo(cx,cy+s*0.2);ctx.lineTo(cx,cy+s*0.28);ctx.stroke();
+
+  // Silla izquierda — curva elegante
+  ctx.beginPath();
+  ctx.ellipse(cx-s*0.5,cy+s*0.05,s*0.12,s*0.22,Math.PI*0.05,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx-s*0.5,cy-s*0.15);ctx.quadraticCurveTo(cx-s*0.62,cy-s*0.3,cx-s*0.5,cy-s*0.38);ctx.stroke();
+
+  // Silla derecha
+  ctx.beginPath();
+  ctx.ellipse(cx+s*0.5,cy+s*0.05,s*0.12,s*0.22,-Math.PI*0.05,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.moveTo(cx+s*0.5,cy-s*0.15);ctx.quadraticCurveTo(cx+s*0.62,cy-s*0.3,cx+s*0.5,cy-s*0.38);ctx.stroke();
+
+  // Copa izquierda
+  ctx.beginPath();ctx.moveTo(cx-s*0.15,cy-s*0.1);ctx.quadraticCurveTo(cx-s*0.18,cy-s*0.28,cx-s*0.12,cy-s*0.35);ctx.moveTo(cx-s*0.12,cy-s*0.35);ctx.lineTo(cx-s*0.18,cy-s*0.35);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx-s*0.15,cy-s*0.08);ctx.lineTo(cx-s*0.15,cy-s*0.0);ctx.stroke();
+
+  // Copa derecha
+  ctx.beginPath();ctx.moveTo(cx+s*0.15,cy-s*0.1);ctx.quadraticCurveTo(cx+s*0.18,cy-s*0.28,cx+s*0.12,cy-s*0.35);ctx.moveTo(cx+s*0.12,cy-s*0.35);ctx.lineTo(cx+s*0.18,cy-s*0.35);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+s*0.15,cy-s*0.08);ctx.lineTo(cx+s*0.15,cy-s*0.0);ctx.stroke();
+
+  // Candelabro centro
+  ctx.beginPath();ctx.moveTo(cx,cy-s*0.38);ctx.lineTo(cx,cy-s*0.12);ctx.stroke();
+  ctx.beginPath();ctx.arc(cx,cy-s*0.4,s*0.04,0,Math.PI*2);ctx.fill();
+  // Llamas del candelabro
+  const fc=mode==='cover'?'rgba(255,140,0,0.9)':'rgba(255,160,30,0.7)';
+  ctx.fillStyle=fc;
+  ctx.beginPath();ctx.ellipse(cx,cy-s*0.46,s*0.025,s*0.04,0,0,Math.PI*2);ctx.fill();
+
+  // Texto "SP" pequeño abajo
+  ctx.fillStyle=sc;
+  ctx.font=`bold ${Math.round(R*0.18)}px serif`;
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText('SP',cx,cy+s*0.52);
+}
+
+function drawSalonLogoRoyal(){
+  drawSalonLogo(document.getElementById('salonLogoRoyalCanvas'),'royal');
+  drawSalonLogo(document.getElementById('salonLogoBtnCanvas'),'header');
+  drawAllSalonCorners();
+}
+
+function drawAllSalonCorners(){
+  document.querySelectorAll('.salon-corner-page').forEach(c=>{drawSalonLogo(c,'carbon');});
+}
+
+// Dibujar logos en portada y header al iniciar
+setTimeout(()=>{
+  drawSalonLogo(document.getElementById('salonLogoCoverCanvas'),'cover');
+  drawSalonLogo(document.getElementById('salonLogoHeaderCanvas'),'header');
+  // Animar el logo de portada con loop
+  let angle=0;
+  function animateCoverLogo(){
+    const c=document.getElementById('salonLogoCoverCanvas');
+    if(!c){return;}
+    drawSalonLogo(c,'cover');
+    angle+=0.02;
+    requestAnimationFrame(animateCoverLogo);
+  }
+  animateCoverLogo();
+},400);
+
+// ══ PWA SERVICE WORKER REGISTER ══
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').then(()=>{
+      console.log('▣ SW registrado — Creaty Papiro PWA activa');
+    }).catch(()=>{});
+  });
+}
+
+// ══ ACTIVAR FOTO LIBRETA ══
+window.activarLibreta=function(url){
+  document.getElementById('libretaPhotoWrap').style.display='block';
+  document.getElementB
