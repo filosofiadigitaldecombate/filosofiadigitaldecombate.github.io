@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Mando 01 · Imagen Portada · CEO ∆°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+.margin-line{position:fixed;top:0;height:100%;width:4px;z-index:10;pointer-events:none;
+  background:linear-gradient(180deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:100% 400%;animation:oroFlow 6s linear infinite;
+  box-shadow:0 0 6px rgba(255,180,0,0.5);}
+.margin-line.left{left:32px;}.margin-line.right{right:32px;}
+@keyframes oroFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+.wrap{position:relative;z-index:2;width:100%;max-width:480px;margin:0 auto;
+  min-height:100vh;padding:28px 48px 40px;}
+
+/* HEADER CEO */
+.ceo-badge{
+  font-family:'Special Elite',serif;font-size:12px;letter-spacing:3px;
+  color:rgba(255,180,0,0.5);text-align:center;display:block;margin-bottom:6px;
+}
+.ceo-title{
+  font-family:'Cinzel',serif;font-size:18px;font-weight:900;letter-spacing:4px;
+  text-align:center;margin-bottom:4px;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 8s linear infinite;
+}
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:300% center;}}
+.page-rule{width:100%;height:1px;margin:14px 0;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+
+/* PREVIEW */
+.preview-wrap{
+  width:100%;aspect-ratio:16/9;
+  background:rgba(0,0,0,0.5);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:8px;margin:16px 0;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.preview-img{width:100%;height:100%;object-fit:contain;display:none;}
+.preview-placeholder{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:15px;color:rgba(201,168,76,0.3);text-align:center;
+}
+.preview-label{
+  position:absolute;bottom:8px;right:10px;
+  font-family:'Special Elite',serif;font-size:10px;
+  color:rgba(201,168,76,0.3);letter-spacing:1px;
+}
+
+/* CONTROLES */
+.sec-titulo{
+  font-family:'Cinzel',serif;font-size:15px;font-weight:600;
+  letter-spacing:2px;color:#FFD700;
+  border-bottom:1px solid rgba(201,168,76,0.3);
+  padding-bottom:6px;margin:20px 0 12px;display:block;
+}
+.upload-zone{
+  width:100%;border:2px dashed rgba(201,168,76,0.25);
+  border-radius:10px;padding:20px 16px;text-align:center;
+  cursor:pointer;transition:all 0.3s;margin-bottom:12px;
+}
+.upload-zone:hover{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.05);}
+.upload-icon{font-size:28px;display:block;margin-bottom:6px;}
+.upload-text{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:15px;color:#DDD0AA;}
+.upload-sub{font-family:'Special Elite',serif;font-size:11px;
+  color:rgba(201,168,76,0.7);margin-top:4px;letter-spacing:1px;}
+input[type="file"]{display:none;}
+
+/* URL INPUT */
+.input-label{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;
+  color:#FFD700;display:block;margin-bottom:5px;}
+.input-field{width:100%;background:rgba(255,255,255,0.04);
+  border:1px solid rgba(201,168,76,0.2);border-radius:8px;
+  padding:12px 14px;color:#DDD0AA;font-family:'Crimson Pro',serif;
+  font-size:15px;outline:none;margin-bottom:10px;}
+.input-field:focus{border-color:rgba(201,168,76,0.4);}
+.input-field::placeholder{color:rgba(201,168,76,0.2);}
+
+/* BOTONES */
+.btn-aplicar{
+  width:100%;background:linear-gradient(135deg,rgba(100,60,0,0.4),rgba(60,30,0,0.2));
+  border:1px solid rgba(201,168,76,0.4);border-radius:10px;
+  padding:14px;font-family:'Cinzel',serif;font-size:13px;
+  letter-spacing:3px;color:#FFD700;cursor:pointer;margin-bottom:8px;
+  transition:all 0.3s;
+}
+.btn-aplicar:hover{background:rgba(100,60,0,0.6);box-shadow:0 0 16px rgba(201,168,76,0.2);}
+.btn-limpiar{
+  width:100%;background:transparent;
+  border:1px solid rgba(201,168,76,0.1);border-radius:10px;
+  padding:12px;font-family:'Cinzel',serif;font-size:12px;
+  letter-spacing:2px;color:rgba(201,168,76,0.3);cursor:pointer;
+  transition:all 0.3s;
+}
+.btn-limpiar:hover{border-color:rgba(201,168,76,0.3);color:rgba(201,168,76,0.6);}
+
+/* ESTADO */
+.estado{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:14px;text-align:center;height:20px;margin:8px 0;transition:all 0.3s;}
+.estado.ok{color:#90D890;}.estado.error{color:rgba(255,100,100,0.7);}
+.estado.info{color:rgba(201,168,76,0.6);}
+
+/* HISTORIAL */
+.historial-item{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 0;border-bottom:1px solid rgba(201,168,76,0.08);
+  cursor:pointer;transition:all 0.2s;
+}
+.historial-item:hover{background:rgba(201,168,76,0.04);padding-left:6px;}
+.hist-thumb{width:48px;height:28px;object-fit:cover;border-radius:3px;
+  border:1px solid rgba(201,168,76,0.2);}
+.hist-info{flex:1;}
+.hist-nombre{font-family:'Cinzel',serif;font-size:11px;color:#DDD0AA;letter-spacing:1px;}
+.hist-fecha{font-family:'Special Elite',serif;font-size:10px;color:rgba(201,168,76,0.3);}
+.hist-btn{font-size:16px;cursor:pointer;opacity:0.4;transition:opacity 0.2s;}
+.hist-btn:hover{opacity:1;}
+
+/* SELLO */
+.sello-bottom{text-align:center;padding:16px 0;margin-top:auto;}
+.sello-text{font-family:'Special Elite',serif;font-size:11px;
+  letter-spacing:2px;color:rgba(201,168,76,0.2);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="init()">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left"></div>
+<div class="margin-line right"></div>
+
+<div class="wrap">
+
+  <span class="ceo-badge">⚙ MANDO 01 · OPCIÓN 48 MANDOS</span>
+  <div class="ceo-title">IMAGEN DE PORTADA</div>
+  <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:rgba(201,168,76,0.4);text-align:center;margin-bottom:4px;">
+    La imagen que todos ven al entrar · Solo tú puedes cambiarla
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- PREVIEW ACTUAL -->
+  <span class="sec-titulo">Vista previa actual</span>
+  <div class="preview-wrap" id="previewWrap">
+    <img class="preview-img" id="previewImg" alt="Imagen portada">
+    <div class="preview-placeholder" id="previewPlaceholder">
+      Sin imagen · El cosmos es la portada
+    </div>
+    <span class="preview-label">login.html · portada</span>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CARGAR DESDE DISPOSITIVO -->
+  <span class="sec-titulo">Cargar desde dispositivo</span>
+  <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+    <span class="upload-icon">📎</span>
+    <span class="upload-text">Toca para seleccionar imagen</span>
+    <span class="upload-sub">SVG · PNG · JPG · WEBP · máx 2MB</span>
+  </div>
+  <input type="file" id="fileInput" accept=".svg,.png,.jpg,.jpeg,.webp" onchange="cargarArchivo(this)">
+
+  <!-- CARGAR DESDE URL -->
+  <span class="sec-titulo">Cargar desde URL</span>
+  <span class="input-label">URL de la imagen</span>
+  <input class="input-field" id="inputURL" type="url" placeholder="https://... · solo SVG o imagen vector">
+  <button class="btn-aplicar" onclick="cargarDesdeURL()">∆ CARGAR DESDE URL</button>
+
+  <div class="estado" id="estado"></div>
+
+  <!-- APLICAR -->
+  <div class="page-rule"></div>
+  <button class="btn-aplicar" onclick="aplicarImagen()" id="btnAplicar" style="display:none;">
+    ✦ APLICAR A LA PORTADA
+  </button>
+  <button class="btn-limpiar" onclick="limpiarImagen()">✕ Quitar imagen · volver al cosmos</button>
+
+  <div class="page-rule"></div>
+
+  <!-- HISTORIAL -->
+  <span class="sec-titulo">Historial de imágenes</span>
+  <div id="historialWrap">
+    <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:rgba(201,168,76,0.3);">
+      Sin historial aún
+    </div>
+  </div>
+
+  <div class="sello-bottom">
+    <div class="sello-text">∆° · Opción 48 Mandos · Mando 01</div>
+    <div class="sello-text" style="margin-top:3px;">X-7777777-LC7° · Solo CEO</div>
+  </div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ══ COSMOS ══ */
+(function(){
+  var c=document.getElementById('cosmos');
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var stars=[];
+  for(var i=0;i<250;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    stars.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.fill();});
+    ctx.globalAlpha=1;
+  }
+  draw();
+})();
+
+/* ══ VERIFICAR CEO ══ */
+function init(){
+  document.body.style.opacity='1';
+  var sesion = localStorage.getItem('papiro_usuario');
+  var CEO = 'Creax@P∆p.LuisAlfonsoCastillejoVentura';
+
+  if(!sesion){
+    // Sin sesión — activar modo CEO local
+    localStorage.setItem('papiro_usuario', JSON.stringify({
+      nombre: 'Luis Castillejo',
+      codigo: CEO,
+      pixel: 'LC7-7777777'
+    }));
+  }
+
+  try{
+    var u = JSON.parse(localStorage.getItem('papiro_usuario'));
+    if(u.codigo !== CEO){
+      document.querySelector('.ceo-title').textContent = 'ACCESO DENEGADO';
+      return;
+    }
+  } catch(e){}
+
+  cargarEstadoActual();
+  cargarHistorial();
+}
+var imagenPendiente = null;
+
+/* ══ CARGAR ARCHIVO ══ */
+function cargarArchivo(input){
+  var file = input.files[0];
+  if(!file){ return; }
+  if(file.size > 2 * 1024 * 1024){
+    mostrarEstado('El archivo supera 2MB · elige uno más liviano', 'error');
+    return;
+  }
+  var tipo = file.type;
+  var validos = ['image/svg+xml','image/png','image/jpeg','image/webp'];
+  if(validos.indexOf(tipo) < 0){
+    mostrarEstado('Formato no válido · usa SVG, PNG, JPG o WEBP', 'error');
+    return;
+  }
+  var reader = new FileReader();
+  reader.onload = function(e){
+    imagenPendiente = { src: e.target.result, nombre: file.name, tipo: 'archivo', fecha: new Date().toISOString() };
+    mostrarPreview(e.target.result, file.name);
+    document.getElementById('btnAplicar').style.display = 'block';
+    mostrarEstado('Imagen cargada · toca APLICAR para publicarla', 'ok');
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ══ CARGAR DESDE URL ══ */
+function cargarDesdeURL(){
+  var url = document.getElementById('inputURL').value.trim();
+  if(!url){ mostrarEstado('Introduce una URL válida', 'error'); return; }
+  imagenPendiente = { src: url, nombre: url.split('/').pop(), tipo: 'url', fecha: new Date().toISOString() };
+  mostrarPreview(url, url.split('/').pop());
+  document.getElementById('btnAplicar').style.display = 'block';
+  mostrarEstado('URL cargada · toca APLICAR para publicarla', 'info');
+}
+
+/* ══ MOSTRAR PREVIEW ══ */
+function mostrarPreview(src, nombre){
+  var img = document.getElementById('previewImg');
+  var ph  = document.getElementById('previewPlaceholder');
+  img.src = src;
+  img.style.display = 'block';
+  ph.style.display  = 'none';
+  document.querySelector('.preview-label').textContent = nombre;
+}
+
+/* ══ APLICAR IMAGEN ══ */
+function aplicarImagen(){
+  if(!imagenPendiente){ mostrarEstado('No hay imagen cargada', 'error'); return; }
+
+  // Guardar en localStorage como imagen activa de portada
+  localStorage.setItem('papiro_portada_imagen', JSON.stringify(imagenPendiente));
+
+  // Agregar al historial
+  var hist = JSON.parse(localStorage.getItem('papiro_portada_historial') || '[]');
+  hist.unshift(imagenPendiente);
+  if(hist.length > 10) hist = hist.slice(0, 10); // máx 10 en historial
+  localStorage.setItem('papiro_portada_historial', JSON.stringify(hist));
+
+  mostrarEstado('✦ Imagen aplicada a la portada ∆°', 'ok');
+  document.getElementById('btnAplicar').style.display = 'none';
+  imagenPendiente = null;
+  cargarHistorial();
+}
+
+/* ══ LIMPIAR ══ */
+function limpiarImagen(){
+  localStorage.removeItem('papiro_portada_imagen');
+  var img = document.getElementById('previewImg');
+  var ph  = document.getElementById('previewPlaceholder');
+  img.style.display = 'none';
+  ph.style.display = 'flex';
+  document.querySelector('.preview-label').textContent = 'login.html · portada';
+  document.getElementById('btnAplicar').style.display = 'none';
+  imagenPendiente = null;
+  mostrarEstado('Imagen removida · el cosmos es la portada', 'info');
+}
+
+/* ══ CARGAR ESTADO ACTUAL ══ */
+function cargarEstadoActual(){
+  var actual = localStorage.getItem('papiro_portada_imagen');
+  if(actual){
+    try{
+      var img_data = JSON.parse(actual);
+      mostrarPreview(img_data.src, img_data.nombre);
+    } catch(e){}
+  }
+}
+
+/* ══ HISTORIAL ══ */
+function cargarHistorial(){
+  var hist = JSON.parse(localStorage.getItem('papiro_portada_historial') || '[]');
+  var wrap = document.getElementById('historialWrap');
+  if(!hist.length){
+    wrap.innerHTML = '<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:rgba(201,168,76,0.3);">Sin historial aún</div>';
+    return;
+  }
+  wrap.innerHTML = hist.map(function(item, i){
+    var fecha = item.fecha ? new Date(item.fecha).toLocaleDateString('es') : '—';
+    return '<div class="historial-item" onclick="restaurarHistorial('+i+')">' +
+      '<img class="hist-thumb" src="'+item.src+'" onerror="this.style.display=\'none\'">' +
+      '<div class="hist-info">' +
+        '<div class="hist-nombre">'+item.nombre+'</div>' +
+        '<div class="hist-fecha">'+fecha+'</div>' +
+      '</div>' +
+      '<span class="hist-btn" onclick="event.stopPropagation();eliminarHistorial('+i+')">✕</span>' +
+    '</div>';
+  }).join('');
+}
+
+function restaurarHistorial(i){
+  var hist = JSON.parse(localStorage.getItem('papiro_portada_historial') || '[]');
+  if(hist[i]){
+    imagenPendiente = hist[i];
+    mostrarPreview(hist[i].src, hist[i].nombre);
+    document.getElementById('btnAplicar').style.display = 'block';
+    mostrarEstado('Imagen del historial lista · toca APLICAR', 'info');
+  }
+}
+
+function eliminarHistorial(i){
+  var hist = JSON.parse(localStorage.getItem('papiro_portada_historial') || '[]');
+  hist.splice(i, 1);
+  localStorage.setItem('papiro_portada_historial', JSON.stringify(hist));
+  cargarHistorial();
+}
+
+function mostrarEstado(msg, tipo){
+  var el = document.getElementById('estado');
+  el.textContent = msg;
+  el.className = 'estado ' + tipo;
+}
+</script>
+</body>
+</html>
