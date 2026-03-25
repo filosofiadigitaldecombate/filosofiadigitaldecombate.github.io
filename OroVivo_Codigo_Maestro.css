@@ -1,0 +1,89 @@
+/* ══════════════════════════════════════════════════════
+   ORO VIVO — Creaxion Papiro © 2026
+   Código maestro exclusivo · PapiroSync
+   X-7777777-LC7° · SI° · 350 · 777
+
+   USO: Añadir clase "oro-vivo" a cualquier elemento
+   de texto para aplicar el efecto completo.
+
+   VELOCIDADES SUGERIDAS:
+   Títulos grandes  → oroVivo 6s
+   Subtítulos       → oroVivo 8s
+   Texto pequeño    → oroVivo 10s
+   ══════════════════════════════════════════════════════ */
+
+@keyframes oroVivo{
+  0%  {background-position:0%   center;}
+  100%{background-position:500% center;}
+}
+
+@keyframes oroBreath{
+  0%,100%{
+    filter:
+      drop-shadow(0 0 4px  rgba(255,180,0,0.4))
+      drop-shadow(0 0 10px rgba(255,100,0,0.2))
+      brightness(1);
+  }
+  33%{
+    filter:
+      drop-shadow(0 0 8px  rgba(255,220,0,0.7))
+      drop-shadow(0 0 18px rgba(255,140,0,0.4))
+      brightness(1.15);
+  }
+  66%{
+    filter:
+      drop-shadow(0 0 12px rgba(255,255,200,0.6))
+      drop-shadow(0 0 24px rgba(255,160,0,0.3))
+      brightness(1.08);
+  }
+}
+
+.oro-vivo{
+  /* Gradiente maestro — 22 pasos de color
+     negro carbón → fuego → lava → ámbar →
+     oro puro → nácar blanco → oro →
+     fuego → brasa → lava → oro → nácar */
+  background:linear-gradient(90deg,
+    #1A0800,   /* negro carbón cálido  */
+    #3A1200,   /* marrón oscuro fuego  */
+    #7A2E00,   /* marrón lava          */
+    #C96800,   /* naranja tierra       */
+    #E8860A,   /* ámbar encendido      */
+    #FFB347,   /* naranja dorado       */
+    #FFD700,   /* oro puro             */
+    #FFE566,   /* oro claro            */
+    #FFFACD,   /* nácar blanco         */
+    #FFE566,   /* oro claro            */
+    #FFD700,   /* oro puro             */
+    #FFC200,   /* oro profundo         */
+    #FF8C00,   /* ámbar oscuro         */
+    #FF6B00,   /* lava naranja         */
+    #FF4500,   /* fuego vivo           */
+    #CC3300,   /* rojo brasa           */
+    #FF6B00,   /* lava naranja         */
+    #FFB347,   /* naranja dorado       */
+    #FFD700,   /* oro puro             */
+    #FFFACD,   /* nácar blanco         */
+    #FFD700,   /* oro puro             */
+    #3A1200    /* negro carbón cálido  */
+  );
+  background-size:500% auto;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:
+    oroVivo   6s linear      infinite,
+    oroBreath 4s ease-in-out infinite;
+  display:block;
+  text-align:center;
+}
+
+
+/* ══ MARIPOSA ELÉCTRICA NOCTURNA DE MEDIA NOCHE ══ */
+:root{
+  --mari1:#1A0A2E;
+  --mari2:#0E0618;
+  --mari3:#060310;
+  --mari4:#2A0E4A;
+  --mari5:#4A1E8A;
+}
