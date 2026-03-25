@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Batman ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA BATMAN ══
+   NEGRO KEVLAR:    #0A0A0A · #111111
+   GRIS GOTHAM:     #1C1C1E · #2C2C2E · #3A3A3C
+   AZUL MEDIANOCHE: #0D1B2A · #1B2B4B · #243B55
+   ORO SÍMBOLO:     #C9A84C · #D4AF37 · #F0C040
+   PLATA METAL:     #8E8E93 · #AEAEB2 · #C7C7CC
+   CUERO OSCURO:    #1A1008 · #2A1F0E
+*/
+
+/* MÁRGENES — kevlar con textura de carbono */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,0.03) 0px,
+      transparent 2px,
+      transparent 6px,
+      rgba(255,255,255,0.03) 8px
+    ),
+    linear-gradient(180deg,#0A0A0A,#1C1C1E,#2C2C2E,#C9A84C,#D4AF37,#C9A84C,#2C2C2E,#1C1C1E,#0A0A0A);
+  background-size:100% 100%, 100% 400%;
+  animation:batFlow 8s linear infinite;
+  box-shadow:0 0 6px rgba(201,168,76,0.4),0 0 16px rgba(201,168,76,0.2);}
+.margin-line.left{left:32px;}.margin-line.right{right:32px;}
+@keyframes lunaBreath{
+  0%,100%{transform:scale(1);opacity:0.7;}
+  50%{transform:scale(1.2);opacity:1;}
+}
+@keyframes batFlow{0%{background-position:0% 0%,0% center;}100%{background-position:0% 0%,400% center;}}
+
+/* CAPA 2 — Gotham de noche con luna Batman */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    /* Luna Batman — círculo dorado con silueta murciélago */
+    radial-gradient(circle at 50% 18%, rgba(201,168,76,0.18) 0%, rgba(201,168,76,0.08) 8%, transparent 14%),
+    radial-gradient(circle at 50% 18%, rgba(212,175,55,0.12) 0%, transparent 20%),
+    /* Nubes de Gotham — manchas difuminadas */
+    radial-gradient(ellipse at 20% 15%, rgba(28,28,46,0.6) 0%, transparent 40%),
+    radial-gradient(ellipse at 80% 25%, rgba(28,28,46,0.5) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 40%, rgba(13,27,42,0.4) 0%, transparent 50%),
+    /* Cielo Gotham — azul medianoche degradado */
+    linear-gradient(180deg,
+      #050810 0%,
+      #0A1020 15%,
+      #0D1828 30%,
+      #0A1220 60%,
+      #060C16 85%,
+      #030608 100%
+    );
+  background-size:100% 100%;
+  position:relative;}
+
+/* Textura de lluvia Gotham en el cuero base */
+#capa2::before{
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(13,27,42,0.15) 2px,
+      rgba(13,27,42,0.15) 3px,
+      transparent 3px,
+      transparent 8px
+    );
+  opacity:0.6;
+}
+
+/* CAPA 3 — kevlar texturizado */
+#capa3{position:relative;z-index:4;margin:0 24px;padding:28px 24px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* Textura hexagonal kevlar */
+    radial-gradient(circle at 25% 25%, rgba(201,168,76,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 75% 75%, rgba(201,168,76,0.02) 1px, transparent 1px),
+    /* Textura de carbono diagonal */
+    repeating-linear-gradient(
+      45deg,
+      rgba(255,255,255,0.015) 0px,transparent 1px,
+      transparent 4px,rgba(255,255,255,0.015) 5px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(255,255,255,0.01) 0px,transparent 1px,
+      transparent 4px,rgba(255,255,255,0.01) 5px
+    ),
+    linear-gradient(160deg,#0D1018 0%,#090D14 60%,#050709 100%);
+  background-size:20px 20px, 20px 20px, 8px 8px, 8px 8px, 100% 100%;}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.3);
+  box-shadow:0 0 8px rgba(201,168,76,0.15);}
+.btn-f:hover{background:rgba(201,168,76,0.2);}
+.btn-f.izq{bottom:24px;left:24px;}
+.btn-f.der{bottom:24px;right:24px;}
+.btn-f span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8E8E93,#C9A84C,#F0C040,#C9A84C,#8E8E93);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 8s linear infinite;}
+@keyframes oroV{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+/* Oro símbolo Batman */
+.oro{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 12s linear infinite;}
+/* Plata tecnología */
+.plata{background:linear-gradient(90deg,#5A5A5F,#8E8E93,#AEAEB2,#C7C7CC,#AEAEB2,#8E8E93,#5A5A5F);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 16s linear infinite;}
+/* Azul medianoche */
+.medianoche{background:linear-gradient(90deg,#0D1B2A,#1B2B4B,#243B55,#2E4B6E,#243B55,#1B2B4B,#0D1B2A);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 20s linear infinite;}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:32px;display:block;text-align:center;margin-bottom:10px;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,0.7)) drop-shadow(0 0 30px rgba(201,168,76,0.3));}
+.page-chapter{font-family:'Cinzel',serif;font-size:15px;letter-spacing:6px;
+  text-align:center;margin-bottom:8px;display:block;color:#8E8E93;
+  text-transform:uppercase;}
+.page-title{font-family:'Cinzel',serif;font-size:28px;font-weight:900;
+  letter-spacing:8px;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 16px rgba(201,168,76,0.8)) drop-shadow(0 0 40px rgba(201,168,76,0.3));}
+.page-sub{font-family:'Special Elite',serif;font-size:16px;
+  letter-spacing:3px;text-align:center;color:rgba(174,174,178,0.7);}
+.page-rule{width:100%;height:1px;margin:16px 0;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:19px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(201,168,76,0.2);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:19px;line-height:2.2;color:#AEAEB2;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#D4AF37;font-style:italic;}
+.cuerpo strong{color:#C7C7CC;}
+
+/* CARDS — kevlar con borde dorado */
+.cards{display:flex;flex-direction:column;gap:12px;margin:14px 0;}
+.card{border-radius:6px;padding:16px;position:relative;overflow:hidden;
+  border:1px solid rgba(201,168,76,0.15);
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,0.01) 0px,transparent 1px,transparent 4px,rgba(255,255,255,0.01) 5px),
+    rgba(201,168,76,0.04);}
+/* Línea dorada superior en cada card */
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent);}
+.card-titulo{font-family:'Cinzel',serif;font-size:17px;font-weight:600;
+  letter-spacing:2px;color:#D4AF37;display:block;margin-bottom:8px;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:19px;line-height:2;color:#AEAEB2;}
+.card-tag{font-family:'Special Elite',serif;font-size:15px;letter-spacing:1px;
+  color:rgba(174,174,178,0.7);display:block;margin-top:8px;line-height:1.8;}
+
+/* BLOQUES DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:15px;font-weight:600;
+  letter-spacing:3px;color:#D4AF37;margin-bottom:10px;display:block;}
+.data{font-size:14px;line-height:2;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,0.008) 0px,transparent 1px,transparent 4px,rgba(255,255,255,0.008) 5px),
+    rgba(201,168,76,0.04);
+  border-left:3px solid rgba(201,168,76,0.4);
+  padding:12px 16px;margin:12px 0;}
+.data-row{display:flex;justify-content:space-between;padding:4px 0;
+  border-bottom:1px solid rgba(201,168,76,0.06);}
+.data-row:last-child{border-bottom:none;}
+.dk{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#C9A84C;}
+.dv{font-family:'Special Elite',serif;font-size:14px;color:#C7C7CC;text-align:right;}
+.sep-data{width:100%;height:1px;margin:14px 0;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.2),transparent);}
+
+/* LISTA — con diamante de bat */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:19px;color:#AEAEB2;
+  padding:8px 0 8px 22px;border-bottom:1px solid rgba(201,168,76,0.06);
+  position:relative;line-height:2;}
+.lista li::before{content:'◆';position:absolute;left:0;top:10px;
+  color:rgba(201,168,76,0.5);font-size:10px;}
+
+/* QUOTE — Bruce Wayne habla poco pero pesa */
+.quote{border-left:3px solid rgba(201,168,76,0.4);padding:16px 18px;
+  margin:16px 0;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,0.008) 0px,transparent 1px,transparent 4px,rgba(255,255,255,0.008) 5px),
+  rgba(201,168,76,0.04);
+  border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:21px;color:#D4AF37;line-height:2;letter-spacing:0.5px;}
+.quote-firma{font-family:'Special Elite',serif;font-size:15px;
+  color:rgba(201,168,76,0.6);margin-top:8px;display:block;letter-spacing:2px;}
+
+/* CTA — Wayne Enterprises style */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:
+    repeating-linear-gradient(45deg,rgba(255,255,255,0.01) 0px,transparent 1px,transparent 4px,rgba(255,255,255,0.01) 5px),
+    rgba(201,168,76,0.05);
+  border:1px solid rgba(201,168,76,0.25);
+  position:relative;}
+.cta-wrap::before,.cta-wrap::after{
+  content:'';position:absolute;height:1px;left:10%;right:10%;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+.cta-wrap::before{top:0;}.cta-wrap::after{bottom:0;}
+.btn-cta{width:100%;border-radius:4px;padding:16px;
+  font-family:'Cinzel',serif;font-size:16px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.4);color:#D4AF37;
+  text-transform:uppercase;}
+.btn-cta:hover{background:rgba(201,168,76,0.18);letter-spacing:5px;}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
+  border-top:1px solid rgba(201,168,76,0.15);}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:19px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:16px;
+  color:rgba(174,174,178,0.5);margin-top:4px;letter-spacing:2px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 24px;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:8px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,0.6)) drop-shadow(0 0 24px rgba(201,168,76,0.3));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:17px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#5A5A5F,#8E8E93,#AEAEB2,#C7C7CC,#AEAEB2,#8E8E93,#5A5A5F);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+  <!-- Luna Batman flotante — visible en el cuero base -->
+  <div style="
+    position:fixed;
+    top:4vh;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:3;
+    pointer-events:none;
+    width:52px;height:52px;
+    display:flex;align-items:center;justify-content:center;
+  ">
+    <!-- Halo lunar -->
+    <div style="
+      position:absolute;width:52px;height:52px;border-radius:50%;
+      background:radial-gradient(circle,rgba(201,168,76,0.2) 0%,rgba(201,168,76,0.06) 50%,transparent 70%);
+      animation:lunaBreath 4s ease-in-out infinite;
+    "></div>
+    <!-- Símbolo murciélago SVG -->
+    <svg width="36" height="22" viewBox="0 0 36 22" style="position:relative;z-index:2;filter:drop-shadow(0 0 4px rgba(201,168,76,0.6));">
+      <path d="M18 4 C14 4 11 7 9 9 C7 7 4 6 0 7 C3 8 5 10 5 12 C5 14 4 16 3 17 C6 16 9 14 11 13 C12 16 14 18 18 18 C22 18 24 16 25 13 C27 14 30 16 33 17 C32 16 31 14 31 12 C31 10 33 8 36 7 C32 6 29 7 27 9 C25 7 22 4 18 4Z"
+        fill="rgba(201,168,76,0.5)"
+        stroke="rgba(201,168,76,0.3)"
+        stroke-width="0.5"/>
+    </svg>
+  </div>
+<div id="capa3">
+
+  <!-- HEADER -->
+  <div style="text-align:center;margin-bottom:16px;">
+    <span class="page-ornament">🦇</span>
+    <span class="page-chapter plata">Wayne Enterprises · Gotham Division</span>
+    <h2 class="page-title oro">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">Tu guía completa · Tu herramienta de vuelo</div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I -->
+  <div class="sec">
+    <span class="sec-titulo oro">I · Qué es Papiro y qué lo hace diferente</span>
+    <div class="cuerpo">
+      <p>Papiro no es otra red social. No te vamos a mentir ni hacerte perder tu tiempo y mucho menos a venderte nada que no pediste. Somos una plataforma digital construida con una filosofía simple: <em>tecnología que te protege y que no te explota.</em></p>
+      <p>Mientras otras apps usan colores, velocidades y algoritmos diseñados científicamente para crearte ansiedad y dependencia — nosotros hicimos lo contrario. Cada animación, cada color, cada velocidad en Papiro fue calibrada para que cuando entres aquí, <em>respires paz, calma, tranquilidad y diversión sana.</em></p>
+    </div>
+
+    <div class="quote">
+      <div class="quote-texto">Digitalidad Sana y Segura no es un eslogan.<br>Es la razón por la que existe cada línea de código aquí.</div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro</span>
+    </div>
+
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl">LO QUE NO HACEMOS</span>
+      <div class="data">
+        <div class="data-row"><span class="dk">SIN ALGORITMOS DE ANSIEDAD</span><span class="dv">Tú decides qué ver · cuándo y cómo</span></div>
+        <div class="data-row"><span class="dk">SIN ADS INVASIVOS</span><span class="dv">Lo que ves es lo que hay · sin trucos</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl plata">TU IDENTIDAD EN PAPIRO</span>
+      <div class="data">
+        <div class="data-row"><span class="dk">IDENTIDAD REAL</span><span class="dv">Creax@P∆p.TuNombre · solo tuya · para siempre</span></div>
+        <div class="data-row"><span class="dk">PIXEL CÓSMICO</span><span class="dv">Tu lugar único en el universo digital</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl oro">QUIÉNES SOMOS</span>
+      <div class="data">
+        <div class="data-row"><span class="dk">SEGURIDAD ∆°</span><span class="dv">Sistema de 3 capas · nadie toca tus datos</span></div>
+        <div class="data-row"><span class="dk">LATINOAMERICANO</span><span class="dv">Hecho con alma · historia sorprendente · con fe</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II -->
+  <div class="sec">
+    <span class="sec-titulo plata">II · Los Espacios de Papiro</span>
+    <div class="cuerpo"><p>Papiro tiene espacios distintos para cosas distintas. Cada uno con su propósito exacto — como los niveles de la Batcueva:</p></div>
+    <div class="cards">
+      <div class="card">
+        <span class="card-titulo">∆ · EL SALÓN</span>
+        <div class="card-texto">El corazón social de Papiro. Juegos latinoamericanos, chat en vivo, transmisiones, encuentros con otros P∆plovers. Toca <strong>∆</strong> desde cualquier papiro para llegar aquí.</div>
+        <span class="card-tag">→ Acceso: botón ∆ · siempre visible · cualquier papiro</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">📜 LOS PAPIROS</span>
+        <div class="card-texto">Tu espacio personal de expresión. Tu voz en el ecosistema — con tu estilo, tu color, tu sello. Escribe, comparte fotos, videos, cartas, reflexiones.</div>
+        <span class="card-tag">→ Tu papiro: papiro.app/∆TuNombre</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">📚 LA BIBLIOTECA</span>
+        <div class="card-texto">Donde estás ahora mismo. Guías, tutoriales y herramientas. Y cuando seas P∆plover verificado, podrás enviar tus creaciones — colores, texturas, estilos. Si suma al ecosistema, lo cargamos para que todos lo disfruten.<br><br>
+        Este no es un sistema complejo. Es simple, saludable y seguro. Juntos podemos construir un universo digital extraordinario. Por ello queremos contar contigo — para testear el producto y compartir las novedades. Porque aquí cada voz suma.</div>
+        <span class="card-tag">→ Envía tu propuesta creativa desde ° soporte</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">🔴 EN VIVO · TvP∆p</span>
+        <div class="card-texto">Transmisiones en tiempo real. Eventos, noticias, lanzamientos. Los visitantes ven — los P∆plovers interactúan.</div>
+        <span class="card-tag">→ Disponible desde el lanzamiento · 26 de octubre</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">🎮 JUEGOS LATINOAMERICANOS</span>
+        <div class="card-texto">Dominó, el zorro y las gallinas, el truco y más — con <strong>Bolívares Digitales</strong>, el nombre de nuestras fichas de juego (no es dinero real). Microvídeos de 5 segundos en tiempo real. Y mientras juegas, <strong>TvP∆p</strong> en vivo.<br><br>
+        Gran lanzamiento mundial: <strong>26 de octubre</strong>, en el nombre de Jesús.</div>
+        <span class="card-tag">→ P∆plovers juegan con la comunidad · visitantes tienen su propio salón</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III -->
+  <div class="sec">
+    <span class="sec-titulo oro">III · Herramientas Creativas</span>
+    <div class="cards">
+      <div class="card">
+        <span class="card-titulo">🎨 TU PAPIRO PERSONAL</span>
+        <div class="card-texto">Tu nombre, tus colores, tu diseño, tu historia. Elige el color de tu paño, texturas, colores para tus líneas de margen, tu firma. Es tu espacio — nadie más lo controla.</div>
+        <span class="card-tag">Texto · imagen · video · carta · público o privado</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">⭐ TU PIXEL CÓSMICO</span>
+        <div class="card-texto">Un pixel único en el cosmos de Papiro. Tu coordenada en el universo digital — mapa mundial, continental y por país. Cuando estás conectado, tu pixel titila en el cosmos.</div>
+        <span class="card-tag">1,200 pixels únicos · los primeros 100 → Oro Vivo para siempre</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">🤖 CRIXUS · TU AMIGO DIGITAL</span>
+        <div class="card-texto">La IA del ecosistema. Aquí para ayudarte, orientarte y acompañarte. Un pana digital que entiende el ecosistema por dentro.</div>
+        <span class="card-tag">→ Próximamente · en cada papiro</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">📡 TU IDENTIDAD DIGITAL</span>
+        <div class="card-texto">Tu código <strong>Creax@P∆p.TuNombre</strong> — tu firma en todo el ecosistema. Reconocible, única e irrepetible.</div>
+        <span class="card-tag">papiro.app/∆TuNombre</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV -->
+  <div class="sec">
+    <span class="sec-titulo plata">IV · Crear Contenido y Transmitir</span>
+    <div class="cards">
+      <div class="card">
+        <span class="card-titulo">📝 PUBLICAR EN TU PAPIRO</span>
+        <div class="card-texto">Escribe desde tu corazón. Tu papiro es tuyo — diseña todo lo que se te ocurra, dentro de las buenas costumbres. La única regla es que sea real.<br><br>
+        En <strong>°</strong> encuentras acceso directo a soporte y al CEO. Gracias por defender este proyecto: <strong>P∆pir°</strong></div>
+        <span class="card-tag">Texto · imagen · video · carta · reflexión</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">🎥 TRANSMITIR EN VIVO</span>
+        <div class="card-texto">Comparte lo que sabes, lo que vives, lo que sientes. La comunidad quiere verte — no a un personaje, a ti.</div>
+        <span class="card-tag">→ Próximamente · P∆plovers tienen acceso prioritario</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">💬 HABLAR DE PAPIRO</span>
+        <div class="card-texto">Cuando alguien te pregunte, dile: <em>es una plataforma digital latinoamericana que protege al usuario en vez de explotarlo.</em> Eso lo dice todo.</div>
+        <span class="card-tag">Menos es más · la curiosidad hace el resto</span>
+      </div>
+      <div class="card">
+        <span class="card-titulo">🌟 SER EMBAJADOR ∆°</span>
+        <div class="card-texto">Cuando compartes Papiro no vendes nada — invitas a alguien a un espacio que ya sabes que vale. Esa diferencia se nota. Y la gente lo siente.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #CRIXUS777</span>
+      </div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">"Los que creyeron en la idea.<br>Los que vieron lo revolucionario.<br>En el concepto y en Dios."</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7°</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V -->
+  <div class="sec">
+    <span class="sec-titulo oro">V · Por Qué Papiro Es Seguro y Saludable</span>
+    <ul class="lista">
+      <li>Las animaciones van entre 8 y 24 segundos — el ritmo cardíaco en calma es 60-70 bpm. No creamos ansiedad visual.</li>
+      <li>Tu información viaja protegida por un sistema de 3 capas: Las 3 Marías, nuestro token y la Capa silenciosa de seguridad. 🔐</li>
+      <li>Nadie puede ver tus datos privados sin pasar por ∆ — ni siquiera nosotros sin tu permiso expreso.</li>
+      <li>Modo apocalipsis: si internet cae, tus datos sobreviven en tu dispositivo.</li>
+      <li>Sin bots, sin spam, sin algoritmos diseñados para hacerte perder el tiempo.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <span style="font-size:28px;display:block;margin-bottom:12px;filter:drop-shadow(0 0 12px rgba(201,168,76,0.7));">🦇</span>
+    <span style="font-family:'Cinzel',serif;font-size:19px;font-weight:600;letter-spacing:3px;display:block;margin-bottom:12px;" class="oro">¿Quieres ir más profundo?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:19px;color:#AEAEB2;display:block;margin-bottom:6px;line-height:2;">Si quieres más contenido sobre algún tema,<br>o saber cómo desarrollar tu creatividad aquí —</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:19px;color:#D4AF37;display:block;margin-bottom:16px;line-height:2;">regístrate y crea tu correo en P∆°PIRO<br>y te enviaremos todo detallado<br>y más profundo sobre el tema que elijas.</span>
+    <span style="font-family:'Special Elite',serif;font-size:17px;letter-spacing:3px;display:block;margin-bottom:18px;" class="plata">#777 · #SI° · #P∆°PIRO</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ REGÍSTRATE EN P∆°PIRO</button>
+  </div>
+
+  <!-- STAMP -->
+  <div class="footer-stamp">
+    <div class="stamp-phrase oro">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span style="font-family:'Special Elite',serif;font-size:17px;letter-spacing:4px;display:block;text-align:center;margin-bottom:16px;color:rgba(174,174,178,0.5);">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:15px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="oro">· EL BAÚL DE LOS QUE SÍ CREYERON<br>DESDE EL PRIMER MOMENTO ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  // Estrellas blancas base
+  for(var i=0;i<280;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.6+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  // Estrellas doradas tecnología Wayne
+  var cl=['#D4AF37','#C9A84C','#F0C040','#AEAEB2','#8E8E93'];
+  for(var j=0;j<40;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.5+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0003,color:cl[j%5]});
+  // Azul Gotham lejano
+  for(var k=0;k<15;k++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.8+0.3,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0002,color:'#1B2B4B'});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+
+var _p=['splash.html','portada_es.html','papiro2_marble.html','salon_verde_clean.html','papiro_corazon.html','papiro_5capas.html','papiro_guia_maestro.html','papiro_biblioteca.html','papiro_playa.html','papiro_joker.html','papiro_batman.html'];
+var _a=_p.indexOf(window.location.pathname.split('/').pop());if(_a<0)_a=10;
+function paginaAnterior(){var p=_a-1;if(p<0)p=_p.length-1;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
+function paginaSiguiente(){var p=_a+1;if(p>=_p.length)p=0;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro Batman · I am vengeance. I am the night.');
+</script>
+</body>
+</html>
