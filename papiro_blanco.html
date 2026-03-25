@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Blanco ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#F8F8F8;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.08;}
+
+/* MÁRGENES — negro con glow gris oscuro */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,#111,#222,#333,#444,#333,#222,#111,#000,#111,#222,#333);
+  background-size:100% 400%;animation:blancoFlow 8s linear infinite;
+  box-shadow:0 0 8px rgba(0,0,0,0.6),0 0 18px rgba(50,50,50,0.4);}
+.margin-line.left{left:36px;}.margin-line.right{right:36px;}
+@keyframes blancoFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+/* CAPA 2 — lienzo blanco base */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:linear-gradient(160deg,#EEEEEE 0%,#E8E8E8 50%,#F0F0F0 100%);}
+
+/* CAPA 3 — paño blanco con textura lienzo */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,0.015) 0px,transparent 1px,transparent 22px,rgba(0,0,0,0.015) 23px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,0.012) 0px,transparent 1px,transparent 22px,rgba(0,0,0,0.012) 23px),
+    linear-gradient(160deg,#FFFFFF 0%,#FAFAFA 50%,#F8F8F8 100%);}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;
+  background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.25);}
+.btn-f:hover{background:rgba(0,0,0,0.15);}
+.btn-f.izq{bottom:24px;left:24px;}.btn-f.der{bottom:24px;right:24px;}
+.btn-f span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#000,#333,#555,#333,#000);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blancoFlow 6s linear infinite;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+.negro{background:linear-gradient(90deg,#000000,#1A1A1A,#333333,#222222,#000000);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blancoFlow 12s linear infinite;}
+.gris{background:linear-gradient(90deg,#222222,#444444,#666666,#444444,#222222);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blancoFlow 16s linear infinite;}
+.carbon{background:linear-gradient(90deg,#000,#111,#333,#555,#333,#111,#000);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blancoFlow 20s linear infinite;}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:26px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 6px rgba(0,0,0,0.3));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:#555;}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.2)) drop-shadow(0 0 12px rgba(0,0,0,0.15));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:#444;}
+.page-rule{width:100%;height:1px;margin:16px 0;
+  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(0,0,0,0.15);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#1A1A1A;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#333;font-style:italic;}
+.cuerpo strong{color:#000;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;
+  border:1px solid rgba(0,0,0,0.12);
+  background:rgba(255,255,255,0.8);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;color:#111;display:block;margin-bottom:8px;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#2A2A2A;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  color:#555;display:block;margin-top:8px;line-height:1.8;}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data{background:rgba(0,0,0,0.03);border-left:3px solid rgba(0,0,0,0.25);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(0,0,0,0.06);}
+.data-row:last-child{border-bottom:none;}
+.dk{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#222;}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#444;text-align:right;}
+.sep-data{width:100%;height:1px;margin:16px 0;
+  background:linear-gradient(to right,transparent,rgba(0,0,0,0.2),transparent);}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#1A1A1A;
+  padding:8px 0 8px 24px;border-bottom:1px solid rgba(0,0,0,0.07);
+  position:relative;line-height:2;}
+.lista li::before{content:'▪';position:absolute;left:0;top:10px;
+  color:rgba(0,0,0,0.4);font-size:12px;}
+
+/* QUOTE */
+.quote{border-left:3px solid rgba(0,0,0,0.25);padding:16px 18px;
+  margin:16px 0;background:rgba(0,0,0,0.03);border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#1A1A1A;line-height:2.2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:#555;margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.15);}
+.btn-cta{width:100%;border-radius:4px;padding:18px;font-family:'Cinzel',serif;
+  font-size:20px;letter-spacing:4px;cursor:pointer;transition:all 0.3s;
+  background:rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.3);color:#111;}
+.btn-cta:hover{background:rgba(0,0,0,0.15);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
+  border-top:1px solid rgba(0,0,0,0.15);}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:#555;margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 24px;
+  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#000,#222,#444,#222,#000);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blancoFlow 18s linear infinite;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.3));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;color:#555;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa2"><div id="capa3">
+
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">◻ ✦ ◻</span>
+    <span class="page-chapter">Limpio · Simple · Tuyo</span>
+    <h2 class="page-title negro">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">Tu guía completa · Versión Blanco</div>
+  </div>
+  <div style="text-align:center;margin:8px 0;font-size:14px;letter-spacing:6px;color:rgba(0,0,0,0.25);">— ∆ · ° · ∆ · ° · ∆ —</div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo negro">I · Qué es Papiro y qué lo hace diferente</span>
+    <div class="cuerpo">
+      <p>Papiro no es otra red social. No te vamos a mentir ni hacerte perder tu tiempo. Somos una plataforma digital construida con una filosofía simple: <em>tecnología que te protege y que no te explota.</em></p>
+      <p>Mientras otras apps usan algoritmos diseñados para crearte ansiedad y dependencia — nosotros hicimos lo contrario. Cada animación, cada color fue calibrado para que cuando entres aquí, <em>respires paz, calma y diversión sana.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">Digitalidad Sana y Segura no es un eslogan.<br>Es la razón por la que existe cada línea de código aquí.</div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · Hecho con alma · con historia · con fe</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl negro">LO QUE NO HACEMOS</span>
+      <div class="data">
+        <div class="data-row"><span class="dk">SIN ALGORITMOS DE ANSIEDAD</span><span class="dv">Tú decides qué ver</span></div>
+        <div class="data-row"><span class="dk">SIN ADS INVASIVOS</span><span class="dv">Lo que ves es lo que hay</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl gris">TU IDENTIDAD EN PAPIRO</span>
+      <div class="data">
+        <div class="data-row"><span class="dk">IDENTIDAD REAL</span><span class="dv">Creax@P∆p.TuNombre · para siempre</span></div>
+        <div class="data-row"><span class="dk">PIXEL CÓSMICO</span><span class="dv">Tu lugar único en el universo digital</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo gris">II · Los Espacios de Papiro</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · EL SALÓN</span>
+        <div class="card-texto">El corazón social de Papiro. Juegos, chat en vivo, transmisiones. Toca <strong>∆</strong> desde cualquier papiro.</div>
+        <span class="card-tag">→ Acceso: botón ∆ · siempre visible</span></div>
+      <div class="card"><span class="card-titulo">📜 LOS PAPIROS</span>
+        <div class="card-texto">Tu espacio personal de expresión con tu estilo, tu color, tu sello.</div>
+        <span class="card-tag">→ papiro.app/∆TuNombre</span></div>
+      <div class="card"><span class="card-titulo">📚 LA BIBLIOTECA</span>
+        <div class="card-texto">Donde estás ahora mismo. Guías, tutoriales y herramientas creativas.</div>
+        <span class="card-tag">→ Envía tu propuesta desde ° soporte</span></div>
+      <div class="card"><span class="card-titulo">🎮 JUEGOS · TvP∆p · EN VIVO</span>
+        <div class="card-texto">Dominó, el truco y más. TvP∆p en directo. Lanzamiento: <strong>26 de octubre</strong>, en el nombre de Jesús.</div>
+        <span class="card-tag">→ Bolívares Digitales · no es dinero real</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo carbon">III · Herramientas · Seguridad</span>
+    <ul class="lista">
+      <li>Tu papiro personal: colores, texturas, diseño, firma. Tu espacio — nadie más lo controla.</li>
+      <li>Tu pixel cósmico: coordenada única en el universo digital. Los primeros 100 → Oro Vivo para siempre.</li>
+      <li>Crixus: la IA del ecosistema. Tu amigo digital — próximamente en cada papiro.</li>
+      <li>Las 3 Marías: sistema de seguridad de 3 capas. Nadie toca tus datos sin tu permiso expreso.</li>
+      <li>Modo apocalipsis: si internet cae, tus datos sobreviven en tu dispositivo.</li>
+    </ul>
+    <div class="quote">
+      <div class="quote-texto">"Los que creyeron en la idea.<br>Los que vieron lo revolucionario.<br>En el concepto y en Dios."</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7°</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="cta-wrap">
+    <span style="font-size:24px;display:block;margin-bottom:10px;">◻</span>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="negro">¿Quieres ir más profundo?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#333;display:block;margin-bottom:16px;line-height:2;">Regístrate y crea tu correo en P∆°PIRO<br>y te enviaremos todo detallado<br>sobre el tema que elijas.</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ REGÍSTRATE EN P∆°PIRO</button>
+  </div>
+
+  <div class="footer-stamp">
+    <div class="stamp-phrase negro">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR IM. #7 — Así lo he hecho</div>
+  </div>
+
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:#888;display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="negro">· EL BAÚL DE LOS QUE SÍ CREYERON<br>DESDE EL PRIMER MOMENTO ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+  </div>
+
+</div></div>
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<200;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.8+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005,color:'rgba(0,0,0,0.6)'});
+  for(var j=0;j<30;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.5+0.3,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0003,color:'rgba(100,100,100,0.5)'});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='rgba(248,248,248,0.3)';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a,0.8);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color;ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='login.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){document.body.style.opacity='0';setTimeout(function(){window.location.href='salon.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_tienda.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+</script>
+</body></html>
