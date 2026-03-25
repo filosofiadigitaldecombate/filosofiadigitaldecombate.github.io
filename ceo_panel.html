@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>C.E.O · CREAXION PAPIRO</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital@1&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --cuero1:#2A1F0E;
+  --cuero2:#1A1208;
+  --cuero3:#0E0A04;
+  --oro:#C9A84C;
+  --oro2:#DDD0AA;
+  --oro3:#8A7D60;
+  --activo:#C9A84C;
+  --alerta:#8A5A3A;
+  --muted:#5A4A30;
+  --text:#C8B898;
+}
+body{
+  background:var(--cuero3);
+  color:var(--text);
+  font-family:'Cinzel',serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ══ COSMOS FONDO ══ */
+canvas#cosmos{
+  position:fixed;inset:0;
+  width:100%;height:100%;
+  z-index:0;opacity:0;transition:opacity 1s ease;
+}
+
+/* ══ LOGIN SCREEN ══ */
+#loginScreen{
+  position:fixed;inset:0;z-index:100;
+  background:linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:32px;
+}
+.login-title{
+  font-size:10px;letter-spacing:6px;
+  color:rgba(201,168,76,0.4);
+  margin-bottom:8px;text-align:center;
+}
+.login-brand{
+  font-size:24px;font-weight:900;letter-spacing:6px;
+  color:#C8B898;
+  text-shadow:0 0 20px rgba(201,168,76,0.3);
+  margin-bottom:6px;text-align:center;
+}
+.login-sub{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:13px;color:rgba(201,168,76,0.4);
+  letter-spacing:2px;margin-bottom:48px;
+}
+.login-input-wrap{
+  width:100%;max-width:320px;position:relative;
+}
+.login-input{
+  width:100%;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:4px;padding:14px 20px;
+  font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:4px;color:var(--oro2);
+  outline:none;text-align:center;
+  transition:border-color 0.3s;
+  -webkit-text-security:disc;
+}
+.login-input:focus{border-color:rgba(201,168,76,0.7);}
+.login-input::placeholder{color:rgba(201,168,76,0.2);font-size:11px;letter-spacing:3px;}
+.login-btn{
+  width:100%;max-width:320px;margin-top:16px;
+  background:rgba(201,168,76,0.06);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:4px;padding:14px;
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:4px;color:var(--oro2);
+  cursor:pointer;transition:all 0.3s;
+}
+.login-btn:hover{background:rgba(201,168,76,0.2);}
+.login-error{
+  margin-top:12px;font-size:10px;letter-spacing:2px;
+  color:var(--rojo);display:none;
+  font-family:'Crimson Pro',serif;font-style:italic;
+}
+.login-seal{
+  position:absolute;bottom:32px;
+  font-size:9px;letter-spacing:3px;
+  color:rgba(201,168,76,0.2);
+}
+
+/* ══ PANEL PRINCIPAL ══ */
+#panel{
+  display:none;
+  position:fixed;inset:0;
+  z-index:10;
+  overflow-y:auto;
+  padding:0;
+}
+.panel-inner{
+  max-width:500px;
+  margin:0 auto;
+  padding:16px 12px 40px;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Header del panel */
+.panel-header{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  margin-bottom:8px;padding-bottom:8px;
+  border-bottom:1px solid rgba(201,168,76,0.08);
+}
+.panel-title{font-size:10px;letter-spacing:4px;color:var(--muted);}
+.panel-status{
+  display:flex;align-items:center;gap:6px;
+  font-size:9px;letter-spacing:2px;color:rgba(201,168,76,0.5);
+}
+.status-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(201,168,76,0.6);
+  animation:statusPulse 2s ease-in-out infinite;
+}
+@keyframes statusPulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* GRID DE COMANDOS — 6×8 = 48 */
+.cmd-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  grid-template-rows:repeat(8,1fr);
+  gap:4px;
+  flex:1;
+  min-height:calc(100vh - 100px);
+}
+.cmd-cell{
+  border:1px solid rgba(201,168,76,0.1);
+  border-radius:4px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;
+  position:relative;
+  transition:all 0.2s;
+  background:rgba(10,7,3,0.65);
+  backdrop-filter:blur(2px);
+  padding:4px;
+}
+.cmd-cell:hover,.cmd-cell:active{
+  border-color:rgba(201,168,76,0.3);
+  background:rgba(201,168,76,0.04);
+}
+.cmd-cell.activo{
+  border-color:rgba(201,168,76,0.4);
+  background:rgba(201,168,76,0.05);
+}
+.cmd-cell.alerta{
+  border-color:rgba(138,90,58,0.4);
+  background:rgba(80,40,20,0.2);
+}
+@keyframes alertBlink{0%,100%{opacity:1;}50%{opacity:0.6;}}
+.cmd-icon{font-size:16px;line-height:1;margin-bottom:2px;}
+.cmd-label{
+  font-size:5px;letter-spacing:0.5px;
+  color:rgba(200,184,152,0.4);
+  text-align:center;line-height:1.2;
+  text-transform:uppercase;
+}
+.cmd-cell.activo .cmd-label{color:var(--verde);}
+.cmd-num{
+  position:absolute;top:2px;right:3px;
+  font-size:5px;color:rgba(201,168,76,0.15);
+  font-family:'Courier New',monospace;
+}
+
+/* PANEL DE ACCIÓN — aparece al pulsar */
+#actionPanel{
+  display:none;
+  background:linear-gradient(160deg,#1A1208,#0E0A04);
+  border:1px solid rgba(201,168,76,0.15);
+  border-radius:4px;padding:18px;
+  margin-bottom:16px;
+  position:relative;
+}
+#actionPanel.visible{display:block;}
+.action-title{
+  font-size:12px;letter-spacing:3px;
+  color:var(--oro2);margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.action-body{display:flex;flex-direction:column;gap:10px;}
+.action-input{
+  width:100%;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:10px;padding:12px 16px;
+  font-family:'Crimson Pro',serif;font-size:14px;
+  color:var(--oro2);outline:none;
+  resize:vertical;min-height:80px;
+}
+.action-input::placeholder{color:rgba(201,168,76,0.2);}
+.action-btns{display:flex;gap:8px;}
+.btn-ejecutar{
+  flex:1;background:rgba(201,168,76,0.08);
+  border:1px solid rgba(201,168,76,0.25);border-radius:4px;
+  padding:12px;font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:3px;color:rgba(201,168,76,0.7);cursor:pointer;
+  transition:all 0.3s;
+}
+.btn-cancelar{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);border-radius:10px;
+  padding:12px 16px;font-family:'Cinzel',serif;font-size:9px;
+  letter-spacing:2px;color:var(--muted);cursor:pointer;
+}
+
+/* LOG DE ACTIVIDAD */
+.activity-log{
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(201,168,76,0.08);
+  border-radius:4px;padding:12px;
+  max-height:120px;overflow-y:auto;
+}
+.log-title{font-size:8px;letter-spacing:3px;color:var(--muted);margin-bottom:8px;}
+.log-entry{
+  font-family:'Courier New',monospace;font-size:10px;
+  color:rgba(201,168,76,0.5);padding:3px 0;
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  display:flex;gap:8px;
+}
+.log-time{color:rgba(201,168,76,0.25);white-space:nowrap;}
+.log-msg{color:rgba(201,168,76,0.6);}
+.log-entry.ok .log-msg{color:rgba(201,168,76,0.7);}
+.log-entry.warn .log-msg{color:rgba(180,120,80,0.7);}
+
+/* LOGOUT */
+.btn-logout{
+  width:100%;margin-top:16px;
+  background:transparent;
+  border:1px solid rgba(201,168,76,0.1);
+  border-radius:4px;padding:10px;
+  font-family:'Cinzel',serif;font-size:8px;
+  letter-spacing:3px;color:rgba(201,168,76,0.25);
+  cursor:pointer;transition:all 0.3s;
+}
+.btn-logout:hover{
+  color:rgba(201,168,76,0.5);
+  border-color:rgba(201,168,76,0.2);
+}
+
+@keyframes goldShimmer{
+  0%{background-position:0% center;}
+  100%{background-position:200% center;}
+}
+</style>
+</head>
+<body>
+
+<!-- COSMOS DE FONDO -->
+<canvas id="cosmos"></canvas>
+
+<!-- ══ LOGIN ══ -->
+<div id="loginScreen">
+  <div class="login-title">ACCESO RESTRINGIDO</div>
+  <div class="login-brand">CREAXION PAPIRO</div>
+  <div class="login-sub">Panel C.E.O · Comando Absoluto</div>
+  <input class="login-input" id="codigoInput" type="password"
+    placeholder="Seña secreta"
+    onkeydown="if(event.key==='Enter')verificar()"
+    style="margin-bottom:10px;">
+  <input class="login-input" id="correoInput" type="email"
+    placeholder="Correo Creax@P∆p."
+    onkeydown="if(event.key==='Enter')verificar()">
+  <button class="login-btn" onclick="verificar()">▣ ENTRAR ▣</button>
+  <div class="login-error" id="loginError">⚠ Seña o correo incorrecto</div>
+  <div class="login-seal">✦ X-7777777-LC7° · SI° · 350 · 777 ✦</div>
+  <div style="position:absolute;bottom:60px;text-align:center;
+    font-family:'Crimson Pro',serif;font-style:italic;
+    font-size:9px;color:rgba(201,168,76,0.12);letter-spacing:1px;line-height:2;">
+    Recuperación: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a8e4ddc1dbe9c4cec7c6dbc7ebc9dbdcc1c4c4cdc2c7e8f8dac7dcc7c686c5cd">[email&#160;protected]</a><br>
+    Universo Papiro: Creax@P∆p.LuisAlfonsoCastillejo
+  </div>
+</div>
+
+<!-- ══ PANEL C.E.O ══ -->
+<div id="panel">
+<div class="panel-inner">
+
+  <div class="panel-header">
+    <div class="panel-title" style="line-height:1.8;">
+      COMANDO C.E.O · LC7°<br>
+      <span style="font-size:7px;letter-spacing:1px;color:rgba(201,168,76,0.2);">
+        Creax@P∆p.LuisAlfonsoCastillejo
+      </span>
+    </div>
+    <div class="panel-status">
+      <div class="status-dot"></div>
+      ACTIVO
+    </div>
+  </div>
+
+  <!-- GRID 6×8 = 48 COMANDOS -->
+  <div class="cmd-grid" id="cmdGrid"></div>
+
+  <!-- PANEL DE ACCIÓN -->
+  <div id="actionPanel">
+    <div class="action-title">
+      <span id="actionIcon">📡</span>
+      <span id="actionTitle">COMANDO</span>
+    </div>
+    <div class="action-body" id="actionBody"></div>
+  </div>
+
+  <!-- LOG -->
+  <div class="activity-log">
+    <div class="log-title">REGISTRO DE ACTIVIDAD</div>
+    <div id="logList"></div>
+  </div>
+
+  <button class="btn-logout" onclick="cerrarSesion()">⬡ CERRAR SESIÓN</button>
+</div><!-- /panel-inner -->
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ══ COSMOS FONDO ══
+(function(){
+  var c=document.getElementById('cosmos');
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var stars=[];
+  for(var i=0;i<200;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='#000000';ctx.fillRect(0,0,c.width,c.height);
+    stars.forEach(function(s){
+      s.ph+=s.sp;
+      var raw=Math.sin(s.ph);
+      var a=raw>0?raw*raw*0.7:0;
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle='#FFFFFF';ctx.globalAlpha=a;ctx.fill();
+    });
+    ctx.globalAlpha=1;
+  }
+  draw();
+})();
+
+// ══ CÓDIGO CEO ══
+var CODIGO_CEO = 'paralancuritimicuaro';
+
+// ══ COMANDOS — 48 células ══
+var comandos = [
+  // FILA 1 — Comunicación
+  {ico:'📡',lbl:'Notif\nGeneral',  cmd:'notif_all'},
+  {ico:'👤',lbl:'Notif\nUsuario',  cmd:'notif_user'},
+  {ico:'🎬',lbl:'Subir\nVideo',    cmd:'video_up'},
+  {ico:'📢',lbl:'Avance\nNoticias',cmd:'news'},
+  {ico:'🏆',lbl:'Premio\nUsuario', cmd:'premio'},
+  {ico:'🌐',lbl:'Saludo\nGlobal',  cmd:'saludo'},
+  // FILA 2 — El Libro
+  {ico:'📖',lbl:'Abrir\nPapiro',   cmd:'open_papiro'},
+  {ico:'🔒',lbl:'Cerrar\nPapiro',  cmd:'close_papiro'},
+  {ico:'✏️', lbl:'Editar\nPágina', cmd:'edit_page'},
+  {ico:'🌍',lbl:'Cambiar\nIdioma', cmd:'lang'},
+  {ico:'🗺️', lbl:'Mapa\nPAPIRO',   cmd:'mapa'},
+  {ico:'💜',lbl:'Rey\nPúrpura',    cmd:'rey_purpura'},
+  // FILA 3 — El Salón
+  {ico:'🏛️',lbl:'Abrir\nSalón',   cmd:'salon_open'},
+  {ico:'🚫',lbl:'Cerrar\nSalón',   cmd:'salon_close'},
+  {ico:'🎮',lbl:'Juego\nNuevo',    cmd:'game_new'},
+  {ico:'💰',lbl:'Dar\nBolívares',  cmd:'bolivares'},
+  {ico:'🦊',lbl:'Modo\nZorro',     cmd:'modo_zorro'},
+  {ico:'📺',lbl:'TvClub\nLive',    cmd:'tv_live'},
+  // FILA 4 — Usuarios
+  {ico:'👁️', lbl:'Ver\nUsuarios',  cmd:'ver_users'},
+  {ico:'🌟',lbl:'Muro\nHonor',     cmd:'muro'},
+  {ico:'🎯',lbl:'Nueva\nMeta',     cmd:'meta_new'},
+  {ico:'✅',lbl:'Meta\nLograda',   cmd:'meta_done'},
+  {ico:'🔑',lbl:'Dar\nAcceso',     cmd:'acceso'},
+  {ico:'⛔',lbl:'Revocar\nAcceso', cmd:'revocar'},
+  // FILA 5 — Papiro Pixels
+  {ico:'⭐',lbl:'Asignar\nPixel',  cmd:'pixel_assign'},
+  {ico:'🗺️', lbl:'Ver\nGrid',      cmd:'ver_grid'},
+  {ico:'💎',lbl:'Pixel\nFundador', cmd:'pixel_fund'},
+  {ico:'🔮',lbl:'Pixel\nÉpico',    cmd:'pixel_epic'},
+  {ico:'📊',lbl:'Stats\nPixels',   cmd:'pixel_stats'},
+  {ico:'🌌',lbl:'Cosmos\nLive',    cmd:'cosmos_live'},
+  // FILA 6 — Sistema
+  {ico:'⚡',lbl:'Estado\nSistema', cmd:'status'},
+  {ico:'🔄',lbl:'Reiniciar\nApp',  cmd:'restart'},
+  {ico:'💾',lbl:'Backup\nData',    cmd:'backup'},
+  {ico:'📈',lbl:'Analytics',       cmd:'analytics'},
+  {ico:'🛡️', lbl:'Seguridad',      cmd:'security'},
+  {ico:'⚙️', lbl:'Config\nGlobal', cmd:'config'},
+  // FILA 7 — Emergencia
+  {ico:'🔴',lbl:'ALERTA\nRoja',    cmd:'alerta_roja', alerta:true},
+  {ico:'✂️', lbl:'Cortar\nConexión',cmd:'cortar',      alerta:true},
+  {ico:'🧹',lbl:'Limpiar\nCache',  cmd:'cache'},
+  {ico:'📦',lbl:'Exportar\nData',  cmd:'export'},
+  {ico:'🔧',lbl:'Modo\nMant.',     cmd:'mantenimiento'},
+  {ico:'💬',lbl:'Soporte\nDev',    cmd:'dev_support'},
+  // FILA 8 — Especiales
+  {ico:'🇻🇪',lbl:'Venezuela\nMensaje',cmd:'vzla_msg'},
+  {ico:'✝️', lbl:'Oración\nComunidad',cmd:'oracion'},
+  {ico:'🎵',lbl:'Alma\nLlanera',   cmd:'alma'},
+  {ico:'🏆',lbl:'Ranking\nGlobal', cmd:'ranking'},
+  {ico:'🌙',lbl:'Modo\nNoche',     cmd:'modo_noche'},
+  {ico:'☀️', lbl:'Modo\nDía',      cmd:'modo_dia'},
+];
+
+// Construir grid
+var grid = document.getElementById('cmdGrid');
+comandos.forEach(function(c, i){
+  var cell = document.createElement('div');
+  cell.className = 'cmd-cell' + (c.alerta ? ' alerta' : '');
+  cell.innerHTML =
+    '<span class="cmd-num">' + String(i+1).padStart(2,'0') + '</span>' +
+    '<span class="cmd-icon">' + c.ico + '</span>' +
+    '<span class="cmd-label">' + c.lbl + '</span>';
+  cell.onclick = function(){ ejecutarComando(c); };
+  grid.appendChild(cell);
+});
+
+// ══ LOGIN ══
+var CORREO_CEO = 'Creax@P∆p.LuisAlfonsoCastillejoVentura';
+
+function verificar(){
+  var seña = document.getElementById('codigoInput').value.trim().toLowerCase();
+  var correo = document.getElementById('correoInput').value.trim();
+  if(seña === CODIGO_CEO.toLowerCase() && correo === CORREO_CEO){
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('panel').style.display = 'block';
+    // Reveal cosmos
+    setTimeout(function(){
+      document.getElementById('cosmos').style.opacity = '0.45';
+    }, 100);
+    log('Acceso C.E.O autorizado · LC7°', 'ok');
+    log('Creax@P∆p.LuisAlfonsoCastillejoVentura', 'ok');
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+    setTimeout(function(){
+      document.getElementById('loginError').style.display = 'none';
+    }, 3000);
+  }
+}
+
+// ══ EJECUTAR COMANDO ══
+function ejecutarComando(cmd){
+  var panel = document.getElementById('actionPanel');
+  var title = document.getElementById('actionTitle');
+  var icon  = document.getElementById('actionIcon');
+  var body  = document.getElementById('actionBody');
+
+  icon.textContent = cmd.ico;
+  title.textContent = cmd.lbl.replace('\n',' ');
+  panel.classList.add('visible');
+
+  // Construir interfaz según comando
+  var html = '';
+
+  if(['notif_all','notif_user','news','saludo','vzla_msg','oracion'].includes(cmd.cmd)){
+    html = '<textarea class="action-input" id="actionMsg" placeholder="Escribe tu mensaje..."></textarea>';
+    if(cmd.cmd === 'notif_user'){
+      html = '<input class="action-input" id="actionUser" placeholder="Usuario o código Creax@..." style="min-height:auto;height:46px;resize:none;">' + html;
+    }
+    html += '<div class="action-btns">'
+      + '<button class="btn-ejecutar" onclick="enviarComando(\'' + cmd.cmd + '\')">▣ ENVIAR</button>'
+      + '<button class="btn-cancelar" onclick="cerrarAction()">✕</button>'
+      + '</div>';
+  }
+  else if(['close_papiro','salon_close','cortar','alerta_roja'].includes(cmd.cmd)){
+    html = '<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:rgba(255,51,51,0.8);margin-bottom:12px;">'
+      + '⚠️ Acción de alto impacto. ¿Confirmas?</div>'
+      + '<div class="action-btns">'
+      + '<button class="btn-ejecutar" style="border-color:rgba(255,51,51,0.5);color:#FF3333;" onclick="enviarComando(\'' + cmd.cmd + '\')">▣ CONFIRMAR</button>'
+      + '<button class="btn-cancelar" onclick="cerrarAction()">CANCELAR</button>'
+      + '</div>';
+  }
+  else if(['premio','meta_done','bolivares','pixel_assign','pixel_fund'].includes(cmd.cmd)){
+    html = '<input class="action-input" id="actionUser" placeholder="Usuario o Creax@P∆p..." style="min-height:auto;height:46px;resize:none;">'
+      + '<input class="action-input" id="actionVal" placeholder="Premio / Monto / Pixel ID..." style="min-height:auto;height:46px;resize:none;">'
+      + '<div class="action-btns">'
+      + '<button class="btn-ejecutar" onclick="enviarComando(\'' + cmd.cmd + '\')">▣ EJECUTAR</button>'
+      + '<button class="btn-cancelar" onclick="cerrarAction()">✕</button>'
+      + '</div>';
+  }
+  else {
+    html = '<div style="font-family:\'Crimson Pro\',serif;font-style:italic;font-size:14px;color:rgba(201,168,76,0.6);margin-bottom:12px;">'
+      + 'Módulo <strong>' + cmd.lbl.replace('\n',' ') + '</strong> — próximamente conectado a Supabase.</div>'
+      + '<div class="action-btns">'
+      + '<button class="btn-ejecutar" onclick="enviarComando(\'' + cmd.cmd + '\')">▣ ACTIVAR</button>'
+      + '<button class="btn-cancelar" onclick="cerrarAction()">✕</button>'
+      + '</div>';
+  }
+
+  body.innerHTML = html;
+}
+
+function enviarComando(cmd){
+  log('Comando ejecutado: ' + cmd, 'ok');
+  cerrarAction();
+  // TODO: conectar a Supabase
+}
+
+function cerrarAction(){
+  document.getElementById('actionPanel').classList.remove('visible');
+}
+
+// ══ LOG ══
+function log(msg, tipo){
+  var list = document.getElementById('logList');
+  var now = new Date();
+  var time = String(now.getHours()).padStart(2,'0') + ':'
+           + String(now.getMinutes()).padStart(2,'0') + ':'
+           + String(now.getSeconds()).padStart(2,'0');
+  var entry = document.createElement('div');
+  entry.className = 'log-entry ' + (tipo || '');
+  entry.innerHTML = '<span class="log-time">' + time + '</span>'
+                  + '<span class="log-msg">' + msg + '</span>';
+  list.insertBefore(entry, list.firstChild);
+}
+
+function cerrarSesion(
