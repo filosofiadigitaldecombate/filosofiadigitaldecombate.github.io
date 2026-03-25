@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Francia ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA FRANCIA ══
+   AZUL LIBERTÉ:   #002395 · #0033CC · #4466FF
+   BLANCO ÉGALITÉ: #FFFFFF · #F8F8F4
+   ROJO FRATERNITÉ:#ED2939 · #FF3344
+   ORO VERSAILLES: #C9A84C · #D4AF37
+   BURDEOS:        #6B0020 · #8B1030
+   CREMA PARIS:    #F5EDD8 · #EDE0C4
+*/
+
+/* MÁRGENES — tricolore français · vertical exacto */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;}
+.margin-line.left{left:32px;
+  background:linear-gradient(180deg,
+    #001060,#002395,#0033CC,#4466FF,
+    #0033CC,#002395,#6688EE,
+    #0033CC,#002395,#001060);
+  background-size:100% 400%;animation:frFlow 7s linear infinite;
+  box-shadow:0 0 10px rgba(0,51,204,0.7),0 0 22px rgba(0,35,149,0.4);}
+.margin-line.right{right:32px;
+  background:linear-gradient(180deg,
+    #8B1030,#CC2030,#ED2939,#FF3344,
+    #ED2939,#CC2030,#FF7080,
+    #CC2030,#ED2939,#8B1030);
+  background-size:100% 400%;animation:frFlow 7s linear infinite;
+  box-shadow:0 0 10px rgba(237,41,57,0.7),0 0 22px rgba(204,32,48,0.4);}
+@keyframes frFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+/* CAPA 2 — Paris de nuit · élégance absolue */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    /* Tour Eiffel illuminée */
+    radial-gradient(ellipse at 50% 90%, rgba(201,168,76,0.08) 0%, transparent 20%),
+    /* Lumière de Paris */
+    radial-gradient(ellipse at 30% 60%, rgba(0,51,204,0.06) 0%, transparent 25%),
+    radial-gradient(ellipse at 70% 55%, rgba(237,41,57,0.05) 0%, transparent 20%),
+    /* Lune sur Paris */
+    radial-gradient(circle at 60% 8%, rgba(245,237,216,0.1) 0%, transparent 12%),
+    /* Ciel parisien profond */
+    linear-gradient(180deg,#020408 0%,#060810 25%,#0A0C16 55%,#060810 80%,#020408 100%);}
+
+/* CAPA 3 — paño burdeos oscuro · velours parisien */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* Damassé français — brocado sutil */
+    repeating-linear-gradient(45deg,rgba(201,168,76,0.02) 0px,transparent 1px,transparent 10px,rgba(201,168,76,0.015) 11px),
+    repeating-linear-gradient(-45deg,rgba(201,168,76,0.015) 0px,transparent 1px,transparent 10px,rgba(201,168,76,0.02) 11px),
+    /* Velours burdeos profundo */
+    linear-gradient(160deg,#120008 0%,#0C0005 50%,#070003 100%);}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.btn-f.izq{bottom:24px;left:24px;
+  background:rgba(0,35,149,0.18);border:1px solid rgba(0,51,204,0.5);}
+.btn-f.der{bottom:24px;right:24px;
+  background:rgba(237,41,57,0.12);border:1px solid rgba(237,41,57,0.5);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#001060,#002395,#4466FF,#002395,#001060);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frBlue 6s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8B1030,#CC2030,#FF3344,#CC2030,#8B1030);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frRed 6s linear infinite;}
+@keyframes frBlue{0%{background-position:0% center;}100%{background-position:300% center;}}
+@keyframes frRed{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+.bleu{background:linear-gradient(90deg,#001060,#002395,#0033CC,#4466FF,#88AAFF,#4466FF,#0033CC,#002395,#001060);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frBlue 12s linear infinite;}
+.rouge{background:linear-gradient(90deg,#8B1030,#CC2030,#ED2939,#FF3344,#FF8899,#FF3344,#ED2939,#CC2030,#8B1030);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frRed 12s linear infinite;}
+.or-ver{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frBlue 16s linear infinite;}
+.france{background:linear-gradient(90deg,#002395,#0033CC,#FFFFFF,#F8F8F4,#ED2939,#FF3344,#002395);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frFlow 9s linear infinite;}
+.crème{background:linear-gradient(90deg,#C0A870,#E8D4A8,#F5EDD8,#EDE0C4,#F5EDD8,#C0A870);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frRed 20s linear infinite;}
+
+/* FLEUR DE LYS ornamento */
+.fleur{text-align:center;margin:10px 0;font-size:20px;letter-spacing:10px;
+  color:rgba(201,168,76,0.45);filter:drop-shadow(0 0 4px rgba(201,168,76,0.3));
+  animation:frFlow 7s ease-in-out infinite;}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:28px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 10px rgba(0,51,204,0.6)) drop-shadow(0 0 24px rgba(237,41,57,0.4));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:rgba(201,168,76,0.6);}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 14px rgba(0,51,204,0.7)) drop-shadow(0 0 32px rgba(237,41,57,0.5));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:rgba(230,210,170,0.8);}
+.page-rule{width:100%;height:3px;margin:16px 0;
+  background:linear-gradient(to right,
+    #002395 0%,#002395 33%,
+    rgba(255,255,255,0.4) 33%,rgba(255,255,255,0.4) 66%,
+    #ED2939 66%,#ED2939 100%);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(201,168,76,0.2);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#D4C8A8;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#F0C040;font-style:italic;}
+.cuerpo strong{color:#88AAFF;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(to right,
+    #002395 0%,#002395 33%,
+    rgba(255,255,255,0.5) 33%,rgba(255,255,255,0.5) 66%,
+    #ED2939 66%,#ED2939 100%);}
+.card:nth-child(odd){border:1px solid rgba(0,51,204,0.18);background:rgba(0,35,149,0.07);}
+.card:nth-child(even){border:1px solid rgba(237,41,57,0.15);background:rgba(107,0,32,0.08);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;display:block;margin-bottom:8px;margin-top:6px;}
+.card:nth-child(odd) .card-titulo{color:#88AAFF;}
+.card:nth-child(even) .card-titulo{color:#FF7080;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#D4C8A8;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  display:block;margin-top:8px;line-height:1.8;}
+.card:nth-child(odd) .card-tag{color:rgba(136,170,255,0.8);}
+.card:nth-child(even) .card-tag{color:rgba(255,112,128,0.8);}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data-bleu{background:rgba(0,35,149,0.08);border-left:3px solid rgba(0,51,204,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-rouge{background:rgba(107,0,32,0.08);border-left:3px solid rgba(237,41,57,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-or{background:rgba(201,168,76,0.05);border-left:3px solid rgba(201,168,76,0.4);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(201,168,76,0.06);}
+.data-row:last-child{border-bottom:none;}
+.dk-b{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#88AAFF;}
+.dk-r{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#FF7080;}
+.dk-o{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#D4AF37;}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#D4C8A8;text-align:right;}
+.sep-data{width:100%;height:3px;margin:16px 0;
+  background:linear-gradient(to right,
+    #002395 0%,#002395 33%,
+    rgba(255,255,255,0.3) 33%,rgba(255,255,255,0.3) 66%,
+    #ED2939 66%,#ED2939 100%);}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#D4C8A8;
+  padding:8px 0 8px 24px;border-bottom:1px solid rgba(201,168,76,0.07);
+  position:relative;line-height:2;}
+.lista li::before{content:'⚜';position:absolute;left:0;top:9px;
+  color:rgba(201,168,76,0.5);font-size:13px;}
+
+/* QUOTE */
+.quote{border-left:3px solid rgba(201,168,76,0.5);padding:16px 18px;
+  margin:16px 0;background:rgba(201,168,76,0.04);border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#F0C040;line-height:2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:rgba(136,170,255,0.7);margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(0,35,149,0.07);border:1px solid rgba(0,51,204,0.25);
+  position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(to right,
+    #002395 0%,#002395 33%,
+    rgba(255,255,255,0.5) 33%,rgba(255,255,255,0.5) 66%,
+    #ED2939 66%,#ED2939 100%);}
+.btn-cta{width:100%;border-radius:4px;padding:18px;margin-top:6px;
+  font-family:'Cinzel',serif;font-size:20px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.4);color:#D4AF37;}
+.btn-cta:hover{background:rgba(201,168,76,0.2);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;border-top:3px solid;
+  border-image:linear-gradient(to right,
+    #002395 33%,rgba(255,255,255,0.3) 33% 66%,#ED2939 66%) 3;}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:rgba(201,168,76,0.45);margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:4px;margin:0 auto 24px;
+  background:linear-gradient(to right,
+    #002395 0%,#002395 33%,
+    rgba(255,255,255,0.5) 33%,rgba(255,255,255,0.5) 66%,
+    #ED2939 66%,#ED2939 100%);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frBlue 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,0.6)) drop-shadow(0 0 28px rgba(0,51,204,0.4));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#001060,#002395,#4466FF,#002395,#001060);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:frBlue 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+<div id="capa3">
+
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">🇫🇷 ✦ ∆°</span>
+    <span class="page-chapter">République Française · Liberté · Égalité · Fraternité</span>
+    <h2 class="page-title france">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">Votre guide complet · Tu guía completa</div>
+  </div>
+
+  <div class="fleur">⚜ ⚜ ⚜ ⚜ ⚜</div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo or-ver">I · Qu'est-ce que Papiro · Qué es Papiro</span>
+    <div class="cuerpo">
+      <p>Papiro n'est pas un autre réseau social. No te vamos a mentir ni hacerte perder tu tiempo. Nous sommes une plateforme numérique construite sur une philosophie simple: <em>technologie qui te protège et ne t'exploite pas.</em></p>
+      <p>Tandis que d'autres applications utilisent couleurs, vitesses et algorithmes scientifiquement conçus pour créer anxiété et dépendance — nous avons fait le contraire. Chaque animation, chaque couleur fut calibrée pour que lorsque tu entres ici, <em>tu respires paix, calme et plaisir sain.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">La Digitalité Saine et Sécurisée n'est pas un slogan.<br>C'est la raison pour laquelle chaque ligne de code ici existe.<br><span style="font-size:19px;color:rgba(212,200,168,0.6);">Digitalidad Sana y Segura.</span></div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · Fait avec âme, histoire et foi</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl bleu">CE QUE NOUS NE FAISONS PAS</span>
+      <div class="data-bleu">
+        <div class="data-row"><span class="dk-b">SANS ALGORITHMES D'ANXIÉTÉ</span><span class="dv">Tu décides quoi voir · quand · comment</span></div>
+        <div class="data-row"><span class="dk-b">SANS ADS INVASIVES</span><span class="dv">Ce que tu vois est réel · sans artifices</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl rouge">TON IDENTITÉ DANS PAPIRO</span>
+      <div class="data-rouge">
+        <div class="data-row"><span class="dk-r">IDENTITÉ RÉELLE</span><span class="dv">Creax@P∆p.TonNom · seulement toi · pour toujours</span></div>
+        <div class="data-row"><span class="dk-r">PIXEL COSMIQUE</span><span class="dv">Ta place unique dans l'univers numérique</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl or-ver">QUI NOUS SOMMES</span>
+      <div class="data-or">
+        <div class="data-row"><span class="dk-o">SÉCURITÉ ∆°</span><span class="dv">Système de 3 couches · personne ne touche tes données</span></div>
+        <div class="data-row"><span class="dk-b">LATINO-AMÉRICAIN</span><span class="dv">Fait avec âme · histoire surprenante · avec foi</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo rouge">II · Les Espaces de Papiro</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · LE SALON</span>
+        <div class="card-texto">Le cœur social de Papiro. Jeux latino-américains, chat en direct, transmissions. Touche <strong>∆</strong> depuis n'importe quel papiro.</div>
+        <span class="card-tag">→ Accès: bouton ∆ · toujours visible</span></div>
+      <div class="card"><span class="card-titulo">📜 LES PAPIROS</span>
+        <div class="card-texto">Ton espace d'expression personnel. Ta voix dans l'écosystème — avec ton style, ta couleur, ton sceau.</div>
+        <span class="card-tag">→ papiro.app/∆TonNom</span></div>
+      <div class="card"><span class="card-titulo">📚 LA BIBLIOTHÈQUE</span>
+        <div class="card-texto">Où tu es maintenant. Guides, tutoriels et outils. Comme P∆plover vérifié tu pourras envoyer tes créations. Ensemble nous construisons quelque chose d'extraordinaire.</div>
+        <span class="card-tag">→ Envoie ta proposition via ° support</span></div>
+      <div class="card"><span class="card-titulo">🔴 EN DIRECT · TvP∆p</span>
+        <div class="card-texto">Transmissions en temps réel. Événements, actualités, lancements.</div>
+        <span class="card-tag">→ Lancement mondial · 26 octobre · Si Dieu le veut</span></div>
+      <div class="card"><span class="card-titulo">🎮 JEUX LATINO-AMÉRICAINS</span>
+        <div class="card-texto">Domino, El Truco et plus — avec <strong>Bolívares Digitales</strong>, le nom de nos jetons de jeu (pas de l'argent réel). Microvidéos de 5 secondes. TvP∆p en direct pendant que tu joues.<br><br>Lancement: <strong>26 octobre</strong>, au nom de Jésus.</div>
+        <span class="card-tag">→ P∆plovers jouent avec la communauté</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo bleu">III · Outils Créatifs</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">🎨 TON PAPIRO PERSONNEL</span>
+        <div class="card-texto">Ton nom, tes couleurs, ton design, ton histoire. Choisis la couleur de ton panneau, textures, lignes de marge, ta signature. Ton espace — personne d'autre ne le contrôle.</div>
+        <span class="card-tag">Texte · image · vidéo · lettre · public ou privé</span></div>
+      <div class="card"><span class="card-titulo">⭐ TON PIXEL COSMIQUE</span>
+        <div class="card-texto">Un pixel unique dans le cosmos de Papiro — comme une étoile du ciel de France. Il scintille quand tu es connecté.</div>
+        <span class="card-tag">1 200 pixels uniques · les 100 premiers → Or Vif pour toujours</span></div>
+      <div class="card"><span class="card-titulo">🤖 CRIXUS · TON AMI NUMÉRIQUE</span>
+        <div class="card-texto">L'IA de l'écosystème. Ici pour t'aider, t'orienter et t'accompagner.</div>
+        <span class="card-tag">→ Bientôt disponible · dans chaque papiro</span></div>
+      <div class="card"><span class="card-titulo">📡 TON IDENTITÉ NUMÉRIQUE</span>
+        <div class="card-texto"><strong>Creax@P∆p.TonNom</strong> — ta signature dans tout l'écosystème. Unique et irremplaçable.</div>
+        <span class="card-tag">papiro.app/∆TonNom</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo crème">IV · Créer du Contenu · Crear Contenido</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">📝 PUBLIER DANS TON PAPIRO</span>
+        <div class="card-texto">Écris depuis ton cœur. Ton papiro t'appartient — conçois tout ce que tu imagines, dans le respect des bonnes mœurs.<br><br>En <strong>°</strong> tu trouveras l'accès direct au support et au CEO. Merci de défendre ce projet: <strong>P∆pir°</strong></div>
+        <span class="card-tag">Texte · image · vidéo · lettre · réflexion</span></div>
+      <div class="card"><span class="card-titulo">💬 PARLER DE PAPIRO</span>
+        <div class="card-texto">Quand quelqu'un te demande: <em>c'est une plateforme numérique latino-américaine qui protège l'utilisateur au lieu de l'exploiter.</em> Voilà.</div>
+        <span class="card-tag">Moins c'est plus · la curiosité fait le reste</span></div>
+      <div class="card"><span class="card-titulo">🌟 ÊTRE AMBASSADEUR ∆°</span>
+        <div class="card-texto">Quand tu partages Papiro tu ne vends rien — tu invites quelqu'un dans un espace que tu sais déjà valoir.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #France 🇫🇷</span></div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">« Ceux qui ont cru en l'idée.<br>Ceux qui ont vu le révolutionnaire.<br>Dans le concept et en Dieu. »</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7° · Venezuela pour le monde</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="sec">
+    <span class="sec-titulo or-ver">V · Pourquoi Papiro est Sûr et Sain</span>
+    <ul class="lista">
+      <li>Les animations vont de 8 à 24 secondes — calibrées pour ne pas créer d'anxiété visuelle.</li>
+      <li>Tes informations voyagent protégées par un système de 3 couches: Les 3 Marias, notre token et la Couche silencieuse. 🔐</li>
+      <li>Personne ne peut voir tes données sans passer par ∆ — pas même nous sans ta permission.</li>
+      <li>Mode apocalypse: si internet tombe, tes données survivent sur ton appareil.</li>
+      <li>Sans bots, sans spam, sans algorithmes conçus pour te faire perdre du temps.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="cta-wrap">
+    <span style="font-size:26px;display:block;margin-bottom:10px;">🇫🇷</span>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="france">Vous voulez aller plus loin?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#D4C8A8;display:block;margin-bottom:6px;line-height:2;">Inscris-toi et crée ton email dans P∆°PIRO<br>et nous t'enverrons tout en détail<br>sur le sujet que tu choisis.</span>
+    <span style="font-family:'Special Elite',serif;font-size:21px;letter-spacing:3px;display:block;margin-bottom:18px;" class="or-ver">#777 · #SI° · #P∆°PIRO · 🇫🇷</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ REJOINDRE P∆°PIRO</button>
+  </div>
+
+  <div class="footer-stamp">
+    <div class="stamp-phrase france">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CODE D'HONNEUR IM. #7 — Ainsi je l'ai fait</div>
+  </div>
+
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div class="fleur" style="margin-bottom:16px;font-size:22px;">⚜ ⚜ ⚜ ⚜ ⚜</div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(201,168,76,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="france">· LE COFFRE DE CEUX QUI ONT CRU<br>DÈS LE PREMIER INSTANT ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fondateur · Creaxion Papiro © 2026 · 🇫🇷</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  var cl=['#002395','#4466FF','#ED2939','#FF7080','#D4AF37','#F0C040','#F8F8F4'];
+  for(var j=0;j<55;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%7]});
+  for(var k=0;k<6;k++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:1+Math.random()*0.6,ph:Math.random()*Math.PI*2,sp:0.0007+Math.random()*0.001,color:'rgba(201,168,76,0.85)'});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_korea.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro Francia · Liberté Égalité Fraternité · 🇫🇷');
+</script>
+</body>
+</html>
