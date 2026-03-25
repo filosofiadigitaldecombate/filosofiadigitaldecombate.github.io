@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>48 Mandos · CEO ∆°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+.margin-line{position:fixed;top:0;height:100%;width:4px;z-index:10;pointer-events:none;
+  background:linear-gradient(180deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:100% 400%;animation:oroFlow 6s linear infinite;
+  box-shadow:0 0 6px rgba(255,180,0,0.5);}
+.margin-line.left{left:32px;}.margin-line.right{right:32px;}
+@keyframes oroFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+.wrap{position:relative;z-index:2;width:100%;max-width:480px;margin:0 auto;padding:28px 48px 40px;}
+.ceo-title{font-family:'Cinzel',serif;font-size:20px;font-weight:900;letter-spacing:4px;text-align:center;margin-bottom:4px;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:oroVivo 8s linear infinite;}
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:300% center;}}
+.ceo-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:rgba(201,168,76,0.4);text-align:center;margin-bottom:4px;}
+.page-rule{width:100%;height:1px;margin:14px 0;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+.grid-mandos{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px;}
+.mando-btn{
+  background:rgba(201,168,76,0.05);border:1px solid rgba(201,168,76,0.15);
+  border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;
+  transition:all 0.3s;text-decoration:none;display:block;
+}
+.mando-btn:hover{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.4);}
+.mando-btn.activo{border-color:rgba(201,168,76,0.5);background:rgba(201,168,76,0.1);}
+.mando-btn.pendiente{opacity:0.35;cursor:default;}
+.mando-num{font-family:'Special Elite',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,0.85);display:block;margin-bottom:4px;}
+.mando-nombre{font-family:'Cinzel',serif;font-size:12px;color:#DDD0AA;letter-spacing:1px;line-height:1.4;}
+.mando-estado{font-size:16px;display:block;margin-bottom:4px;}
+.seccion-titulo{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:3px;
+  color:rgba(201,168,76,0.9);margin:24px 0 12px;border-bottom:1px solid rgba(201,168,76,0.2);padding-bottom:6px;}
+.sello-bottom{text-align:center;padding:20px 0;margin-top:8px;}
+.sello-text{font-family:'Special Elite',serif;font-size:11px;letter-spacing:2px;color:rgba(201,168,76,0.2);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="init()">
+<canvas id="cosmos"></canvas>
+<div class="margin-line left"></div>
+<div class="margin-line right"></div>
+<div class="wrap">
+  <div class="ceo-title">48 MANDOS ∆°</div>
+  <div class="ceo-sub">Control absoluto del ecosistema · Solo LC7°</div>
+  <div class="page-rule"></div>
+
+  <!-- PORTADA Y VISUAL -->
+  <div class="seccion-titulo">PORTADA Y VISUAL</div>
+  <div class="grid-mandos">
+    <a href="GESTOR_IMAGEN_PORTADA.html" class="mando-btn activo">
+      <span class="mando-estado">🖼️</span>
+      <span class="mando-num">MANDO 01</span>
+      <span class="mando-nombre">Imagen Portada</span>
+    </a>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🎨</span>
+      <span class="mando-num">MANDO 02</span>
+      <span class="mando-nombre">Color Paño Login</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">✦</span>
+      <span class="mando-num">MANDO 03</span>
+      <span class="mando-nombre">Mensaje Portada</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📢</span>
+      <span class="mando-num">MANDO 04</span>
+      <span class="mando-nombre">Banner Evento</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🌌</span>
+      <span class="mando-num">MANDO 05</span>
+      <span class="mando-nombre">Modo Cosmos</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">💜</span>
+      <span class="mando-num">MANDO 06</span>
+      <span class="mando-nombre">Tema Especial</span>
+    </div>
+  </div>
+
+  <!-- USUARIOS Y ACCESO -->
+  <div class="seccion-titulo">USUARIOS Y ACCESO</div>
+  <div class="grid-mandos">
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">👥</span>
+      <span class="mando-num">MANDO 07</span>
+      <span class="mando-nombre">Ver Usuarios</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">✅</span>
+      <span class="mando-num">MANDO 08</span>
+      <span class="mando-nombre">Verificar Usuario</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🚫</span>
+      <span class="mando-num">MANDO 09</span>
+      <span class="mando-nombre">Bloquear Usuario</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">⭐</span>
+      <span class="mando-num">MANDO 10</span>
+      <span class="mando-nombre">Asignar Pixel</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">💰</span>
+      <span class="mando-num">MANDO 11</span>
+      <span class="mando-nombre">Cruzcoin Manual</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📋</span>
+      <span class="mando-num">MANDO 12</span>
+      <span class="mando-nombre">Lista Papfans</span>
+    </div>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="seccion-titulo">CONTENIDO Y BIBLIOTECA</div>
+  <div class="grid-mandos">
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📚</span>
+      <span class="mando-num">MANDO 13</span>
+      <span class="mando-nombre">Biblioteca</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📹</span>
+      <span class="mando-num">MANDO 14</span>
+      <span class="mando-nombre">Subir Video</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📝</span>
+      <span class="mando-num">MANDO 15</span>
+      <span class="mando-nombre">Publicar Papiro</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📣</span>
+      <span class="mando-num">MANDO 16</span>
+      <span class="mando-nombre">Anuncio Global</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🔴</span>
+      <span class="mando-num">MANDO 17</span>
+      <span class="mando-nombre">En Vivo</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🗂️</span>
+      <span class="mando-num">MANDO 18</span>
+      <span class="mando-nombre">Archivos CEO</span>
+    </div>
+  </div>
+
+  <!-- SEGURIDAD -->
+  <div class="seccion-titulo">SEGURIDAD Y SISTEMA</div>
+  <div class="grid-mandos">
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🚨</span>
+      <span class="mando-num">MANDO 19</span>
+      <span class="mando-nombre">Ver Amenazas</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🔐</span>
+      <span class="mando-num">MANDO 20</span>
+      <span class="mando-nombre">Operación Delta</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📊</span>
+      <span class="mando-num">MANDO 21</span>
+      <span class="mando-nombre">30×40 Mapa</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🔑</span>
+      <span class="mando-num">MANDO 22</span>
+      <span class="mando-nombre">Tokens Delta</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">💾</span>
+      <span class="mando-num">MANDO 23</span>
+      <span class="mando-nombre">Backup Manual</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🌐</span>
+      <span class="mando-num">MANDO 24</span>
+      <span class="mando-nombre">Estado Supabase</span>
+    </div>
+  </div>
+
+  <!-- CRIXUS IA -->
+  <div class="seccion-titulo">CRIXUS · IA DEL ECOSISTEMA</div>
+  <div class="grid-mandos">
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">°</span>
+      <span class="mando-num">MANDO 25</span>
+      <span class="mando-nombre">Salón Crixus</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">🧠</span>
+      <span class="mando-num">MANDO 26</span>
+      <span class="mando-nombre">Modelar Conducta</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📖</span>
+      <span class="mando-num">MANDO 27</span>
+      <span class="mando-nombre">Bitácora Crixus</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">⚙️</span>
+      <span class="mando-num">MANDO 28</span>
+      <span class="mando-nombre">Config IA</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">💬</span>
+      <span class="mando-num">MANDO 29</span>
+      <span class="mando-nombre">Conversaciones</span>
+    </div>
+    <div class="mando-btn pendiente">
+      <span class="mando-estado">📜</span>
+      <span class="mando-num">MANDO 30</span>
+      <span class="mando-nombre">Instrucciones</span>
+    </div>
+  </div>
+
+  <!-- MANDOS 31-48 RESERVADOS -->
+  <div class="seccion-titulo">MANDOS RESERVADOS · EN CONSTRUCCIÓN</div>
+  <div class="grid-mandos">
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 31</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 32</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 33</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 34</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 35</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 36</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 37</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 38</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 39</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 40</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 41</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 42</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 43</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 44</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 45</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 46</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 47</span><span class="mando-nombre">Reservado</span></div>
+    <div class="mando-btn pendiente"><span class="mando-estado">∆</span><span class="mando-num">MANDO 48</span><span class="mando-nombre">Reservado</span></div>
+  </div>
+
+  <div class="sello-bottom">
+    <div class="sello-text">∆° · 48 Mandos · Solo CEO · X-7777777-LC7°</div>
+    <div class="sello-text" style="margin-top:3px;">SI° · 350 · 777 · Creaxion Papiro © 2026</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos');var ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();
+  window.addEventListener('resize',r);var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+
+function init(){
+  document.body.style.opacity='1';
+  var sesion = localStorage.getItem('papiro_usuario');
+  var CEO = 'Creax@P∆p.LuisAlfonsoCastillejoVentura';
+
+  if(!sesion){
+    // Sin sesión — activar modo CEO local para pruebas
+    localStorage.setItem('papiro_usuario', JSON.stringify({
+      nombre: 'Luis Castillejo',
+      codigo: CEO,
+      pixel: 'LC7-7777777'
+    }));
+    document.body.style.opacity='1';
+    return;
+  }
+
+  try{
+    var u = JSON.parse(sesion);
+    if(u.codigo !== CEO){
+      // Mostrar acceso denegado pero NO redirigir
+      document.querySelector('.ceo-title').textContent = 'ACCESO DENEGADO';
+      document.querySelector('.ceo-sub').textContent = 'Solo para CEO LC7°';
+      document.getElementById('mandosContenido') &&
+        (document.getElementById('mandosContenido').style.display='none');
+    }
+  } catch(e){ document.body.style.opacity='1'; }
+}
+</script>
+</body>
+</html>
