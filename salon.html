@@ -399,7 +399,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--dark);color:var(--cream);
       <div class="pixel-loader-fill" id="loaderFill" style="width:0%"></div>
       <div class="pixel-loader-text" id="loaderText">CARGANDO...</div>
     </div>
-    <button class="btn-enter" id="btnEnter" style="display:none;" onclick="closeWelcome()">
+    <button class="btn-enter" id="btnEnter" style="display:none;" 
+      onclick="closeWelcome()" 
+      ontouchend="event.preventDefault();closeWelcome();">
       ▶ ENTRAR AL SALÓN ◀
     </button>
   </div>
@@ -963,7 +965,8 @@ let realtimeChannel = null;
   const loadInterval=setInterval(()=>{
     loadPct+=Math.random()*8+2;
     if(loadPct>=100){ loadPct=100; clearInterval(loadInterval);
-      loaderText.textContent='LISTO!';btnEnter.style.display='inline-block';
+      try{loaderText.textContent='LISTO!';}catch(e){}
+try{btnEnter.style.display='inline-block';}catch(e){}
       loaderFill.style.width='100%';
     } else {
       loaderFill.style.width=loadPct+'%';
@@ -1000,6 +1003,16 @@ let realtimeChannel = null;
     wrap.appendChild(div);
   });
 })();
+
+// Failsafe: show button after 3s regardless
+setTimeout(function(){
+  var b=document.getElementById('btnEnter');
+  if(b)b.style.display='inline-block';
+  var lt=document.getElementById('loaderText');
+  if(lt)lt.textContent='LISTO!';
+  var lf=document.getElementById('loaderFill');
+  if(lf)lf.style.width='100%';
+},2500);
 
 function closeWelcome(){
   const ws=document.getElementById('welcomeScreen');
