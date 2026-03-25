@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>P∆pfans · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+
+/* ══ CAPA 1 — COSMOS ══ */
+body{background:#000000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.35;}
+
+/* ══ MÁRGENES — PurpuP∆p · 4px · 32px ══ */
+.margin-line{
+  position:fixed;top:0;height:100%;
+  width:4px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,
+    #0A0018,#2E0E5A,#6B35B8,
+    #9B60E8,#C8A0FF,#E8D0FF,
+    #9B60E8,#1040CC,#2E0E5A,#0A0018);
+  background-size:100% 400%;
+  animation:margenUniv 7s linear infinite;
+  box-shadow:0 0 6px rgba(150,80,220,0.5),0 0 14px rgba(80,40,200,0.3);
+}
+.margin-line.left {left:32px;}
+.margin-line.right{right:32px;}
+.margin-line:hover{box-shadow:0 0 12px rgba(180,100,255,0.8),0 0 24px rgba(100,60,255,0.5);}
+@keyframes margenUniv{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+/* ══ CAPA 2 — CUERO/BASE ══ */
+#capa2-cuero{
+  position:relative;z-index:2;
+  width:100%;min-height:100vh;
+  background:linear-gradient(160deg,#220E3A 0%,#1A0A2E 50%,#0E0618 100%);
+}
+
+/* ══ CAPA 3 — PAÑO MARIPOSA ══ */
+#capa3-pano{
+  position:relative;z-index:4;
+  margin:0 48px;
+  padding:28px 24px 0;
+  min-height:100vh;
+  overflow-x:hidden;
+  background:linear-gradient(160deg,#220E3A 0%,#1A0A2E 50%,#160830 100%);
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.008) 0px,transparent 2px,
+      transparent 6px,rgba(255,255,255,0.008) 8px),
+    linear-gradient(160deg,#220E3A 0%,#1A0A2E 50%,#160830 100%);
+}
+
+/* ══ CAPA 4 — INTERACCIÓN ══ */
+#capa4-interaccion{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.c4-btn{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.c4-btn-salon{
+  bottom:24px;right:24px;
+  background:rgba(150,80,220,0.12);
+  border:1px solid rgba(180,100,255,0.35);
+}
+.c4-btn-salon:hover{background:rgba(150,80,220,0.25);}
+.c4-btn-salon span{
+  font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 6s linear infinite;
+}
+
+/* ══ CAPA 5 ══ */
+#capa5-sistema{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* ══ ANIMACIONES ══ */
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:400% center;}}
+@keyframes purpuFlow{0%{background-position:0% center;}100%{background-position:500% center;}}
+@keyframes purpuBreath{
+  0%,100%{filter:drop-shadow(0 0 3px rgba(150,80,220,0.4)) brightness(1);}
+  50%{filter:drop-shadow(0 0 8px rgba(200,160,255,0.7)) brightness(1.1);}
+}
+
+/* ══ COLOR PurpuP∆p — para textos ══ */
+.purpu{
+  background:linear-gradient(90deg,
+    #2E0E5A,#6B35B8,#9B60E8,
+    #C8A0FF,#E8D0FF,#C8A0FF,
+    #3A80FF,#6B35B8,#2E0E5A);
+  background-size:500% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:purpuFlow 14s linear infinite, purpuBreath 5s ease-in-out infinite;
+}
+
+/* ══ HEADER ══ */
+.ornamento{font-size:18px;text-align:center;display:block;margin-bottom:8px;padding-top:28px;}
+.capitulo{
+  font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;
+  text-align:center;margin-bottom:6px;
+}
+.page-rule{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(150,80,220,0.4),transparent);margin:14px 0;}
+
+/* PAPIRO.∆° tagline */
+.papiro-tagline{text-align:center;margin-bottom:16px;}
+.tagline-delta{
+  font-family:'Cinzel',serif;font-size:20px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:4px;
+  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 14s linear infinite;
+  cursor:pointer;
+}
+.tagline-sub{
+  font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;letter-spacing:2px;
+  display:block;
+}
+
+/* TÍTULO PRINCIPAL */
+.titulo-apoya{
+  font-family:'Cinzel',serif;font-size:24px;font-weight:900;
+  letter-spacing:2px;color:#E8D8F8;text-align:center;
+  text-shadow:0 0 20px rgba(150,80,255,0.4);
+  margin-bottom:14px;
+}
+
+/* ══ CORAZÓN ══ */
+.heart-section{display:flex;justify-content:center;align-items:center;margin:20px 0;}
+.heart-wrap{position:relative;width:100%;max-width:320px;height:260px;cursor:pointer;display:block;margin:0 auto;}
+.heart-canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+.heart-content{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:30px 24px;z-index:3;text-align:center;
+}
+.heart-question{font-family:'Cinzel',serif;font-size:14px;color:#E8D8F8;letter-spacing:1px;line-height:1.8;margin-bottom:10px;}
+.heart-btn{
+  font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;
+  border:1px solid rgba(150,80,220,0.4);border-radius:6px;padding:8px 14px;
+  cursor:pointer;
+}
+
+/* ══ CARTA ══ */
+.carta-titulo{
+  font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;
+  text-align:center;margin:24px 0 20px;padding-bottom:8px;
+  border-bottom:1px solid rgba(150,80,220,0.2);
+}
+.carta-sello{
+  font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:6px;
+  text-align:center;display:block;margin-bottom:20px;cursor:pointer;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 12s linear infinite;
+  filter:drop-shadow(0 0 10px rgba(255,180,0,0.5));
+}
+.carta-apertura{font-family:'Cinzel',serif;font-size:20px;color:#E8D8F8;display:block;margin-bottom:4px;padding-left:2em;}
+.carta-apertura2{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:rgba(220,190,255,0.6);display:block;margin-bottom:24px;padding-left:2em;}
+.carta-body{font-family:'Crimson Pro',serif;font-size:18px;line-height:2.2;color:#C8B8E8;}
+.carta-body p{margin-bottom:18px;text-indent:2em;}
+.carta-subtitulo{
+  font-family:'Cinzel',serif;font-size:17px;letter-spacing:2px;
+  padding-left:2em;margin:32px 0 16px;display:block;
+  padding-bottom:8px;border-bottom:1px solid rgba(150,80,220,0.15);
+}
+.carta-codigo{
+  font-family:'Special Elite',serif;font-size:14px;line-height:2;
+  padding:14px 16px;margin:14px 0;letter-spacing:1px;
+  border:1px solid rgba(150,80,220,0.15);border-radius:4px;
+}
+.carta-fe{
+  font-family:'Crimson Pro',serif;font-style:italic;font-size:18px;line-height:2.4;
+  text-align:center;padding:32px 0;
+  border-top:1px solid rgba(150,80,220,0.1);
+  border-bottom:1px solid rgba(150,80,220,0.1);
+  margin:32px 0;
+}
+.carta-cierre{
+  font-family:'Cinzel',serif;font-size:18px;font-weight:900;letter-spacing:4px;
+  text-align:center;display:block;margin:24px 0 8px;
+}
+.carta-bienvenido{
+  font-family:'Cinzel',serif;font-size:16px;letter-spacing:4px;
+  text-align:center;display:block;margin-bottom:28px;
+}
+.firma{border-top:1px solid rgba(150,80,220,0.1);padding-top:20px;text-align:center;}
+.firma-nombre{font-family:'Cinzel',serif;font-size:16px;font-weight:600;letter-spacing:2px;color:#E8D8F8;display:block;margin-bottom:6px;}
+.firma-cargo{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:rgba(200,180,255,0.5);display:block;line-height:2;}
+.firma-codigo{font-family:'Special Elite',serif;font-size:13px;letter-spacing:0px;color:rgba(150,120,220,0.4);display:block;margin-top:8px;line-height:2;text-align:center;word-break:break-all;}
+
+/* Stamp */
+.footer-stamp{text-align:center;padding:12px 0;border-top:1px solid rgba(150,80,220,0.1);margin-top:20px;}
+.stamp-phrase{
+  font-family:'Special Elite',serif;font-size:17px;letter-spacing:2px;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 8s linear infinite;
+}
+.stamp-sub{font-family:'Special Elite',serif;font-size:15px;letter-spacing:1px;color:rgba(200,180,255,0.4);margin-top:4px;}
+
+.page-nav{display:none;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,rgba(150,80,220,0.3),transparent);}
+.baul-label{
+  font-family:'Cinzel',serif;
+  font-size:14px;letter-spacing:4px;
+  display:block;margin-bottom:24px;
+  background:linear-gradient(90deg,#2E0E5A,#6B35B8,#9B60E8,#C8A0FF,#E8D0FF,#F0E8FF,#C8A0FF,#3A80FF,#6B35B8,#2E0E5A);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:purpuFlow 22s linear infinite;
+  filter:drop-shadow(0 0 4px rgba(255,180,0,0.3));
+}
+.baul-nombre{
+  font-family:'Cinzel',serif;font-size:28px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:12px;
+  background:linear-gradient(90deg,#2E0E5A,#6B35B8,#9B60E8,#C8A0FF,#E8D0FF,#F0E8FF,#C8A0FF,#3A80FF,#6B35B8,#2E0E5A);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:purpuFlow 18s linear infinite;
+  filter:drop-shadow(0 1px 0 rgba(255,220,100,0.4)) drop-shadow(0 0 8px rgba(255,180,0,0.3));
+  opacity:0;transform:translateY(30px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.baul-sub{
+  font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;
+  display:block;margin-bottom:8px;
+  background:linear-gradient(90deg,#2E0E5A,#6B35B8,#9B60E8,#C8A0FF,#E8D0FF,#F0E8FF,#C8A0FF,#3A80FF,#6B35B8,#2E0E5A);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:purpuFlow 22s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(255,180,0,0.3));
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s ease 0.3s,transform 0.8s ease 0.3s;
+}
+.baul-nombre.visible,.baul-sub.visible{opacity:1;transform:translateY(0);}
+
+/* MODAL BETA */
+.beta-overlay{display:none;position:fixed;inset:0;z-index:600;background:rgba(6,5,10,0.97);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:16px;}
+.beta-overlay.active{display:flex;}
+.beta-modal{width:100%;max-width:420px;max-height:90vh;overflow-y:auto;background:linear-gradient(160deg,#1A0A2E,#0E0618);border:1px solid rgba(150,80,220,0.4);border-radius:14px;padding:28px 22px;position:relative;}
+.beta-close{position:absolute;top:14px;right:14px;background:none;border:1px solid rgba(150,80,220,0.3);color:#8A7A9E;width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;}
+.beta-icon{font-size:32px;text-align:center;display:block;margin-bottom:10px;}
+.beta-title{font-family:'Cinzel',serif;font-size:17px;color:#E8D8F8;letter-spacing:2px;text-align:center;margin-bottom:6px;display:block;}
+.beta-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#8A7A9E;line-height:1.8;text-align:center;margin-bottom:20px;}
+.beta-label{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:#8A7A9E;margin-bottom:5px;display:block;}
+.beta-input{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(150,80,220,0.3);border-radius:10px;padding:14px;color:#E8D8F8;font-family:'Crimson Pro',serif;font-size:16px;outline:none;margin-bottom:10px;}
+.beta-input::placeholder{color:#5A4A6E;}
+.btn-beta{width:100%;background:linear-gradient(135deg,#5A1E8A,#2A0E3A);border:1px solid rgba(150,80,200,0.5);border-radius:10px;padding:16px;color:#DDD0AA;font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;cursor:pointer;margin-top:6px;}
+.beta-success{display:none;text-align:center;padding:20px;}
+.beta-success-icon{font-size:40px;display:block;margin-bottom:10px;}
+.beta-success-text{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:#C8B8E8;line-height:1.8;}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+
+<!-- MÁRGENES — UN SOLO PAR · GATILLOS NAV -->
+<div class="margin-line left"
+  onclick="paginaAnterior()"
+  ontouchend="event.preventDefault();paginaAnterior();"
+  title="← Anterior"></div>
+<div class="margin-line right"
+  onclick="paginaSiguiente()"
+  ontouchend="event.preventDefault();paginaSiguiente();"
+  title="Siguiente →"></div>
+
+<!-- CAPA 4 -->
+<div id="capa4-interaccion">
+  <div class="c4-btn c4-btn-salon" onclick="irSalon()">
+    <span>∆</span>
+  </div>
+</div>
+
+<!-- CAPA 5 -->
+<div id="capa5-sistema"></div>
+
+<!-- MODAL BETA -->
+<div class="beta-overlay" id="betaModal">
+  <div class="beta-modal">
+    <button class="beta-close" onclick="closeBeta()">✕</button>
+    <span class="beta-icon">💜</span>
+    <span class="beta-title">Únete a los P∆pfans</span>
+    <p class="beta-sub">Los primeros que llegan son los que más importan. Tu lugar en el cosmos te espera.</p>
+    <div id="betaForm">
+      <span class="beta-label">Tu nombre</span>
+      <input class="beta-input" id="betaNombre" placeholder="¿Cómo te llamas?">
+      <span class="beta-label">Tu correo</span>
+      <input class="beta-input" id="betaCorreo" type="email" placeholder="Para avisarte cuando abra">
+      <span class="beta-label">Tu Región</span>
+      <input class="beta-input" id="betaRegion" placeholder="Ciudad · País · Estado...">
+      <button class="btn-beta" onclick="registrarBeta()">💜 SÍ, QUIERO MI LUGAR EN EL COSMOS P∆PIR°</button>
+    </div>
+    <div class="beta-success" id="betaSuccess">
+      <span class="beta-success-icon">✨</span>
+      <p class="beta-success-text">¡Bienvenid° al cosmos!<br><br>Tu lugar está guardado.<br>Nos acordaremos de ti. SI°<br><br><span style="font-size:14px;color:rgba(200,160,255,0.6);">→ Toca ∆ para entrar al Salón</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- CAPA 2 + 3 -->
+<div id="capa2-cuero">
+<div id="capa3-pano">
+
+  <!-- HEADER -->
+  <span class="ornamento">💜 ✦ ∆°</span>
+  <div class="capitulo purpu">P∆pfans · Canales de Apoyo</div>
+
+  <div class="papiro-tagline">
+    <span class="tagline-delta" onclick="irSalon()">PAPIRO.∆°</span>
+    <span class="tagline-sub purpu">Digitalidad Sana y Segura</span>
+  </div>
+
+  <h2 class="titulo-apoya">Apoya la Misión</h2>
+  <div class="page-rule"></div>
+
+  <!-- CORAZÓN -->
+  <div class="heart-section">
+    <div class="heart-wrap" onclick="openBeta()">
+      <canvas class="heart-canvas" id="heartCanvas" width="320" height="260"></canvas>
+      <div class="heart-content">
+        <p class="heart-question">¿Quieres ser parte<br>del primer capítulo?<br><em style="font-size:14px;color:rgba(200,160,255,0.5);">Tu lugar en el cosmos te espera</em></p>
+        <span class="heart-btn purpu">💜 ÚNETE A LOS P∆PFANS</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CARTA -->
+  <div class="carta-titulo purpu">· Carta de Bienvenida ·</div>
+  <span class="carta-sello" onclick="irSalon()">∆°</span>
+
+  <div class="carta-body">
+    <span class="carta-apertura purpu">Oye.</span>
+    <span class="carta-apertura2">Sí, tú. El que está leyendo esto.</span>
+
+    <p>Quiero hablarte como lo que soy — un pana. No una corporación. No un algoritmo. Un venezolano con fe, con ideas, con tecnología entre las manos y con ganas de compartirlo todo contigo.</p>
+
+    <span class="carta-subtitulo purpu">Lo que está pasando aquí</span>
+    <p>Estamos construyendo algo que no existe todavía. No es una red social más. No es una app más. Es un <em style="color:#C8A0FF;">ecosistema vivo</em> — un universo digital donde cada persona que llega tiene su lugar, su nombre, su pixel único en el cosmos. Literalmente.</p>
+    <p>Tu nombre puede quedar grabado en un cielo de estrellas digitales que titilan en negro absoluto. Para siempre. Antes que todos los demás.</p>
+
+    <span class="carta-subtitulo purpu">Lo que te ofrecemos</span>
+    <p><em style="color:#C8A0FF;">Tecnología</em> de la buena. <em style="color:#C8A0FF;">Creatividad</em> — los colores son nuestros y los compartimos contigo. <em style="color:#C8A0FF;">Un lugar</em> — papiro.app/∆TuNombre. <em style="color:#C8A0FF;">Juegos</em> venezolanos con Bolívares. <em style="color:#C8A0FF;">Y regalos</em> — a los que creyeron primero no se les olvida jamás.</p>
+
+    <span class="carta-subtitulo purpu">Lo que te pedimos</span>
+    <p>Nada que no puedas dar. Tu confianza. Tu tiempo cuando puedas. Tu opinión honesta. Y si puedes — tu apoyo. Un Bolívar. Un compartido. Una palabra buena. Lo que salga del corazón.</p>
+
+    <span class="carta-subtitulo purpu">Nuestra intención es protegerte</span>
+    <p>Mientras el mundo digital te bombardea con velocidad y colores para crearte ansiedad — nosotros hacemos lo contrario. El púrpura que ves es <em style="color:#C8A0FF;">serenidad</em>. La lentitud de los colores es tu <em style="color:#C8A0FF;">ritmo cardíaco en paz</em>.</p>
+
+    <div class="carta-codigo purpu">
+48 × 25 = 1,200 pixels únicos en el cosmos
+Primeros 100 → Oro Vivo para siempre
+Primeros 300 → Espacial Comando
+papiro.app/∆TuNombre → tu lugar
+Creax@P∆p.TuNombre   → tu identidad
+∆°                    → el sello que nos une
+    </div>
+
+    <div class="carta-fe purpu">
+      Como dice Papá Dios —<br>
+      nosotros <strong style="color:#C8A0FF;">SI°</strong> nos acordaremos de ti<br>
+      cuando estemos en el P∆piro.<br><br>
+      La gloria es de Dios.<br>
+      El trabajo es nuestro.<br>
+      El fruto — lo compartimos juntos.
+    </div>
+
+    <p>Tú puedes ser parte del primer capítulo.</p>
+
+    <span class="carta-cierre purpu">&lt; ∆nimate! &gt;</span>
+    <span class="carta-bienvenido purpu">Eres Bienvenid°</span>
+
+    <div class="firma">
+      <span class="firma-nombre purpu">Luis Alfonso Castillejo Ventura</span>
+      <span class="firma-cargo">C.E.O · Creaxion Papiro<br>Candidato Presidencial · Venezuela<br>Exiliado en Brasil · Rio Grande do Sul</span>
+      <span class="firma-codigo">X-7777777-LC7° · SI° · 350 · 777<br>Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div class="footer-stamp">
+    <div class="stamp-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span class="baul-label">· EL BAÚL · Los que creyeron primero ·</span>
+    <span class="baul-nombre" id="baulNombre">Luis Castillejo</span>
+    <span class="baul-sub" id="baulSub1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="baulSub2" style="transition-delay:0.5s;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="baulSub3" style="transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+  </div>
+
+</div><!-- /capa3 -->
+</div><!-- /capa2 -->
+
+<script>
+/* CAPA 1 — COSMOS */
+(function(){
+  var c=document.getElementById('cosmos');
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var stars=[];
+  for(var i=0;i<300;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
+  var cols=['#A8D4FF','#C8A0FF','#E8D0FF','#A0FFD0'];
+  for(var j=0;j<40;j++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.4+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005,color:cols[Math.floor(Math.random()*cols.length)]});
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='#000000';ctx.fillRect(0,0,c.width,c.height);
+    stars.forEach(function(s){s.ph+=s.sp;var raw=Math.sin(s.ph);var a=raw>0?raw*raw:0;a=Math.min(a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.color||'#FFFFFF';ctx.globalAlpha=a;ctx.fill();});
+    ctx.globalAlpha=1;
+  }
+  draw();
+})();
+
+/* CORAZÓN */
+(function(){
+  var c=document.getElementById('heartCanvas');
+  if(!c)return;
+  var ctx=c.getContext('2d');
+  var t=0;
+  function draw(){
+    requestAnimationFrame(draw);
+    t+=0.02;
+    ctx.clearRect(0,0,320,260);
+    var pulse=1+Math.sin(t)*0.04;
+    ctx.save();
+    ctx.translate(160,135);
+    ctx.scale(pulse,pulse);
+    ctx.beginPath();
+    ctx.moveTo(0,-80);
+    ctx.bezierCurveTo(0,-128,80,-128,80,-80);
+    ctx.bezierCurveTo(80,-32,0,32,0,96);
+    ctx.bezierCurveTo(0,32,-80,-32,-80,-80);
+    ctx.bezierCurveTo(-80,-128,0,-128,0,-80);
+    var grad=ctx.createRadialGradient(0,-20,10,0,-20,110);
+    grad.addColorStop(0,'rgba(150,80,220,0.9)');
+    grad.addColorStop(0.5,'rgba(100,30,160,0.7)');
+    grad.addColorStop(1,'rgba(60,10,100,0.4)');
+    ctx.fillStyle=grad;
+    ctx.shadowBlur=0;
+    ctx.fill();
+    ctx.restore();
+  }
+  draw();
+})();
+
+/* NAVEGACIÓN */
+var _papiros=['splash.html','portada_es.html','papiro2_marble.html','salon_verde_clean.html','papiro_corazon.html','papiro_5capas.html'];
+var _actual=_papiros.indexOf(window.location.pathname.split('/').pop());
+if(_actual<0)_actual=4;
+function paginaAnterior(){var p=_actual-1;if(p<0)p=_papiros.length-1;document.body.style.opacity='0';setTimeout(function(){window.location.href=_papiros[p];},300);}
+function paginaSiguiente(){var p=_actual+1;if(p>=_papiros.length)p=0;document.body.style.opacity='0';setTimeout(function(){window.location.href=_papiros[p];},300);}
+function irSoporte(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'soporte.html':'papiro_guia_maestro.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+
+/* BETA MODAL */
+function openBeta(){document.getElementById('betaModal').classList.add('active');}
+function closeBeta(){document.getElementById('betaModal').classList.remove('active');}
+function registrarBeta(){
+  var n=document.getElementById('betaNombre').value.trim();
+  var e=document.getElementById('betaCorreo').value.trim();
+  if(!n||!e){alert('Por favor completa tu nombre y correo.');return;}
+  localStorage.setItem('papiro_usuario',JSON.stringify({nombre:n,correo:e,codigo:'Creax@P∆p.'+n.replace(/\s+/g,'')}));
+  document.getElementById('betaForm').style.display='none';
+  document.getElementById('betaSuccess').style.display='block';
+}
+
+/* ══════════════════════════════════════════════════════
+   CAPA 5 — SISTEMA DE SEGURIDAD ∆°
+   Creaxion Papiro © 2026 · X-7777777-LC7°
+   
+   SILENCIOSO · INVISIBLE · SIEMPRE ACTIVO
+   El intruso nunca sabe que fue detectado.
+   ══════════════════════════════════════════════════════ */
+
+(function CAPA5_SEGURIDAD(){
+
+  // ══ CONFIGURACIÓN ══
+  var SUPABASE_URL = 'https://vdtdrijfcmttssfdtgva.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+  var PAPIROS_VALIDOS = [
+    'splash.html','portada_es.html','papiro2_marble.html',
+    'salon_verde_clean.html','papiro_corazon.html',
+    'papiro_5capas.html','salon.html','login.html','ceo_panel.html'
+  ];
+
+  // ══ HUELLA DIGITAL DEL DISPOSITIVO ══
+  function huellaDispositivo(){
+    return [
+      screen.width, screen.height,
+      navigator.language,
+      Intl.DateTimeFormat().resolvedOptions().timeZone,
+      navigator.hardwareConcurrency || 0,
+      navigator.platform
+    ].join('|');
+  }
+
+  // ══ REGISTRAR AMENAZA EN SUPABASE ══
+  function registrarAmenaza(tipo, detalle){
+    try{
+      var sesion = localStorage.getItem('papiro_usuario');
+      var usuario = sesion ? JSON.parse(sesion).codigo : 'sin-sesion';
+      fetch(SUPABASE_URL + '/rest/v1/amenazas', {
+        method: 'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'apikey': SUPABASE_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_KEY
+        },
+        body: JSON.stringify({
+          tipo:      tipo,
+          detalle:   detalle,
+          usuario:   usuario,
+          huella:    huellaDispositivo(),
+          pagina:    window.location.pathname.split('/').pop(),
+          timestamp: new Date().toISOString(),
+          referrer:  document.referrer || 'directo'
+        })
+      }).catch(function(){});
+    } catch(e){}
+  }
+
+  // ══ BLOQUEAR SILENCIOSAMENTE ══
+  function bloquear(razon){
+    registrarAmenaza('BLOQUEO', razon);
+    // No muestra error — solo redirige al cosmos
+    setTimeout(function(){
+      document.body.innerHTML = '';
+      document.body.style.background = '#000000';
+      window.location.href = 'splash.html';
+    }, 800);
+  }
+
+  // ══ DETECTOR 1 — INYECCIÓN EN URL ══
+  (function detectarInyeccion(){
+    var url = window.location.href + window.location.search;
+    var patrones = [
+      /<script/i, /javascript:/i, /eval\(/i,
+      /document\./i, /window\./i, /%3C/i,
+      /union.*select/i, /drop.*table/i,
+      /insert.*into/i, /--/i, /\/\*/i
+    ];
+    for(var i=0; i<patrones.length; i++){
+      if(patrones[i].test(url)){
+        registrarAmenaza('INYECCION_URL', url.substring(0,100));
+        bloquear('inyeccion_url');
+        return;
+      }
+    }
+  })();
+
+  // ══ DETECTOR 2 — ORIGEN VÁLIDO ══
+  (function detectarOrigen(){
+    var referrer = document.referrer;
+    // Si viene de afuera y no tiene sesión válida
+    if(referrer && referrer.indexOf(window.location.hostname) < 0){
+      var sesion = localStorage.getItem('papiro_usuario');
+      if(!sesion){
+        registrarAmenaza('ORIGEN_EXTERNO', referrer.substring(0,100));
+        // No bloqueamos — solo registramos
+        // El usuario legítimo puede llegar desde Google
+      }
+    }
+  })();
+
+  // ══ DETECTOR 3 — VELOCIDAD DE NAVEGACIÓN (anti-bot) ══
+  (function detectarBot(){
+    var llegada = Date.now();
+    var TIEMPO_MINIMO = 800; // ms — humano mínimo
+
+    // Guardamos el tiempo de llegada
+    var ultimaVisita = parseInt(localStorage.getItem('_pp_last') || '0');
+    var ahora = Date.now();
+    localStorage.setItem('_pp_last', ahora);
+
+    // Si el intervalo entre páginas es menor a 800ms = bot
+    if(ultimaVisita > 0 && (ahora - ultimaVisita) < TIEMPO_MINIMO){
+      registrarAmenaza('VELOCIDAD_BOT', 'intervalo:' + (ahora - ultimaVisita) + 'ms');
+      // Incrementar contador
+      var contador = parseInt(localStorage.getItem('_pp_bot') || '0') + 1;
+      localStorage.setItem('_pp_bot', contador);
+      if(contador >= 5) bloquear('bot_detectado');
+    } else {
+      // Reset contador si navega normal
+      localStorage.setItem('_pp_bot', '0');
+    }
+  })();
+
+  // ══ DETECTOR 4 — DEVTOOLS ABIERTO ══
+  (function detectarDevTools(){
+    var umbral = 160;
+    var devtools = false;
+
+    function chequear(){
+      var ancho = window.outerWidth - window.innerWidth;
+      var alto  = window.outerHeight - window.innerHeight;
+      if((ancho > umbral || alto > umbral) && !devtools){
+        devtools = true;
+        var sesion = localStorage.getItem('papiro_usuario');
+        var usuario = sesion ? JSON.parse(sesion || '{}').codigo : null;
+        // Solo registramos — no bloqueamos a usuarios válidos
+        // CEO puede tener DevTools abierto
+        if(!usuario || usuario !== 'Creax@P∆p.LuisAlfonsoCastillejoVentura'){
+          registrarAmenaza('DEVTOOLS_ABIERTO', 'ancho:'+ancho+'px');
+        }
+      }
+      if(ancho <= umbral && alto <= umbral) devtools = false;
+    }
+    setInterval(chequear, 3000);
+  })();
+
+  // ══ DETECTOR 5 — INTEGRIDAD DEL PAPIRO ══
+  (function detectarManipulacion(){
+    // Verifica que las 5 capas existen
+    var capas = ['cosmos','capa2-cuero','capa3-pano','capa4-interaccion','capa5-sistema'];
+    var faltantes = [];
+    capas.forEach(function(id){
+      if(!document.getElementById(id)) faltantes.push(id);
+    });
+    if(faltantes.length > 0){
+      registrarAmenaza('CAPAS_FALTANTES', faltantes.join(','));
+    }
+
+    // Verifica que los márgenes no fueron removidos
+    var margenes = document.querySelectorAll('.margin-line');
+    if(margenes.length !== 2){
+      registrarAmenaza('MARGENES_ALTERADOS', 'cantidad:' + margenes.length);
+    }
+  })();
+
+  // ══ DETECTOR 6 — CONSOLA EXTERNA ══
+  // Si alguien intenta ejecutar código desde la consola
+  (function protegerConsola(){
+    var _log = console.log;
+    var intentos = 0;
+    // Dejamos la consola funcionar para el CEO
+    // Solo monitoreamos frecuencia anormal
+    var ultimo = Date.now();
+    console.log = function(){
+      var ahora = Date.now();
+      if(ahora - ultimo < 50){ // 50ms entre logs = automatizado
+        intentos++;
+        if(intentos > 10){
+          registrarAmenaza('CONSOLA_AUTOMATIZADA', 'intentos:'+intentos);
+        }
+      } else {
+        intentos = 0;
+      }
+      ultimo = ahora;
+      return _log.apply(console, arguments);
+    };
+  })();
+
+  // ══ VERIFICACIÓN DE SESIÓN ══
+  (function verificarSesion(){
+    var pagina = window.location.pathname.split('/').pop();
+    var paginasLibres = ['splash.html','login.html','portada_es.html'];
+    var sesion = localStorage.getItem('papiro_usuario');
+
+    // Páginas que requieren sesión
+    if(paginasLibres.indexOf(pagina) < 0 && !sesion){
+      // No bloqueamos — pero registramos el acceso sin sesión
+      registrarAmenaza('ACCESO_SIN_SESION', pagina);
+    }
+
+    // CEO — verificar pixel
+    var CEO = 'Creax@P∆p.LuisAlfonsoCastillejoVentura';
+    var pixel = localStorage.getItem('papiro_pixel');
+    if(sesion){
+      try{
+        var u = JSON.parse(sesion);
+        var esCEO = (u.codigo === CEO || pixel === 'LC7-7777777');
+        if(esCEO){
+          var btnCEO = document.getElementById('btnCEO');
+          if(btnCEO) btnCEO.style.display = 'flex';
+          console.log('∆° Capa 5 · LC7° identificado · Sistema activo');
+
+  /* ══ VERIFICACIÓN 3 PASES ∆° ══
+     Opera entre las líneas de vida del 30×40
+     Si los 3 pases no están OK → alerta silenciosa ══ */
+  (function verificar3Pases(){
+    var token    = localStorage.getItem('papiro_token_delta');
+    var escolta  = localStorage.getItem('papiro_escolta_activo');
+    var pases_ok = localStorage.getItem('papiro_3pases_ok');
+    var sesion   = localStorage.getItem('papiro_usuario');
+    var lineas   = localStorage.getItem('papiro_lineas_vida');
+    var pagina   = window.location.pathname.split('/').pop();
+    var libres   = ['splash.html','login.html','portada_es.html'];
+
+    // Páginas que no requieren los 3 pases
+    if(libres.indexOf(pagina) >= 0) return;
+
+    // PASE 1 — ¿Hay sesión?
+    if(!sesion){
+      console.log('∆° Pase 1 fallido · sin sesión · ' + pagina);
+      return;
+    }
+
+    // PASE 2 — ¿Hay token ∆°?
+    if(!token || !escolta){
+      console.log('∆° Pase 2 fallido · sin token Delta · ' + pagina);
+      registrarAmenaza('PASE2_FALLIDO', pagina);
+      return;
+    }
+
+    // PASE 3 — ¿Las líneas de vida están intactas?
+    if(lineas){
+      try{
+        var lv = JSON.parse(lineas);
+        // Verificar los 3 pares de líneas
+        var par1_ok = lv.par1 && lv.par1.identidad && lv.par1.sena;
+        var par2_ok = lv.par2 && lv.par2.pixel;
+        var par3_ok = lv.par3 && lv.par3.sesion_activa;
+
+        if(!par1_ok || !par2_ok || !par3_ok){
+          console.log('∆° Pase 3 · líneas incompletas');
+          registrarAmenaza('LINEAS_INCOMPLETAS', pagina);
+        } else {
+          // Actualizar par3 con papiro actual
+          lv.par3.papiro_actual = pagina;
+          lv.par3.ultima_actividad = Date.now();
+          // Réplica de respaldo (par redundante)
+          lv.par3_replica = JSON.parse(JSON.stringify(lv.par3));
+          lv.par1_replica = JSON.parse(JSON.stringify(lv.par1));
+          lv.par2_replica = JSON.parse(JSON.stringify(lv.par2));
+          localStorage.setItem('papiro_lineas_vida', JSON.stringify(lv));
+          console.log('∆° 3 pases OK · Escolta activo · ' + pagina);
+        }
+      } catch(e){}
+    }
+  })();
+        }
+      } catch(e){}
+    }
+  })();
+
+  console.log('∆° Capa 5 activa · ' + new Date().toISOString().split('T')[0]);
+
+})(); /* fin CAPA5_SEGURIDAD */
+
+
+/* BAÚL */
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['baulNombre','baulSub1','baulSub2','baulSub3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('visible');});
+  }
+});
+</script>
+</body>
+</html>
