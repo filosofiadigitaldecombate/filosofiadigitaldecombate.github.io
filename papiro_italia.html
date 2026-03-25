@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Italia ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA ITALIA ══
+   VERDE ITALIA:    #009246 · #00A850 · #00C060
+   BIANCO PERLA:    #FFFFFF · #F8F8F0 · #EEE8DC
+   ROSSO ITALIA:    #CE2B37 · #E03040 · #FF4455
+   ORO VATICANO:    #C9A84C · #D4AF37 · #F0C040
+   MARMO CARRARA:   #E8E4DC · #D4CEBC · #C0B8A4
+   TERRACOTTA:      #C04020 · #B03818
+*/
+
+/* MÁRGENES — tricolore italiano */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;}
+.margin-line.left{left:32px;
+  background:linear-gradient(180deg,
+    #006830 0%,#009246 10%,#00A850 20%,
+    #009246 33%,
+    #F8F8F0 33%,#FFFFFF 40%,#F8F8F0 46%,
+    #FFFFFF 50%,
+    #F8F8F0 54%,#FFFFFF 60%,
+    #CE2B37 67%,#E03040 75%,
+    #CE2B37 90%,#A01828 100%);
+  animation:italiaGlow 6s ease-in-out infinite;
+  box-shadow:0 0 8px rgba(0,146,70,0.6),0 0 20px rgba(206,43,55,0.3);}
+.margin-line.right{right:32px;
+  background:linear-gradient(180deg,
+    #A01828 0%,#CE2B37 10%,#E03040 20%,
+    #CE2B37 33%,
+    #F8F8F0 33%,#FFFFFF 40%,#F8F8F0 46%,
+    #FFFFFF 50%,
+    #F8F8F0 54%,#FFFFFF 60%,
+    #009246 67%,#00A850 75%,
+    #009246 90%,#006830 100%);
+  animation:italiaGlow 6s ease-in-out infinite;
+  box-shadow:0 0 8px rgba(206,43,55,0.6),0 0 20px rgba(0,146,70,0.3);}
+@keyframes italiaGlow{0%,100%{filter:brightness(1);}50%{filter:brightness(1.2);}}
+
+/* CAPA 2 — Roma eterna de noche */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    /* Luna sobre el Coliseo */
+    radial-gradient(circle at 50% 7%, rgba(248,248,240,0.12) 0%, rgba(212,175,55,0.05) 10%, transparent 18%),
+    /* Coliseo lejano */
+    radial-gradient(ellipse at 50% 92%, rgba(160,120,60,0.1) 0%, transparent 20%),
+    /* Cielo romano — terracotta oscuro */
+    linear-gradient(180deg,
+      #080400 0%,
+      #120800 20%,
+      #1A0C04 50%,
+      #120800 80%,
+      #080400 100%);}
+
+/* CAPA 3 — paño mármol de Carrara oscuro */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* Venas del mármol de Carrara */
+    repeating-linear-gradient(
+      125deg,
+      transparent 0px,transparent 30px,
+      rgba(212,175,55,0.025) 30px,rgba(212,175,55,0.025) 31px,
+      transparent 31px,transparent 70px,
+      rgba(255,255,255,0.015) 70px,rgba(255,255,255,0.015) 71px,
+      transparent 71px,transparent 120px
+    ),
+    repeating-linear-gradient(
+      55deg,
+      transparent 0px,transparent 50px,
+      rgba(255,255,255,0.01) 50px,rgba(255,255,255,0.01) 51px,
+      transparent 51px,transparent 100px
+    ),
+    /* Paño oscuro terrazo romano */
+    linear-gradient(160deg,#140A00 0%,#0F0700 50%,#080400 100%);}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.btn-f.izq{bottom:24px;left:24px;
+  background:rgba(0,146,70,0.15);border:1px solid rgba(0,168,80,0.5);}
+.btn-f.der{bottom:24px;right:24px;
+  background:rgba(206,43,55,0.12);border:1px solid rgba(224,48,64,0.5);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#004820,#009246,#00C060,#009246,#004820);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 6s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#800018,#CE2B37,#FF4455,#CE2B37,#800018);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:rossIt 6s linear infinite;}
+@keyframes verdIt{0%{background-position:0% center;}100%{background-position:300% center;}}
+@keyframes rossIt{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+.verde-it{background:linear-gradient(90deg,#004820,#007838,#009246,#00A850,#00C060,#00A850,#009246,#004820);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 12s linear infinite;}
+.rosso-it{background:linear-gradient(90deg,#800018,#AA2030,#CE2B37,#E03040,#FF6677,#E03040,#CE2B37,#800018);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:rossIt 12s linear infinite;}
+.oro-vat{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 14s linear infinite;}
+.marmo{background:linear-gradient(90deg,#8A8070,#B4A898,#D4CEBC,#E8E4DC,#D4CEBC,#B4A898,#8A8070);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:rossIt 18s linear infinite;}
+.italia{background:linear-gradient(90deg,#009246,#00A850,#FFFFFF,#F8F8F0,#CE2B37,#E03040,#009246);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 9s linear infinite;}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:28px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 10px rgba(0,168,80,0.6)) drop-shadow(0 0 24px rgba(206,43,55,0.4));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:rgba(212,175,55,0.6);}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 14px rgba(0,168,80,0.7)) drop-shadow(0 0 32px rgba(206,43,55,0.5));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:rgba(212,206,188,0.8);}
+.page-rule{width:100%;height:3px;margin:16px 0;
+  background:linear-gradient(to right,
+    #009246 0%,#009246 33%,
+    #FFFFFF 33%,#FFFFFF 66%,
+    #CE2B37 66%,#CE2B37 100%);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(212,175,55,0.2);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#D4CEBC;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#F0C040;font-style:italic;}
+.cuerpo strong{color:#00C060;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(to right,
+    #009246 0%,#009246 33%,
+    #FFFFFF 33%,#FFFFFF 66%,
+    #CE2B37 66%,#CE2B37 100%);}
+.card:nth-child(odd){border:1px solid rgba(0,168,80,0.15);background:rgba(0,146,70,0.06);}
+.card:nth-child(even){border:1px solid rgba(206,43,55,0.15);background:rgba(206,43,55,0.06);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;display:block;margin-bottom:8px;margin-top:6px;}
+.card:nth-child(odd) .card-titulo{color:#00C060;}
+.card:nth-child(even) .card-titulo{color:#FF6677;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#D4CEBC;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  display:block;margin-top:8px;line-height:1.8;}
+.card:nth-child(odd) .card-tag{color:rgba(0,192,96,0.8);}
+.card:nth-child(even) .card-tag{color:rgba(255,102,119,0.8);}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data-verde{background:rgba(0,146,70,0.07);border-left:3px solid rgba(0,168,80,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-rosso{background:rgba(206,43,55,0.07);border-left:3px solid rgba(224,48,64,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-marmo{background:rgba(212,206,188,0.05);border-left:3px solid rgba(212,175,55,0.4);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(212,175,55,0.06);}
+.data-row:last-child{border-bottom:none;}
+.dk-v{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#00C060;}
+.dk-r{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#FF6677;}
+.dk-m{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#D4AF37;}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#D4CEBC;text-align:right;}
+.sep-data{width:100%;height:3px;margin:16px 0;
+  background:linear-gradient(to right,
+    #009246 0%,#009246 33%,
+    #FFFFFF 33%,#FFFFFF 66%,
+    #CE2B37 66%,#CE2B37 100%);}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#D4CEBC;
+  padding:8px 0 8px 24px;border-bottom:1px solid rgba(212,175,55,0.07);
+  position:relative;line-height:2;}
+.lista li::before{content:'✦';position:absolute;left:0;top:10px;
+  color:rgba(212,175,55,0.5);font-size:12px;}
+
+/* QUOTE */
+.quote{border-left:3px solid rgba(212,175,55,0.5);padding:16px 18px;
+  margin:16px 0;background:rgba(212,175,55,0.04);border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#F0C040;line-height:2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:rgba(0,192,96,0.7);margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(212,175,55,0.04);border:1px solid rgba(212,175,55,0.2);
+  position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(to right,
+    #009246 0%,#009246 33%,
+    #FFFFFF 33%,#FFFFFF 66%,
+    #CE2B37 66%,#CE2B37 100%);}
+.btn-cta{width:100%;border-radius:4px;padding:18px;margin-top:6px;
+  font-family:'Cinzel',serif;font-size:20px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.4);color:#D4AF37;}
+.btn-cta:hover{background:rgba(212,175,55,0.2);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;border-top:3px solid;
+  border-image:linear-gradient(to right,
+    #009246 33%,#FFFFFF 33% 66%,#CE2B37 66%) 3;}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:rgba(212,175,55,0.5);margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:4px;margin:0 auto 24px;
+  background:linear-gradient(to right,
+    #009246 0%,#009246 33%,
+    #FFFFFF 33%,#FFFFFF 66%,
+    #CE2B37 66%,#CE2B37 100%);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(212,175,55,0.6)) drop-shadow(0 0 28px rgba(0,168,80,0.3));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#004820,#009246,#00C060,#009246,#004820);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:verdIt 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+<div id="capa3">
+
+  <!-- HEADER -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">🇮🇹 ✦ ∆°</span>
+    <span class="page-chapter">Repubblica Italiana · La Bella</span>
+    <h2 class="page-title italia">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">La tua guida completa · Il tuo strumento creativo</div>
+  </div>
+
+  <!-- COLUMNAS ROMANAS -->
+  <div style="text-align:center;margin:12px 0;font-size:20px;letter-spacing:10px;
+    color:rgba(212,175,55,0.45);filter:drop-shadow(0 0 4px rgba(212,175,55,0.3));
+    animation:italiaGlow 6s ease-in-out infinite;">
+    𝐈 𝐈𝐈 𝐈𝐈𝐈 𝐈𝐕
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I -->
+  <div class="sec">
+    <span class="sec-titulo oro-vat">I · Qué es Papiro y qué lo hace diferente</span>
+    <div class="cuerpo">
+      <p>Papiro non è un'altra piattaforma sociale. No te vamos a mentir ni hacerte perder tu tiempo y mucho menos a venderte nada que no pediste. Siamo una piattaforma digitale costruita su una filosofia semplice: <em>tecnologia che ti protegge, non ti sfrutta.</em></p>
+      <p>Mentre altre app usano colori, velocità e algoritmi progettati scientificamente per creare ansia e dipendenza — noi abbiamo fatto il contrario. Ogni animazione, ogni colore, ogni velocità in Papiro è stata calibrata affinché quando entri qui, <em>respiri pace, calma e divertimento sano.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">Digitalità Sana e Sicura non è uno slogan.<br>È la ragione per cui esiste ogni riga di codice qui.</div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · Fatto con anima · con storia · con fede</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl verde-it">QUELLO CHE NON FACCIAMO</span>
+      <div class="data-verde">
+        <div class="data-row"><span class="dk-v">SENZA ALGORITMI D'ANSIA</span><span class="dv">Decidi tu cosa vedere · quando · come</span></div>
+        <div class="data-row"><span class="dk-v">SENZA ADS INVASIVI</span><span class="dv">Quello che vedi è quello che c'è · senza trucchi</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl rosso-it">LA TUA IDENTITÀ IN PAPIRO</span>
+      <div class="data-rosso">
+        <div class="data-row"><span class="dk-r">IDENTITÀ REALE</span><span class="dv">Creax@P∆p.TuoNome · solo tua · per sempre</span></div>
+        <div class="data-row"><span class="dk-r">PIXEL COSMICO</span><span class="dv">Il tuo posto unico nell'universo digitale</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl marmo">CHI SIAMO</span>
+      <div class="data-marmo">
+        <div class="data-row"><span class="dk-m">SICUREZZA ∆°</span><span class="dv">Sistema a 3 livelli · nessuno tocca i tuoi dati</span></div>
+        <div class="data-row"><span class="dk-v">LATINOAMERICANO</span><span class="dv">Fatto con anima · storia sorprendente · con fede</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II -->
+  <div class="sec">
+    <span class="sec-titulo rosso-it">II · Gli Spazi di Papiro</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · IL SALONE</span>
+        <div class="card-texto">Il cuore sociale di Papiro. Giochi latinoamericani, chat dal vivo, trasmissioni, incontri con la comunità. Tocca <strong>∆</strong> da qualsiasi papiro per arrivarci.</div>
+        <span class="card-tag">→ Accesso: pulsante ∆ · sempre visibile</span></div>
+      <div class="card"><span class="card-titulo">📜 I PAPIRI</span>
+        <div class="card-texto">Il tuo spazio personale di espressione. La tua voce nell'ecosistema — con il tuo stile, il tuo colore, il tuo sigillo.</div>
+        <span class="card-tag">→ Il tuo papiro: papiro.app/∆TuoNome</span></div>
+      <div class="card"><span class="card-titulo">📚 LA BIBLIOTECA</span>
+        <div class="card-texto">Dove sei adesso. Guide, tutorial e strumenti. Come P∆plover verificato potrai inviare le tue creazioni — colori, texture, stili. Se arricchisce l'ecosistema, lo carichiamo per tutti.<br><br>Semplice, sano e sicuro. Insieme costruiamo qualcosa di straordinario.</div>
+        <span class="card-tag">→ Invia la tua proposta creativa via ° supporto</span></div>
+      <div class="card"><span class="card-titulo">🔴 IN DIRETTA · TvP∆p</span>
+        <div class="card-texto">Trasmissioni in tempo reale. Eventi, notizie, lanci. I visitatori guardano — i P∆plover interagiscono.</div>
+        <span class="card-tag">→ Lancio mondiale · 26 ottobre · Se Dio vuole</span></div>
+      <div class="card"><span class="card-titulo">🎮 GIOCHI LATINOAMERICANI</span>
+        <div class="card-texto">Domino, El Truco e altro — con <strong>Bolívares Digitales</strong>, il nome delle nostre fiches di gioco (non denaro reale). Microvideo di 5 secondi in tempo reale. TvP∆p in diretta mentre giochi.<br><br>Lancio mondiale: <strong>26 ottobre</strong>, nel nome di Gesù.</div>
+        <span class="card-tag">→ P∆plover giocano con la comunità</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III -->
+  <div class="sec">
+    <span class="sec-titulo verde-it">III · Strumenti Creativi</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">🎨 IL TUO PAPIRO PERSONALE</span>
+        <div class="card-texto">Il tuo nome, i tuoi colori, il tuo design, la tua storia. Scegli il colore del tuo panno, texture, colori per le tue linee di margine, la tua firma. Il tuo spazio — nessun altro lo controlla.</div>
+        <span class="card-tag">Testo · immagine · video · lettera · pubblico o privato</span></div>
+      <div class="card"><span class="card-titulo">⭐ IL TUO PIXEL COSMICO</span>
+        <div class="card-texto">Un pixel unico nel cosmos di Papiro. La tua coordinata nell'universo digitale — come una stella nel cielo italico. Brilla quando sei connesso.</div>
+        <span class="card-tag">1.200 pixel unici · i primi 100 → Oro Vivo per sempre</span></div>
+      <div class="card"><span class="card-titulo">🤖 CRIXUS · IL TUO AMICO DIGITALE</span>
+        <div class="card-texto">L'IA dell'ecosistema. Qui per aiutarti, orientarti e accompagnarti. Un compagno digitale che conosce la piattaforma dall'interno.</div>
+        <span class="card-tag">→ Prossimamente · in ogni papiro</span></div>
+      <div class="card"><span class="card-titulo">📡 LA TUA IDENTITÀ DIGITALE</span>
+        <div class="card-texto"><strong>Creax@P∆p.TuoNome</strong> — la tua firma in tutto l'ecosistema. Riconoscibile, unica e irripetibile.</div>
+        <span class="card-tag">papiro.app/∆TuoNome</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV -->
+  <div class="sec">
+    <span class="sec-titulo marmo">IV · Creare Contenuto e Trasmettere</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">📝 PUBBLICARE NEL TUO PAPIRO</span>
+        <div class="card-texto">Scrivi dal tuo cuore. Il tuo papiro è tuo — progetta tutto ciò che ti viene in mente, sempre con buone maniere. L'unica regola: sii autentico.<br><br>In <strong>°</strong> trovi accesso diretto al supporto e al CEO. Grazie per difendere questo progetto: <strong>P∆pir°</strong></div>
+        <span class="card-tag">Testo · immagine · video · lettera · riflessione</span></div>
+      <div class="card"><span class="card-titulo">💬 PARLARE DI PAPIRO</span>
+        <div class="card-texto">Quando qualcuno te lo chiede, digli: <em>è una piattaforma digitale latinoamericana che protegge l'utente invece di sfruttarlo.</em> Punto. Dice tutto.</div>
+        <span class="card-tag">Meno è più · la curiosità fa il resto</span></div>
+      <div class="card"><span class="card-titulo">🌟 ESSERE AMBASCIATORE ∆°</span>
+        <div class="card-texto">Quando condividi Papiro non vendi niente — inviti qualcuno in uno spazio che sai già valere. Quella differenza si nota. E la gente la sente.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #Italia 🇮🇹</span></div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">"Quelli che hanno creduto nell'idea.<br>Quelli che hanno visto il rivoluzionario.<br>Nel concetto e in Dio."</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7° · Venezuela per il mondo</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V -->
+  <div class="sec">
+    <span class="sec-titulo oro-vat">V · Perché Papiro È Sicuro e Sano</span>
+    <ul class="lista">
+      <li>Le animazioni vanno da 8 a 24 secondi — calibrate per non creare ansia visiva.</li>
+      <li>Le tue informazioni viaggiano protette da un sistema a 3 livelli: Le 3 Marie, il nostro token e il Livello silenzioso di sicurezza. 🔐</li>
+      <li>Nessuno può vedere i tuoi dati privati senza passare per ∆ — nemmeno noi senza il tuo permesso.</li>
+      <li>Modalità apocalisse: se internet cade, i tuoi dati sopravvivono nel tuo dispositivo.</li>
+      <li>Senza bot, senza spam, senza algoritmi progettati per farti perdere tempo.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <span style="font-size:28px;display:block;margin-bottom:10px;">🇮🇹</span>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="italia">Vuoi andare più in profondità?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#D4CEBC;display:block;margin-bottom:6px;line-height:2;">Registrati e crea la tua email in P∆°PIRO<br>e ti invieremo tutto in dettaglio<br>sull'argomento che scegli.</span>
+    <span style="font-family:'Special Elite',serif;font-size:21px;letter-spacing:3px;display:block;margin-bottom:18px;" class="oro-vat">#777 · #SI° · #P∆°PIRO · 🇮🇹</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ ISCRIVITI A P∆°PIRO</button>
+  </div>
+
+  <!-- STAMP -->
+  <div class="footer-stamp">
+    <div class="stamp-phrase italia">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CODICE D'ONORE IM. #7 — Così ho fatto</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div style="text-align:center;margin-bottom:16px;font-size:20px;letter-spacing:10px;
+      color:rgba(212,175,55,0.5);filter:drop-shadow(0 0 4px rgba(212,175,55,0.3));">
+      𝐈 𝐈𝐈 𝐈𝐈𝐈 𝐈𝐕
+    </div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(212,175,55,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="italia">· IL CAVEAU DI CHI HA CREDUTO<br>FIN DAL PRIMO MOMENTO ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fondatore · Creaxion Papiro © 2026 · 🇮🇹</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  var cl=['#009246','#00A850','#CE2B37','#E03040','#D4AF37','#F0C040','#D4CEBC'];
+  for(var j=0;j<55;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%7]});
+  // Stelle d'oro vaticano
+  for(var k=0;k<8;k++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:1+Math.random()*0.6,ph:Math.random()*Math.PI*2,sp:0.0006+Math.random()*0.001,color:'rgba(212,175,55,0.9)'});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_espana.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro Italia · La Bella · 🇮🇹');
+</script>
+</body>
+</html>
