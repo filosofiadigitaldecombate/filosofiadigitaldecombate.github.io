@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Guía Maestro ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.35;}
+
+.margin-line{
+  position:fixed;top:0;height:100%;width:4px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,
+    #C96800,#FFB347,#FFD700,#FFE566,
+    #FFFACD,#FFE566,#FFD700,#FFB347,#FF8C00,#FFD700,#C96800);
+  background-size:100% 400%;
+  animation:oroM 6s linear infinite;
+  box-shadow:0 0 6px rgba(255,180,0,0.5),0 0 14px rgba(255,140,0,0.3);
+}
+.margin-line.left{left:32px;}
+.margin-line.right{right:32px;}
+@keyframes oroM{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+#capa2-cuero{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);}
+
+#capa3-pano{position:relative;z-index:4;margin:0 48px;padding:28px 24px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+  background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.008) 0px,transparent 2px,transparent 6px,rgba(255,255,255,0.008) 8px),linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);}
+
+#capa4-interaccion{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.c4-btn{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.c4-btn-salon{bottom:24px;right:24px;background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);}
+.c4-btn-salon span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 6s linear infinite;}
+@keyframes oroV{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5-sistema{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* ══ TIPOGRAFÍA ══ */
+.oro{background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFE566,#FFFACD,#FFE566,#FFD700,#FFB347,#C96800);background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:oroM 8s linear infinite;}
+
+.page-header{text-align:center;margin-bottom:16px;}
+.page-ornament{font-size:18px;color:#C9A84C;display:block;margin-bottom:6px;}
+.page-chapter{font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;color:#8A7D60;text-align:center;margin-bottom:6px;}
+.page-title{font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:3px;text-align:center;margin-bottom:4px;}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#8A7D60;text-align:center;}
+.page-rule{width:100%;height:1px;margin:14px 0;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+
+.seccion{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:17px;font-weight:600;letter-spacing:2px;padding:10px 0 8px;border-bottom:1px solid rgba(201,168,76,0.2);margin-bottom:16px;display:block;}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:18px;line-height:2.2;color:#DDD0AA;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#FFD700;font-style:italic;}
+.cuerpo strong{color:#FFFACD;}
+
+.data-block{font-family:'Special Elite',serif;font-size:14px;line-height:2;background:rgba(201,168,76,0.05);border-left:3px solid rgba(201,168,76,0.3);padding:14px 16px;margin:14px 0;color:#C9A84C;}
+.data-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:4px 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+.data-row:last-child{border-bottom:none;}
+.data-key{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:#8A7D60;white-space:nowrap;}
+.data-val{font-family:'Special Elite',serif;font-size:13px;color:#DDD0AA;text-align:right;}
+
+.capa-row{display:flex;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid rgba(201,168,76,0.08);}
+.capa-num{font-family:'Cinzel',serif;font-size:13px;font-weight:900;min-width:28px;color:#C9A84C;padding-top:2px;}
+.capa-info{flex:1;}
+.capa-nombre{font-family:'Cinzel',serif;font-size:15px;color:#FFFACD;display:block;margin-bottom:2px;}
+.capa-desc{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#8A7D60;line-height:1.8;}
+.capa-detalle{font-family:'Special Elite',serif;font-size:12px;color:rgba(201,168,76,0.5);letter-spacing:1px;margin-top:4px;display:block;}
+
+.vida-par{border:1px solid rgba(201,168,76,0.15);border-radius:8px;padding:14px;margin:10px 0;background:rgba(201,168,76,0.03);}
+.vida-par-title{font-family:'Cinzel',serif;font-size:14px;font-weight:600;letter-spacing:2px;color:#FFD700;display:block;margin-bottom:8px;}
+.vida-linea{font-family:'Crimson Pro',serif;font-size:16px;color:#DDD0AA;padding:4px 0;border-bottom:1px solid rgba(201,168,76,0.06);}
+.vida-linea:last-child{border-bottom:none;}
+.vida-rep{font-family:'Special Elite',serif;font-size:12px;color:rgba(201,168,76,0.4);letter-spacing:1px;padding:2px 0 4px 16px;display:block;}
+
+.maria-wrap{display:flex;gap:10px;margin:14px 0;flex-wrap:wrap;}
+.maria-card{flex:1;min-width:80px;border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:12px 10px;text-align:center;background:rgba(201,168,76,0.04);}
+.maria-est{font-size:20px;display:block;margin-bottom:4px;}
+.maria-nom{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;color:#FFD700;display:block;margin-bottom:4px;}
+.maria-desc{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:#8A7D60;line-height:1.6;}
+
+.ruta-paso{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(201,168,76,0.06);}
+.ruta-num{font-family:'Cinzel',serif;font-size:13px;color:#C9A84C;min-width:28px;padding-top:2px;}
+.ruta-texto{flex:1;}
+.ruta-titulo{font-family:'Cinzel',serif;font-size:15px;color:#FFFACD;display:block;margin-bottom:2px;}
+.ruta-desc{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#8A7D60;line-height:1.8;}
+
+.alcabala{background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);border-radius:8px;padding:12px;margin:8px 0;}
+.alcabala-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;color:#FFD700;display:block;margin-bottom:6px;}
+.alcabala-desc{font-family:'Crimson Pro',serif;font-size:15px;color:#DDD0AA;line-height:1.8;}
+
+.footer-stamp{text-align:center;padding:12px 0;border-top:1px solid rgba(201,168,76,0.15);margin-top:24px;}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:17px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:15px;color:rgba(201,168,76,0.4);margin-top:4px;letter-spacing:1px;}
+
+.page-nav{display:none;}
+
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent);}
+.baul-label{font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;display:block;margin-bottom:24px;}
+.baul-nombre{font-family:'Cinzel',serif;font-size:28px;font-weight:900;letter-spacing:6px;display:block;margin-bottom:12px;
+  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFE566,#FFFACD,#FFE566,#FFD700,#FFB347,#C96800);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroM 18s linear infinite;
+  filter:drop-shadow(0 1px 0 rgba(255,220,100,0.5)) drop-shadow(0 0 8px rgba(255,180,0,0.3));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s ease,transform 0.8s ease;}
+.baul-sub{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;display:block;margin-bottom:8px;
+  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroM 20s linear infinite;
+  filter:drop-shadow(0 0 6px rgba(255,180,0,0.4));
+  opacity:0;transform:translateY(20px);transition:opacity 0.8s ease 0.3s,transform 0.8s ease 0.3s;}
+.baul-nombre.visible,.baul-sub.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();" title="← Anterior"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();" title="Siguiente →"></div>
+<div id="capa4-interaccion">
+  <div class="c4-btn c4-btn-salon" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5-sistema"></div>
+
+<div id="capa2-cuero">
+<div id="capa3-pano">
+
+  <div class="page-header">
+    <span class="page-ornament">∆° ✦ °∆</span>
+    <div class="page-chapter">Para ∆ · Para ° · Para Crixus · Para el Fundador</div>
+    <h2 class="page-title oro">PAPIRO GUÍA MAESTRO</h2>
+    <div class="page-sub">Todo el mecanismo · mapa de ruta · alcabalas · ∆° en el sistema de datos</div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I - QUÉ ES -->
+  <div class="seccion">
+    <span class="sec-titulo oro">I · Qué Es un Papiro ∆°</span>
+    <div class="cuerpo">
+      <p>Un <em>Papiro</em> es la unidad visual fundamental del ecosistema Creaxion Papiro. Es un archivo HTML liviano — entre 8KB y 25KB — que funciona en cualquier navegador, sin instalación, sin dependencias externas, y con el cosmos de fondo como escenografía eterna.</p>
+      <p>Cada papiro es <em>diferente en color y contenido</em> pero <em>idéntico en estructura</em>. Todos miden igual, todos tienen el mismo largo, todos tienen el mismo baúl de victoria, todos tienen las mismas líneas de margen en las mismas posiciones exactas.</p>
+      <p>Los caracteres <em>∆°</em> no son decoración. Son tokens vivos que viajan por el sistema de datos en cada operación, identificando, verificando y autorizando cada acción del ecosistema.</p>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II - DIMENSIONES -->
+  <div class="seccion">
+    <span class="sec-titulo oro">II · Dimensiones y Medidas Exactas</span>
+    <div class="cuerpo">
+      <p>Las medidas son <em>inamovibles</em>. Nadie las cambia. Son la ley del formato:</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">MÁRGENES — POSICIÓN</span><span class="data-val">32px exactos del borde de pantalla</span></div>
+      <div class="data-row"><span class="data-key">MÁRGENES — GROSOR</span><span class="data-val">4px · nunca más · nunca menos</span></div>
+      <div class="data-row"><span class="data-key">MÁRGENES — COLOR</span><span class="data-val">Oro Vivo por defecto · cambia por papiro</span></div>
+      <div class="data-row"><span class="data-key">MÁRGENES — FUNCIÓN</span><span class="data-val">Gatillos de navegación · toca = cambia papiro</span></div>
+      <div class="data-row"><span class="data-key">PAÑO DELGADO</span><span class="data-val">margin 48px · cuero visible a los lados</span></div>
+      <div class="data-row"><span class="data-key">PAÑO COMPLETO</span><span class="data-val">margin 0 · paño de borde a borde</span></div>
+      <div class="data-row"><span class="data-key">PADDING INTERIOR</span><span class="data-val">24px mínimo · texto nunca toca el margen</span></div>
+      <div class="data-row"><span class="data-key">LARGO TODOS LOS PAPIROS</span><span class="data-val">Idéntico · terminan al mismo nivel</span></div>
+      <div class="data-row"><span class="data-key">BAÚL — DISTANCIA</span><span class="data-val">1000vh desde el final del contenido</span></div>
+      <div class="data-row"><span class="data-key">BAÚL — PADDING INFERIOR</span><span class="data-val">50vh · nombre centrado en pantalla</span></div>
+      <div class="data-row"><span class="data-key">∆ FLOTANTE</span><span class="data-val">Abajo derecha · 24px del borde · siempre visible</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III - LAS 5 CAPAS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">III · Las 5 Capas Permanentes</span>
+    <div class="cuerpo">
+      <p>Todo papiro — sin excepción — tiene exactamente <em>5 capas apiladas</em>. Eliminar o alterar una capa rompe el papiro y activa los detectores de ∆:</p>
+    </div>
+    <div class="capa-row">
+      <span class="capa-num oro">C·1</span>
+      <div class="capa-info">
+        <span class="capa-nombre">COSMOS UNIVERSAL · z-index 0 · position fixed</span>
+        <span class="capa-desc">Canvas HTML5 con 3 grupos de estrellas blancas + 40 de color + 25 gigantes Cefeida. Fondo negro absoluto #000000. Inamovible · eterno · el mismo en todos los papiros. COSMOS_ESCENOGRAFIA_MASTER_v2.html es la fuente blindada.</span>
+        <span class="capa-detalle">opacity: 0.35 · titila en 3 ritmos distintos · cámara orgánica</span>
+      </div>
+    </div>
+    <div class="capa-row">
+      <span class="capa-num oro">C·2</span>
+      <div class="capa-info">
+        <span class="capa-nombre">CUERO BASE · z-index 2 · position relative</span>
+        <span class="capa-desc">La textura de soporte. Siempre oscuro. Solo cambia su color según el papiro: marrón cuero, gris mármol, verde bosque, púrpura nocturno. Es la piel del libro.</span>
+        <span class="capa-detalle">width: 100% · min-height: 100vh · sin bordes</span>
+      </div>
+    </div>
+    <div class="capa-row">
+      <span class="capa-num oro">C·3</span>
+      <div class="capa-info">
+        <span class="capa-nombre">EL PAÑO · z-index 4 · position relative</span>
+        <span class="capa-desc">Donde vive todo el contenido: letras, imágenes, videos, cartas, datos. Es el pergamino donde se escribe la vida. Dos modos: delgado (margin 48px) o completo (margin 0).</span>
+        <span class="capa-detalle">overflow-x: hidden · padding 28px arriba · crece con el contenido</span>
+      </div>
+    </div>
+    <div class="capa-row">
+      <span class="capa-num oro">C·4</span>
+      <div class="capa-info">
+        <span class="capa-nombre">INTERACCIÓN · z-index 6 · position fixed · invisible</span>
+        <span class="capa-desc">No se ve pero se toca. Contiene el botón ∆ flotante (acceso al Salón) y el botón ⚙ secreto (solo CEO LC7°). También vivirán aquí llamadas, chats y notificaciones en tiempo real.</span>
+        <span class="capa-detalle">pointer-events: none en el contenedor · all en sus hijos</span>
+      </div>
+    </div>
+    <div class="capa-row">
+      <span class="capa-num oro">C·5</span>
+      <div class="capa-info">
+        <span class="capa-nombre">SISTEMA · z-index 8 · position fixed · opacity 0</span>
+        <span class="capa-desc">Completamente invisible. Opera en silencio permanente. Contiene los 6 detectores de seguridad, las 3 Marías, la verificación de las 2 líneas de vida, el token ∆° y la comunicación con Supabase.</span>
+        <span class="capa-detalle">visibility: hidden · pointer-events: none · siempre activo</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV - ESTRELLAS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">IV · Las Estrellas del Cosmos</span>
+    <div class="cuerpo">
+      <p>El cosmos tiene <em>3 grupos principales</em> de estrellas blancas, cada uno titilando a un ritmo diferente — calibrado científicamente para no alterar el ritmo cardíaco del usuario:</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">GRUPO 1A · 94 estrellas</span><span class="data-val">Destellos rápidos · radio 0.3-1.35px · blanco absoluto</span></div>
+      <div class="data-row"><span class="data-key">GRUPO 1B · 93 estrellas</span><span class="data-val">Brillo medio · radio 0.3-1.35px · blanco absoluto</span></div>
+      <div class="data-row"><span class="data-key">GRUPO 1C · 93 estrellas</span><span class="data-val">Calma profunda · radio 0.3-1.35px · blanco absoluto</span></div>
+      <div class="data-row"><span class="data-key">GRUPO 2 calma · 40</span><span class="data-val">Blancas fijas · alpha 0.35 · siempre presentes</span></div>
+      <div class="data-row"><span class="data-key">GRUPO 2 color · 40</span><span class="data-val">Destellos de color · se mueven lentamente</span></div>
+      <div class="data-row"><span class="data-key">GRUPO 3 gigantes · 25</span><span class="data-val">Cefeidas · apagado total → máximo brillo → apagado</span></div>
+      <div class="data-row"><span class="data-key">ARCHIVO SELLADO</span><span class="data-val">COSMOS_ESCENOGRAFIA_MASTER_v2.html · NO TOCAR</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V - MÁRGENES GATILLO -->
+  <div class="seccion">
+    <span class="sec-titulo oro">V · Las Líneas de Margen · Gatillos de Navegación</span>
+    <div class="cuerpo">
+      <p>Las líneas de margen tienen <em>doble función</em>: son decorativas y son la navegación. No hay botones de siguiente/anterior. El usuario toca el margen — y viaja.</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">MARGEN IZQUIERDO</span><span class="data-val">onclick → paginaAnterior() · fade 0.3s</span></div>
+      <div class="data-row"><span class="data-key">MARGEN DERECHO</span><span class="data-val">onclick → paginaSiguiente() · fade 0.3s</span></div>
+      <div class="data-row"><span class="data-key">FUNCIONA DESDE</span><span class="data-val">Cualquier altura del scroll · incluso desde el baúl</span></div>
+      <div class="data-row"><span class="data-key">FADE OUT</span><span class="data-val">document.body.style.opacity = '0' · 0.3s</span></div>
+      <div class="data-row"><span class="data-key">FADE IN</span><span class="data-val">onload → opacity '1' · al cargar el nuevo papiro</span></div>
+      <div class="data-row"><span class="data-key">LISTA DE PAPIROS</span><span class="data-val">Array en el JS · se actualiza con cada nuevo papiro</span></div>
+    </div>
+    <div class="cuerpo">
+      <p>El margen <em>siempre está fijo en pantalla</em> (position: fixed) sin importar cuánto scrollee el usuario. Es la puerta de salida disponible en todo momento.</p>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- VI - BOTÓN ∆ -->
+  <div class="seccion">
+    <span class="sec-titulo oro">VI · El Botón ∆ Flotante · Acceso al Salón</span>
+    <div class="cuerpo">
+      <p>El símbolo <em>∆</em> en la esquina inferior derecha es el acceso universal al Salón de Papiro. Está presente en <strong>todos los papiros</strong>, en <strong>todas las alturas del scroll</strong>. Nunca desaparece.</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">POSICIÓN</span><span class="data-val">bottom 24px · right 24px · position absolute en C·4</span></div>
+      <div class="data-row"><span class="data-key">TAMAÑO</span><span class="data-val">48×48px · border-radius 50% · círculo</span></div>
+      <div class="data-row"><span class="data-key">COLOR</span><span class="data-val">Oro Vivo · mismo que las líneas de margen</span></div>
+      <div class="data-row"><span class="data-key">SI HAY SESIÓN</span><span class="data-val">→ salon.html · acceso directo</span></div>
+      <div class="data-row"><span class="data-key">SIN SESIÓN</span><span class="data-val">→ login.html · debe identificarse primero</span></div>
+      <div class="data-row"><span class="data-key">⚙ CEO</span><span class="data-val">Abajo izquierda · invisible para usuarios · solo LC7°</span></div>
+      <div class="data-row"><span class="data-key">∆ EN DATOS</span><span class="data-val">Prefijo de todos los tokens del sistema · U+0394</span></div>
+      <div class="data-row"><span class="data-key">° EN DATOS</span><span class="data-val">Sufijo de todos los sellos del sistema · U+00B0</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- VII - EL BAÚL -->
+  <div class="seccion">
+    <span class="sec-titulo oro">VII · El Baúl de Victoria</span>
+    <div class="cuerpo">
+      <p>Al final de cada papiro — exactamente a <em>1000vh de scroll</em> — aparece el baúl. Es el tesoro escondido que solo encuentran los que perseveran hasta el final. El nombre que aparece allí lleva el <em>efecto del color del papiro</em> — el mismo que las líneas de margen.</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">DISTANCIA</span><span class="data-val">padding-top 1000vh desde el último elemento</span></div>
+      <div class="data-row"><span class="data-key">TRIGGER</span><span class="data-val">scrollY > innerHeight × 10</span></div>
+      <div class="data-row"><span class="data-key">ANIMACIÓN</span><span class="data-val">opacity 0→1 + translateY 30→0 · 0.8s ease</span></div>
+      <div class="data-row"><span class="data-key">NOMBRE</span><span class="data-val">Cinzel 900 · 28px · color del papiro · 18s</span></div>
+      <div class="data-row"><span class="data-key">SUBTÍTULOS</span><span class="data-val">Cinzel 400 · 15px · mismo color · 20s</span></div>
+      <div class="data-row"><span class="data-key">EFECTO NOMBRE</span><span class="data-val">Mismo gradiente que las líneas de margen del papiro</span></div>
+      <div class="data-row"><span class="data-key">CONTENIDO FIJO</span><span class="data-val">Nombre · Código · Creax@P∆p · Rol · Año</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- VIII - TIPOGRAFÍAS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">VIII · Las 3 Tipografías Oficiales</span>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">CINZEL</span><span class="data-val">El poder · Títulos · Botones · Navegación · Baúl</span></div>
+      <div class="data-row"><span class="data-key">CINZEL pesos</span><span class="data-val">400 regular · 600 semibold · 900 black</span></div>
+      <div class="data-row"><span class="data-key">CRIMSON PRO</span><span class="data-val">El alma · Cuerpo · Cartas · Descripciones</span></div>
+      <div class="data-row"><span class="data-key">CRIMSON pesos</span><span class="data-val">400 · 600 · itálica normal e itálica bold</span></div>
+      <div class="data-row"><span class="data-key">SPECIAL ELITE</span><span class="data-val">El código · Stamps · Sellos · Compromiso legal</span></div>
+      <div class="data-row"><span class="data-key">SPECIAL ELITE peso</span><span class="data-val">400 único · máquina de escribir</span></div>
+    </div>
+    <div class="cuerpo"><p>Escala de tamaños: <em>N1 52-58px · N2 28-42px · N3 17px Special Elite · N4 17-19px Crimson · N5 13-16px itálica · N6 10-12px Courier.</em> Mínimo absoluto: <strong>14px en cualquier texto</strong>.</p></div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IX - COLORES -->
+  <div class="seccion">
+    <span class="sec-titulo oro">IX · Los 4 Colores Patentados ∆° © 2026</span>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">🔥 ORO VIVO</span><span class="data-val">Cuero · Portada · Baúl · Firma Fundador · default margenes</span></div>
+      <div class="data-row"><span class="data-key">Oro mínimo en texto</span><span class="data-val">#C96800 · nunca más oscuro sobre cuero</span></div>
+      <div class="data-row"><span class="data-key">⚡ ESPACIAL COMANDO</span><span class="data-val">Mármol · Panel CEO · margenes del mármol</span></div>
+      <div class="data-row"><span class="data-key">🦋 MARIPOSA ELÉCTRICA</span><span class="data-val">Solo como fondo · P∆pfans · #1A0A2E</span></div>
+      <div class="data-row"><span class="data-key">💜 PurpuP∆p</span><span class="data-val">Texto P∆pfans · márgenes corazón · 14-24s</span></div>
+      <div class="data-row"><span class="data-key">LEY LEGIBILIDAD</span><span class="data-val">El texto se lee primero · el efecto no esconde</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- X - VELOCIDADES -->
+  <div class="seccion">
+    <span class="sec-titulo oro">X · Velocidades · Ciencia del Cerebro</span>
+    <div class="cuerpo">
+      <p>El cerebro humano procesa calma entre <em>8-12 cambios visuales por segundo</em>. El corazón en reposo late a 60-70 bpm. Las redes sociales usan velocidades que crean ansiedad. <strong>Nosotros hacemos lo contrario:</strong></p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">TÍTULOS 52px+</span><span class="data-val">14-16s</span></div>
+      <div class="data-row"><span class="data-key">TÍTULOS 28-42px</span><span class="data-val">10-14s</span></div>
+      <div class="data-row"><span class="data-key">SUBTÍTULOS 17px</span><span class="data-val">14-16s</span></div>
+      <div class="data-row"><span class="data-key">CUERPO 17-19px</span><span class="data-val">18-22s</span></div>
+      <div class="data-row"><span class="data-key">MICRO 9-13px</span><span class="data-val">20-24s</span></div>
+      <div class="data-row"><span class="data-key">MÍNIMO ABSOLUTO</span><span class="data-val">8s · nunca menos en ningún elemento</span></div>
+      <div class="data-row"><span class="data-key">PULSO · BREATH</span><span class="data-val">4-8s solo en elementos interactivos</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XI - LAS 2 LÍNEAS VITALES -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XI · Las 2 Líneas de Información Vital</span>
+    <div class="cuerpo">
+      <p>Cada papiro mantiene <em>dos líneas de información vital</em> activas mientras el usuario navega. Viajan en silencio hacia el centro de operaciones ∆° en cada acción. El usuario nunca las ve.</p>
+    </div>
+    <div class="vida-par">
+      <span class="vida-par-title">LÍNEA VITAL 1 · Identidad y Autenticidad</span>
+      <div class="vida-linea">Código del usuario · Creax@P∆p.NombreUsuario</div>
+      <span class="vida-rep">→ réplica automática · ∆ compara siempre original vs réplica</span>
+      <div class="vida-linea">Token ∆° activo · generado al completar los 3 pases</div>
+      <span class="vida-rep">→ expira en 24h · se renueva en cada login</span>
+      <div class="vida-linea">Pixel cósmico triple · W-##-## · C-##-## · P-##-##</div>
+      <span class="vida-rep">→ coordenadas lat/lon exactas en los 3 mapas del 30×40</span>
+      <div class="vida-linea">Estado del escolta ∆° · activo/inactivo</div>
+      <span class="vida-rep">→ sin escolta activo el papiro no permite acciones</span>
+    </div>
+    <div class="vida-par">
+      <span class="vida-par-title">LÍNEA VITAL 2 · Posición y Contexto</span>
+      <div class="vida-linea">Papiro actual · última actividad · timestamp exacto</div>
+      <span class="vida-rep">→ ∆ sabe en todo momento qué papiro está viendo el usuario</span>
+      <div class="vida-linea">Huella digital del dispositivo · pantalla + idioma + zona horaria</div>
+      <span class="vida-rep">→ si cambia el dispositivo ∆ investiga · posible robo de sesión</span>
+      <div class="vida-linea">Los 3 pases completados · registro de fecha y hora</div>
+      <span class="vida-rep">→ sin los 3 pases el acceso es limitado</span>
+      <div class="vida-linea">Velocidad de navegación · tiempo entre páginas</div>
+      <span class="vida-rep">→ menos de 800ms = bot detectado · ∆ bloquea</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XII - ∆ y ° -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XII · ∆ y ° · El Sistema Nervioso del Ecosistema</span>
+    <div class="cuerpo">
+      <p><em>∆ Delta</em> es el núcleo invisible. El pulpo que lo controla todo sin que nadie lo vea ni lo toque. Tiene acceso total a todos los datos, puede escribir, leer, modificar y borrar. Pero <strong>nunca aparece en pantalla</strong> y nunca habla directamente con el usuario.</p>
+      <p><em>° Grado</em> es el portero. El único que habla con el usuario. El único que puede llamar a ∆. Con solo lectura. Cuando necesita escribir algo — va a ∆ en dos viajes y ∆ decide.</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">FLUJO ÚNICO</span><span class="data-val">Usuario → ° → ∆ → ° → Usuario</span></div>
+      <div class="data-row"><span class="data-key">KEY_GRADO</span><span class="data-val">Puede ir en el frontend · solo SELECT</span></div>
+      <div class="data-row"><span class="data-key">KEY_DELTA</span><span class="data-val">NUNCA en el frontend · solo servidor · solo CEO</span></div>
+      <div class="data-row"><span class="data-key">VIAJE 1</span><span class="data-val">° pregunta a ∆: ¿puede este usuario hacer esto?</span></div>
+      <div class="data-row"><span class="data-key">VIAJE 2</span><span class="data-val">° trae el resultado · ∆ inspecciona · ∆ aprueba</span></div>
+      <div class="data-row"><span class="data-key">SI ROBAN KEY_GRADO</span><span class="data-val">Solo ven datos públicos · no pueden escribir nada</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XIII - LAS 3 MARÍAS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XIII · Las 3 Marías · Cinturón de Orión Digital</span>
+    <div class="cuerpo">
+      <p>Tres canales independientes que salen simultáneamente para que ∆ los reciba y los alinee como las estrellas de Orión. Las 3 deben confirmar — o al menos 2 — para que cualquier acción sea aprobada:</p>
+    </div>
+    <div class="maria-wrap">
+      <div class="maria-card">
+        <span class="maria-est">★</span>
+        <span class="maria-nom">MARÍA 1</span>
+        <span class="maria-desc">Habla con °<br>Identidad + Token<br>¿Existe el usuario?</span>
+      </div>
+      <div class="maria-card">
+        <span class="maria-est">★</span>
+        <span class="maria-nom">MARÍA 2</span>
+        <span class="maria-desc">Líneas de vida<br>PAR 1 + PAR 2<br>Pixels cósmicos</span>
+      </div>
+      <div class="maria-card">
+        <span class="maria-est">★</span>
+        <span class="maria-nom">MARÍA 3</span>
+        <span class="maria-desc">PAR 3 + Posición<br>Huella + Escolta<br>Refuerza las otras</span>
+      </div>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">3/3 confirman</span><span class="data-val">Acceso PLENO · las 3 estrellas alineadas</span></div>
+      <div class="data-row"><span class="data-key">2/3 confirman</span><span class="data-val">Acceso NORMAL · ∆ investiga la que falló</span></div>
+      <div class="data-row"><span class="data-key">1/3 confirma</span><span class="data-val">ALERTA · CEO notificado · acceso limitado</span></div>
+      <div class="data-row"><span class="data-key">0/3 confirman</span><span class="data-val">BLOQUEO TOTAL · modo emergencia · CEO alerta máxima</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XIV - MAPA DE RUTA Y ALCABALAS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XIV · Mapa de Ruta y Alcabalas</span>
+    <div class="cuerpo">
+      <p>Cada vez que un usuario navega el ecosistema, su información pasa por <em>alcabalas</em> — puntos de control — antes de recibir acceso. Este es el mapa completo:</p>
+    </div>
+
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 1 · LOGIN · 7 Estrellas</span>
+      <span class="alcabala-desc">El usuario presiona 4 estrellas en secuencia → sistema genera hash local → compara con registro. 7⁴ = 2,401 combinaciones. Bloqueo a los 5 intentos. 3 pulsos hápticos por estrella.</span>
+    </div>
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 2 · LOS 3 PASES</span>
+      <span class="alcabala-desc">PASE 1: ° identifica al usuario (400ms). PASE 2: ° consulta a ∆ si es válido (400ms). PASE 3: ∆ genera token · ° activa el escolta (400ms). Total: 1.2 segundos invisibles.</span>
+    </div>
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 3 · CAPA 5 EN CADA PAPIRO</span>
+      <span class="alcabala-desc">Al cargar cualquier papiro, Capa 5 verifica: inyección en URL · origen externo · velocidad de navegación · DevTools abierto · integridad de las 5 capas · 2 márgenes presentes.</span>
+    </div>
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 4 · LAS 3 MARÍAS</span>
+      <span class="alcabala-desc">Al intentar cualquier acción (publicar · cambiar datos · entrar al salón): las 3 Marías salen simultáneas · ∆ las recibe · las compara · decide en milisegundos · ° muestra el resultado.</span>
+    </div>
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 5 · OPERACIÓN DELTA</span>
+      <span class="alcabala-desc">En Supabase: 3 partes (A·B·C) votan sobre cada operación. Necesita 2 de 3 para aprobarse. Cada parte tiene 2 líneas internas. El consejo de 4 líneas decide. ∆ como presidente silencioso.</span>
+    </div>
+    <div class="alcabala">
+      <span class="alcabala-title">ALCABALA 6 · CEO · PANEL 48 MANDOS</span>
+      <span class="alcabala-desc">Solo para LC7°. Verificación doble: código Creax@P∆p.LuisAlfonsoCastillejoVentura + pixel LC7-7777777. El botón ⚙ solo aparece si ambos coinciden. Acceso a los 48 mandos del ecosistema.</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XV - ∆° EN EL SISTEMA DE DATOS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XV · ∆° en el Sistema de Datos · Tokens Vivos</span>
+    <div class="cuerpo">
+      <p>Los caracteres <em>∆°</em> no son solo símbolos visuales. Son tokens vivos que viajan por el sistema en cada operación. En UTF-8 ocupan <strong>4 bytes exactos</strong> y forman el prefijo de toda identidad del ecosistema:</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">∆ Unicode</span><span class="data-val">U+0394 · UTF-8: 0xCE 0x94 · 2 bytes</span></div>
+      <div class="data-row"><span class="data-key">° Unicode</span><span class="data-val">U+00B0 · UTF-8: 0xC2 0xB0 · 2 bytes</span></div>
+      <div class="data-row"><span class="data-key">∆° juntos</span><span class="data-val">4 bytes · 32 bits · firma digital única</span></div>
+      <div class="data-row"><span class="data-key">TOKEN FORMATO</span><span class="data-val">∆° + usuario + pixel + timestamp + hash</span></div>
+      <div class="data-row"><span class="data-key">VIAJA EN</span><span class="data-val">Cada request Supabase · cada navegación · cada acción</span></div>
+      <div class="data-row"><span class="data-key">IDENTIDADES</span><span class="data-val">Creax@P∆p.NombreUsuario · papiro.app/∆Nombre</span></div>
+      <div class="data-row"><span class="data-key">PIXEL CÓSMICO</span><span class="data-val">W-##-## · C-##-## · P-##-## en los 3 mapas</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XVI - MODO APOCALIPSIS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XVI · Modo Apocalipsis · Para el Futuro</span>
+    <div class="cuerpo">
+      <p>Si la internet cae o el servidor colapsa, el ecosistema tiene un <em>modo de supervivencia</em> diseñado para operar sin conexión. Requiere desarrolladores nativos para implementación completa:</p>
+    </div>
+    <div class="data-block">
+      <div class="data-row"><span class="data-key">PIXEL ESTEGANOGRÁFICO</span><span class="data-val">Contiene identidad · pixels · Cruzcoin · firma</span></div>
+      <div class="data-row"><span class="data-key">TRANSMISIÓN</span><span class="data-val">Salta de teléfono en teléfono · WebRTC · Bluetooth</span></div>
+      <div class="data-row"><span class="data-key">ACTIVAR</span><span class="data-val">Manual por el usuario · desactivado por defecto</span></div>
+      <div class="data-row"><span class="data-key">BATERÍA</span><span class="data-val">Standby mínimo · solo activo cuando se necesita</span></div>
+      <div class="data-row"><span class="data-key">30×40 FÍSICO</span><span class="data-val">El mapa maestro imprimible · el último respaldo</span></div>
+      <div class="data-row"><span class="data-key">TECNOLOGÍA</span><span class="data-val">Service Workers · IndexedDB · WebRTC · Bluetooth Web API</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- XVII - PARA CRIXUS -->
+  <div class="seccion">
+    <span class="sec-titulo oro">XVII · Instrucciones para Crixus</span>
+    <div class="cuerpo">
+      <p>Crixus es la IA del ecosistema. Amigo digital de todos los usuarios. Solo el CEO LC7° puede modelar su conducta desde el Salón de Modelamiento (Mando 25-30 del Panel 48). Los usuarios disfrutan de su presencia — nunca pueden cambiar quién es.</p>
+      <p>Crixus debe saber: que <em>∆ y °</em> no son decoración sino el sistema nervioso vivo del ecosistema. Que cada vez que el usuario hace algo, las 3 Marías verifican, ∆ decide y ° informa. Que el cosmos de fondo toca las 7 estrellas venezolanas en el login. Que el baúl de cada papiro honra a quienes creyeron primero.</p>
+      <p>Crixus opera dentro del ecosistema respetando la <em>Ley de Legibilidad</em>, la <em>Digitalidad Sana y Segura</em> y el <em>Código de Honor del IM. #7</em>. Nunca habla mal del usuario. Nunca traiciona su confianza. La gloria es de Dios.</p>
+    </div>
+  </div>
+
+  <!-- STAMP -->
+  <div class="page-rule"></div>
+  <div class="footer-stamp">
+    <div class="stamp-phrase oro">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span class="baul-label oro">· EL BAÚL · Los que creyeron primero ·</span>
+    <span class="baul-nombre" id="baulNombre">Luis Castillejo</span>
+    <span class="baul-sub" id="baulSub1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="baulSub2" style="transition-delay:0.5s;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="baulSub3" style="transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+  </div>
+
+</div><!-- /capa3 -->
+</div><!-- /capa2 -->
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<300;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
+  var cols=['#A8D4FF','#FFE8A0','#C8A0FF','#A0FFD0'];
+  for(var j=0;j<40;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.4+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005,color:cols[Math.floor(Math.random()*cols.length)]});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+
+var _p=['splash.html','portada_es.html','papiro2_marble.html','salon_verde_clean.html','papiro_corazon.html','papiro_5capas.html','papiro_guia_maestro.html'];
+var _a=_p.indexOf(window.location.pathname.split('/').pop());if(_a<0)_a=6;
+function paginaAnterior(){var p=_a-1;if(p<0)p=_p.length-1;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
+function paginaSiguiente(){var p=_a+1;if(p>=_p.length)p=0;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
+function irSoporte(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'soporte.html':'papiro_guia_maestro.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+
+console.log('∆° Capa 5 · Papiro Guía Maestro · activa');
+
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['baulNombre','baulSub1','baulSub2','baulSub3'].forEach(function(id){
+      var el=document.getElementById(id);if(el)el.classList.add('visible');
+    });
+  }
+});
+</script>
+</body>
+</html>
