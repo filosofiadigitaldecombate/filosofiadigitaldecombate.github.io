@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro USA ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA USA ══
+   ROJO GLORY:    #B22234 · #CC2233 · #FF3344
+   AZUL UNION:    #002868 · #003FA0 · #3366CC
+   BLANCO STARS:  #FFFFFF · #F0F4FF
+   DORADO EAGLE:  #C9A84C · #D4AF37
+*/
+
+/* MÁRGENES — Stars and Stripes */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;}
+.margin-line.left{left:32px;
+  background:repeating-linear-gradient(180deg,
+    #B22234 0px,#B22234 14px,
+    #FFFFFF 14px,#FFFFFF 28px,
+    #B22234 28px,#B22234 42px,
+    #FFFFFF 42px,#FFFFFF 56px,
+    #B22234 56px,#B22234 70px,
+    #FFFFFF 70px,#FFFFFF 84px,
+    #B22234 84px,#B22234 98px);
+  animation:stripesScroll 4s linear infinite;
+  box-shadow:0 0 8px rgba(178,34,52,0.6),0 0 18px rgba(178,34,52,0.3);}
+.margin-line.right{right:32px;
+  background:linear-gradient(180deg,
+    #002868,#003FA0,#3366CC,#6699FF,
+    #3366CC,#003FA0,#002868,
+    #FFFFFF,#F0F4FF,
+    #002868,#003FA0,#3366CC);
+  background-size:100% 400%;
+  animation:blueFlow 7s linear infinite;
+  box-shadow:0 0 8px rgba(0,63,160,0.7),0 0 20px rgba(0,40,104,0.4);}
+@keyframes stripesScroll{0%{background-position:0 0;}100%{background-position:0 98px;}}
+@keyframes blueFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+/* CAPA 2 — Washington DC de noche */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255,255,255,0.1) 0%, transparent 12%),
+    radial-gradient(ellipse at 20% 90%, rgba(0,40,104,0.15) 0%, transparent 30%),
+    radial-gradient(ellipse at 80% 85%, rgba(0,40,104,0.12) 0%, transparent 25%),
+    linear-gradient(180deg,#000308 0%,#000614 25%,#000A20 55%,#000614 80%,#000308 100%);}
+
+/* CAPA 3 — paño azul Union oscuro */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* 50 estrellas muy sutiles */
+    radial-gradient(circle at 15% 12%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 35% 8%,  rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 55% 12%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 75% 8%,  rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 25% 18%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 45% 14%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 65% 18%, rgba(255,255,255,0.03) 1px, transparent 1px),
+    radial-gradient(circle at 85% 12%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(160deg,#000B1F 0%,#000818 50%,#000510 100%);
+  background-size:200px 200px,200px 200px,200px 200px,200px 200px,200px 200px,200px 200px,200px 200px,200px 200px,100% 100%;}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.btn-f.izq{bottom:24px;left:24px;
+  background:rgba(0,40,104,0.2);border:1px solid rgba(0,63,160,0.5);}
+.btn-f.der{bottom:24px;right:24px;
+  background:rgba(178,34,52,0.15);border:1px solid rgba(204,34,51,0.5);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#001540,#002868,#3366CC,#6699FF,#3366CC,#002868,#001540);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 6s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#800020,#B22234,#FF3344,#FF8899,#FF3344,#B22234,#800020);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:redFlow 6s linear infinite;}
+@keyframes redFlow{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+.rojo-usa{background:linear-gradient(90deg,#800020,#B22234,#CC2233,#FF3344,#FF6677,#FF3344,#CC2233,#B22234,#800020);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:redFlow 12s linear infinite;}
+.azul-usa{background:linear-gradient(90deg,#001540,#002868,#003FA0,#3366CC,#6699FF,#3366CC,#003FA0,#002868,#001540);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 14s linear infinite;}
+.stars{background:linear-gradient(90deg,#C0C8D8,#FFFFFF,#F0F4FF,#FFFFFF,#C0C8D8);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 18s linear infinite;}
+.usa{background:linear-gradient(90deg,#B22234,#CC2233,#FFFFFF,#F0F4FF,#002868,#003FA0,#B22234);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 9s linear infinite;}
+
+/* 50 estrellas ornamento */
+.stars-50{text-align:center;margin:12px 0;font-size:11px;letter-spacing:4px;
+  color:rgba(255,255,255,0.5);line-height:1.8;
+  animation:starsBlink 6s ease-in-out infinite;}
+@keyframes starsBlink{
+  0%,100%{color:rgba(255,255,255,0.35);}
+  50%{color:rgba(255,255,255,0.9);filter:drop-shadow(0 0 5px rgba(255,255,255,0.5));}}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:28px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 10px rgba(178,34,52,0.6)) drop-shadow(0 0 24px rgba(0,63,160,0.5));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:rgba(255,255,255,0.5);}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:8px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 14px rgba(178,34,52,0.7)) drop-shadow(0 0 30px rgba(0,63,160,0.5));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:rgba(200,210,230,0.8);}
+.page-rule{width:100%;height:2px;margin:16px 0;
+  background:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 30px,
+    #FFFFFF 30px,#FFFFFF 60px,
+    #B22234 60px,#B22234 90px,
+    #FFFFFF 90px,#FFFFFF 120px);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(178,34,52,0.3);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#B8C4D8;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#FF6677;font-style:italic;}
+.cuerpo strong{color:#6699FF;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 10px,#FFFFFF 10px,#FFFFFF 20px);}
+.card:nth-child(odd){border:1px solid rgba(178,34,52,0.2);background:rgba(178,34,52,0.06);}
+.card:nth-child(even){border:1px solid rgba(0,63,160,0.2);background:rgba(0,40,104,0.1);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;display:block;margin-bottom:8px;margin-top:6px;}
+.card:nth-child(odd) .card-titulo{color:#FF6677;}
+.card:nth-child(even) .card-titulo{color:#6699FF;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#B8C4D8;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  display:block;margin-top:8px;line-height:1.8;}
+.card:nth-child(odd) .card-tag{color:rgba(255,102,119,0.8);}
+.card:nth-child(even) .card-tag{color:rgba(102,153,255,0.8);}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data-red{background:rgba(178,34,52,0.07);border-left:3px solid rgba(178,34,52,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-blue{background:rgba(0,40,104,0.1);border-left:3px solid rgba(0,63,160,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-white{background:rgba(255,255,255,0.04);border-left:3px solid rgba(255,255,255,0.3);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,255,255,0.04);}
+.data-row:last-child{border-bottom:none;}
+.dk-r{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#FF6677;}
+.dk-b{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#6699FF;}
+.dk-w{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:rgba(255,255,255,0.7);}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#B8C4D8;text-align:right;}
+.sep-data{width:100%;height:2px;margin:16px 0;
+  background:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 20px,#FFFFFF 20px,#FFFFFF 40px,
+    #002868 40px,#002868 60px);}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#B8C4D8;
+  padding:8px 0 8px 24px;border-bottom:1px solid rgba(178,34,52,0.08);
+  position:relative;line-height:2;}
+.lista li::before{content:'★';position:absolute;left:0;top:10px;
+  color:rgba(255,255,255,0.4);font-size:11px;}
+
+/* QUOTE */
+.quote{border-left:3px solid rgba(178,34,52,0.5);padding:16px 18px;
+  margin:16px 0;background:rgba(178,34,52,0.05);border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#FF8899;line-height:2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:rgba(102,153,255,0.7);margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(0,40,104,0.08);border:1px solid rgba(0,63,160,0.25);
+  position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 20px,#FFFFFF 20px,#FFFFFF 40px,
+    #002868 40px,#002868 60px);}
+.btn-cta{width:100%;border-radius:4px;padding:18px;margin-top:6px;
+  font-family:'Cinzel',serif;font-size:20px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(178,34,52,0.15);border:1px solid rgba(178,34,52,0.5);color:#FF6677;}
+.btn-cta:hover{background:rgba(178,34,52,0.3);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
+  border-top:2px solid;
+  border-image:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 20px,#FFFFFF 20px,#FFFFFF 40px,
+    #002868 40px,#002868 60px) 2;}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:rgba(178,34,52,0.6);margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:4px;margin:0 auto 24px;
+  background:repeating-linear-gradient(to right,
+    #B22234 0px,#B22234 20%,
+    #FFFFFF 20%,#FFFFFF 40%,
+    #002868 40%,#002868 60%,
+    #B22234 60%,#B22234 80%,
+    #FFFFFF 80%,#FFFFFF 100%);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#800020,#B22234,#CC2233,#FFFFFF,#002868,#003FA0,#B22234);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(178,34,52,0.6)) drop-shadow(0 0 24px rgba(0,63,160,0.4));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#001540,#002868,#3366CC,#6699FF,#3366CC,#002868,#001540);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:blueFlow 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+<div id="capa3">
+
+  <!-- HEADER -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">🇺🇸 ✦ ∆°</span>
+    <span class="page-chapter">United States of America</span>
+    <h2 class="page-title usa">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">Your complete guide · Your creative tool</div>
+  </div>
+
+  <!-- 50 ESTRELLAS -->
+  <div class="stars-50">
+    ★ ★ ★ ★ ★ ★ ★ ★ ★ ★<br>
+    ★ ★ ★ ★ ★ ★ ★ ★ ★ ★<br>
+    ★ ★ ★ ★ ★ ★ ★ ★ ★ ★<br>
+    ★ ★ ★ ★ ★ ★ ★ ★ ★ ★<br>
+    ★ ★ ★ ★ ★ ★ ★ ★ ★ ★
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I -->
+  <div class="sec">
+    <span class="sec-titulo rojo-usa">I · What is Papiro and what makes it different</span>
+    <div class="cuerpo">
+      <p>Papiro is not another social media. We won't lie to you, waste your time, or sell you anything you didn't ask for. We are a digital platform built on a simple philosophy: <em>technology that protects you, not exploits you.</em></p>
+      <p>While other apps use colors, speeds and algorithms scientifically designed to create anxiety and addiction — we did the opposite. Every animation, every color, every speed in Papiro was calibrated so that when you come here, <em>you breathe peace, calm, and healthy fun.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">"Healthy and Safe Digitality is not a slogan.<br>It's the reason every line of code here exists."</div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · Made with soul · with history · with faith</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl rojo-usa">WHAT WE DON'T DO</span>
+      <div class="data-red">
+        <div class="data-row"><span class="dk-r">NO ANXIETY ALGORITHMS</span><span class="dv">You decide what to see · when · how</span></div>
+        <div class="data-row"><span class="dk-r">NO INVASIVE ADS</span><span class="dv">What you see is what's there · no tricks</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl azul-usa">YOUR IDENTITY IN PAPIRO</span>
+      <div class="data-blue">
+        <div class="data-row"><span class="dk-b">REAL IDENTITY</span><span class="dv">Creax@P∆p.YourName · yours alone · forever</span></div>
+        <div class="data-row"><span class="dk-b">COSMIC PIXEL</span><span class="dv">Your unique place in the digital universe</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl stars">WHO WE ARE</span>
+      <div class="data-white">
+        <div class="data-row"><span class="dk-w">SECURITY ∆°</span><span class="dv">3-layer system · nobody touches your data</span></div>
+        <div class="data-row"><span class="dk-b">LATIN AMERICAN</span><span class="dv">Made with soul · surprising history · with faith</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II -->
+  <div class="sec">
+    <span class="sec-titulo azul-usa">II · Papiro Spaces</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · THE SALON</span>
+        <div class="card-texto">The social heart of Papiro. Games, live chat, streams, community meetups. Tap <strong>∆</strong> from any papiro to get there.</div>
+        <span class="card-tag">→ Access: ∆ button · always visible</span></div>
+      <div class="card"><span class="card-titulo">📜 THE PAPIROS</span>
+        <div class="card-texto">Your personal expression space. Your voice in the ecosystem — with your style, your color, your seal.</div>
+        <span class="card-tag">→ papiro.app/∆YourName</span></div>
+      <div class="card"><span class="card-titulo">📚 THE LIBRARY</span>
+        <div class="card-texto">Where you are right now. Guides, tutorials and tools. As a verified P∆plover you can submit your creations — colors, textures, styles. Together we build something extraordinary.</div>
+        <span class="card-tag">→ Send your creative proposal via ° support</span></div>
+      <div class="card"><span class="card-titulo">🔴 LIVE · TvP∆p</span>
+        <div class="card-texto">Real-time broadcasts. Events, news, launches. Visitors watch — P∆plovers interact.</div>
+        <span class="card-tag">→ October 26th · world launch · God willing</span></div>
+      <div class="card"><span class="card-titulo">🎮 LATIN AMERICAN GAMES</span>
+        <div class="card-texto">Dominoes, El Truco and more — with <strong>Bolivares Digitales</strong>, our game chips (not real money). 5-second micro-videos while playing. TvP∆p live in the background.<br><br>World launch: <strong>October 26th</strong>, in the name of Jesus.</div>
+        <span class="card-tag">→ P∆plovers play with community · visitors have their own salon</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III -->
+  <div class="sec">
+    <span class="sec-titulo rojo-usa">III · Creative Tools</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">🎨 YOUR PERSONAL PAPIRO</span>
+        <div class="card-texto">Your name, your colors, your design, your story. Choose your pane color, textures, margin line effects, your signature. Your space — nobody else controls it.</div>
+        <span class="card-tag">Text · image · video · letter · public or private</span></div>
+      <div class="card"><span class="card-titulo">⭐ YOUR COSMIC PIXEL</span>
+        <div class="card-texto">A unique pixel in the Papiro cosmos. Your coordinate in the digital universe — world map, continental and by country. When connected, your pixel glows in the cosmos.</div>
+        <span class="card-tag">1,200 unique pixels · first 100 → Gold forever</span></div>
+      <div class="card"><span class="card-titulo">🤖 CRIXUS · YOUR DIGITAL FRIEND</span>
+        <div class="card-texto">The ecosystem AI. Here to help, guide and accompany you. A digital buddy who understands the platform from the inside.</div>
+        <span class="card-tag">→ Coming soon · in every papiro</span></div>
+      <div class="card"><span class="card-titulo">📡 YOUR DIGITAL IDENTITY</span>
+        <div class="card-texto"><strong>Creax@P∆p.YourName</strong> — your signature across the entire ecosystem. Recognizable, unique and irreplaceable.</div>
+        <span class="card-tag">papiro.app/∆YourName</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV -->
+  <div class="sec">
+    <span class="sec-titulo stars">IV · Creating Content and Broadcasting</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">📝 PUBLISH IN YOUR PAPIRO</span>
+        <div class="card-texto">Write from your heart. Your papiro is yours — design and express everything you imagine, within good manners. The only rule: be real.<br><br>In <strong>°</strong> you'll find direct access to support and the CEO. Thank you for defending this project: <strong>P∆pir°</strong></div>
+        <span class="card-tag">Text · image · video · letter · reflection</span></div>
+      <div class="card"><span class="card-titulo">💬 TALKING ABOUT PAPIRO</span>
+        <div class="card-texto">When someone asks, tell them: <em>it's a Latin American digital platform that protects users instead of exploiting them.</em> That says it all.</div>
+        <span class="card-tag">Less is more · curiosity does the rest</span></div>
+      <div class="card"><span class="card-titulo">🌟 BE AN AMBASSADOR ∆°</span>
+        <div class="card-texto">When you share Papiro you're not selling anything — you're inviting someone to a space you already know is worth it. That difference shows.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #USA</span></div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">"Those who believed in the idea.<br>Those who saw what was revolutionary.<br>In the concept and in God."</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7°</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V -->
+  <div class="sec">
+    <span class="sec-titulo azul-usa">V · Why Papiro Is Safe and Healthy</span>
+    <ul class="lista">
+      <li>Animations run between 8 and 24 seconds — calibrated to not create visual anxiety.</li>
+      <li>Your data travels protected by a 3-layer system: The 3 Marias, our token and the silent security Layer. 🔐</li>
+      <li>Nobody can access your private data without passing through ∆ — not even us without your explicit permission.</li>
+      <li>Apocalypse mode: if internet goes down, your data survives on your device.</li>
+      <li>No bots, no spam, no algorithms designed to waste your time.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <span style="font-size:28px;display:block;margin-bottom:10px;">🇺🇸</span>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="usa">Want to go deeper?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#B8C4D8;display:block;margin-bottom:6px;line-height:2;">Register and create your email in P∆°PIRO<br>and we'll send you everything detailed<br>and deeper about the topic you choose.</span>
+    <span style="font-family:'Special Elite',serif;font-size:21px;letter-spacing:3px;display:block;margin-bottom:18px;" class="azul-usa">#777 · #SI° · #P∆°PIRO · 🇺🇸</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ JOIN P∆°PIRO</button>
+  </div>
+
+  <!-- STAMP -->
+  <div class="footer-stamp">
+    <div class="stamp-phrase usa">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CODE OF HONOR IM. #7 — So I have done it</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div class="stars-50" style="font-size:9px;letter-spacing:3px;margin-bottom:16px;">
+      ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★
+    </div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(178,34,52,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="usa">· THE VAULT OF THOSE WHO<br>BELIEVED FROM THE FIRST MOMENT ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Founder · Creaxion Papiro © 2026 · 🇺🇸</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.6+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  // 50 estrellas blancas · los estados
+  for(var k=0;k<50;k++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:0.6+Math.random()*0.8,ph:Math.random()*Math.PI*2,sp:0.001+Math.random()*0.001,color:'rgba(255,255,255,0.95)'});
+  var cl=['#B22234','#CC2233','#002868','#003FA0','#3366CC','#FF8899','#6699FF'];
+  for(var j=0;j<40;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.5+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%7]});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_brasil.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro USA · We the People · 🇺🇸');
+</script>
+</body>
+</html>
