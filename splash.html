@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>CREAXION PAPIRO</title>
+<link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --dark:#06050A;--gold:#C9A84C;--gold2:#E8C97A;
+  --parchment:#DDD0AA;--muted:#8A7D60;
+}
+body{
+  background:var(--dark);color:var(--parchment);
+  min-height:100vh;overflow-x:hidden;overflow-y:auto;
+}
+canvas#starfield{
+  position:fixed;inset:0;z-index:0;
+  width:100%;height:100%;pointer-events:none;
+}
+.splash-wrap{
+  position:relative;z-index:2;
+  width:100%;max-width:420px;
+  margin:0 auto;
+  padding:40px 24px;
+  display:flex;flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  justify-content:center;
+}
+/* CONTENIDO OCULTO DEBAJO */
+.hidden-below{
+  position:relative;z-index:2;
+  width:100%;max-width:420px;
+  margin:0 auto;
+  padding:1000vh 24px 80px;
+  display:flex;flex-direction:column;
+  align-items:center;
+  gap:24px;
+}
+.reveal-name{
+  font-family:'Cinzel',serif;
+  font-size:36px;font-weight:900;
+  letter-spacing:7px;
+  text-align:center;
+  background:linear-gradient(135deg,
+    #FFE566,#FFC200,#FFFACD,#FFD700,
+    #E8A800,#FFFACD,#FFD700);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldShimmer 2.5s linear infinite;
+  filter:drop-shadow(0 0 18px rgba(255,200,0,0.9));
+  opacity:0;transform:translateY(30px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+.reveal-name.visible{
+  opacity:1;transform:translateY(0);
+}
+.reveal-sub{
+  font-family:'Cinzel',serif;
+  font-size:15px;letter-spacing:3px;
+  text-align:center;
+  background:linear-gradient(90deg,
+    #FFD700,#FFF0A0,#FFD700,#FF8C00,
+    #FFFACD,#FFD700,#E8A800,#FFD700);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldRainbow 2s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(255,200,0,0.7));
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s ease 0.3s,transform 0.8s ease 0.3s;
+}
+.reveal-sub.visible{
+  opacity:1;transform:translateY(0);
+}
+@keyframes goldRainbow{
+  0%{background-position:0% center;}
+  100%{background-position:300% center;}
+}
+.scroll-hint{
+  font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:3px;color:rgba(201,168,76,0.2);
+  text-align:center;margin-top:20px;
+  animation:hintPulse 2s ease-in-out infinite;
+}
+@keyframes hintPulse{
+  0%,100%{opacity:0.2;} 50%{opacity:0.5;}
+}
+@keyframes goldShimmer{
+  0%{background-position:0% center;}
+  100%{background-position:200% center;}
+}
+.splash-brand{
+  font-family:'Cinzel',serif;
+  font-size:16px;letter-spacing:5px;
+  margin-bottom:10px;text-align:center;
+  background:linear-gradient(90deg,
+    #FFD700,#FFF0A0,#FFD700,#FF8C00,
+    #FFFACD,#FFD700,#E8A800,#FFD700);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldRainbow 2s linear infinite;
+  filter:drop-shadow(0 0 8px rgba(255,200,0,0.7));
+}
+.splash-title{
+  font-family:'Cinzel',serif;
+  font-size:58px;font-weight:900;
+  letter-spacing:6px;text-align:center;
+  background:linear-gradient(90deg,
+    #FFD700,#FFF0A0,#FFD700,#FF8C00,
+    #FFFACD,#FFD700,#E8A800,#FFD700);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldRainbow 1.8s linear infinite;
+  filter:drop-shadow(0 0 22px rgba(255,200,0,0.9));
+  margin-bottom:8px;
+}
+.splash-sub{
+  font-family:'Crimson Pro',serif;
+  font-style:italic;font-size:19px;
+  letter-spacing:2px;margin-bottom:36px;
+  text-align:center;
+  background:linear-gradient(90deg,
+    #FFD700,#FFF0A0,#FFD700,#FF8C00,
+    #FFFACD,#FFD700,#E8A800,#FFD700);
+  background-size:300% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:goldRainbow 2.5s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(255,200,0,0.7));
+}
+.splash-rule{
+  width:80%;height:1px;margin:0 auto 36px;
+  background:linear-gradient(to right,
+    transparent,#B8860B,#FFD700,#FFFACD,#FFD700,#B8860B,transparent);
+  box-shadow:0 0 8px rgba(255,200,0,0.3);
+}
+.flags-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;width:100%;
+}
+.flag-card{
+  display:flex;flex-direction:column;
+  align-items:center;gap:10px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:20px;padding:28px 16px;
+  cursor:pointer;
+  transition:all 0.25s;
+  text-decoration:none;
+  -webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+.flag-card:hover,.flag-card:active{
+  border-color:rgba(201,168,76,0.7);
+  background:rgba(201,168,76,0.08);
+  transform:scale(1.03);
+  box-shadow:0 0 20px rgba(201,168,76,0.2);
+}
+.flag-emoji{font-size:72px;line-height:1;}
+.flag-name{
+  font-family:'Cinzel',serif;
+  font-size:14px;letter-spacing:3px;
+  color:var(--gold2);font-weight:600;
+}
+.flag-native{
+  font-family:'Crimson Pro',serif;
+  font-style:italic;font-size:14px;
+  color:var(--muted);
+}
+.splash-seal{
+  margin-top:36px;
+  font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:3px;color:rgba(201,168,76,0.25);
+  text-align:center;
+}
+
+/* ══════════════════════════════════════
+   MÁRGENES UNIVERSALES — ESTÁNDAR ∆°
+   Grosor: 4px · Posición: 32px del borde
+   INALTERABLES — solo cambia el color
+   Son los GATILLOS de navegación
+   ══════════════════════════════════════ */
+.margin-line{
+  position:fixed;top:0;height:100%;
+  width:4px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,#1A0800,#C96800,#FFD700,#FFFACD,#FFD700,#C96800,#1A0800);
+  background-size:100% 400%;
+  animation:margenUniv 6s linear infinite;
+  box-shadow:0 0 6px rgba(255,180,0,0.4),0 0 14px rgba(255,180,0,0.4);
+}
+.margin-line.left {left:32px;}
+.margin-line.right{right:32px;}
+.margin-line:hover{box-shadow:0 0 12px rgba(255,180,0,0.4),0 0 24px rgba(255,180,0,0.4);}
+@keyframes margenUniv{
+  0%{background-position:0% center;}
+  100%{background-position:400% center;}
+}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="starfield"></canvas>
+
+<div class="splash-wrap">
+  <div class="splash-brand">CREAXION PAPIRO</div>
+  <div class="splash-title">PAPIRO</div>
+  <div class="splash-sub">Crónicas del Bit Eterno</div>
+  <div class="splash-rule"></div>
+
+  <div class="flags-grid">
+
+    <a class="flag-card" href="portada_es.html">
+      <span class="flag-emoji">🇪🇸</span>
+      <span class="flag-name">ESPAÑOL</span>
+      <span class="flag-native">Castellano</span>
+    </a>
+
+    <a class="flag-card" href="portada_pt.html">
+      <span class="flag-emoji">🇧🇷</span>
+      <span class="flag-name">PORTUGUÊS</span>
+      <span class="flag-native">Brasileiro</span>
+    </a>
+
+    <a class="flag-card" href="portada_en.html">
+      <span class="flag-emoji">🇬🇧</span>
+      <span class="flag-name">ENGLISH</span>
+      <span class="flag-native">British</span>
+    </a>
+
+    <a class="flag-card" href="portada_el.html">
+      <span class="flag-emoji">🇬🇷</span>
+      <span class="flag-name">ΕΛΛΗΝΙΚΆ</span>
+      <span class="flag-native">Ελληνική</span>
+    </a>
+
+  </div>
+
+  <div class="splash-seal">✦ X-7777777-LC7° · PAPIRO · SI° · 350 · 777 ✦</div>
+  <div class="scroll-hint">· · · ↓ · · ·</div>
+</div>
+
+<!-- CONTENIDO OCULTO — aparece al hacer scroll -->
+<div class="hidden-below">
+  <div class="gold-rule-full" style="width:80%;height:1px;
+    background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent);
+    box-shadow:0 0 8px rgba(255,200,0,0.2);">
+  </div>
+  <div class="reveal-name" id="revealName">Luis Castillejo</div>
+  <div class="reveal-sub" id="revealSub">X-7777777-LC7° · SI° · 350 · 777</div>
+  <div class="reveal-sub" id="revealSub2" style="transition-delay:0.5s;">
+    Candidato Presidencial · Venezuela<br>
+    Exiliado en Brasil · Creaxion Papiro
+  </div>
+</div>
+
+<script>
+// ══ STARFIELD ══
+(function(){
+  var c=document.getElementById('starfield');
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var stars=[];
+  // Estrellas blancas — titilan suave y fuerte
+  for(var i=0;i<250;i++){
+    stars.push({
+      x:Math.random(),y:Math.random(),
+      r:Math.random()*1.4+0.2,
+      ph:Math.random()*Math.PI*2,
+      sp:Math.random()*0.05+0.015,
+      type:'white',
+      fast:Math.random()>0.7
+    });
+  }
+  // Estrellas de color — titilan muy rápido
+  var cols=['#FFD700','#4499FF','#FF3333','#FFFFFF','#FF66FF','#33FFCC'];
+  for(var j=0;j<60;j++){
+    stars.push({
+      x:Math.random(),y:Math.random(),
+      r:Math.random()*0.6+0.2,
+      ph:Math.random()*Math.PI*2,
+      sp:Math.random()*0.12+0.06,
+      type:'color',
+      color:cols[Math.floor(Math.random()*cols.length)],
+      fast:Math.random()>0.4
+    });
+  }
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='rgba(4,3,8,0.18)';
+    ctx.fillRect(0,0,c.width,c.height);
+    stars.forEach(function(s){
+      var spd = s.fast ? s.sp*4 : s.sp;
+      s.ph += spd;
+      var wave = (Math.sin(s.ph)+1)/2;
+      // Spike súbito fuerte
+      var spike = (Math.sin(s.ph*9.1+1.3)>0.88) ? 1 : 0;
+      var a = wave*0.8 + spike*0.2 + 0.04;
+      ctx.beginPath();
+      ctx.arc(s.x*c.width,s.y*c.height,s.r,0,Math.PI*2);
+      if(s.type==='color'){
+        ctx.fillStyle=s.color;
+        ctx.globalAlpha=Math.min(a,1);
+        ctx.shadowColor=s.color;
+        ctx.shadowBlur=a>0.6 ? 10*a : 2;
+      } else {
+        ctx.fillStyle='#FFFFFF';
+        ctx.globalAlpha=Math.min(a,1);
+        ctx.shadowBlur=0;
+      }
+      ctx.fill();
+    });
+    ctx.globalAlpha=1;ctx.shadowBlur=0;
+  }
+  draw();
+})();
+
+// ══ SCROLL REVEAL — distancia fija ══
+window.addEventListener('scroll', function(){
+  var scrolled = window.scrollY || window.pageYOffset;
+  var threshold = window.innerHeight * 10;
+  if(scrolled > threshold){
+    document.getElementById('revealName').classList.add('visible');
+    document.getElementById('revealSub').classList.add('visible');
+    document.getElementById('revealSub2').classList.add('visible');
+  }
+});
+
+/* ══ NAVEGACIÓN POR MÁRGENES — UNIVERSAL ══
+   Izquierdo = anterior · Derecho = siguiente
+   Funciona desde cualquier altura del scroll ══ */
+var _papiros = ['splash.html','portada_es.html','papiro2_marble.html','salon_verde_clean.html','papiro_corazon.html','papiro_5capas.html'];
+var _actual = _papiros.indexOf(window.location.pathname.split('/').pop());
+if(_actual < 0) _actual = 0;
+function paginaAnterior(){
+  var p = _actual-1; if(p<0) p=_papiros.length-1;
+  document.body.style.opacity='0';
+  setTimeout(function(){window.location.href=_papiros[p];},300);
+}
+function paginaSiguiente(){
+  var p = _actual+1; if(p>=_papiros.length) p=0;
+  document.body.style.opacity='0';
+  setTimeout(function(){window.location.href=_papiros[p];},300);
+}
+function irSalon(){
+  var s=localStorage.getItem('papiro_usuario');
+  document.body.style.opacity='0';
+  setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);
+}
+</script>
+
+</body>
+</html>
