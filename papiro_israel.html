@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro Israel ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA ISRAEL ══
+   AZUL DAVID:    #0038B8 · #003DA5 · #4A7AD4
+   BLANCO TALLIT: #FFFFFF · #F8F8F0
+   ORO JERUSALÉN: #C9A84C · #D4AF37 · #F0C040
+   PIEDRA CALIZA: #E8D8B0 · #D4C090
+   OLIVO:         #556B2F · #6B8C3A
+   MAR MUERTO:    #006994 · #0088AA
+*/
+
+/* MÁRGENES — dos franjas azules · bandera israelí */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,
+    #0038B8 0%,   #0038B8 18%,
+    #FFFFFF 18%,  #FFFFFF 26%,
+    #0038B8 26%,  #0038B8 74%,
+    #FFFFFF 74%,  #FFFFFF 82%,
+    #0038B8 82%,  #0038B8 100%);
+  animation:israelGlow 6s ease-in-out infinite;
+  box-shadow:0 0 10px rgba(0,56,184,0.7),0 0 22px rgba(0,61,165,0.3);}
+.margin-line.left{left:32px;}
+.margin-line.right{right:32px;}
+@keyframes israelGlow{0%,100%{filter:brightness(1);}50%{filter:brightness(1.25);}}
+
+/* CAPA 2 — Jerusalén de noche */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    /* Luna sobre el Muro Occidental */
+    radial-gradient(circle at 50% 8%, rgba(201,168,76,0.14) 0%, rgba(201,168,76,0.05) 10%, transparent 16%),
+    /* Cúpula dorada lejana */
+    radial-gradient(ellipse at 50% 85%, rgba(201,168,76,0.1) 0%, transparent 20%),
+    /* Olivos en el Huerto */
+    radial-gradient(ellipse at 15% 75%, rgba(85,107,47,0.07) 0%, transparent 20%),
+    radial-gradient(ellipse at 85% 70%, rgba(85,107,47,0.06) 0%, transparent 15%),
+    /* Cielo de Jerusalén — azul profundo eterno */
+    linear-gradient(180deg,#020410 0%,#040818 25%,#060C20 55%,#040818 80%,#020410 100%);}
+
+/* CAPA 3 — paño azul cobalto oscuro · piedra de Jerusalén */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* Textura piedra caliza de Jerusalén */
+    repeating-linear-gradient(90deg,rgba(201,168,76,0.02) 0px,transparent 1px,transparent 20px,rgba(201,168,76,0.015) 21px),
+    repeating-linear-gradient(0deg,rgba(201,168,76,0.015) 0px,transparent 1px,transparent 20px,rgba(201,168,76,0.02) 21px),
+    /* Azul David oscuro */
+    linear-gradient(160deg,#020818 0%,#010612 50%,#010410 100%);
+  background-size:42px 42px,42px 42px,100% 100%;}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.btn-f.izq{bottom:24px;left:24px;
+  background:rgba(0,56,184,0.18);border:1px solid rgba(0,61,165,0.5);}
+.btn-f.der{bottom:24px;right:24px;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.45);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#001860,#0038B8,#4A7AD4,#0038B8,#001860);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:azulV 6s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#F0C040,#C9A84C,#8A6A00);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 6s linear infinite;}
+@keyframes azulV{0%{background-position:0% center;}100%{background-position:300% center;}}
+@keyframes oroV{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES */
+.azul-dav{background:linear-gradient(90deg,#001060,#0038B8,#003DA5,#4A7AD4,#80AAFF,#4A7AD4,#003DA5,#001060);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:azulV 12s linear infinite;}
+.oro-jer{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 10s linear infinite;}
+.caliza{background:linear-gradient(90deg,#9A8050,#C8A870,#E8D8B0,#F0E4C0,#E8D8B0,#C8A870,#9A8050);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:azulV 18s linear infinite;}
+.olivo-jt{background:linear-gradient(90deg,#2A3A18,#556B2F,#6B8C3A,#8AAF50,#6B8C3A,#556B2F,#2A3A18);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 16s linear infinite;}
+.israel{background:linear-gradient(90deg,#0038B8,#003DA5,#FFFFFF,#F8F8F0,#C9A84C,#F0C040,#0038B8);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:israelGlow 9s linear infinite;}
+
+/* ESTRELLA DE DAVID SVG */
+.magen-david{text-align:center;margin:10px 0;
+  animation:israelGlow 5s ease-in-out infinite;}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:26px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 10px rgba(0,56,184,0.7)) drop-shadow(0 0 24px rgba(201,168,76,0.4));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:rgba(201,168,76,0.6);}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 14px rgba(0,56,184,0.7)) drop-shadow(0 0 32px rgba(201,168,76,0.5));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:rgba(200,216,240,0.8);}
+.page-rule{width:100%;height:2px;margin:16px 0;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.6),#0038B8);}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(201,168,76,0.2);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#A8C0D8;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#F0C040;font-style:italic;}
+.cuerpo strong{color:#80AAFF;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.8),#0038B8);}
+.card:nth-child(odd){border:1px solid rgba(0,56,184,0.2);background:rgba(0,56,184,0.07);}
+.card:nth-child(even){border:1px solid rgba(201,168,76,0.15);background:rgba(201,168,76,0.04);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;display:block;margin-bottom:8px;margin-top:6px;}
+.card:nth-child(odd) .card-titulo{color:#80AAFF;}
+.card:nth-child(even) .card-titulo{color:#F0C040;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#A8C0D8;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  display:block;margin-top:8px;line-height:1.8;}
+.card:nth-child(odd) .card-tag{color:rgba(128,170,255,0.8);}
+.card:nth-child(even) .card-tag{color:rgba(240,192,64,0.8);}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data-azul{background:rgba(0,56,184,0.08);border-left:3px solid rgba(0,61,165,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-oro{background:rgba(201,168,76,0.06);border-left:3px solid rgba(201,168,76,0.5);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-caliza{background:rgba(200,168,112,0.05);border-left:3px solid rgba(200,168,112,0.4);
+  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(0,56,184,0.08);}
+.data-row:last-child{border-bottom:none;}
+.dk-a{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#80AAFF;}
+.dk-o{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#F0C040;}
+.dk-c{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#C8A870;}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#A8C0D8;text-align:right;}
+.sep-data{width:100%;height:2px;margin:16px 0;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.5),#0038B8);}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#A8C0D8;
+  padding:8px 0 8px 28px;border-bottom:1px solid rgba(0,56,184,0.08);
+  position:relative;line-height:2;}
+.lista li::before{content:'✡';position:absolute;left:0;top:9px;
+  color:rgba(0,56,184,0.5);font-size:13px;}
+
+/* QUOTE */
+.quote{border-left:3px solid rgba(201,168,76,0.5);padding:16px 18px;
+  margin:16px 0;background:rgba(201,168,76,0.04);border-radius:0 4px 4px 0;}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#F0C040;line-height:2.2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:rgba(128,170,255,0.7);margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(0,56,184,0.07);border:1px solid rgba(0,56,184,0.25);
+  position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.8),#0038B8);}
+.cta-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.8),#0038B8);}
+.btn-cta{width:100%;border-radius:4px;padding:18px;margin-top:6px;
+  font-family:'Cinzel',serif;font-size:20px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.4);color:#D4AF37;}
+.btn-cta:hover{background:rgba(201,168,76,0.2);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
+  border-top:2px solid rgba(0,56,184,0.3);}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:rgba(201,168,76,0.45);margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:3px;margin:0 auto 24px;
+  background:linear-gradient(to right,#0038B8,rgba(201,168,76,0.6),#0038B8);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroV 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,0.6)) drop-shadow(0 0 28px rgba(0,56,184,0.4));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#001060,#0038B8,#4A7AD4,#0038B8,#001060);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:azulV 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+<div id="capa3">
+
+  <!-- HEADER -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">🇮🇱 ✦ ✡</span>
+    <span class="page-chapter">מְדִינַת יִשְׂרָאֵל · Estado de Israel</span>
+    <h2 class="page-title israel">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">המדריך המלא שלך · Tu guía completa</div>
+  </div>
+
+  <!-- ESTRELLA DE DAVID SVG -->
+  <div class="magen-david">
+    <svg width="60" height="60" viewBox="0 0 100 100" style="display:inline-block;">
+      <!-- Triángulo arriba -->
+      <polygon points="50,8 88,72 12,72"
+        fill="none" stroke="rgba(0,56,184,0.6)" stroke-width="4"/>
+      <!-- Triángulo abajo -->
+      <polygon points="50,92 12,28 88,28"
+        fill="none" stroke="rgba(0,56,184,0.6)" stroke-width="4"/>
+    </svg>
+  </div>
+
+  <!-- HEBREO ornamento -->
+  <div style="text-align:center;margin:6px 0;font-size:22px;letter-spacing:8px;
+    color:rgba(201,168,76,0.45);filter:drop-shadow(0 0 4px rgba(201,168,76,0.3));
+    animation:israelGlow 6s ease-in-out infinite;">
+    שָׁלוֹם
+  </div>
+  <div style="text-align:center;font-family:'Crimson Pro',serif;font-style:italic;
+    font-size:17px;color:rgba(168,192,216,0.45);margin-bottom:8px;">
+    Shalom · Paz
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I -->
+  <div class="sec">
+    <span class="sec-titulo oro-jer">I · מה זה Papiro · Qué es Papiro</span>
+    <div class="cuerpo">
+      <p>Papiro לא רשת חברתית נוספת. No te vamos a mentir ni hacerte perder tu tiempo. אנחנו פלטפורמה דיגיטלית שנבנתה על פילוסופיה פשוטה: <em>טכנולוגיה שמגינה עליך ולא מנצלת אותך.</em></p>
+      <p>Mientras otras apps usan algoritmos diseñados para crear ansiedad — nosotros hicimos lo contrario. כל אנימציה, כל צבע כויל כדי שכשתכנס לכאן, <em>תנשום שלום, רוגע ובידור בריא.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">דיגיטליות בריאה ובטוחה אינה סיסמה.<br>זו הסיבה לקיומה של כל שורת קוד כאן.<br><span style="font-size:19px;color:rgba(168,192,216,0.6);">Digitalidad Sana y Segura.</span></div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · עשוי בנשמה, היסטוריה ואמונה</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl azul-dav">מה אנחנו לא עושים</span>
+      <div class="data-azul">
+        <div class="data-row"><span class="dk-a">ללא אלגוריתמי חרדה</span><span class="dv">Tu decides qué ver · cuándo y cómo</span></div>
+        <div class="data-row"><span class="dk-a">ללא פרסומות פולשניות</span><span class="dv">Lo que ves es lo que hay · sin trucos</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl oro-jer">הזהות שלך ב-Papiro</span>
+      <div class="data-oro">
+        <div class="data-row"><span class="dk-o">זהות אמיתית</span><span class="dv">Creax@P∆p.TuNombre · solo tuya · para siempre</span></div>
+        <div class="data-row"><span class="dk-o">פיקסל קוסמי</span><span class="dv">Tu lugar único en el universo digital</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl caliza">מי אנחנו</span>
+      <div class="data-caliza">
+        <div class="data-row"><span class="dk-c">אבטחה ∆°</span><span class="dv">Sistema de 3 capas · nadie toca tus datos</span></div>
+        <div class="data-row"><span class="dk-a">לטינו אמריקאי</span><span class="dv">Hecho con alma · historia sorprendente · con fe</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II -->
+  <div class="sec">
+    <span class="sec-titulo azul-dav">II · מרחבי Papiro · Los Espacios</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · הסלון · EL SALÓN</span>
+        <div class="card-texto">El corazón social de Papiro. משחקים, צ'אט חי, שידורים, מפגשי קהילה. לחץ <strong>∆</strong> מכל papiro.</div>
+        <span class="card-tag">→ Acceso: botón ∆ · siempre visible</span></div>
+      <div class="card"><span class="card-titulo">📜 הפפירוסים · LOS PAPIROS</span>
+        <div class="card-texto">Tu espacio personal de expresión. Tu voz en el ecosistema — con tu estilo, tu color, tu sello.</div>
+        <span class="card-tag">→ papiro.app/∆TuNombre</span></div>
+      <div class="card"><span class="card-titulo">📚 הספרייה · LA BIBLIOTECA</span>
+        <div class="card-texto">Donde estás ahora mismo. מדריכים, הדרכות וכלים. כ-P∆plover מאומת תוכל לשלוח יצירות. יחד בונים משהו יוצא דופן.</div>
+        <span class="card-tag">→ Envía tu propuesta desde ° soporte</span></div>
+      <div class="card"><span class="card-titulo">🔴 בשידור חי · TvP∆p</span>
+        <div class="card-texto">שידורים בזמן אמת. אירועים, חדשות, השקות.</div>
+        <span class="card-tag">→ 26 באוקטובר · lanzamiento mundial · בעזרת השם</span></div>
+      <div class="card"><span class="card-titulo">🎮 משחקים לטינו אמריקאיים</span>
+        <div class="card-texto">דומינו, El Truco ועוד — עם <strong>Bolívares Digitales</strong>, שם האסימונים שלנו (לא כסף אמיתי). סרטוני מיקרו 5 שניות. TvP∆p חי בזמן המשחק.<br><br>השקה: <strong>26 באוקטובר</strong>, בשם ישוע.</div>
+        <span class="card-tag">→ P∆plovers משחקים עם הקהילה</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III -->
+  <div class="sec">
+    <span class="sec-titulo oro-jer">III · כלים יצירתיים · Herramientas Creativas</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">🎨 הפפירוס האישי שלך</span>
+        <div class="card-texto">השם שלך, הצבעים שלך, העיצוב שלך, ההיסטוריה שלך. Tu espacio — nadie más lo controla.</div>
+        <span class="card-tag">טקסט · תמונה · וידאו · מכתב · ציבורי או פרטי</span></div>
+      <div class="card"><span class="card-titulo">⭐ הפיקסל הקוסמי שלך</span>
+        <div class="card-texto">פיקסל ייחודי בקוסמוס של Papiro — כוכב בשמי ישראל מעל ירושלים. מהבהב כשאתה מחובר.</div>
+        <span class="card-tag">1,200 פיקסלים ייחודיים · 100 ראשונים → זהב לנצח</span></div>
+      <div class="card"><span class="card-titulo">🤖 CRIXUS · החבר הדיגיטלי שלך</span>
+        <div class="card-texto">הבינה המלאכותית של המערכת האקולוגית. כאן לעזור, לכוון ולהלוות אותך.</div>
+        <span class="card-tag">→ בקרוב · בכל פפירוס</span></div>
+      <div class="card"><span class="card-titulo">📡 הזהות הדיגיטלית שלך</span>
+        <div class="card-texto"><strong>Creax@P∆p.TuNombre</strong> — החתימה שלך בכל המערכת האקולוגית. ייחודית ובלתי חוזרת.</div>
+        <span class="card-tag">papiro.app/∆TuNombre</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV -->
+  <div class="sec">
+    <span class="sec-titulo caliza">IV · יצירת תוכן · Crear Contenido</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">📝 פרסום בפפירוס שלך</span>
+        <div class="card-texto">כתוב מהלב שלך. הפפירוס שלך הוא שלך — עצב כל מה שאתה מדמיין, בגבולות הנימוסים הטובים.<br><br>ב-<strong>°</strong> תמצא גישה ישירה לתמיכה ולמנכ"ל. תודה שאתה מגן על הפרויקט הזה: <strong>P∆pir°</strong></div>
+        <span class="card-tag">טקסט · תמונה · וידאו · מכתב · הרהור</span></div>
+      <div class="card"><span class="card-titulo">💬 לדבר על Papiro</span>
+        <div class="card-texto">Cuando alguien te pregunte: <em>זו פלטפורמה דיגיטלית לטינו אמריקאית שמגינה על המשתמש במקום לנצל אותו.</em></div>
+        <span class="card-tag">פחות זה יותר · הסקרנות עושה את השאר</span></div>
+      <div class="card"><span class="card-titulo">🌟 שגריר ∆° · EMBAJADOR</span>
+        <div class="card-texto">Cuando compartes Papiro no vendes nada — invitas a alguien a un espacio que ya sabes que vale.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #ישראל 🇮🇱</span></div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">«אלה שהאמינו ברעיון.<br>אלה שראו את המהפכני.<br>במושג ובאלוהים.»</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7° · ונצואלה לעולם</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V -->
+  <div class="sec">
+    <span class="sec-titulo azul-dav">V · מדוע Papiro בטוח ובריא</span>
+    <ul class="lista">
+      <li>האנימציות נמשכות בין 8 ל-24 שניות — מכוילות כדי לא ליצור חרדה ויזואלית.</li>
+      <li>המידע שלך נוסע מוגן במערכת 3 שכבות: 3 המריות, האסימון שלנו והשכבה השקטה. 🔐</li>
+      <li>Nadie puede ver tus datos sin pasar por ∆ — ni siquiera nosotros sin tu permiso.</li>
+      <li>מצב אפוקליפסה: אם האינטרנט נפול, הנתונים שלך שורדים במכשיר שלך.</li>
+      <li>ללא בוטים, ללא ספאם, ללא אלגוריתמים שנועדו לבזבז את הזמן שלך.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <div class="magen-david" style="margin-bottom:8px;">
+      <svg width="40" height="40" viewBox="0 0 100 100" style="display:inline-block;">
+        <polygon points="50,8 88,72 12,72" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="5"/>
+        <polygon points="50,92 12,28 88,28" fill="none" stroke="rgba(201,168,76,0.5)" stroke-width="5"/>
+      </svg>
+    </div>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="israel">רוצה להעמיק יותר?</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#A8C0D8;display:block;margin-bottom:6px;line-height:2;">הירשם וצור את האימייל שלך ב-P∆°PIRO<br>ונשלח לך את כל הפרטים<br>על הנושא שתבחר.</span>
+    <span style="font-family:'Special Elite',serif;font-size:21px;letter-spacing:3px;display:block;margin-bottom:18px;" class="oro-jer">#777 · #SI° · #P∆°PIRO · 🇮🇱</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ הירשם ל-P∆°PIRO</button>
+  </div>
+
+  <!-- STAMP -->
+  <div class="footer-stamp">
+    <div class="stamp-phrase israel">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">קוד הכבוד IM. #7 — כך עשיתי</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div class="magen-david" style="margin-bottom:14px;">
+      <svg width="45" height="45" viewBox="0 0 100 100" style="display:inline-block;opacity:0.6;">
+        <polygon points="50,8 88,72 12,72" fill="none" stroke="rgba(0,56,184,0.7)" stroke-width="5"/>
+        <polygon points="50,92 12,28 88,28" fill="none" stroke="rgba(0,56,184,0.7)" stroke-width="5"/>
+      </svg>
+    </div>
+    <div style="text-align:center;font-size:20px;letter-spacing:8px;
+      color:rgba(201,168,76,0.45);margin-bottom:12px;">שָׁלוֹם</div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(201,168,76,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="israel">· אוצר של מי שהאמין<br>מהרגע הראשון ·<br>· EL BAÚL DE LOS QUE SÍ CREYERON ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">מייסד · Creaxion Papiro © 2026 · 🇮🇱</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  var cl=['#0038B8','#4A7AD4','#80AAFF','#D4AF37','#F0C040','#FFFFFF','#6B8C3A'];
+  for(var j=0;j<55;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%7]});
+  for(var k=0;k<7;k++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:1+Math.random()*0.7,ph:Math.random()*Math.PI*2,sp:0.0007+Math.random()*0.001,color:'rgba(201,168,76,0.85)'});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_portugal.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro Israel · שָׁלוֹם · 🇮🇱');
+</script>
+</body>
+</html>
