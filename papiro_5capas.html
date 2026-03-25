@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro ∆° — 5 Capas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;position:relative;}
+
+/* ════════════════════════════════════════
+   CAPA 1 — COSMOS UNIVERSAL
+   z-index: 0
+   position: fixed
+   INALTERBLE — nunca se toca
+   ════════════════════════════════════════ */
+#capa1-cosmos{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+}
+
+/* ════════════════════════════════════════
+   CAPA 2 — CUERO CRUDO
+   z-index: 2
+   La base de textura de cada papiro
+   Solo cambia: background color/texture
+   ════════════════════════════════════════ */
+#capa2-cuero{
+  position:relative;
+  z-index:2;
+  width:100%;
+  max-width:100vw;
+  overflow-x:hidden;
+  min-height:100vh;
+  /* CAMBIAR SOLO ESTO POR PAPIRO: */
+  background:linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+  background-image:
+    repeating-linear-gradient(90deg,
+      transparent,transparent 2px,
+      rgba(0,0,0,0.04) 2px,rgba(0,0,0,0.04) 4px),
+    linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+}
+
+/* ════════════════════════════════════════
+   CAPA 3 — EL PAÑO
+   z-index: 4
+   Donde viven letras · fotos · videos
+   El usuario escribe y vive aquí
+   ════════════════════════════════════════ */
+#capa3-pano{
+  position:relative;
+  z-index:4;
+  overflow-x:hidden;
+  /* Cuero visible entre línea y paño:
+     Línea: 20px del borde
+     Paño:  32px del borde
+     = 12px de cuero visible ✅ */
+  margin:0 32px;
+  /* Texto respeta el margen como el corazón púrpura:
+     Padding suficiente para que nada toque el margen */
+  padding:28px 32px 0;
+  min-height:100vh;
+  overflow-y:auto;
+  /* CAMBIAR SOLO ESTO POR PAPIRO: */
+  background:linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+  background-image:
+    repeating-linear-gradient(45deg,
+      rgba(255,255,255,0.008) 0px,transparent 2px,
+      transparent 6px,rgba(255,255,255,0.008) 8px),
+    linear-gradient(160deg,#2A1F0E 0%,#1A1208 50%,#0E0A04 100%);
+}
+
+/* ════════════════════════════════════════
+   CAPA 4 — INTERACCIÓN (invisible)
+   z-index: 6
+   position: fixed
+   Botones · Chats · Llamadas · UI flotante
+   El usuario no la VE pero la TOCA
+   ════════════════════════════════════════ */
+#capa4-interaccion{
+  position:fixed;
+  inset:0;
+  z-index:6;
+  pointer-events:none; /* solo sus hijos tienen eventos */
+  /* NO tiene background — es invisible */
+}
+
+/* Elementos dentro de capa 4 */
+.c4-boton-flotante{
+  position:absolute;
+  pointer-events:all; /* este sí recibe toques */
+  cursor:pointer;
+}
+.c4-btn-salon{
+  bottom:24px;right:24px;
+  width:52px;height:52px;
+  background:rgba(201,168,76,0.15);
+  border:1px solid rgba(201,168,76,0.4);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  box-shadow:0 0 16px rgba(201,168,76,0.2);
+  transition:all 0.3s;
+}
+.c4-btn-salon:hover{
+  background:rgba(201,168,76,0.3);
+  transform:scale(1.1);
+}
+.c4-btn-ceo{
+  bottom:24px;left:24px;
+  width:48px;height:48px;
+  background:rgba(201,168,76,0.12);
+  border:1px solid rgba(201,168,76,0.35);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+  box-shadow:0 0 12px rgba(201,168,76,0.15);
+}
+.c4-btn-ceo:hover{
+  background:rgba(201,168,76,0.25);
+  box-shadow:0 0 20px rgba(201,168,76,0.3);
+}
+.c4-notif{
+  top:20px;left:50%;
+  transform:translateX(-50%);
+  background:rgba(0,0,0,0.85);
+  border:1px solid rgba(201,168,76,0.3);
+  border-radius:20px;
+  padding:8px 20px;
+  font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:2px;color:#DDD0AA;
+  opacity:0;
+  transition:opacity 0.4s;
+}
+.c4-notif.visible{opacity:1;}
+
+/* Modal de chat/llamada en capa 4 */
+.c4-modal{
+  position:absolute;
+  inset:0;
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(10px);
+  display:none;
+  align-items:center;justify-content:center;
+  pointer-events:all;
+}
+.c4-modal.active{display:flex;}
+.c4-modal-box{
+  background:linear-gradient(160deg,#1A1208,#0E0A04);
+  border:1px solid rgba(201,168,76,0.2);
+  border-radius:14px;padding:28px;
+  width:90%;max-width:360px;text-align:center;
+}
+
+/* ════════════════════════════════════════
+   CAPA 5 — SISTEMA (invisible)
+   z-index: 8
+   position: fixed
+   API · Supabase · Seguridad · Códigos
+   Papiro Pixel 6×8 · Emparejamiento
+   NUNCA se ve — solo opera
+   ════════════════════════════════════════ */
+#capa5-sistema{
+  position:fixed;
+  inset:0;
+  z-index:8;
+  pointer-events:none;
+  opacity:0;           /* invisible total */
+  visibility:hidden;   /* no ocupa espacio */
+}
+
+/* ════════════════════════════════════════
+   LÍNEAS DE MARGEN
+   z-index: 10 — encima de todo lo visible
+   ════════════════════════════════════════ */
+/* ══ MÁRGENES — ORO VIVO
+   Grosor: 4px · estándar de todos los papiros
+   Color default: Oro Vivo (usuario puede cambiar)
+   Posición: 32px del borde (igual al corazón púrpura)
+   ══ */
+.margin-line{
+  position:fixed;
+  top:0;height:100%;
+  width:6px;
+  z-index:10;
+  pointer-events:none;
+  background:linear-gradient(180deg,
+    #1A0800,
+    #3A1200,
+    #C96800,
+    #FFB347,
+    #FFD700,
+    #FFE566,
+    #FFFACD,
+    #FFE566,
+    #FFD700,
+    #FF8C00,
+    #C96800,
+    #3A1200,
+    #1A0800
+  );
+  background-size:100% 400%;
+  animation:oroMargen 6s linear infinite;
+  box-shadow:
+    0 0 6px rgba(255,180,0,0.5),
+    0 0 14px rgba(255,140,0,0.3),
+    0 0 22px rgba(255,100,0,0.15);
+}
+.margin-line.left {
+  left:26px;
+  cursor:w-resize;  /* flecha izquierda */
+}
+.margin-line.right{
+  right:26px;
+  cursor:e-resize;  /* flecha derecha */
+}
+/* Tooltip al hover */
+.margin-line::after{
+  content:attr(data-label);
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-family:'Cinzel',serif;
+  font-size:14px;
+  letter-spacing:2px;
+  color:rgba(255,220,100,0.6);
+  white-space:nowrap;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 0.3s;
+}
+.margin-line.left::after{
+  left:10px;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+  transform:translateY(-50%) rotate(180deg);
+}
+.margin-line.right::after{
+  right:10px;
+  writing-mode:vertical-rl;
+  text-orientation:mixed;
+}
+.margin-line:hover{
+  box-shadow:
+    0 0 10px rgba(255,200,0,0.7),
+    0 0 20px rgba(255,150,0,0.4),
+    0 0 30px rgba(255,100,0,0.2);
+}
+.margin-line:hover::after{opacity:1;}
+@keyframes oroMargen{
+  0%{background-position:0% center;}
+  100%{background-position:400% center;}
+}
+
+/* ════════════════
+   CONTENIDO PAÑO
+   ════════════════ */
+.page-header{text-align:center;margin-bottom:16px;}
+.page-ornament{font-size:16px;color:#C9A84C;display:block;margin-bottom:6px;}
+.page-chapter{font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;color:#8A7D60;margin-bottom:6px;}
+.page-title{
+  font-family:'Cinzel',serif;font-size:24px;font-weight:900;
+  letter-spacing:3px;color:#DDD0AA;text-align:center;
+  text-shadow:0 0 20px rgba(201,168,76,0.3);
+}
+.page-rule{
+  width:100%;height:1px;margin:14px 0;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);
+}
+.page-text{
+  font-family:'Crimson Pro',serif;font-size:19px;
+  line-height:2.2;color:#DDD0AA;
+}
+.page-text p{margin-bottom:16px;text-indent:1.5em;}
+
+/* Indicador de capa — solo para demo */
+.capa-badge{
+  font-family:'Cinzel',serif;font-size:17px;font-weight:600;
+  letter-spacing:2px;
+  background:linear-gradient(90deg,
+    #C96800,#FFB347,#FFD700,#FFE566,
+    #FFFACD,#FFE566,#FFD700,#FFB347,
+    #FF8C00,#FFD700,#FFFACD,#FFD700,#C96800);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:oroVivo 10s linear infinite;
+  filter:drop-shadow(0 0 6px rgba(255,180,0,0.5));
+  border-bottom:1px solid rgba(201,168,76,0.3);
+  padding:0 0 6px 0;
+  display:block;
+  margin:24px 0 12px;
+}
+
+/* Stamp */
+.footer-stamp{text-align:center;padding:10px 0;border-top:1px solid rgba(201,168,76,0.1);margin-top:20px;}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:17px;letter-spacing:2px;color:#8A7D60;}
+.stamp-sub{
+  font-family:'Special Elite',serif;
+  font-size:15px;letter-spacing:2px;
+  display:block;margin-top:6px;
+  background:linear-gradient(90deg,
+    #C96800,#FFB347,#FFD700,#FFE566,
+    #FFFACD,#FFE566,#FFD700,#FFB347,#C96800);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:oroMargen 8s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(255,180,0,0.4));
+}
+.page-nav{display:none;} /* navegación movida a los márgenes */
+.btn-page{background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.2);color:#DDD0AA;border-radius:9px;padding:9px 16px;font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;cursor:pointer;}
+.page-indicator{font-family:'Cinzel',serif;font-size:14px;color:#8A7D60;letter-spacing:2px;}
+
+/* Baúl */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent);}
+.baul-label{
+  font-family:'Cinzel',serif;
+  font-size:14px;letter-spacing:4px;
+  display:block;margin-bottom:24px;
+  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFE566,#FFFACD,#FFE566,#FFD700,#FFB347,#FF8C00,#FFD700,#C96800);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:oroVivo 22s linear infinite;
+  filter:drop-shadow(0 0 4px rgba(255,180,0,0.3));
+}
+.baul-nombre{
+  font-family:'Cinzel',serif;font-size:28px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:12px;
+  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFE566,#FFFACD,#FFE566,#FFD700,#FFB347,#FF8C00,#FFD700,#C96800);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:oroVivo 18s linear infinite;
+  filter:drop-shadow(0 1px 0 rgba(255,220,100,0.4)) drop-shadow(0 0 8px rgba(255,180,0,0.3));
+  opacity:0;transform:translateY(30px);
+  transition:opacity 0.8s ease,transform 0.8s ease;
+}
+@keyframes oroRelieve{
+  0%,100%{
+    filter:
+      drop-shadow(0 1px 0 rgba(255,220,100,0.5))
+      drop-shadow(0 0 8px rgba(255,180,0,0.3))
+      brightness(1);
+  }
+  50%{
+    filter:
+      drop-shadow(0 1px 0 rgba(255,240,150,0.7))
+      drop-shadow(0 0 14px rgba(255,200,0,0.5))
+      brightness(1.1);
+  }
+}
+.baul-sub{
+  font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;
+  display:block;margin-bottom:8px;
+  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFE566,#FFFACD,#FFE566,#FFD700,#FFB347,#FF8C00,#FFD700,#C96800);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+  animation:oroVivo 22s linear infinite;
+  filter:drop-shadow(0 0 5px rgba(255,180,0,0.3));
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s ease 0.3s,transform 0.8s ease 0.3s;
+}
+.baul-nombre.visible,.baul-sub.visible{opacity:1;transform:translateY(0);}
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:400% center;}}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<!-- ══════════════════════════════════
+     CAPA 1 — COSMOS UNIVERSAL
+     z-index: 0 · FIJA · INALTERBLE
+     ══════════════════════════════════ -->
+<canvas id="capa1-cosmos"></canvas>
+
+
+<!-- ══════════════════════════════════
+     LÍNEAS DE MARGEN
+     z-index: 10 · encima de todo
+     ══════════════════════════════════ -->
+<div class="margin-line left" data-label="← ANTERIOR" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" data-label="SIGUIENTE →" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+
+
+<!-- ══════════════════════════════════
+     CAPA 4 — INTERACCIÓN (invisible)
+     z-index: 6 · fixed · sin fondo
+     Botones flotantes · Chat · Llamadas
+     ══════════════════════════════════ -->
+<div id="capa4-interaccion">
+
+  <!-- Notificación flotante -->
+  <div class="c4-boton-flotante c4-notif" id="c4Notif">
+    ∆° Sistema activo
+  </div>
+
+  <!-- Botón Salón -->
+  <div class="c4-boton-flotante c4-btn-salon"
+    onclick="irSalon()" title="Salón Papiro">
+    <span style="font-family:'Cinzel',serif;font-size:22px;font-weight:900;
+      background:linear-gradient(135deg,#FFE566,#FFD700,#FFFACD,#FFD700);
+      background-size:200% auto;animation:oroVivo 6s linear infinite;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;">∆</span>
+  </div>
+
+  <!-- Botón CEO -->
+  <div class="c4-boton-flotante c4-btn-ceo"
+    onclick="irCEO()" title="Comando">
+    <span style="
+      font-family:'Cinzel',serif;font-size:18px;font-weight:900;
+      background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
+      background-size:300% auto;
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+      background-clip:text;
+      animation:oroVivo 6s linear infinite;">⚙</span>
+  </div>
+
+  <!-- Modal de chat (en capa 4) -->
+  <div class="c4-modal" id="c4Modal">
+    <div class="c4-modal-box">
+      <div style="font-family:'Cinzel',serif;font-size:14px;color:#DDD0AA;letter-spacing:2px;margin-bottom:16px;">
+        ∆° CHAT PAPIRO
+      </div>
+      <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:#8A7D60;margin-bottom:20px;">
+        Próximamente — conexión Supabase Realtime
+      </div>
+      <button onclick="cerrarChat()" style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;color:#8A7D60;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.2);border-radius:8px;padding:8px 20px;cursor:pointer;">
+        CERRAR
+      </button>
+    </div>
+  </div>
+
+</div><!-- /capa4 -->
+
+
+<!-- ══════════════════════════════════
+     CAPA 5 — SISTEMA (invisible)
+     z-index: 8 · opacity: 0
+     API · Supabase · Seguridad
+     Papiro Pixel 6×8 · Emparejamiento
+     ══════════════════════════════════ -->
+<div id="capa5-sistema">
+  <!--
+    MÓDULOS DEL SISTEMA (no visibles):
+
+    [MÓDULO A] — Autenticación
+    Verifica: localStorage 'papiro_usuario'
+    Si no hay sesión → login.html
+    Si hay sesión → carga datos del usuario
+
+    [MÓDULO B] — Papiro Pixel
+    Grid 6×8 = 48 células
+    Cada célula × 5×5 = 25 sub-pixels
+    Total: 1,200 identidades únicas
+    Código de emparejamiento único por pixel
+
+    [MÓDULO C] — API Supabase
+    URL: vdtdrijfcmttssfdtgva.supabase.co
+    Tablas: paplovers · pixels · papiros · chats
+
+    [MÓDULO D] — Seguridad
+    Hash de sesión por usuario
+    Token de pixel único
+    Verificación de dominio Creax@P∆p
+
+    [MÓDULO E] — Conexiones futuras
+    WebRTC → llamadas entre papiros
+    Supabase Realtime → chat en vivo
+    Push notifications → alertas CEO
+  -->
+</div><!-- /capa5 -->
+
+
+<!-- ══════════════════════════════════
+     CAPA 2 — CUERO CRUDO
+     z-index: 2 · La base de textura
+     ══════════════════════════════════ -->
+<div id="capa2-cuero">
+
+  <!-- ══════════════════════════════════
+       CAPA 3 — EL PAÑO
+       z-index: 4 · El contenido vivo
+       ══════════════════════════════════ -->
+  <div id="capa3-pano">
+
+    <!-- HEADER -->
+    <div class="page-header">
+      <span class="page-ornament">∆° ✦ ∆°</span>
+      <div class="page-chapter">Arquitectura · Sistema de Capas</div>
+      <h2 class="page-title">PAPIRO — 5 CAPAS</h2>
+    </div>
+
+    <div class="page-rule"></div>
+
+    <!-- CONTENIDO -->
+    <div class="page-text">
+
+      <span class="capa-badge">CAPA 1 — COSMOS z:0</span>
+      <p>El universo de estrellas que ves de fondo es la primera capa — fija, eterna, inalterble. Es la escenografía del ecosistema completo. Ningún papiro la toca.</p>
+
+      <span class="capa-badge">CAPA 2 — CUERO z:2</span>
+      <p>La textura base sobre la que descansa todo. Solo cambia de color según el papiro — cuero marrón, mármol gris, púrpura nocturno, verde terciopelo.</p>
+
+      <span class="capa-badge">CAPA 3 — EL PAÑO z:4</span>
+      <p>Estás leyendo esto en la capa 3. Aquí viven las letras, los videos, las fotos, la carta de bienvenida, el contenido del usuario. Es el pergamino donde se escribe la vida.</p>
+
+      <span class="capa-badge">CAPA 4 — INTERACCIÓN z:6</span>
+      <p>Activa en silencio. Aquí viven las llamadas, los chats y las notificaciones en tiempo real. Toca <em>∆</em> para entrar al Salón Papiro.</p>
+
+      <span class="capa-badge">CAPA 5 — SISTEMA z:8</span>
+      <p>Completamente invisible. Opera en silencio. Es el cerebro: la autenticación, los 1,200 Papiro Pixels, la conexión con Supabase, los códigos de emparejamiento y la seguridad del ecosistema.</p>
+
+    </div>
+
+    <div class="page-rule"></div>
+
+    <div class="footer-stamp">
+      <div class="stamp-phrase">Panajpe Eneeru Moorukajpo Pariipo</div>
+      <div class="stamp-sub">CÓDIGO DE HONOR DEL IM. #7 — Así lo he hecho</div>
+    </div>
+
+    <div class="page-nav">
+      <button class="btn-page">← Anterior</button>
+      <span class="page-indicator">· ∆° ·</span>
+      <button class="btn-page">Siguiente →</button>
+    </div>
+
+    <!-- BAÚL -->
+    <div class="baul">
+      <div class="baul-rule"></div>
+      <span class="baul-label">· EL BAÚL · Los que creyeron primero ·</span>
+      <span class="baul-nombre" id="baulNombre">Luis Castillejo</span>
+      <span class="baul-sub" id="baulSub1">X-7777777-LC7° · SI° · 350 · 777</span>
+      <span class="baul-sub" id="baulSub2" style="transition-delay:0.5s;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+      <span class="baul-sub" id="baulSub3" style="transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+    </div>
+
+  </div><!-- /capa3-pano -->
+
+</div><!-- /capa2-cuero -->
+
+
+<script>
+/* ══════════════════════════════════════
+   CAPA 1 — COSMOS (JS)
+   ══════════════════════════════════════ */
+(function(){
+  var c=document.getElementById('capa1-cosmos');
+  var ctx=c.getContext('2d');
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize);
+  var stars=[];
+  for(var i=0;i<300;i++)stars.push({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,
+    sp:Math.random()*0.003+0.001
+  });
+  var cols=['#A8D4FF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var j=0;j<40;j++)stars.push({
+    x:Math.random()*c.width,y:Math.random()*c.height,
+    r:Math.random()*0.4+0.1,ph:Math.random()*Math.PI*2,
+    sp:Math.random()*0.002+0.0005,
+    color:cols[Math.floor(Math.random()*cols.length)]
+  });
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='#000000';ctx.fillRect(0,0,c.width,c.height);
+    stars.forEach(function(s){
+      s.ph+=s.sp;var raw=Math.sin(s.ph);
+      var a=raw>0?raw*raw:0;a=Math.min(a*1.5,1);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=s.color||'#FFFFFF';ctx.globalAlpha=a;ctx.fill();
+    });
+    ctx.globalAlpha=1;
+  }
+  draw();
+})();
+
+/* ══════════════════════════════════════
+   CAPA 4 — INTERACCIÓN (JS)
+   ══════════════════════════════════════ */
+function irCEO(){
+  /* Verificación doble antes de abrir el comando */
+  var sesion = localStorage.getItem('papiro_usuario');
+  var pixel  = localStorage.getItem('papiro_pixel');
+  if(!sesion){ alert('Acceso denegado.'); return; }
+  try{
+    var u = JSON.parse(sesion);
+    var autorizado = (
+      u.codigo === 'Creax@P∆p.LuisAlfonsoCastillejoVentura' ||
+      pixel    === 'LC7-7777777'
+    );
+    if(autorizado){
+      document.body.style.opacity='0';
+      setTimeout(function(){window.location.href='ceo_panel.html';},300);
+    } else {
+      console.log('∆° Acceso denegado · No es LC7°');
+    }
+  } catch(e){}
+}
+
+function irSoporte(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'soporte.html':'papiro_guia_maestro.html';},300);}
+function irSalon(){
+  var sesion = localStorage.getItem('papiro_usuario');
+  window.location.href = sesion ? 'salon.html' : 'login.html';
+}
+function abrirChat(){
+  document.getElementById('c4Modal').classList.add('active');
+}
+function cerrarChat(){
+  document.getElementById('c4Modal').classList.remove('active');
+}
+function irCEO(){
+  var sesion = localStorage.getItem('papiro_usuario');
+  window.location.href = sesion ? 'ceo_panel.html' : 'login.html';
+}
+
+/* ══════════════════════════════════════
+   CAPA 5 — SISTEMA (JS)
+   Opera en silencio — el usuario no lo ve
+   ══════════════════════════════════════ */
+(function sistemaInicio(){
+  // [A] Verificar sesión
+  var sesion = localStorage.getItem('papiro_usuario');
+  var usuario = sesion ? JSON.parse(sesion) : null;
+
+  // [B] Notificación de bienvenida si hay sesión
+  if(usuario){
+    var notif = document.getElementById('c4Notif');
+    notif.textContent = '∆° Bienvenid° ' + usuario.nombre;
+    notif.classList.add('visible');
+    setTimeout(function(){ notif.classList.remove('visible'); }, 3000);
+  }
+
+  // [C] Papiro Pixel — verificar asignación
+  var pixel = localStorage.getItem('papiro_pixel');
+  if(!pixel && usuario){
+    // Asignar pixel automáticamente (futuro: Supabase)
+    var pixelId = Math.floor(Math.random()*48+1) + '-' + Math.floor(Math.random()*25+1);
+    localStorage.setItem('papiro_pixel', pixelId);
+  }
+
+  // [D] Log interno del sistema (invisible)
+  console.log('∆° Capa 5 activa · ' + new Date().toISOString());
+
+  /* ══ VERIFICACIÓN 3 PASES ∆° ══
+     Opera entre las líneas de vida del 30×40
+     Si los 3 pases no están OK → alerta silenciosa ══ */
+  (function verificar3Pases(){
+    var token    = localStorage.getItem('papiro_token_delta');
+    var escolta  = localStorage.getItem('papiro_escolta_activo');
+    var pases_ok = localStorage.getItem('papiro_3pases_ok');
+    var sesion   = localStorage.getItem('papiro_usuario');
+    var lineas   = localStorage.getItem('papiro_lineas_vida');
+    var pagina   = window.location.pathname.split('/').pop();
+    var libres   = ['splash.html','login.html','portada_es.html'];
+
+    // Páginas que no requieren los 3 pases
+    if(libres.indexOf(pagina) >= 0) return;
+
+    // PASE 1 — ¿Hay sesión?
+    if(!sesion){
+      console.log('∆° Pase 1 fallido · sin sesión · ' + pagina);
+      return;
+    }
+
+    // PASE 2 — ¿Hay token ∆°?
+    if(!token || !escolta){
+      console.log('∆° Pase 2 fallido · sin token Delta · ' + pagina);
+      registrarAmenaza('PASE2_FALLIDO', pagina);
+      return;
+    }
+
+    // PASE 3 — ¿Las líneas de vida están intactas?
+    if(lineas){
+      try{
+        var lv = JSON.parse(lineas);
+        // Verificar los 3 pares de líneas
+        var par1_ok = lv.par1 && lv.par1.identidad && lv.par1.sena;
+        var par2_ok = lv.par2 && lv.par2.pixel;
+        var par3_ok = lv.par3 && lv.par3.sesion_activa;
+
+        if(!par1_ok || !par2_ok || !par3_ok){
+          console.log('∆° Pase 3 · líneas incompletas');
+          registrarAmenaza('LINEAS_INCOMPLETAS', pagina);
+        } else {
+          // Actualizar par3 con papiro actual
+          lv.par3.papiro_actual = pagina;
+          lv.par3.ultima_actividad = Date.now();
+          // Réplica de respaldo (par redundante)
+          lv.par3_replica = JSON.parse(JSON.stringify(lv.par3));
+          lv.par1_replica = JSON.parse(JSON.stringify(lv.par1));
+          lv.par2_replica = JSON.parse(JSON.stringify(lv.par2));
+          localStorage.setItem('papiro_lineas_vida', JSON.stringify(lv));
+          console.log('∆° 3 pases OK · Escolta activo · ' + pagina);
+        }
+      } catch(e){}
+    }
+  })();
+  console.log('Usuario: ' + (usuario ? usuario.codigo : 'no autenticado'));
+  console.log('Pixel: ' + (localStorage.getItem('papiro_pixel') || 'sin asignar'));
+})();
+
+/* ══════════════════════════════════════
+   NAVEGACIÓN POR MÁRGENES
+   Toca izquierdo → anterior
+   Toca derecho   → siguiente
+   Desde cualquier altura del scroll
+   ══════════════════════════════════════ */
+var papiros = [
+  'splash.html',
+  'portada_es.html',
+  'salon_verde_clean.html',
+  'papiro_corazon.html',
+  'papiro2_marble.html',
+  'papiro_5capas.html'
+];
+
+// Detectar papiro actual
+var paginaActual = papiros.indexOf(
+  window.location.pathname.split('/').pop()
+);
+if(paginaActual < 0) paginaActual = 0;
+
+function paginaAnterior(){
+  var prev = paginaActual - 1;
+  if(prev < 0) prev = papiros.length - 1;
+  // Animación suave
+  document.body.style.opacity = '0';
+  document.body.style.transition = 'opacity 0.3s';
+  setTimeout(function(){
+    window.location.href = papiros[prev];
+  }, 300);
+}
+
+function paginaSiguiente(){
+  var next = paginaActual + 1;
+  if(next >= papiros.length) next = 0;
+  document.body.style.opacity = '0';
+  document.body.style.transition = 'opacity 0.3s';
+  setTimeout(function(){
+    window.location.href = papiros[next];
+  }, 300);
+}
+
+/* ══════════════════════════════════════
+   BAÚL — Scroll reveal
+   ══════════════════════════════════════ */
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['baulNombre','baulSub1','baulSub2','baulSub3'].forEach(function(id){
+      var el=document.getElementById(id);
+      if(el)el.classList.add('visible');
+    });
+  }
+});
+</script>
+</body>
+                            </html>
