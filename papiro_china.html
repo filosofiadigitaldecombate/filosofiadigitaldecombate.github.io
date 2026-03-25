@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Papiro China ∆° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+
+/* ══ PALETA CHINA ══
+   ROJO IMPERIAL:   #DE2910 · #CC2000 · #FF3322
+   AMARILLO ESTRELLA:#FFDE00 · #FFD700 · #FFF0A0
+   NEGRO TINTA:     #0A0200 · #150400
+   JADE IMPERIAL:   #00705A · #009970
+   DORADO DRAGÓN:   #C9A84C · #D4AF37
+   CINABRIO:        #8B0000 · #AA0000
+*/
+
+/* MÁRGENES — rojo imperial con estrellas doradas */
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
+  pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,
+    #8B0000,#CC2000,#DE2910,#FF3322,
+    #FFDE00,#FFD700,
+    #FF3322,#DE2910,#CC2000,
+    #FFDE00,#FFD700,#FFF0A0,#FFD700,
+    #CC2000,#DE2910,#8B0000);
+  background-size:100% 400%;animation:chinaFlow 5s linear infinite;
+  box-shadow:0 0 10px rgba(222,41,16,0.8),0 0 22px rgba(255,222,0,0.4);}
+.margin-line.left{left:32px;}
+.margin-line.right{right:32px;}
+@keyframes chinaFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+/* CAPA 2 — Ciudad Prohibida de noche */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:
+    /* Luna sobre la Ciudad Prohibida */
+    radial-gradient(circle at 50% 8%, rgba(255,240,160,0.15) 0%, rgba(255,222,0,0.05) 10%, transparent 18%),
+    /* Linternas rojas lejanas */
+    radial-gradient(ellipse at 20% 40%, rgba(222,41,16,0.08) 0%, transparent 20%),
+    radial-gradient(ellipse at 80% 35%, rgba(222,41,16,0.07) 0%, transparent 18%),
+    radial-gradient(ellipse at 50% 75%, rgba(139,0,0,0.06) 0%, transparent 25%),
+    /* Cielo nocturno chino — tinta negra profunda */
+    linear-gradient(180deg,
+      #030000 0%,
+      #080100 20%,
+      #0F0200 50%,
+      #080100 80%,
+      #030000 100%);}
+
+/* CAPA 3 — paño rojo laca imperial */
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
+  min-height:100vh;overflow-x:hidden;
+  background:
+    /* Patrón dragón sutil — escamas */
+    repeating-linear-gradient(60deg,
+      rgba(255,222,0,0.025) 0px,transparent 1px,
+      transparent 8px,rgba(255,222,0,0.015) 9px),
+    repeating-linear-gradient(-60deg,
+      rgba(255,222,0,0.015) 0px,transparent 1px,
+      transparent 8px,rgba(255,222,0,0.025) 9px),
+    /* Rojo laca oscuro imperial */
+    linear-gradient(160deg,#1A0200 0%,#120100 50%,#080000 100%);}
+
+/* FLOTANTES */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;}
+.btn-f.izq{bottom:24px;left:24px;
+  background:rgba(222,41,16,0.15);border:1px solid rgba(222,41,16,0.5);}
+.btn-f.der{bottom:24px;right:24px;
+  background:rgba(255,222,0,0.1);border:1px solid rgba(255,222,0,0.45);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8B0000,#CC2000,#FF3322,#CC2000,#8B0000);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaRed 6s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8A6A00,#FFDE00,#FFD700,#FFF0A0,#FFD700,#FFDE00,#8A6A00);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaGold 6s linear infinite;}
+@keyframes chinaRed{0%{background-position:0% center;}100%{background-position:300% center;}}
+@keyframes chinaGold{0%{background-position:0% center;}100%{background-position:300% center;}}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+/* GRADIENTES TEXTO */
+.rojo-imp{background:linear-gradient(90deg,#5A0000,#8B0000,#CC2000,#DE2910,#FF5544,#DE2910,#CC2000,#8B0000,#5A0000);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaRed 12s linear infinite;}
+.oro-drag{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#FFDE00,#FFF0A0,#FFDE00,#D4AF37,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaGold 10s linear infinite;}
+.jade{background:linear-gradient(90deg,#003D30,#00705A,#009970,#00C090,#009970,#00705A,#003D30);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaRed 16s linear infinite;}
+.china{background:linear-gradient(90deg,#DE2910,#FF3322,#FFDE00,#FFD700,#FFF0A0,#FFDE00,#DE2910);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaFlow 9s linear infinite;}
+
+/* 5 ESTRELLAS CHINA */
+.estrellas-china{text-align:center;margin:12px 0;
+  animation:chinaStars 4s ease-in-out infinite;}
+@keyframes chinaStars{
+  0%,100%{filter:drop-shadow(0 0 4px rgba(255,222,0,0.4));opacity:0.7;}
+  50%{filter:drop-shadow(0 0 10px rgba(255,222,0,0.9));opacity:1;}}
+
+/* TIPOGRAFÍA */
+.page-ornament{font-size:28px;display:block;text-align:center;margin-bottom:8px;
+  filter:drop-shadow(0 0 10px rgba(222,41,16,0.8)) drop-shadow(0 0 24px rgba(255,222,0,0.5));}
+.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
+  text-align:center;margin-bottom:8px;display:block;color:rgba(255,222,0,0.6);}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
+  letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 16px rgba(255,222,0,0.8)) drop-shadow(0 0 36px rgba(222,41,16,0.6));}
+.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
+  text-align:center;color:rgba(255,220,100,0.7);}
+.page-rule{width:100%;height:2px;margin:16px 0;
+  background:linear-gradient(to right,rgba(222,41,16,0.6),rgba(255,222,0,0.7),rgba(222,41,16,0.6));}
+
+/* SECCIONES */
+.sec{margin:28px 0 0;}
+.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;
+  border-bottom:1px solid rgba(255,222,0,0.2);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#E8C8A0;}
+.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
+.cuerpo em{color:#FFDE00;font-style:italic;}
+.cuerpo strong{color:#FF8877;}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
+.card{border-radius:2px;padding:18px;position:relative;overflow:hidden;}
+/* Linterna roja — borde dorado vertical izquierdo */
+.card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,#FFDE00,#FFD700,#DE2910,#FFDE00);}
+.card:nth-child(odd){border:1px solid rgba(255,222,0,0.15);background:rgba(222,41,16,0.07);}
+.card:nth-child(even){border:1px solid rgba(222,41,16,0.15);background:rgba(255,222,0,0.04);}
+.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
+  letter-spacing:2px;display:block;margin-bottom:8px;padding-left:10px;}
+.card:nth-child(odd) .card-titulo{color:#FFDE00;}
+.card:nth-child(even) .card-titulo{color:#FF6655;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#E8C8A0;padding-left:10px;}
+.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
+  display:block;margin-top:8px;line-height:1.8;padding-left:10px;}
+.card:nth-child(odd) .card-tag{color:rgba(255,222,0,0.8);}
+.card:nth-child(even) .card-tag{color:rgba(255,102,85,0.8);}
+
+/* DATA */
+.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
+  letter-spacing:3px;margin-bottom:10px;display:block;}
+.data-rojo{background:rgba(222,41,16,0.08);border-left:3px solid rgba(222,41,16,0.6);
+  padding:14px 18px;margin:14px 0;}
+.data-oro{background:rgba(255,222,0,0.05);border-left:3px solid rgba(255,222,0,0.5);
+  padding:14px 18px;margin:14px 0;}
+.data-jade{background:rgba(0,153,112,0.07);border-left:3px solid rgba(0,153,112,0.4);
+  padding:14px 18px;margin:14px 0;}
+.data-row{display:flex;justify-content:space-between;padding:5px 0;
+  border-bottom:1px solid rgba(255,222,0,0.06);}
+.data-row:last-child{border-bottom:none;}
+.dk-r{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#FF6655;}
+.dk-o{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#FFDE00;}
+.dk-j{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#00C090;}
+.dv{font-family:'Special Elite',serif;font-size:18px;color:#E8C8A0;text-align:right;}
+.sep-data{width:100%;height:2px;margin:16px 0;
+  background:linear-gradient(to right,rgba(222,41,16,0.4),rgba(255,222,0,0.5),rgba(222,41,16,0.4));}
+
+/* LISTA */
+.lista{list-style:none;margin:10px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#E8C8A0;
+  padding:8px 0 8px 28px;border-bottom:1px solid rgba(255,222,0,0.06);
+  position:relative;line-height:2;}
+.lista li::before{content:'🏮';position:absolute;left:0;top:8px;
+  color:rgba(255,222,0,0.35);font-size:14px;}
+
+/* QUOTE */
+.quote{border-left:4px solid rgba(222,41,16,0.6);padding:16px 18px;
+  margin:16px 0;background:rgba(222,41,16,0.06);}
+.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:23px;color:#FFDE00;line-height:2;}
+.quote-firma{font-family:'Special Elite',serif;font-size:19px;
+  color:rgba(255,222,0,0.6);margin-top:8px;display:block;letter-spacing:1px;}
+
+/* CTA */
+.cta-wrap{border-radius:2px;padding:24px 18px;margin:24px 0;text-align:center;
+  background:rgba(222,41,16,0.06);
+  border:1px solid rgba(222,41,16,0.3);
+  position:relative;overflow:hidden;}
+.cta-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,#DE2910,#FFDE00,#DE2910,#FFDE00,#DE2910);}
+.cta-wrap::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,#FFDE00,#DE2910,#FFDE00,#DE2910,#FFDE00);}
+.btn-cta{width:100%;border-radius:2px;padding:18px;margin-top:6px;
+  font-family:'Cinzel',serif;font-size:20px;letter-spacing:4px;
+  cursor:pointer;transition:all 0.3s;
+  background:rgba(222,41,16,0.15);border:1px solid rgba(222,41,16,0.5);color:#FFDE00;}
+.btn-cta:hover{background:rgba(222,41,16,0.35);}
+
+/* SELLO */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
+  border-top:2px solid rgba(255,222,0,0.25);}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
+  color:rgba(255,222,0,0.45);margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL */
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:3px;margin:0 auto 24px;
+  background:linear-gradient(to right,#DE2910,#FFDE00,#DE2910,#FFDE00,#DE2910);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
+  letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFDE00,#FFD700,#FFF0A0,#FFD700,#FFDE00,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaGold 18s linear infinite;
+  filter:drop-shadow(0 0 14px rgba(255,222,0,0.7)) drop-shadow(0 0 30px rgba(222,41,16,0.5));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
+  display:block;margin-bottom:8px;text-align:center;
+  background:linear-gradient(90deg,#8B0000,#CC2000,#DE2910,#CC2000,#8B0000);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:chinaRed 22s linear infinite;
+  opacity:0;transform:translateY(20px);
+  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
+
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+
+<div id="capa2">
+<div id="capa3">
+
+  <!-- HEADER -->
+  <div style="text-align:center;margin-bottom:14px;">
+    <span class="page-ornament">🇨🇳 ✦ 🏮</span>
+    <span class="page-chapter">中华人民共和国 · La Gran China</span>
+    <h2 class="page-title china">BIBLIOTECA PAPIRO</h2>
+    <div class="page-sub">Tu guía completa · 你的完整指南</div>
+  </div>
+
+  <!-- 5 ESTRELLAS CHINA -->
+  <div class="estrellas-china">
+    <span style="font-size:32px;color:#FFDE00;filter:drop-shadow(0 0 8px rgba(255,222,0,0.8));">★</span>
+    <span style="font-size:18px;color:#FFDE00;letter-spacing:4px;filter:drop-shadow(0 0 4px rgba(255,222,0,0.6));">
+      ★ ★ ★ ★
+    </span>
+  </div>
+
+  <!-- DRAGÓN SVG -->
+  <div style="text-align:center;margin:8px 0;font-size:28px;letter-spacing:8px;
+    color:rgba(255,222,0,0.4);filter:drop-shadow(0 0 5px rgba(255,222,0,0.3));
+    animation:chinaStars 5s ease-in-out infinite;">
+    🌸 🏮 🌸
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- I -->
+  <div class="sec">
+    <span class="sec-titulo oro-drag">I · 什么是 Papiro · Qué es Papiro</span>
+    <div class="cuerpo">
+      <p>Papiro no es otra red social. No te vamos a mentir ni hacerte perder tu tiempo y mucho menos a venderte nada que no pediste. Somos una plataforma digital construida con una filosofía simple: <em>tecnología que te protege y que no te explota.</em></p>
+      <p>Mientras otras apps usan colores, velocidades y algoritmos diseñados científicamente para crearte ansiedad y dependencia — nosotros hicimos lo contrario. Cada animación, cada color, cada velocidad en Papiro fue calibrada para que cuando entres aquí, <em>respires paz, calma, tranquilidad y diversión sana.</em></p>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">数字健康与安全不是一个口号。<br>这是这里每一行代码存在的原因。<br><span style="font-size:19px;color:rgba(255,222,0,0.6);">Digitalidad Sana y Segura no es un eslogan.</span></div>
+      <span class="quote-firma">— ∆° · Creaxion Papiro · 用灵魂、历史和信仰创造</span>
+    </div>
+    <div style="margin:14px 0;">
+      <span class="bloque-lbl rojo-imp">我们不做的</span>
+      <div class="data-rojo">
+        <div class="data-row"><span class="dk-r">没有焦虑算法</span><span class="dv">你决定看什么 · 何时 · 如何</span></div>
+        <div class="data-row"><span class="dk-r">没有侵入性广告</span><span class="dv">Lo que ves es lo que hay · sin trucos</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl oro-drag">你在 Papiro 的身份</span>
+      <div class="data-oro">
+        <div class="data-row"><span class="dk-o">真实身份</span><span class="dv">Creax@P∆p.TuNombre · solo tuya · para siempre</span></div>
+        <div class="data-row"><span class="dk-o">宇宙像素</span><span class="dv">Tu lugar único en el universo digital</span></div>
+      </div>
+      <div class="sep-data"></div>
+      <span class="bloque-lbl jade">我们是谁</span>
+      <div class="data-jade">
+        <div class="data-row"><span class="dk-j">安全 ∆°</span><span class="dv">3层系统 · nadie toca tus datos</span></div>
+        <div class="data-row"><span class="dk-o">拉丁美洲</span><span class="dv">Hecho con alma · historia sorprendente · con fe</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- II -->
+  <div class="sec">
+    <span class="sec-titulo rojo-imp">II · Papiro 的空间 · Los Espacios</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">∆ · 沙龙 · EL SALÓN</span>
+        <div class="card-texto">El corazón social de Papiro. Juegos latinoamericanos, chat en vivo, transmisiones. Toca <strong>∆</strong> desde cualquier papiro para llegar aquí.</div>
+        <span class="card-tag">→ Acceso: botón ∆ · siempre visible</span></div>
+      <div class="card"><span class="card-titulo">📜 纸莎草 · LOS PAPIROS</span>
+        <div class="card-texto">Tu espacio personal de expresión. Tu voz en el ecosistema — con tu estilo, tu color, tu sello.</div>
+        <span class="card-tag">→ papiro.app/∆TuNombre</span></div>
+      <div class="card"><span class="card-titulo">📚 图书馆 · LA BIBLIOTECA</span>
+        <div class="card-texto">Donde estás ahora mismo. Guías, tutoriales y herramientas. Como P∆plover verificado podrás enviar tus creaciones al ecosistema. Juntos construimos algo extraordinario.</div>
+        <span class="card-tag">→ Envía tu propuesta desde ° soporte</span></div>
+      <div class="card"><span class="card-titulo">🔴 直播 · EN VIVO · TvP∆p</span>
+        <div class="card-texto">Transmisiones en tiempo real. Eventos, noticias, lanzamientos.</div>
+        <span class="card-tag">→ 十月二十六日 · 26 de octubre · lanzamiento mundial</span></div>
+      <div class="card"><span class="card-titulo">🎮 拉丁美洲游戏 · JUEGOS</span>
+        <div class="card-texto">Dominó, El Truco y más — con <strong>Bolívares Digitales</strong>, el nombre de nuestras fichas de juego (no es dinero real). Microvídeos de 5 segundos. TvP∆p en vivo mientras juegas.<br><br>Lanzamiento: <strong>26 de octubre</strong>, en el nombre de Jesús.</div>
+        <span class="card-tag">→ P∆plovers juegan con la comunidad</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- III -->
+  <div class="sec">
+    <span class="sec-titulo jade">III · 创意工具 · Herramientas Creativas</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">🎨 你的个人纸莎草 · TU PAPIRO</span>
+        <div class="card-texto">Tu nombre, tus colores, tu diseño, tu historia. Elige el color de tu paño, texturas, líneas de margen, tu firma. Tu espacio — nadie más lo controla.</div>
+        <span class="card-tag">文字 · 图像 · 视频 · 信件 · 公开或私密</span></div>
+      <div class="card"><span class="card-titulo">⭐ 你的宇宙像素 · PIXEL CÓSMICO</span>
+        <div class="card-texto">Un pixel único en el cosmos de Papiro — como una estrella del cielo nocturno de China. Titila cuando estás conectado.</div>
+        <span class="card-tag">1,200个独特像素 · 前100名 → 黄金像素永久</span></div>
+      <div class="card"><span class="card-titulo">🤖 CRIXUS · 你的数字朋友</span>
+        <div class="card-texto">La IA del ecosistema. Aquí para ayudarte, orientarte y acompañarte.</div>
+        <span class="card-tag">→ 即将推出 · 在每个纸莎草中</span></div>
+      <div class="card"><span class="card-titulo">📡 你的数字身份 · IDENTIDAD</span>
+        <div class="card-texto"><strong>Creax@P∆p.TuNombre</strong> — tu firma en todo el ecosistema. Única e irrepetible.</div>
+        <span class="card-tag">papiro.app/∆TuNombre</span></div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- IV -->
+  <div class="sec">
+    <span class="sec-titulo oro-drag">IV · 创建内容 · Crear Contenido</span>
+    <div class="cards">
+      <div class="card"><span class="card-titulo">📝 在你的纸莎草发布 · PUBLICAR</span>
+        <div class="card-texto">Escribe desde tu corazón. Tu papiro es tuyo — diseña todo lo que se te ocurra, dentro de las buenas costumbres.<br><br>En <strong>°</strong> encuentras acceso directo a soporte y al CEO. 感谢你支持这个项目: <strong>P∆pir°</strong></div>
+        <span class="card-tag">文字 · 图像 · 视频 · 信件 · 反思</span></div>
+      <div class="card"><span class="card-titulo">💬 谈论 Papiro · HABLAR</span>
+        <div class="card-texto">Cuando alguien te pregunte: <em>es una plataforma digital latinoamericana que protege al usuario en vez de explotarlo.</em></div>
+        <span class="card-tag">少即是多 · 好奇心做其余的事</span></div>
+      <div class="card"><span class="card-titulo">🌟 大使 ∆° · EMBAJADOR</span>
+        <div class="card-texto">Cuando compartes Papiro no vendes nada — invitas a alguien a un espacio que ya sabes que vale.</div>
+        <span class="card-tag">#SI° · #LC7° · #PAPIRO777 · #中国 🇨🇳</span></div>
+    </div>
+    <div class="quote">
+      <div class="quote-texto">"那些相信这个想法的人。<br>那些看到革命性的人。<br>在概念中，在上帝中。"</div>
+      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7° · 委内瑞拉献给世界</span>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- V -->
+  <div class="sec">
+    <span class="sec-titulo rojo-imp">V · 为什么 Papiro 安全健康</span>
+    <ul class="lista">
+      <li>Las animaciones van entre 8 y 24 segundos — calibradas para no crear ansiedad visual.</li>
+      <li>Tu información viaja protegida por un sistema de 3 capas: Las 3 Marías, nuestro token y la Capa silenciosa. 🔐</li>
+      <li>Nadie puede ver tus datos sin pasar por ∆ — ni siquiera nosotros sin tu permiso.</li>
+      <li>Modo apocalipsis: si internet cae, tus datos sobreviven en tu dispositivo.</li>
+      <li>Sin bots, sin spam, sin algoritmos diseñados para hacerte perder el tiempo.</li>
+    </ul>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CTA -->
+  <div class="cta-wrap">
+    <span style="font-size:28px;display:block;margin-bottom:10px;">🏮</span>
+    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="china">想深入了解吗？</span>
+    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#E8C8A0;display:block;margin-bottom:6px;line-height:2;">注册并在 P∆°PIRO 创建你的邮件<br>我们将向你发送详细信息<br>关于你选择的主题。</span>
+    <span style="font-family:'Special Elite',serif;font-size:21px;letter-spacing:3px;display:block;margin-bottom:18px;" class="oro-drag">#777 · #SI° · #P∆°PIRO · 🇨🇳</span>
+    <button class="btn-cta" onclick="irRegistro()">✦ 在 P∆°PIRO 注册</button>
+  </div>
+
+  <!-- STAMP -->
+  <div class="footer-stamp">
+    <div class="stamp-phrase china">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">荣誉准则 IM. #7 — 我已如此行事</div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div class="estrellas-china" style="margin-bottom:16px;">
+      <span style="font-size:28px;color:#FFDE00;filter:drop-shadow(0 0 8px rgba(255,222,0,0.8));">★</span>
+      <span style="font-size:16px;color:#FFDE00;letter-spacing:4px;">★ ★ ★ ★</span>
+    </div>
+    <div style="text-align:center;margin-bottom:16px;font-size:22px;letter-spacing:10px;
+      color:rgba(255,222,0,0.4);">🌸 🏮 🌸</div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(255,222,0,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="china">· 从第一刻就相信的人的宝库 ·<br>· EL BAÚL DE LOS QUE SÍ CREYERON ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">创始人 · Creaxion Papiro © 2026 · 🇨🇳</span>
+  </div>
+
+</div></div>
+
+<script>
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+  var s=[];
+  for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+  // 5 estrellas grandes de la bandera china
+  for(var k=0;k<5;k++)s.push({x:(k+1)*c.width/6,y:c.height*0.2+Math.random()*c.height*0.2,r:1.5+Math.random()*1,ph:Math.random()*Math.PI*2,sp:0.0008+Math.random()*0.001,color:'rgba(255,222,0,0.95)'});
+  var cl=['#DE2910','#FF3322','#FFDE00','#D4AF37','#FF6655','#FFF0A0','#8B0000'];
+  for(var j=0;j<60;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%7]});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+})();
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_italia.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
+function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+console.log('∆° Capa 5 · Papiro China · 中华人民共和国 · 🏮');
+</script>
+</body>
+</html>
