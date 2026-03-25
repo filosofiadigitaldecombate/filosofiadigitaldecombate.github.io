@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>° Portal · Tienda · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden;max-width:100vw;}
+body{background:#000;min-height:100vh;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.4;}
+.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;pointer-events:all;cursor:pointer;
+  background:linear-gradient(180deg,#2A1800,#6B4500,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#2A1800);
+  background-size:100% 400%;animation:oroFlow 8s linear infinite;
+  box-shadow:0 0 8px rgba(201,168,76,0.6),0 0 18px rgba(201,168,76,0.3);}
+.margin-line.left{left:36px;}.margin-line.right{right:36px;}
+@keyframes oroFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;overflow-x:hidden;
+  background:linear-gradient(160deg,#0A0800 0%,#060500 50%,#030300 100%);}
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;min-height:100vh;overflow-x:hidden;
+  background:repeating-linear-gradient(45deg,rgba(201,168,76,0.02) 0px,transparent 1px,transparent 14px,rgba(201,168,76,0.015) 15px),
+  linear-gradient(160deg,#0A0800 0%,#060500 50%,#030300 100%);}
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;transition:all 0.3s;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.4);}
+.btn-f.izq{bottom:24px;left:24px;}.btn-f.der{bottom:24px;right:24px;}
+.btn-f span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#F0C040,#C9A84C,#8A6A00);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 6s linear infinite;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+.oro{background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 12s linear infinite;}
+.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;letter-spacing:6px;text-align:center;margin-bottom:6px;
+  filter:drop-shadow(0 0 14px rgba(201,168,76,0.7));}
+.page-rule{width:100%;height:1px;margin:16px 0;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+.sec-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:3px;
+  padding:10px 0 8px;margin-bottom:16px;display:block;border-bottom:1px solid rgba(201,168,76,0.2);}
+
+/* MENÚ PORTAL ° */
+.menu-portal{display:flex;flex-direction:column;gap:12px;margin:16px 0;}
+.menu-item{border-radius:6px;padding:18px 20px;position:relative;overflow:hidden;cursor:pointer;
+  border:1px solid rgba(201,168,76,0.2);background:rgba(201,168,76,0.05);
+  transition:all 0.3s;}
+.menu-item:hover{background:rgba(201,168,76,0.12);border-color:rgba(201,168,76,0.5);}
+.menu-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,rgba(201,168,76,0.5),transparent);}
+.menu-icon{font-size:28px;display:block;margin-bottom:6px;}
+.menu-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;
+  color:#D4AF37;display:block;margin-bottom:4px;}
+.menu-desc{font-family:'Crimson Pro',serif;font-size:19px;color:#C8B870;line-height:1.8;}
+.menu-tag{font-family:'Special Elite',serif;font-size:17px;color:rgba(201,168,76,0.6);
+  margin-top:6px;display:block;}
+
+/* BOLIVARES WIDGET */
+.bolivares-widget{border-radius:8px;padding:16px 18px;margin:20px 0;
+  background:rgba(201,168,76,0.08);border:1px solid rgba(201,168,76,0.3);text-align:center;}
+.bv-label{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;color:rgba(201,168,76,0.7);display:block;}
+.bv-amount{font-family:'Cinzel',serif;font-size:34px;font-weight:900;display:block;margin:4px 0;}
+.bv-sub{font-family:'Special Elite',serif;font-size:15px;color:rgba(201,168,76,0.5);}
+
+/* PAPIROS AMIGOS */
+.amigos-list{display:flex;flex-direction:column;gap:8px;margin:12px 0;}
+.amigo-item{display:flex;align-items:center;gap:12px;padding:10px 14px;
+  border-radius:6px;background:rgba(201,168,76,0.04);border:1px solid rgba(201,168,76,0.12);}
+.amigo-pixel{width:14px;height:14px;border-radius:50%;background:rgba(201,168,76,0.8);
+  animation:pixelPulse 3s ease-in-out infinite;}
+@keyframes pixelPulse{0%,100%{opacity:0.5;}50%{opacity:1;box-shadow:0 0 8px rgba(201,168,76,0.6);}}
+.amigo-nombre{font-family:'Special Elite',serif;font-size:18px;color:#C8B870;flex:1;}
+.amigo-status{font-family:'Special Elite',serif;font-size:14px;color:rgba(201,168,76,0.5);}
+
+/* FOOTER */
+.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;border-top:1px solid rgba(201,168,76,0.2);}
+.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
+.stamp-sub{font-family:'Special Elite',serif;font-size:18px;color:rgba(201,168,76,0.45);margin-top:4px;letter-spacing:1px;}
+.baul{padding:1000vh 0 50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 24px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4),transparent);}
+.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;letter-spacing:6px;display:block;margin-bottom:14px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#C9A84C,#8A6A00);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 18s linear infinite;
+  filter:drop-shadow(0 0 12px rgba(201,168,76,0.6));
+  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
+.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;display:block;margin-bottom:8px;text-align:center;
+  color:rgba(201,168,76,0.7);opacity:0;transform:translateY(20px);transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
+.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body style="opacity:0;transition:opacity 0.4s;" onload="init()">
+<canvas id="cosmos"></canvas>
+<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
+<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="irPortal()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa2"><div id="capa3">
+
+  <div style="text-align:center;margin-bottom:14px;">
+    <span style="font-size:28px;display:block;margin-bottom:8px;filter:drop-shadow(0 0 10px rgba(201,168,76,0.7));">° · ∆°</span>
+    <span style="font-family:'Cinzel',serif;font-size:15px;letter-spacing:5px;color:rgba(201,168,76,0.6);display:block;margin-bottom:8px;">Tu Portal Personal</span>
+    <h2 class="page-title oro">PAPIRO °</h2>
+    <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;color:rgba(201,168,76,0.7);">Todo lo tuyo · en un solo lugar</div>
+  </div>
+
+  <!-- BOLIVARES DIGITALES -->
+  <div class="bolivares-widget">
+    <span class="bv-label">BOLÍVARES DIGITALES</span>
+    <span class="bv-amount oro" id="bvAmount">₿ 0</span>
+    <span class="bv-sub">Tus fichas del ecosistema Papiro</span>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- MENÚ PRINCIPAL -->
+  <div style="margin:20px 0 0;">
+    <span class="sec-titulo oro">° · Tu Portal</span>
+    <div class="menu-portal">
+
+      <div class="menu-item" onclick="ir('papiro_tienda_catalogo.html')">
+        <span class="menu-icon">🛍️</span>
+        <span class="menu-titulo">TIENDA DE PAPIROS</span>
+        <div class="menu-desc">Explora todos los diseños disponibles. Países, temas, exclusivos. Compra con tus Bolívares Digitales.</div>
+        <span class="menu-tag">→ 26 papiros disponibles · Batman · Joker · México · Japón y más</span>
+      </div>
+
+      <div class="menu-item" onclick="ir('papiro_biblioteca.html')">
+        <span class="menu-icon">📚</span>
+        <span class="menu-titulo">BIBLIOTECA</span>
+        <div class="menu-desc">Guías, tutoriales y herramientas. Todo lo que necesitas para crear y publicar en el ecosistema.</div>
+        <span class="menu-tag">→ Guía completa · Tips de creación · Herramientas</span>
+      </div>
+
+      <div class="menu-item" onclick="ir('papiro_mi_coleccion.html')">
+        <span class="menu-icon">🎨</span>
+        <span class="menu-titulo">MI COLECCIÓN DE PAPIROS</span>
+        <div class="menu-desc">Todos tus papiros activos. Cambia el paño, las líneas de margen, las letras. Personaliza tu espacio.</div>
+        <span class="menu-tag">→ Paños · Márgenes · Tipografías · Colores</span>
+      </div>
+
+      <div class="menu-item" onclick="ir('papiro_ajustes.html')">
+        <span class="menu-icon">⚙️</span>
+        <span class="menu-titulo">AJUSTES DE MI CUENTA</span>
+        <div class="menu-desc">Tu nombre, tu código estelar, tu pixel cósmico. Cambia tu email, actualiza tu perfil.</div>
+        <span class="menu-tag">→ Perfil · Código estelar · Pixel cósmico</span>
+      </div>
+
+      <div class="menu-item" onclick="ir('papiro_corazon.html')">
+        <span class="menu-icon">✉️</span>
+        <span class="menu-titulo">SOPORTE · CEO</span>
+        <div class="menu-desc">Escríbele directamente al equipo. Tus sugerencias, creaciones, propuestas. Con gusto te leemos.</div>
+        <span class="menu-tag">→ Chat directo · Propuestas creativas · Soporte técnico</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- PAPIROS AMIGOS -->
+  <div style="margin:20px 0 0;">
+    <span class="sec-titulo oro">° · Papiros Amigos · Contactos</span>
+    <div style="font-family:'Crimson Pro',serif;font-size:19px;color:rgba(201,168,76,0.7);margin-bottom:12px;">
+      Tus conexiones en el ecosistema · Los que también creyeron
+    </div>
+    <div class="amigos-list" id="amigosLista">
+      <!-- Se llena dinámicamente desde Supabase -->
+      <div class="amigo-item">
+        <div class="amigo-pixel"></div>
+        <span class="amigo-nombre">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+        <span class="amigo-status">Fundador · CEO</span>
+      </div>
+      <div class="amigo-item" style="opacity:0.5;">
+        <div class="amigo-pixel" style="background:rgba(100,100,100,0.5);animation:none;"></div>
+        <span class="amigo-nombre" style="color:rgba(201,168,76,0.4);">Tus amigos aparecerán aquí...</span>
+        <span class="amigo-status"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- MOSTRADOR PAÑOS Y MÁRGENES -->
+  <div style="margin:20px 0 0;">
+    <span class="sec-titulo oro">° · Mostrador · Estilos</span>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;">
+      <!-- Muestra de colores de paños -->
+      <div style="height:50px;border-radius:4px;background:#0A0A0A;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:rgba(201,168,76,0.7);">Negro</span></div>
+      <div style="height:50px;border-radius:4px;background:#F5DEB3;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:#8A6A00;">Arena</span></div>
+      <div style="height:50px;border-radius:4px;background:#006847;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:rgba(201,168,76,0.7);">Verde</span></div>
+      <div style="height:50px;border-radius:4px;background:#002395;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:rgba(201,168,76,0.7);">Azul</span></div>
+      <div style="height:50px;border-radius:4px;background:#1A0200;border:1px solid rgba(201,168,76,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:rgba(201,168,76,0.7);">Rojo</span></div>
+      <div style="height:50px;border-radius:4px;background:#FFFFFF;border:1px solid rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:#333;">Blanco</span></div>
+      <div style="height:50px;border-radius:4px;background:linear-gradient(135deg,#FF85A1,#FFB3C6);border:1px solid rgba(255,133,161,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:#8B1A3A;">Candy</span></div>
+      <div style="height:50px;border-radius:4px;background:#050814;border:1px solid rgba(0,188,212,0.3);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Special Elite';font-size:11px;color:#00BCD4;">Aqua</span></div>
+    </div>
+    <div style="font-family:'Crimson Pro',serif;font-size:19px;color:rgba(201,168,76,0.6);text-align:center;font-style:italic;">
+      → Próximamente: personaliza tu paño desde aquí
+    </div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <div style="text-align:center;padding:16px 0;">
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(201,168,76,0.5);">· ∆° · Creaxion Papiro © 2026 ·</span>
+  </div>
+
+  <div class="footer-stamp">
+    <div class="stamp-phrase oro">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="stamp-sub">CÓDIGO DE HONOR IM. #7 — Así lo he hecho</div>
+  </div>
+
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:rgba(201,168,76,0.5);display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
+    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="oro">· EL BAÚL DE LOS QUE SÍ CREYERON<br>DESDE EL PRIMER MOMENTO ·</span>
+    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
+    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+  </div>
+
+</div></div>
+<script>
+function init(){
+  document.body.style.opacity='1';
+  // Load BV from localStorage
+  var bv=localStorage.getItem('papiro_bolivares')||'0';
+  document.getElementById('bvAmount').textContent='₿ '+parseInt(bv).toLocaleString();
+  // Load cosmos
+  (function(){
+    var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+    function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
+    var s=[];
+    for(var i=0;i<250;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005});
+    var cl=['#C9A84C','#D4AF37','#F0C040','#FFFACD','#8A6A00'];
+    for(var j=0;j<40;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.6+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0004,color:cl[j%5]});
+    function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+      s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
+      ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+  })();
+}
+function ir(url){document.body.style.opacity='0';setTimeout(function(){window.location.href=url;},300);}
+function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='login.html';},300);}
+function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='salon.html';},300);}
+function irSalon(){document.body.style.opacity='0';setTimeout(function(){window.location.href='salon.html';},300);}
+function irPortal(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_tienda.html';},300);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
+    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  }
+});
+</script>
+</body></html>
