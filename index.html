@@ -3,44 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Creaxion Papiro ∆° · Digitalidad Sana y Segura</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0A0800">
-<meta name="description" content="Creaxion Papiro · Digitalidad Sana y Segura · X-7777777-LC7°">
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<title>∆° · Mantenimiento</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-html,body{height:100%;overflow:hidden;}
-body{background:#000;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+body{background:#0A0A0A;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Georgia',serif;}
 canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
-.center{position:relative;z-index:2;text-align:center;padding:32px 24px;}
-.logo{font-family:'Cinzel',serif;font-size:48px;font-weight:900;letter-spacing:8px;
-  background:linear-gradient(90deg,#8A6A00,#C9A84C,#D4AF37,#F0C040,#FFFACD,#F0C040,#D4AF37,#C9A84C,#8A6A00);
+.box{position:relative;z-index:2;text-align:center;padding:40px 24px;max-width:400px;}
+.icono{font-size:60px;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(201,168,76,0.5));}
+h1{font-family:'Georgia',serif;font-size:28px;font-weight:bold;letter-spacing:4px;margin-bottom:8px;
+  background:linear-gradient(90deg,#8A6A00,#C9A84C,#F0C040,#C9A84C,#8A6A00);
   background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroFlow 8s linear infinite;
-  filter:drop-shadow(0 0 20px rgba(201,168,76,0.6));}
-.sub{font-family:'Cinzel',serif;font-size:16px;letter-spacing:6px;color:rgba(201,168,76,0.5);
-  margin:10px 0 6px;}
-.slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:18px;
-  color:rgba(200,192,160,0.6);margin-bottom:32px;}
-.btn{font-family:'Cinzel',serif;font-size:16px;letter-spacing:4px;
-  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.5);
-  color:#C9A84C;padding:16px 40px;cursor:pointer;transition:all 0.3s;display:block;
-  text-decoration:none;width:100%;max-width:320px;margin:0 auto 12px;}
-.btn:hover,.btn:active{background:rgba(201,168,76,0.25);}
-.sello{font-family:'Special Elite',serif;font-size:12px;letter-spacing:2px;
-  color:rgba(201,168,76,0.3);margin-top:24px;}
-@keyframes oroFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
+  background-clip:text;animation:g 8s linear infinite;}
+h2{font-size:14px;letter-spacing:6px;color:rgba(201,168,76,0.5);margin-bottom:24px;}
+p{font-size:15px;color:rgba(200,192,160,0.7);line-height:1.8;margin-bottom:20px;}
+.eta{font-size:13px;color:rgba(201,168,76,0.4);letter-spacing:2px;margin-top:16px;}
+.sello{font-size:11px;color:rgba(201,168,76,0.25);margin-top:24px;letter-spacing:1px;}
+@keyframes g{0%{background-position:0% center;}100%{background-position:400% center;}}
+.dots{display:inline-block;animation:d 1.5s infinite;}
+@keyframes d{0%,100%{opacity:0.3;}50%{opacity:1;}}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="center">
-  <div class="logo">P∆PIR°</div>
-  <div class="sub">CREAXION PAPIRO</div>
-  <div class="slogan">Digitalidad Sana y Segura</div>
-  <a class="btn" href="login.html">✦ ENTRAR AL ECOSISTEMA</a>
-  <a class="btn" href="portada_es.html">∆ VER LA BIBLIOTECA</a>
+<div class="box">
+  <div class="icono">🔧</div>
+  <h1>P∆PIR°</h1>
+  <h2>EN MANTENIMIENTO</h2>
+  <p>Estamos realizando mejoras al ecosistema para brindarte una mejor experiencia.</p>
+  <p>Volvemos pronto <span class="dots">✦ ✦ ✦</span></p>
+  <div class="eta">Creaxion Papiro · Digitalidad Sana y Segura</div>
   <div class="sello">∆° · X-7777777-LC7° · SI° · 350 · 777</div>
 </div>
 <script>
@@ -49,24 +40,12 @@ canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
   function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();
   window.addEventListener('resize',r);
   var s=[];
-  for(var i=0;i<300;i++)s.push({
-    x:Math.random()*c.width,y:Math.random()*c.height,
-    r:Math.random()*0.8+0.1,ph:Math.random()*Math.PI*2,
-    sp:Math.random()*0.002+0.0004,
-    color:['#C9A84C','#D4AF37','#F0C040','#FFFACD','#FFFFFF'][Math.floor(Math.random()*5)]
-  });
-  function d(){
-    requestAnimationFrame(d);
-    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
-    s.forEach(function(st){
-      st.ph+=st.sp;
-      var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.6,1);
-      ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);
-      ctx.fillStyle=st.color;ctx.globalAlpha=a;ctx.fill();
-    });
-    ctx.globalAlpha=1;
-  }
-  d();
+  for(var i=0;i<200;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.6+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0003});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=a*a;
+    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);
+    ctx.fillStyle='rgba(201,168,76,'+a+')';ctx.fill();});
+  }d();
 })();
 </script>
 </body>
