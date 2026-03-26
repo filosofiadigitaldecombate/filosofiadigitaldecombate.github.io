@@ -32,11 +32,11 @@ canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.
 @keyframes marFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
 
 /* CAPA 2 — ARENA MOJADA */
-#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;overflow-x:hidden;
   background:linear-gradient(160deg,#0A2A3A 0%,#0D3347 50%,#071E2A 100%);}
 
 /* CAPA 3 — PAÑO AGUA PROFUNDA */
-#capa3{position:relative;z-index:4;margin:0 24px;padding:28px 24px 0;
+#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
   min-height:100vh;overflow-x:hidden;
   background:linear-gradient(160deg,#0D3D5A 0%,#0A2F47 60%,#071E2A 100%);
   background-image:
@@ -406,7 +406,7 @@ var _a=_p.indexOf(window.location.pathname.split('/').pop());if(_a<0)_a=8;
 function paginaAnterior(){var p=_a-1;if(p<0)p=_p.length-1;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
 function paginaSiguiente(){var p=_a+1;if(p>=_p.length)p=0;document.body.style.opacity='0';setTimeout(function(){window.location.href=_p[p];},300);}
 function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'login.html';},300);}
-function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
+function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_tienda.html';},300);}
 function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
 
 window.addEventListener('scroll',function(){
