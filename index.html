@@ -3,35 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>∆° · Mantenimiento</title>
+<title>Creaxion Papiro ∆° · Digitalidad Sana y Segura</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F8F8F8">
+<meta name="description" content="Creaxion Papiro · Digitalidad Sana y Segura · X-7777777-LC7°">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0A0A0A;min-height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Georgia',serif;}
-canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
-.box{position:relative;z-index:2;text-align:center;padding:40px 24px;max-width:400px;}
-.icono{font-size:60px;margin-bottom:16px;filter:drop-shadow(0 0 20px rgba(201,168,76,0.5));}
-h1{font-family:'Georgia',serif;font-size:28px;font-weight:bold;letter-spacing:4px;margin-bottom:8px;
-  background:linear-gradient(90deg,#8A6A00,#C9A84C,#F0C040,#C9A84C,#8A6A00);
+html,body{height:100%;overflow:hidden;}
+body{background:#F8F8F8;display:flex;align-items:center;justify-content:center;min-height:100vh;}
+canvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.06;}
+.center{position:relative;z-index:2;text-align:center;padding:32px 24px;max-width:400px;}
+.logo{font-family:'Cinzel',serif;font-size:56px;font-weight:900;letter-spacing:8px;
+  background:linear-gradient(90deg,#000,#222,#444,#222,#000);
   background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:g 8s linear infinite;}
-h2{font-size:14px;letter-spacing:6px;color:rgba(201,168,76,0.5);margin-bottom:24px;}
-p{font-size:15px;color:rgba(200,192,160,0.7);line-height:1.8;margin-bottom:20px;}
-.eta{font-size:13px;color:rgba(201,168,76,0.4);letter-spacing:2px;margin-top:16px;}
-.sello{font-size:11px;color:rgba(201,168,76,0.25);margin-top:24px;letter-spacing:1px;}
+  background-clip:text;animation:g 10s linear infinite;
+  filter:drop-shadow(0 2px 0 rgba(0,0,0,0.15));}
+.sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:6px;color:rgba(0,0,0,0.35);
+  margin:8px 0 4px;}
+.slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
+  color:rgba(0,0,0,0.45);margin-bottom:28px;}
+.btn{font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;
+  background:rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.3);
+  color:#111;padding:14px 36px;cursor:pointer;transition:all 0.3s;display:block;
+  text-decoration:none;width:100%;max-width:280px;margin:0 auto 10px;text-align:center;}
+.btn:active{background:rgba(0,0,0,0.18);}
+.sello{font-family:'Special Elite',serif;font-size:11px;letter-spacing:2px;
+  color:rgba(0,0,0,0.2);margin-top:20px;}
 @keyframes g{0%{background-position:0% center;}100%{background-position:400% center;}}
-.dots{display:inline-block;animation:d 1.5s infinite;}
-@keyframes d{0%,100%{opacity:0.3;}50%{opacity:1;}}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="box">
-  <div class="icono">🔧</div>
-  <h1>P∆PIR°</h1>
-  <h2>EN MANTENIMIENTO</h2>
-  <p>Estamos realizando mejoras al ecosistema para brindarte una mejor experiencia.</p>
-  <p>Volvemos pronto <span class="dots">✦ ✦ ✦</span></p>
-  <div class="eta">Creaxion Papiro · Digitalidad Sana y Segura</div>
+<div class="center">
+  <div class="logo">P∆PIR°</div>
+  <div class="sub">CREAXION PAPIRO</div>
+  <div class="slogan">Digitalidad Sana y Segura</div>
+  <a class="btn" href="papiro_blanco_clasic.html">✦ ENTRAR</a>
+  <a class="btn" href="login.html" style="opacity:0.6;font-size:12px;padding:10px 36px;">→ INICIAR SESIÓN</a>
+  <a class="btn" href="portada_es.html" style="opacity:0.5;font-size:11px;padding:8px 36px;">∆ BIBLIOTECA</a>
   <div class="sello">∆° · X-7777777-LC7° · SI° · 350 · 777</div>
 </div>
 <script>
@@ -40,12 +50,13 @@ p{font-size:15px;color:rgba(200,192,160,0.7);line-height:1.8;margin-bottom:20px;
   function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();
   window.addEventListener('resize',r);
   var s=[];
-  for(var i=0;i<200;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.6+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0003});
-  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
-    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=a*a;
+  for(var i=0;i<150;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,
+    r:Math.random()*0.6+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0003});
+  function d(){requestAnimationFrame(d);ctx.fillStyle='rgba(248,248,248,0.4)';ctx.fillRect(0,0,c.width,c.height);
+    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=a*a*0.5;
     ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);
-    ctx.fillStyle='rgba(201,168,76,'+a+')';ctx.fill();});
-  }d();
+    ctx.fillStyle='rgba(0,0,0,'+a+')';ctx.fill();});}
+  d();
 })();
 </script>
 </body>
