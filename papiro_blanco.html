@@ -6,282 +6,288 @@
 <title>Papiro Blanco ∆° · Creaxion Papiro</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{overflow-x:hidden;max-width:100vw;}
-body{background:#F8F8F8;min-height:100vh;}
-canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.08;}
-
-/* MÁRGENES — negro con glow gris oscuro */
-.margin-line{position:fixed;top:0;height:100%;width:5px;z-index:10;
-  pointer-events:all;cursor:pointer;
-  background:linear-gradient(180deg,#111,#222,#333,#444,#333,#222,#111,#000,#111,#222,#333);
-  background-size:100% 400%;animation:blancoFlow 8s linear infinite;
-  box-shadow:0 0 8px rgba(0,0,0,0.6),0 0 18px rgba(50,50,50,0.4);}
-.margin-line.left{left:36px;}.margin-line.right{right:36px;}
-@keyframes blancoFlow{0%{background-position:0% center;}100%{background-position:400% center;}}
-
-/* CAPA 2 — lienzo blanco base */
-#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
-  background:linear-gradient(160deg,#EEEEEE 0%,#E8E8E8 50%,#F0F0F0 100%);}
-
-/* CAPA 3 — paño blanco con textura lienzo */
-#capa3{position:relative;z-index:4;margin:0 36px;padding:32px 22px 0;
-  min-height:100vh;overflow-x:hidden;
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;max-width:100vw;min-height:100%;}
+body{background:#F5F0E8;min-height:100vh;opacity:0;transition:opacity .4s;}
+canvas#capa1{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:0.06;pointer-events:none;}
+#capa2{position:relative;z-index:2;width:100%;max-width:100vw;overflow-x:hidden;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 0%,rgba(180,140,60,.06) 0%,transparent 50%),
+    linear-gradient(160deg,#EDE8DE 0%,#E8E2D6 50%,#EDE8DE 100%);}
+#capa3{position:relative;z-index:4;margin:0 37px;padding:36px 22px 0;min-height:100vh;overflow-x:hidden;
   background:
-    repeating-linear-gradient(0deg,rgba(0,0,0,0.015) 0px,transparent 1px,transparent 22px,rgba(0,0,0,0.015) 23px),
-    repeating-linear-gradient(90deg,rgba(0,0,0,0.012) 0px,transparent 1px,transparent 22px,rgba(0,0,0,0.012) 23px),
-    linear-gradient(160deg,#FFFFFF 0%,#FAFAFA 50%,#F8F8F8 100%);}
+    repeating-linear-gradient(45deg,rgba(0,0,0,.022) 0px,rgba(0,0,0,.022) 1px,transparent 1px,transparent 28px),
+    repeating-linear-gradient(-45deg,rgba(0,0,0,.018) 0px,rgba(0,0,0,.018) 1px,transparent 1px,transparent 28px),
+    radial-gradient(circle at 14px 14px,rgba(180,140,60,.08) 1.5px,transparent 1.5px),
+    linear-gradient(160deg,#FAF7F0 0%,#F5F0E8 60%,#FAF7F0 100%);
+  background-size:28px 28px,28px 28px,28px 28px,100% 100%;}
 
-/* FLOTANTES */
+/* BORDES — Color marfil (fondo), las estrellas se dibujan via canvas encima */
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:#F0EBE0;box-shadow:inset -1px 0 3px rgba(0,0,0,.04);}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:#F0EBE0;box-shadow:inset 1px 0 3px rgba(0,0,0,.04);}
+
+/* CANVAS estrellas sobre los bordes */
+#estrellasIzq{position:fixed;top:0;bottom:0;left:0;width:32px;height:100%;z-index:10;pointer-events:none;}
+#estrellasDer{position:fixed;top:0;bottom:0;right:0;width:32px;height:100%;z-index:10;pointer-events:none;}
+
+/* MÁRGENES */
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:11;pointer-events:all;cursor:pointer;background:transparent;}
+.ml.L{left:0;}.ml.R{right:0;}
+
+/* LÍNEAS ORO — 120s (prácticamente quietas, lujo árabe) */
+@keyframes oroMurmur{0%{background-position:0 0%;}50%{background-position:0 100%;}100%{background-position:0 0%;}}
+.ml.L::after{content:'';position:absolute;top:0;bottom:0;right:0;width:5px;
+  background:linear-gradient(180deg,#C9A84C 0%,#D4AF5A 20%,#C2A040 40%,#C9A84C 60%,#D8B862 80%,#C9A84C 100%);
+  background-size:100% 300%;animation:oroMurmur 120s ease-in-out infinite;
+  box-shadow:0 0 6px rgba(180,140,60,.35);}
+.ml.R::after{content:'';position:absolute;top:0;bottom:0;left:0;width:5px;
+  background:linear-gradient(180deg,#D4AF5A 0%,#C9A84C 20%,#D8B862 40%,#C9A84C 60%,#C2A040 80%,#C9A84C 100%);
+  background-size:100% 300%;animation:oroMurmur 120s ease-in-out infinite reverse;
+  box-shadow:0 0 6px rgba(180,140,60,.35);}
+
+/* CAPA 4 BOTONES */
 #capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
-.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;transition:all 0.3s;
-  background:rgba(0,0,0,0.06);border:1px solid rgba(0,0,0,0.25);}
-.btn-f:hover{background:rgba(0,0,0,0.15);}
-.btn-f.izq{bottom:24px;left:24px;}.btn-f.der{bottom:24px;right:24px;}
-.btn-f span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
-  background:linear-gradient(90deg,#000,#333,#555,#333,#000);
-  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:blancoFlow 6s linear infinite;}
+.btn-f.izq{position:absolute;pointer-events:all;cursor:pointer;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  bottom:20px;left:42px;
+  background:rgba(0,0,0,.92);border:1.5px solid rgba(201,168,76,.45);
+  box-shadow:0 0 0 1px rgba(0,0,0,.8),0 4px 16px rgba(0,0,0,.4);
+  transition:background 2s ease,border-color 2s ease;}
+.btn-f.izq:active{transform:scale(.93);}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:53px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#C9A84C,#D4AF5A,#C2A040,#C9A84C,#D8B862,#C9A84C);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroMurmur 120s ease-in-out infinite;}
+.btn-f.der{position:absolute;pointer-events:all;cursor:pointer;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  bottom:20px;right:42px;
+  background:rgba(5,4,2,.90);border:1.5px solid rgba(201,168,76,.60);
+  box-shadow:0 0 0 1px rgba(0,0,0,.6),0 4px 16px rgba(0,0,0,.35),0 0 24px rgba(180,140,60,.18);
+  transition:background 2s ease,border-color 2s ease;}
+.btn-f.der:active{transform:scale(.93);}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:32px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#D4AF5A,#C9A84C,#D8B862,#C2A040,#C9A84C,#D4AF5A);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroMurmur 120s ease-in-out infinite reverse;}
 #capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
 
-/* GRADIENTES TEXTO */
-.negro{background:linear-gradient(90deg,#000000,#1A1A1A,#333333,#222222,#000000);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:blancoFlow 12s linear infinite;}
-.gris{background:linear-gradient(90deg,#222222,#444444,#666666,#444444,#222222);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:blancoFlow 16s linear infinite;}
-.carbon{background:linear-gradient(90deg,#000,#111,#333,#555,#333,#111,#000);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:blancoFlow 20s linear infinite;}
-
 /* TIPOGRAFÍA */
-.page-ornament{font-size:26px;display:block;text-align:center;margin-bottom:8px;
-  filter:drop-shadow(0 0 6px rgba(0,0,0,0.3));}
-.page-chapter{font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;
-  text-align:center;margin-bottom:8px;display:block;color:#555;}
-.page-title{font-family:'Cinzel',serif;font-size:30px;font-weight:900;
-  letter-spacing:6px;text-align:center;margin-bottom:6px;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.2)) drop-shadow(0 0 12px rgba(0,0,0,0.15));}
-.page-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;
-  text-align:center;color:#444;}
-.page-rule{width:100%;height:1px;margin:16px 0;
-  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
-
-/* SECCIONES */
-.sec{margin:28px 0 0;}
-.sec-titulo{font-family:'Cinzel',serif;font-size:23px;font-weight:600;letter-spacing:3px;
-  padding:10px 0 8px;margin-bottom:16px;display:block;
-  border-bottom:1px solid rgba(0,0,0,0.15);}
-.cuerpo{font-family:'Crimson Pro',serif;font-size:25px;line-height:2.2;color:#1A1A1A;}
-.cuerpo p{margin-bottom:16px;text-indent:1.5em;}
-.cuerpo em{color:#333;font-style:italic;}
-.cuerpo strong{color:#000;}
-
-/* CARDS */
-.cards{display:flex;flex-direction:column;gap:16px;margin:16px 0;}
-.card{border-radius:4px;padding:18px;position:relative;overflow:hidden;
-  border:1px solid rgba(0,0,0,0.12);
-  background:rgba(255,255,255,0.8);}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
-.card-titulo{font-family:'Cinzel',serif;font-size:21px;font-weight:600;
-  letter-spacing:2px;color:#111;display:block;margin-bottom:8px;}
-.card-texto{font-family:'Crimson Pro',serif;font-size:25px;line-height:2;color:#2A2A2A;}
-.card-tag{font-family:'Special Elite',serif;font-size:19px;letter-spacing:1px;
-  color:#555;display:block;margin-top:8px;line-height:1.8;}
-
-/* DATA */
-.bloque-lbl{font-family:'Cinzel',serif;font-size:19px;font-weight:600;
-  letter-spacing:3px;margin-bottom:10px;display:block;}
-.data{background:rgba(0,0,0,0.03);border-left:3px solid rgba(0,0,0,0.25);
-  padding:14px 18px;margin:14px 0;border-radius:0 4px 4px 0;}
-.data-row{display:flex;justify-content:space-between;padding:5px 0;
-  border-bottom:1px solid rgba(0,0,0,0.06);}
+.logo-papiro{font-family:'Cinzel',serif;font-size:56px;font-weight:900;letter-spacing:10px;
+  text-align:center;display:block;color:#000;-webkit-text-stroke:1.5px #C9A84C;
+  text-shadow:0 2px 0 rgba(0,0,0,.3);line-height:1;margin-bottom:8px;}
+.logo-delta{-webkit-text-stroke:1.5px #B8962E;}
+.logo-sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:7px;color:rgba(0,0,0,.32);text-align:center;margin-bottom:5px;}
+.logo-slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:17px;color:rgba(0,0,0,.42);text-align:center;margin-bottom:28px;}
+.ornamento-arabe{text-align:center;margin:8px 0 14px;font-size:13px;letter-spacing:10px;color:rgba(0,0,0,.22);}
+.page-rule{width:100%;height:1px;margin:18px 0;background:linear-gradient(to right,transparent,rgba(0,0,0,.25),rgba(180,140,60,.4),rgba(0,0,0,.25),transparent);}
+.sec{margin:36px 0 0;}
+.sec-t{font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:4px;padding:12px 0 10px;margin-bottom:20px;display:block;color:#000;border-bottom:1px solid rgba(0,0,0,.12);position:relative;}
+.sec-t::after{content:'';position:absolute;bottom:-1px;left:0;width:40px;height:2px;background:linear-gradient(to right,rgba(180,140,60,.7),transparent);}
+.cuerpo{font-family:'Crimson Pro',serif;font-size:27px;line-height:2.3;color:#111;}
+.cuerpo p{margin-bottom:18px;text-indent:1.5em;}
+.cuerpo em{color:#6B5000;font-style:italic;}
+.cuerpo strong{color:#000;font-weight:600;}
+.drop{font-size:60px;float:left;line-height:.82;margin:6px 12px 0 0;font-family:'Cinzel',serif;font-weight:900;color:#000;}
+.sep{text-align:center;margin:26px 0;font-family:'Cinzel',serif;font-size:11px;letter-spacing:10px;color:rgba(0,0,0,.2);}
+.sep-oro{text-align:center;margin:26px 0;font-size:14px;letter-spacing:4px;color:rgba(180,140,60,.5);}
+.card{border:1px solid rgba(0,0,0,.12);padding:22px 20px;margin:14px 0;background:rgba(255,255,255,.6);border-left:3px solid rgba(0,0,0,.7);}
+.card-titulo{font-family:'Cinzel',serif;font-size:20px;font-weight:900;letter-spacing:3px;color:#000;display:block;margin-bottom:10px;}
+.card-texto{font-family:'Crimson Pro',serif;font-size:24px;line-height:2;color:#1A1A1A;}
+.card-tag{font-family:'Special Elite',serif;font-size:17px;letter-spacing:1px;color:rgba(100,80,0,.65);display:block;margin-top:10px;line-height:1.8;}
+.quote{border-left:4px solid rgba(0,0,0,.7);padding:20px 22px;margin:20px 0;background:rgba(0,0,0,.025);}
+.quote-t{font-family:'Crimson Pro',serif;font-style:italic;font-size:26px;color:#111;line-height:2.2;}
+.quote-f{font-family:'Special Elite',serif;font-size:18px;color:rgba(100,80,0,.65);margin-top:10px;display:block;letter-spacing:1px;}
+.lista{list-style:none;margin:14px 0;}
+.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#111;padding:10px 0 10px 28px;border-bottom:1px solid rgba(0,0,0,.07);position:relative;line-height:2.1;}
+.lista li::before{content:'◆';position:absolute;left:0;top:12px;color:rgba(180,140,60,.55);font-size:9px;}
+.data-blk{background:rgba(0,0,0,.03);border-left:3px solid rgba(0,0,0,.6);padding:16px 20px;margin:14px 0;}
+.data-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);}
 .data-row:last-child{border-bottom:none;}
-.dk{font-family:'Cinzel',serif;font-size:17px;letter-spacing:1px;color:#222;}
-.dv{font-family:'Special Elite',serif;font-size:18px;color:#444;text-align:right;}
-.sep-data{width:100%;height:1px;margin:16px 0;
-  background:linear-gradient(to right,transparent,rgba(0,0,0,0.2),transparent);}
-
-/* LISTA */
-.lista{list-style:none;margin:10px 0;}
-.lista li{font-family:'Crimson Pro',serif;font-size:25px;color:#1A1A1A;
-  padding:8px 0 8px 24px;border-bottom:1px solid rgba(0,0,0,0.07);
-  position:relative;line-height:2;}
-.lista li::before{content:'▪';position:absolute;left:0;top:10px;
-  color:rgba(0,0,0,0.4);font-size:12px;}
-
-/* QUOTE */
-.quote{border-left:3px solid rgba(0,0,0,0.25);padding:16px 18px;
-  margin:16px 0;background:rgba(0,0,0,0.03);border-radius:0 4px 4px 0;}
-.quote-texto{font-family:'Crimson Pro',serif;font-style:italic;
-  font-size:23px;color:#1A1A1A;line-height:2.2;}
-.quote-firma{font-family:'Special Elite',serif;font-size:19px;
-  color:#555;margin-top:8px;display:block;letter-spacing:1px;}
-
-/* CTA */
-.cta-wrap{border-radius:4px;padding:24px 18px;margin:24px 0;text-align:center;
-  background:rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.15);}
-.btn-cta{width:100%;border-radius:4px;padding:18px;font-family:'Cinzel',serif;
-  font-size:20px;letter-spacing:4px;cursor:pointer;transition:all 0.3s;
-  background:rgba(0,0,0,0.07);border:1px solid rgba(0,0,0,0.3);color:#111;}
-.btn-cta:hover{background:rgba(0,0,0,0.15);}
-
-/* SELLO */
-.footer-stamp{text-align:center;padding:14px 0;margin-top:24px;
-  border-top:1px solid rgba(0,0,0,0.15);}
-.stamp-phrase{font-family:'Special Elite',serif;font-size:21px;letter-spacing:2px;}
-.stamp-sub{font-family:'Special Elite',serif;font-size:18px;
-  color:#555;margin-top:4px;letter-spacing:1px;}
-
-/* BAÚL */
-.baul{padding:1000vh 0 50vh;text-align:center;}
-.baul-rule{width:60%;height:1px;margin:0 auto 24px;
-  background:linear-gradient(to right,transparent,rgba(0,0,0,0.3),transparent);}
-.baul-nombre{font-family:'Cinzel',serif;font-size:34px;font-weight:900;
-  letter-spacing:6px;display:block;margin-bottom:14px;
-  background:linear-gradient(90deg,#000,#222,#444,#222,#000);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:blancoFlow 18s linear infinite;
-  filter:drop-shadow(0 1px 0 rgba(0,0,0,0.3));
-  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
-.baul-sub{font-family:'Cinzel',serif;font-size:19px;letter-spacing:4px;
-  display:block;margin-bottom:8px;text-align:center;color:#555;
-  opacity:0;transform:translateY(20px);
-  transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
-.baul-nombre.vis,.baul-sub.vis{opacity:1;transform:translateY(0);}
+.dk{font-family:'Cinzel',serif;font-size:16px;letter-spacing:1px;color:#111;}
+.dv{font-family:'Special Elite',serif;font-size:17px;color:#555;text-align:right;}
+.cta-wrap{padding:28px 20px;margin:28px 0;text-align:center;background:rgba(0,0,0,.03);border-top:1px solid rgba(0,0,0,.12);border-bottom:1px solid rgba(0,0,0,.12);}
+.btn-cta{width:100%;padding:20px;font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;cursor:pointer;transition:all .25s;background:#000;color:rgba(201,168,76,.9);border:none;box-shadow:0 4px 20px rgba(0,0,0,.3);}
+.btn-cta:active{transform:translateY(2px);}
+.sello{text-align:center;padding:18px 0;margin-top:28px;border-top:1px solid rgba(0,0,0,.1);}
+.sp{font-family:'Special Elite',serif;font-size:20px;letter-spacing:2px;color:#111;}
+.ss{font-family:'Special Elite',serif;font-size:16px;color:rgba(0,0,0,.4);margin-top:4px;letter-spacing:1px;}
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:80%;height:1px;margin:0 auto 32px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2),rgba(180,140,60,.4),rgba(0,0,0,.2),transparent);}
+.bn{font-family:'Cinzel',serif;font-size:32px;font-weight:900;letter-spacing:6px;display:block;margin-bottom:14px;color:#000;opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Cinzel',serif;font-size:16px;letter-spacing:4px;display:block;margin-bottom:8px;color:rgba(0,0,0,.45);opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
 </style>
 </head>
-<body style="opacity:0;transition:opacity 0.4s;" onload="document.body.style.opacity='1'">
-<canvas id="cosmos"></canvas>
-<div class="margin-line left" onclick="paginaAnterior()" ontouchend="event.preventDefault();paginaAnterior();"></div>
-<div class="margin-line right" onclick="paginaSiguiente()" ontouchend="event.preventDefault();paginaSiguiente();"></div>
+<body>
+<canvas id="capa1"></canvas>
+<canvas id="estrellasIzq"></canvas>
+<canvas id="estrellasDer"></canvas>
+<div class="borde-izq"></div>
+<div class="borde-der"></div>
+<div class="ml L" onclick="navAnt()"></div>
+<div class="ml R" onclick="navSig()"></div>
 <div id="capa4">
-  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
-  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+  <div class="btn-f izq" id="btnG" onclick="irPortal()"><span>°</span></div>
+  <div class="btn-f der" id="btnD" onclick="irSalon()"><span>∆</span></div>
 </div>
 <div id="capa5"></div>
 <div id="capa2"><div id="capa3">
 
-  <div style="text-align:center;margin-bottom:14px;">
-    <span class="page-ornament">◻ ✦ ◻</span>
-    <span class="page-chapter">Limpio · Simple · Tuyo</span>
-    <h2 class="page-title negro">BIBLIOTECA PAPIRO</h2>
-    <div class="page-sub">Tu guía completa · Versión Blanco</div>
+  <div style="text-align:center;margin-bottom:20px;">
+    <div style="font-size:11px;letter-spacing:12px;color:rgba(180,140,60,.5);margin-bottom:14px;">✦ &nbsp; ◆ &nbsp; ✦</div>
+    <div class="logo-papiro">P<span class="logo-delta">∆</span>PIR°</div>
+    <div class="logo-sub">CREAXION PAPIRO · X-7777777-LC7°</div>
+    <div class="logo-slogan">Digitalidad Sana y Segura</div>
   </div>
-  <div style="text-align:center;margin:8px 0;font-size:14px;letter-spacing:6px;color:rgba(0,0,0,0.25);">— ∆ · ° · ∆ · ° · ∆ —</div>
-
+  <div class="ornamento-arabe">— ◆ — ◆ — ◆ —</div>
   <div class="page-rule"></div>
 
   <div class="sec">
-    <span class="sec-titulo negro">I · Qué es Papiro y qué lo hace diferente</span>
+    <span class="sec-t">I · Lo que diferencia a P∆PIR°</span>
     <div class="cuerpo">
-      <p>Papiro no es otra red social. No te vamos a mentir ni hacerte perder tu tiempo. Somos una plataforma digital construida con una filosofía simple: <em>tecnología que te protege y que no te explota.</em></p>
-      <p>Mientras otras apps usan algoritmos diseñados para crearte ansiedad y dependencia — nosotros hicimos lo contrario. Cada animación, cada color fue calibrado para que cuando entres aquí, <em>respires paz, calma y diversión sana.</em></p>
+      <p><span class="drop">P</span>apiro no es otra red social. Es el espacio donde tu voz importa, tu verdad existe y tu privacidad es sagrada. <em>Tecnología que te protege, no que te explota.</em></p>
+      <p>Cada elemento fue calibrado para que cuando entres, <strong>respires paz, calma y dignidad digital.</strong></p>
     </div>
     <div class="quote">
-      <div class="quote-texto">Digitalidad Sana y Segura no es un eslogan.<br>Es la razón por la que existe cada línea de código aquí.</div>
-      <span class="quote-firma">— ∆° · Creaxion Papiro · Hecho con alma · con historia · con fe</span>
+      <div class="quote-t">"Digitalidad Sana y Segura no es un eslogan.<br>Es la razón por la que existe cada línea de código aquí."</div>
+      <span class="quote-f">— ∆° · Creaxion Papiro · Hecho con alma · con historia · con fe</span>
     </div>
-    <div style="margin:14px 0;">
-      <span class="bloque-lbl negro">LO QUE NO HACEMOS</span>
-      <div class="data">
-        <div class="data-row"><span class="dk">SIN ALGORITMOS DE ANSIEDAD</span><span class="dv">Tú decides qué ver</span></div>
-        <div class="data-row"><span class="dk">SIN ADS INVASIVOS</span><span class="dv">Lo que ves es lo que hay</span></div>
-      </div>
-      <div class="sep-data"></div>
-      <span class="bloque-lbl gris">TU IDENTIDAD EN PAPIRO</span>
-      <div class="data">
-        <div class="data-row"><span class="dk">IDENTIDAD REAL</span><span class="dv">Creax@P∆p.TuNombre · para siempre</span></div>
-        <div class="data-row"><span class="dk">PIXEL CÓSMICO</span><span class="dv">Tu lugar único en el universo digital</span></div>
-      </div>
+    <div class="data-blk">
+      <div class="data-row"><span class="dk">SIN ALGORITMOS DE ANSIEDAD</span><span class="dv">Tú decides qué ver · cuándo · cómo</span></div>
+      <div class="data-row"><span class="dk">SIN ANUNCIOS INVASIVOS</span><span class="dv">Lo que ves es lo que hay · sin engaños</span></div>
+      <div class="data-row"><span class="dk">IDENTIDAD REAL</span><span class="dv">Creax@P∆p.TuNombre · para siempre</span></div>
+      <div class="data-row"><span class="dk">SEGURIDAD 3 CAPAS</span><span class="dv">Nadie toca tus datos sin tu permiso</span></div>
     </div>
   </div>
 
-  <div class="page-rule"></div>
+  <div class="sep-oro">✦ &nbsp;&nbsp; ∆° &nbsp;&nbsp; ✦</div>
 
   <div class="sec">
-    <span class="sec-titulo gris">II · Los Espacios de Papiro</span>
-    <div class="cards">
-      <div class="card"><span class="card-titulo">∆ · EL SALÓN</span>
-        <div class="card-texto">El corazón social de Papiro. Juegos, chat en vivo, transmisiones. Toca <strong>∆</strong> desde cualquier papiro.</div>
-        <span class="card-tag">→ Acceso: botón ∆ · siempre visible</span></div>
-      <div class="card"><span class="card-titulo">📜 LOS PAPIROS</span>
-        <div class="card-texto">Tu espacio personal de expresión con tu estilo, tu color, tu sello.</div>
-        <span class="card-tag">→ papiro.app/∆TuNombre</span></div>
-      <div class="card"><span class="card-titulo">📚 LA BIBLIOTECA</span>
-        <div class="card-texto">Donde estás ahora mismo. Guías, tutoriales y herramientas creativas.</div>
-        <span class="card-tag">→ Envía tu propuesta desde ° soporte</span></div>
-      <div class="card"><span class="card-titulo">🎮 JUEGOS · TvP∆p · EN VIVO</span>
-        <div class="card-texto">Dominó, el truco y más. TvP∆p en directo. Lanzamiento: <strong>26 de octubre</strong>, en el nombre de Jesús.</div>
-        <span class="card-tag">→ Bolívares Digitales · no es dinero real</span></div>
-    </div>
+    <span class="sec-t">II · Los Espacios del Ecosistema</span>
+    <div class="card"><span class="card-titulo">∆ · EL SALÓN</span><div class="card-texto">El corazón social. Juegos, chat en vivo, transmisiones en directo. Accede tocando <strong>∆</strong> desde cualquier papiro.</div><span class="card-tag">→ Botón ∆ · siempre visible</span></div>
+    <div class="card"><span class="card-titulo">📜 TU PAPIRO PERSONAL</span><div class="card-texto">Tu lienzo digital. Tu nombre, tus colores, tu diseño, tu historia. Tu espacio — nadie lo controla, nadie lo silencia.</div><span class="card-tag">→ papiro.app/∆TuNombre</span></div>
+    <div class="card"><span class="card-titulo">🎮 JUEGOS · TvP∆p</span><div class="card-texto">Dominó, el truco y más — con <strong>Bolívares Digitales</strong>. TvP∆p en vivo de fondo.</div><span class="card-tag">→ Lanzamiento: pronto · En el nombre de Jesús</span></div>
   </div>
 
-  <div class="page-rule"></div>
+  <div class="sep">◆ &nbsp; · &nbsp; ◆ &nbsp; · &nbsp; ◆</div>
 
   <div class="sec">
-    <span class="sec-titulo carbon">III · Herramientas · Seguridad</span>
+    <span class="sec-t">III · Tecnología y Seguridad</span>
     <ul class="lista">
-      <li>Tu papiro personal: colores, texturas, diseño, firma. Tu espacio — nadie más lo controla.</li>
-      <li>Tu pixel cósmico: coordenada única en el universo digital. Los primeros 100 → Oro Vivo para siempre.</li>
-      <li>Crixus: la IA del ecosistema. Tu amigo digital — próximamente en cada papiro.</li>
-      <li>Las 3 Marías: sistema de seguridad de 3 capas. Nadie toca tus datos sin tu permiso expreso.</li>
-      <li>Modo apocalipsis: si internet cae, tus datos sobreviven en tu dispositivo.</li>
+      <li>Tu papiro personal — colores, texturas, firma única. Nadie lo censura.</li>
+      <li>Las 3 Marías — seguridad de triple capa. Nadie toca tus datos sin tu autorización.</li>
+      <li>Modo Apocalipsis — si internet cae, tus datos sobreviven en tu dispositivo.</li>
     </ul>
+  </div>
+
+  <div class="sep-oro">✦ &nbsp;&nbsp; ° &nbsp;&nbsp; ✦</div>
+
+  <div class="sec">
+    <span class="sec-t">IV · Publicar · Crear · Transmitir</span>
+    <div class="cuerpo">
+      <p>Tu papiro es tuyo — diseña y expresa todo lo que imaginas. La única regla: <em>sé real.</em></p>
+      <p>Cuando alguien te pregunte sobre P∆PIR°, diles: <strong>es una plataforma digital latinoamericana que protege a sus usuarios en lugar de explotarlos.</strong></p>
+    </div>
     <div class="quote">
-      <div class="quote-texto">"Los que creyeron en la idea.<br>Los que vieron lo revolucionario.<br>En el concepto y en Dios."</div>
-      <span class="quote-firma">— Luis Alfonso Castillejo · X-7777777-LC7°</span>
+      <div class="quote-t">"Los que creyeron en la idea.<br>Los que vieron lo que había de revolucionario.<br>En el concepto y en Dios."</div>
+      <span class="quote-f">— Luis Alfonso Castillejo · X-7777777-LC7° · Venezuela</span>
     </div>
   </div>
 
   <div class="page-rule"></div>
-
   <div class="cta-wrap">
-    <span style="font-size:24px;display:block;margin-bottom:10px;">◻</span>
-    <span style="font-family:'Cinzel',serif;font-size:21px;font-weight:600;letter-spacing:2px;display:block;margin-bottom:12px;" class="negro">¿Quieres ir más profundo?</span>
-    <span style="font-family:'Crimson Pro',serif;font-style:italic;font-size:23px;color:#333;display:block;margin-bottom:16px;line-height:2;">Regístrate y crea tu correo en P∆°PIRO<br>y te enviaremos todo detallado<br>sobre el tema que elijas.</span>
-    <button class="btn-cta" onclick="irRegistro()">✦ REGÍSTRATE EN P∆°PIRO</button>
+    <div style="font-size:12px;letter-spacing:6px;color:rgba(180,140,60,.6);margin-bottom:16px;">✦ · ∆° · ✦</div>
+    <div style="font-family:'Cinzel',serif;font-size:20px;font-weight:900;letter-spacing:3px;color:#000;margin-bottom:14px;">¿QUIERES PROFUNDIZAR?</div>
+    <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:22px;color:#333;margin-bottom:20px;line-height:2;">Regístrate y crea tu identidad en P∆PIR°.<br>Tu espacio te espera.</div>
+    <button class="btn-cta" onclick="irRegistro()">✦ REGISTRARME EN P∆PIR°</button>
   </div>
-
-  <div class="footer-stamp">
-    <div class="stamp-phrase negro">Panajpe Eneeru Moorukajpo Pariipo</div>
-    <div class="stamp-sub">CÓDIGO DE HONOR IM. #7 — Así lo he hecho</div>
+  <div class="sello">
+    <div class="sp">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="ss">CÓDIGO DE HONOR IM. #7 — Así lo he hecho</div>
   </div>
 
   <div class="baul">
     <div class="baul-rule"></div>
-    <span style="font-family:'Special Elite',serif;font-size:19px;letter-spacing:3px;color:#888;display:block;text-align:center;margin-bottom:16px;">· ∆° · Creaxion Papiro © 2026 ·</span>
-    <span style="font-family:'Cinzel',serif;font-size:17px;letter-spacing:5px;display:block;text-align:center;margin-bottom:22px;line-height:2;" class="negro">· EL BAÚL DE LOS QUE SÍ CREYERON<br>DESDE EL PRIMER MOMENTO ·</span>
-    <span class="baul-nombre" id="bN" style="display:block;text-align:center;width:100%;">Luis Castillejo</span>
-    <span class="baul-sub" id="bS1" style="display:block;text-align:center;width:100%;">X-7777777-LC7° · SI° · 350 · 777</span>
-    <span class="baul-sub" id="bS2" style="display:block;text-align:center;width:100%;transition-delay:0.5s;word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
-    <span class="baul-sub" id="bS3" style="display:block;text-align:center;width:100%;transition-delay:0.7s;">Fundador · Creaxion Papiro © 2026</span>
+    <div style="font-size:11px;letter-spacing:8px;color:rgba(180,140,60,.45);text-align:center;margin-bottom:18px;">✦ · ∆° · CREAXION PAPIRO © 2026 · ∆° · ✦</div>
+    <div style="font-family:'Cinzel',serif;font-size:13px;letter-spacing:5px;color:rgba(0,0,0,.25);text-align:center;margin-bottom:28px;line-height:2.2;">EL BAÚL DE LOS QUE SÍ CREYERON<br>DESDE EL PRIMER MOMENTO</div>
+    <span class="bn" id="bN">Luis Castillejo</span>
+    <span class="bs" id="bS1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS2" style="word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="bs" id="bS3">Fundador · Creaxion Papiro © 2026</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
+    <div style="margin-top:20px;font-family:'Special Elite',serif;font-size:14px;letter-spacing:2px;color:rgba(0,0,0,.2);text-align:center;">#SI° · #LC7° · #PAPIRO777 · #DigitalidadSanaySegura</div>
   </div>
-
 </div></div>
+
 <script>
+window.addEventListener('load',function(){document.body.style.opacity='1';});
+
+/* ESTRELLAS EN BORDES — dorada y negra alternando, bajando lento */
 (function(){
-  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
-  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();window.addEventListener('resize',r);
-  var s=[];
-  for(var i=0;i<200;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.8+0.2,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005,color:'rgba(0,0,0,0.6)'});
-  for(var j=0;j<30;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.5+0.3,ph:Math.random()*Math.PI*2,sp:Math.random()*0.001+0.0003,color:'rgba(100,100,100,0.5)'});
-  function d(){requestAnimationFrame(d);ctx.fillStyle='rgba(248,248,248,0.3)';ctx.fillRect(0,0,c.width,c.height);
-    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a,0.8);
-    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color;ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+  ['estrellasIzq','estrellasDer'].forEach(function(id){
+    var canvas=document.getElementById(id);
+    if(!canvas)return;
+    var ctx=canvas.getContext('2d');
+    var W=32,H=window.innerHeight;
+    canvas.width=W;canvas.height=H;
+    var ESP=38,total=Math.ceil(H/ESP)+4,offset=0;
+    var estrellas=[];
+    for(var i=0;i<total;i++)estrellas.push({y:i*ESP,dorada:i%2===0,size:7,alpha:i%2===0?.7:.55});
+    function draw(){
+      requestAnimationFrame(draw);
+      ctx.clearRect(0,0,W,H);
+      ctx.fillStyle='#F0EBE0';ctx.fillRect(0,0,W,H);
+      offset+=0.18;if(offset>=ESP)offset=0;
+      estrellas.forEach(function(s){
+        var y=(s.y-offset+H*2)%(total*ESP)-ESP;
+        if(y<-20||y>H+20)return;
+        ctx.save();ctx.globalAlpha=s.alpha;
+        ctx.font=s.size+'px serif';ctx.textAlign='center';ctx.textBaseline='middle';
+        if(s.dorada){ctx.fillStyle='#C9A84C';ctx.shadowColor='rgba(180,140,60,.35)';ctx.shadowBlur=4;}
+        else{ctx.fillStyle='#1A1A1A';ctx.shadowColor='rgba(0,0,0,.15)';ctx.shadowBlur=2;}
+        ctx.fillText('★',W/2,y);ctx.restore();
+      });
+    }
+    draw();
+    window.addEventListener('resize',function(){H=window.innerHeight;canvas.height=H;});
+  });
 })();
-function paginaAnterior(){document.body.style.opacity='0';setTimeout(function(){window.location.href='login.html';},300);}
-function paginaSiguiente(){document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
-function irSalon(){document.body.style.opacity='0';setTimeout(function(){window.location.href='salon.html';},300);}
-function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_tienda.html';},300);}
-function irRegistro(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
-window.addEventListener('scroll',function(){
-  if((window.scrollY||window.pageYOffset)>window.innerHeight*10){
-    ['bN','bS1','bS2','bS3'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
-  }
-});
+
+/* COSMOS — partículas oscuras sobre marfil */
+(function(){
+  var c=document.getElementById('capa1'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['rgba(0,0,0,','rgba(30,20,0,','rgba(50,40,10,'];
+  [{n:180,rMin:.06,rMax:.35,spMin:.0004,spMax:.0018,p:false},{n:60,rMin:.18,rMax:.6,spMin:.0006,spMax:.0022,p:false},{n:20,rMin:.4,rMax:1.0,spMin:.0005,spMax:.0016,p:true},{n:8,rMin:.8,rMax:1.4,spMin:.0003,spMax:.0007,p:true,cef:true}].forEach(function(g){for(var i=0;i<g.n;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:g.rMin+Math.random()*(g.rMax-g.rMin),ph:Math.random()*Math.PI*2,sp:g.spMin+Math.random()*(g.spMax-g.spMin),p:g.p||false,cef:g.cef||false,np:6,plt:0,col:cols[Math.floor(Math.random()*cols.length)]});});
+  function sk(x,y,a,r,np){var len=r*4*a;ctx.save();for(var i=0;i<np;i++){var ang=(i/np)*Math.PI*2,pa=ang+Math.PI/2,w=r*.08*a;var gd=ctx.createLinearGradient(x,y,x+Math.cos(ang)*len,y+Math.sin(ang)*len);gd.addColorStop(0,'rgba(0,0,0,'+a+')');gd.addColorStop(1,'rgba(0,0,0,0)');ctx.globalAlpha=a*.4;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+Math.cos(pa)*w,y+Math.sin(pa)*w);ctx.lineTo(x+Math.cos(ang)*len,y+Math.sin(ang)*len);ctx.lineTo(x-Math.cos(pa)*w,y-Math.sin(pa)*w);ctx.closePath();ctx.fillStyle=gd;ctx.fill();}ctx.restore();}
+  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#F5F0E8';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.sin(s.ph);a=a>0?a*a:0;if(s.cef&&a>.92){s.plt++;if(s.plt>20)a=1.0;}else s.plt=0;if(a<.01)return;ctx.globalAlpha=1;ctx.beginPath();ctx.arc(s.x,s.y,s.r*a,0,Math.PI*2);ctx.fillStyle=s.col+a+')';ctx.fill();if(s.p&&a>.4)sk(s.x,s.y,a,s.r,s.np);});ctx.globalAlpha=1;}draw();
+})();
+
+/* Sistema adaptativo */
+(function(){
+  var bG=document.getElementById('btnG'),bD=document.getElementById('btnD');
+  var zI=[{p:0,q:.25,cb:'rgba(0,0,0,.92)',cc:'rgba(201,168,76,.45)',cs:'rgba(0,0,0,.3)'},{p:.25,q:.5,cb:'rgba(5,5,5,.90)',cc:'rgba(201,168,76,.55)',cs:'rgba(0,0,0,.32)'},{p:.5,q:.75,cb:'rgba(0,0,0,.95)',cc:'rgba(180,140,60,.40)',cs:'rgba(0,0,0,.28)'},{p:.75,q:1,cb:'rgba(8,6,0,.90)',cc:'rgba(201,168,76,.60)',cs:'rgba(0,0,0,.35)'}];
+  var zD=[{p:0,q:.25,cb:'rgba(5,4,2,.90)',cc:'rgba(201,168,76,.60)',cs:'rgba(180,140,60,.25)'},{p:.25,q:.5,cb:'rgba(8,6,0,.92)',cc:'rgba(201,168,76,.70)',cs:'rgba(180,140,60,.30)'},{p:.5,q:.75,cb:'rgba(4,3,1,.90)',cc:'rgba(180,140,60,.55)',cs:'rgba(160,120,50,.22)'},{p:.75,q:1,cb:'rgba(10,8,2,.92)',cc:'rgba(201,168,76,.65)',cs:'rgba(180,140,60,.28)'}];
+  function apI(z){bG.style.background=z.cb;bG.style.borderColor=z.cc;bG.style.boxShadow='0 0 14px '+z.cs+',0 4px 16px '+z.cs;}
+  function apD(z){bD.style.background=z.cb;bD.style.borderColor=z.cc;bD.style.boxShadow='0 0 14px '+z.cs+',0 0 24px '+z.cs;}
+  apI(zI[0]);apD(zD[0]);var uI=-1,uD=-1;
+  window.addEventListener('scroll',function(){
+    var sy=window.scrollY||window.pageYOffset,ms=document.body.scrollHeight-window.innerHeight,p=ms>0?sy/ms:0;
+    for(var i=0;i<zI.length;i++){if(p>=zI[i].p&&p<zI[i].q){if(i!==uI){uI=i;apI(zI[i]);}break;}}
+    for(var j=0;j<zD.length;j++){if(p>=zD[j].p&&p<zD[j].q){if(j!==uD){uD=j;apD(zD[j]);}break;}}
+    if(sy>window.innerHeight*13)['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+  },{passive:true});
+})();
+
+function navAnt(){document.body.style.opacity='0';setTimeout(function(){location.href='portada_es.html';},300);}
+function navSig(){document.body.style.opacity='0';setTimeout(function(){location.href='portada_es.html';},300);}
+function irPortal(){document.body.style.opacity='0';setTimeout(function(){location.href='papiro_grado.html';},300);}
+function irSalon(){var u=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){location.href=u?'salon.html':'login.html';},300);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){location.href='login.html';},300);}
 </script>
-</body></html>
+</body>
+</html>
