@@ -1,22 +1,27 @@
 {
   "name": "Creaxion Papiro",
   "short_name": "P∆PIR°",
-  "description": "Digitalidad Sana y Segura · Creaxion Papiro",
-  "start_url": "/",
+  "description": "Digitalidad Sana y Segura · X-7777777-LC7°",
+  "start_url": "/banderas.html",
   "display": "standalone",
-  "background_color": "#0A0800",
-  "theme_color": "#C9A84C",
   "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#C9A84C",
+  "lang": "es",
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["social", "communication"],
+  "screenshots": []
 }
