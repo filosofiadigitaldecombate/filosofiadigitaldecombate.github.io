@@ -2,501 +2,258 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>Papiro777∆° · Entrada</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>P∆PIR° · Acceso</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-html,body{overflow-x:hidden;background:#000;min-height:100vh;}
-canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
-
-.margin-line{position:fixed;top:0;height:100%;width:4px;z-index:10;pointer-events:none;
-  background:linear-gradient(180deg,#C96800,#FFB347,#FFD700,#FFFACD,#FFD700,#FFB347,#C96800);
-  background-size:100% 400%;animation:oroM 6s linear infinite;
-  box-shadow:0 0 6px rgba(255,180,0,0.5);}
-.margin-line.left{left:32px;}.margin-line.right{right:32px;}
-@keyframes oroM{0%{background-position:0% center;}100%{background-position:400% center;}}
-
-#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
-.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:48px;height:48px;
-  border-radius:50%;display:flex;align-items:center;justify-content:center;
-  background:rgba(201,168,76,0.12);border:1px solid rgba(201,168,76,0.35);transition:all 0.3s;}
-.btn-f:hover{background:rgba(201,168,76,0.25);}
-.btn-f.der{bottom:24px;right:24px;}
-.btn-f.izq{bottom:24px;left:24px;}
-.btn-f span{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
-  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
-  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroV 6s linear infinite;}
-@keyframes oroV{0%{background-position:0% center;}100%{background-position:300% center;}}
-
-.wrap{position:relative;z-index:2;width:100%;max-width:420px;margin:0 auto;
-  min-height:100vh;padding:32px 48px 40px;
-  display:flex;flex-direction:column;align-items:center;}
-
-.oro{background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
-  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroV 8s linear infinite;}
-
-.titulo{font-family:'Cinzel',serif;font-size:22px;font-weight:900;
-  letter-spacing:6px;text-align:center;margin-bottom:4px;}
-.subtitulo{font-family:'Special Elite',serif;font-size:14px;
-  letter-spacing:3px;color:rgba(201,168,76,0.5);text-align:center;margin-bottom:20px;}
-
-.aviso-baul{text-align:center;margin-bottom:16px;padding:12px 16px;
-  border:1px solid rgba(201,168,76,0.1);border-radius:8px;
-  background:rgba(201,168,76,0.03);}
-.aviso-txt1{font-family:'Crimson Pro',serif;font-style:italic;
-  font-size:16px;color:#DDD0AA;display:block;margin-bottom:4px;}
-.aviso-txt2{font-family:'Cinzel',serif;font-size:14px;letter-spacing:2px;display:block;}
-
-.sep{width:100%;display:flex;align-items:center;gap:10px;margin:8px 0 16px;}
-.sep-line{flex:1;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.2),transparent);}
-.sep-txt{font-family:'Special Elite',serif;font-size:12px;color:rgba(201,168,76,0.3);letter-spacing:2px;}
-
-.lbl{font-family:'Cinzel',serif;font-size:12px;letter-spacing:2px;
-  color:#FFD700;display:block;margin-bottom:5px;align-self:flex-start;width:100%;}
-.inp{width:100%;background:rgba(255,255,255,0.04);border:1px solid rgba(201,168,76,0.3);
-  border-radius:10px;padding:14px 16px;color:#DDD0AA;
-  font-family:'Crimson Pro',serif;font-size:17px;
-  outline:none;margin-bottom:12px;}
-.inp:focus{border-color:rgba(201,168,76,0.6);}
-.inp::placeholder{color:rgba(201,168,76,0.2);}
-
-.btn-pri{width:100%;background:linear-gradient(135deg,rgba(100,60,0,0.4),rgba(60,30,0,0.2));
-  border:1px solid rgba(201,168,76,0.4);border-radius:10px;padding:15px;
-  font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;
-  color:#FFD700;cursor:pointer;margin-bottom:10px;transition:all 0.3s;}
-.btn-pri:hover{background:rgba(100,60,0,0.6);}
-.btn-sec{width:100%;background:transparent;border:1px solid rgba(201,168,76,0.12);
-  border-radius:10px;padding:12px;font-family:'Cinzel',serif;font-size:12px;
-  letter-spacing:2px;color:rgba(201,168,76,0.5);cursor:pointer;margin-bottom:8px;transition:all 0.3s;}
-.btn-sec:hover{border-color:rgba(201,168,76,0.3);color:rgba(201,168,76,0.8);}
-.btn-vis{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;
-  color:rgba(201,168,76,0.3);background:none;border:none;cursor:pointer;}
-.fb{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;
-  text-align:center;min-height:18px;margin:6px 0;}
-.ok{color:#90D890;}.error{color:rgba(255,100,100,0.7);}.info{color:rgba(201,168,76,0.7);}
-
-.sello{margin-top:auto;padding-top:20px;text-align:center;width:100%;}
-.sello-t{font-family:'Special Elite',serif;font-size:12px;
-  letter-spacing:2px;color:rgba(201,168,76,0.2);}
-
-/* ══ SPLASH ══ */
-#splash{position:fixed;inset:0;z-index:100;background:#000;
-  display:none;flex-direction:column;align-items:center;justify-content:center;
-  opacity:0;transition:opacity 0.6s;}
-#splash.on{opacity:1;}
-.sp-n{font-family:'Cinzel',serif;font-size:30px;font-weight:900;letter-spacing:6px;
-  text-align:center;display:block;margin-bottom:14px;
-  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFFACD,#FFD700,#FFB347,#C96800);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroM 8s linear infinite;
-  filter:drop-shadow(0 0 20px rgba(255,180,0,0.4));
-  opacity:0;transform:translateY(20px);transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
-.sp-n.on{opacity:1;transform:translateY(0);}
-.sp-s{font-family:'Crimson Pro',serif;font-style:italic;font-size:18px;
-  color:rgba(201,168,76,0.6);display:block;opacity:0;transition:opacity 0.8s 0.7s;}
-.sp-s.on{opacity:1;}
-.sp-se{font-family:'Special Elite',serif;font-size:14px;letter-spacing:3px;
-  color:rgba(201,168,76,0.3);margin-top:16px;display:block;
-  opacity:0;transition:opacity 0.8s 1.1s;}
-.sp-se.on{opacity:1;}
-
-/* ══ FLECHA ══ */
-.flecha{display:none;text-align:center;padding:20px 0;width:100%;}
-.flecha-ico{font-size:34px;display:block;margin-bottom:8px;}
-.flecha-t1{font-family:'Cinzel',serif;font-size:15px;letter-spacing:2px;display:block;margin-bottom:4px;}
-.flecha-t2{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;color:#DDD0AA;display:block;margin-bottom:4px;}
-.flecha-t3{font-family:'Cinzel',serif;font-size:15px;letter-spacing:2px;display:block;}
-@keyframes bajar{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
-
-/* ══ BAÚL ══ */
-.baul{padding:500vh 0 50vh;text-align:center;width:100%;}
-.baul-rule{width:60%;height:1px;margin:0 auto 20px;
-  background:linear-gradient(to right,transparent,rgba(201,168,76,0.3),transparent);}
-.baul-lbl{font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;display:block;margin-bottom:20px;}
-
-/* ARCO BAÚL — entrada */
-.arco-baul{width:260px;height:130px;margin:0 auto 20px;display:none;}
-
-/* NOMBRE */
-.baul-n{font-family:'Cinzel',serif;font-size:28px;font-weight:900;letter-spacing:6px;
-  display:block;margin-bottom:10px;cursor:pointer;
-  background:linear-gradient(90deg,#C96800,#FFB347,#FFD700,#FFFACD,#FFD700,#FFB347,#C96800);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroM 18s linear infinite;
-  filter:drop-shadow(0 1px 0 rgba(255,220,100,0.5)) drop-shadow(0 0 8px rgba(255,180,0,0.3));
-  opacity:0;transform:translateY(30px);transition:opacity 0.8s,transform 0.8s;}
-.baul-s{font-family:'Cinzel',serif;font-size:15px;letter-spacing:3px;display:block;margin-bottom:6px;
-  background:linear-gradient(90deg,#C96800,#FFD700,#FFFACD,#FFD700,#C96800);
-  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroM 20s linear infinite;
-  opacity:0;transform:translateY(20px);transition:opacity 0.8s 0.3s,transform 0.8s 0.3s;}
-.baul-n.vis,.baul-s.vis{opacity:1;transform:translateY(0);}
-
-/* CÓDIGO ESTELAR — entrada */
-.cod-entrada{display:none;margin:8px 0;}
-.dots{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
-.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.1);
-  border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;}
-.dot.on{background:#FFD700;border-color:#FFD700;box-shadow:0 0 5px rgba(255,200,0,0.5);}
-.cod-msg{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;
-  color:rgba(201,168,76,0.5);min-height:18px;}
-
-/* CREAR CÓDIGO — primera vez */
-.crear{border:1px solid rgba(201,168,76,0.2);border-radius:12px;
-  padding:16px;margin-top:14px;background:rgba(201,168,76,0.03);display:none;}
-.crear-t{font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;
-  color:#FFD700;display:block;margin-bottom:6px;}
-.crear-s{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;
-  color:#8A7D60;display:block;margin-bottom:14px;line-height:1.8;}
-.crear-msg{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;
-  color:rgba(201,168,76,0.5);min-height:18px;margin-top:6px;}
-
-@keyframes lavaFlow{
-  0%{background-position:0% center;}
-  100%{background-position:500% center;}
-}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{background:#FFF;min-height:100vh;overflow-x:hidden;}
+@keyframes comandoEsp{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
+@keyframes margenFlow{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
+.ml{position:fixed;top:0;bottom:0;width:5px;z-index:100;cursor:pointer;pointer-events:all;
+  background:linear-gradient(180deg,#000,#0A0A0A,#111,#050505,#000,#0D0D0D,#000,#080808,#111,#000);
+  background-size:100% 400%;animation:margenFlow 35s ease-in-out infinite;}
+.ml.L{left:36px;}.ml.R{right:36px;}
+.pano{margin:0 41px;min-height:100vh;background:#FEFEFE;display:flex;flex-direction:column;
+  align-items:center;justify-content:flex-start;padding:32px 20px 60px;}
+.logo{font-family:'Cinzel',serif;font-size:42px;font-weight:900;letter-spacing:8px;margin-bottom:4px;
+  background:linear-gradient(180deg,#000,#050505,#0A0A0A,#000,#080808,#111,#050505,#000,#0D0D0D,#030303,#161616,#000);
+  background-size:100% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:comandoEsp 30s ease-in-out infinite;-webkit-text-stroke:1px #C9A84C;text-align:center;}
+.logo-delta{-webkit-text-stroke:1px #E8C97A;}
+.logo-sub{font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;color:rgba(0,0,0,.3);text-align:center;margin-bottom:24px;}
+.tabs{display:flex;width:100%;max-width:320px;margin-bottom:20px;
+  border-radius:50px;overflow:hidden;border:2px solid rgba(0,0,0,.1);background:#F8F8F8;}
+.tab{flex:1;padding:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;
+  text-align:center;cursor:pointer;color:rgba(0,0,0,.35);border:none;background:transparent;transition:all .25s;}
+.tab.on{background:#000;color:#FFF;border-radius:48px;}
+.form{width:100%;max-width:320px;}
+.campo{margin-bottom:14px;}
+.lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(0,0,0,.4);display:block;margin-bottom:5px;}
+.inp{width:100%;padding:14px 16px;background:#FAFAFA;border:1px solid rgba(0,0,0,.12);
+  border-radius:14px;color:#000;font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;transition:border-color .2s;}
+.inp:focus{border-color:#000;background:#FFF;}
+.inp::placeholder{color:rgba(0,0,0,.25);}
+.pass-bar{height:4px;border-radius:4px;margin-top:6px;transition:all .3s;background:#E0E0E0;width:0%;}
+.pass-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(0,0,0,.35);margin-top:4px;}
+.captcha{background:#F8F8F8;border:1px solid rgba(0,0,0,.1);border-radius:14px;
+  padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer;}
+.captcha-check{width:20px;height:20px;border:2px solid rgba(0,0,0,.25);border-radius:4px;
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.captcha-check.ok{background:#000;border-color:#000;color:#FFF;font-size:12px;}
+.captcha-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(0,0,0,.5);}
+.btn-main{width:100%;padding:16px;margin-top:6px;border-radius:50px;border:none;cursor:pointer;
+  font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;
+  background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;
+  box-shadow:0 4px 15px rgba(0,0,0,.3);transition:all .2s;}
+.btn-main:active{transform:translateY(2px);}
+.btn-main:disabled{opacity:.4;cursor:not-allowed;}
+.otp-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:320px;}
+.otp-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:#000;text-align:center;}
+.otp-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(0,0,0,.4);text-align:center;line-height:1.7;}
+.otp-boxes{display:flex;gap:8px;justify-content:center;}
+.otp-box{width:44px;height:56px;border:2px solid rgba(0,0,0,.15);border-radius:12px;
+  background:#FAFAFA;font-family:'Cinzel',serif;font-size:22px;font-weight:900;
+  text-align:center;color:#000;outline:none;transition:all .2s;}
+.otp-box:focus{border-color:#000;background:#FFF;box-shadow:0 0 0 3px rgba(0,0,0,.1);}
+.otp-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(0,0,0,.3);}
+.link-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
+  color:rgba(0,0,0,.4);text-align:center;cursor:pointer;margin-top:8px;text-decoration:underline;}
+.msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
+  color:rgba(0,0,0,.4);text-align:center;margin-top:10px;line-height:1.7;}
+.new-pass-wrap{width:100%;max-width:320px;text-align:center;}
+.np-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:#000;margin-bottom:16px;}
 </style>
 </head>
-<body style="opacity:0;transition:opacity 0.4s;" onload="init()">
+<body>
+<div class="ml L" onclick="back()"></div>
+<div class="ml R" onclick="back()"></div>
+<div class="pano">
+  <div class="logo">P<span class="logo-delta">∆</span>PIR°</div>
+  <div class="logo-sub">CREAXION PAPIRO · ACCESO</div>
+  <div class="tabs" id="tabs">
+    <button class="tab" id="tab-c" onclick="setTab('crear')">CREAR CUENTA</button>
+    <button class="tab on" id="tab-i" onclick="setTab('iniciar')">INICIAR SESIÓN</button>
+  </div>
 
-<canvas id="cosmos"></canvas>
-<div class="margin-line left"></div>
-<div class="margin-line right"></div>
+  <!-- CREAR CUENTA -->
+  <div class="form" id="form-crear" style="display:none;">
+    <div class="campo"><label class="lbl">TU NOMBRE</label><input class="inp" id="c-nombre" type="text" placeholder="Cómo te llaman" maxlength="40"></div>
+    <div class="campo"><label class="lbl">TU CORREO</label><input class="inp" id="c-email" type="email" placeholder="correo@ejemplo.com"></div>
+    <div class="campo">
+      <label class="lbl">CONTRASEÑA</label>
+      <input class="inp" id="c-pass" type="password" placeholder="Mínimo 8 caracteres" oninput="checkPass(this.value)" autocomplete="new-password">
+      <div class="pass-bar" id="passBar"></div>
+      <div class="pass-hint" id="passHint">Mayúscula, minúscula, número y símbolo</div>
+    </div>
+    <div class="campo"><label class="lbl">CONFIRMAR CONTRASEÑA</label><input class="inp" id="c-pass2" type="password" placeholder="Repite la contraseña" autocomplete="new-password"></div>
+    <div class="captcha" id="captcha" onclick="toggleCaptcha()">
+      <div class="captcha-check" id="captchaCheck"></div>
+      <div class="captcha-label">No soy un robot</div>
+    </div>
+    <button class="btn-main" id="btn-crear" onclick="crearCuenta()">CREAR MI CUENTA ✦</button>
+    <div class="msg">Recibirás un enlace en tu correo para verificar tu cuenta.</div>
+  </div>
 
-<div id="capa4">
-  <div class="btn-f izq" onclick="irSoporte()"><span>°</span></div>
-  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+  <!-- INICIAR SESIÓN -->
+  <div class="form" id="form-iniciar">
+    <div class="campo"><label class="lbl">TU CORREO</label><input class="inp" id="i-email" type="email" placeholder="correo@ejemplo.com"></div>
+    <div class="campo"><label class="lbl">CONTRASEÑA</label><input class="inp" id="i-pass" type="password" placeholder="Tu contraseña" autocomplete="current-password"></div>
+    <div class="captcha" id="captcha2" onclick="toggleCaptcha2()">
+      <div class="captcha-check" id="captchaCheck2"></div>
+      <div class="captcha-label">No soy un robot</div>
+    </div>
+    <button class="btn-main" id="btn-iniciar" onclick="iniciarSesion()">ENTRAR ✦</button>
+    <div class="link-text" onclick="olvidoPass()">Olvidé mi contraseña</div>
+  </div>
+
+  <!-- OTP -->
+  <div class="otp-wrap" id="otp-wrap" style="display:none;">
+    <div class="otp-title">VERIFICACIÓN</div>
+    <div class="otp-sub" id="otp-sub">Tu código fue enviado a tu correo</div>
+    <div class="otp-boxes">
+      <input class="otp-box" id="o0" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(0)" onkeydown="prevBox(event,0)">
+      <input class="otp-box" id="o1" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(1)" onkeydown="prevBox(event,1)">
+      <input class="otp-box" id="o2" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(2)" onkeydown="prevBox(event,2)">
+      <input class="otp-box" id="o3" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(3)" onkeydown="prevBox(event,3)">
+      <input class="otp-box" id="o4" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(4)" onkeydown="prevBox(event,4)">
+      <input class="otp-box" id="o5" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(5)" onkeydown="prevBox(event,5)">
+    </div>
+    <button class="btn-main" onclick="verificarOTP()">VERIFICAR CÓDIGO</button>
+    <div class="otp-note">¿No llegó? <span class="link-text" style="display:inline;" onclick="reenviarOTP()">Reenviar código</span></div>
+    <div class="link-text" onclick="cancelarOTP()">← Volver</div>
+  </div>
+
+  <!-- NUEVA CONTRASEÑA -->
+  <div class="new-pass-wrap" id="new-pass-wrap" style="display:none;">
+    <div class="np-title">NUEVA CONTRASEÑA</div>
+    <div class="campo"><label class="lbl">NUEVA CONTRASEÑA</label><input class="inp" id="np1" type="password" placeholder="Mínimo 8 caracteres" oninput="checkPass(this.value,'passBar2','passHint2')" autocomplete="new-password"><div class="pass-bar" id="passBar2"></div><div class="pass-hint" id="passHint2"></div></div>
+    <div class="campo"><label class="lbl">CONFIRMAR</label><input class="inp" id="np2" type="password" placeholder="Repite la contraseña" autocomplete="new-password"></div>
+    <button class="btn-main" onclick="cambiarPassword()">CAMBIAR CONTRASEÑA ✦</button>
+    <div class="link-text" onclick="cancelarOTP()">← Volver</div>
+  </div>
 </div>
 
-<!-- SPLASH -->
-<div id="splash">
-  <canvas id="cosmosSp" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;"></canvas>
-  <div style="position:relative;z-index:2;text-align:center;padding:32px;">
-    <span style="font-family:'Special Elite',serif;font-size:13px;letter-spacing:4px;color:rgba(201,168,76,0.3);display:block;margin-bottom:28px;">∆° · Creaxion Papiro</span>
-    <span class="sp-n" id="spN">∆°</span>
-    <span class="sp-s" id="spS">Ya tienes acceso al cosmos</span>
-    <span class="sp-se" id="spSe">∆° · Escolta activo · Bienvenid°</span>
-  </div>
-</div>
-
-<!-- CONTENIDO -->
-<div class="wrap">
-
-  <div class="titulo oro">PAPIRO 777</div>
-  <div class="subtitulo" id="sub1" style="font-family:'Special Elite',serif;font-size:17px;letter-spacing:2px;background:linear-gradient(90deg,
-    #CC2200,#E83000,#FF4500,
-    #FF6B00,#FF8C00,#FF6B00,
-    #FF4500,#E83000,#CC2200);
-  background-size:500% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:lavaFlow 14s linear infinite;">∆° · Digitalidad Sana y Segura</div>
-
-  <!-- ESCUDO -->
-  <svg viewBox="0 0 200 220" width="130" height="143" style="margin-bottom:20px;">
-    <path d="M20,20 L180,20 L180,140 Q100,200 20,140 Z" fill="none" stroke="rgba(201,168,76,0.3)" stroke-width="2"/>
-    <line x1="100" y1="20" x2="100" y2="155" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-    <line x1="20" y1="90" x2="180" y2="90" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
-    <text x="55" y="62" text-anchor="middle" font-size="26" fill="rgba(255,255,255,0.45)">🐎</text>
-    <text x="145" y="62" text-anchor="middle" font-size="20" fill="rgba(255,215,0,0.45)">🌾</text>
-    <path d="M25,95 Q45,115 65,100 Q85,85 100,105 Q85,120 65,130 Q45,140 25,125 Z" fill="rgba(30,100,180,0.2)" stroke="rgba(30,100,180,0.25)" stroke-width="1"/>
-    <text x="145" y="130" text-anchor="middle" font-size="18" fill="rgba(201,168,76,0.35)">⚑</text>
-    <path d="M40,170 Q100,185 160,170" fill="none" stroke="rgba(201,168,76,0.2)" stroke-width="1.5"/>
-    <text x="100" y="192" text-anchor="middle" font-family="serif" font-size="9" fill="rgba(201,168,76,0.3)" letter-spacing="2">VENEZUELA</text>
-  </svg>
-
-  <!-- AVISO -->
-  <div class="aviso-baul">
-    <span class="aviso-txt1">¿Ya tienes cuenta?</span>
-    <span class="aviso-txt2 oro">↓ Baja a tu Baúl · presiona tu nombre</span>
-  </div>
-
-  <div class="sep">
-    <div class="sep-line"></div>
-    <span class="sep-txt">o</span>
-    <div class="sep-line"></div>
-  </div>
-
-  <button class="btn-pri" onclick="crearCuenta()">✦ CREAR MI CUENTA</button>
-
-  <button class="btn-pri" onclick="entrarVisitante()" style="
-    background:transparent;
-    border:1px solid rgba(201,168,76,0.25);
-    color:rgba(201,168,76,0.6);
-    display:flex;align-items:center;justify-content:center;gap:10px;
-  ">
-    <!-- Ojo minimalista SVG -->
-    <svg width="22" height="14" viewBox="0 0 22 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 7C1 7 4.5 1 11 1C17.5 1 21 7 21 7C21 7 17.5 13 11 13C4.5 13 1 7 1 7Z"
-        stroke="rgba(201,168,76,0.6)" stroke-width="1.2" fill="none"/>
-      <circle cx="11" cy="7" r="3"
-        stroke="rgba(201,168,76,0.6)" stroke-width="1.2" fill="none"/>
-      <circle cx="11" cy="7" r="1"
-        fill="rgba(201,168,76,0.5)"/>
-    </svg>
-    Entrar como visitante
-  </button>
-
-  <div class="fb" id="fb"></div>
-
-  <div class="sello">
-    <div id="sello1" style="font-family:'Special Elite',serif;font-size:15px;letter-spacing:2px;background:linear-gradient(90deg,
-    #CC2200,#E83000,#FF4500,
-    #FF6B00,#FF8C00,#FF6B00,
-    #FF4500,#E83000,#CC2200);
-  background-size:500% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:lavaFlow 14s linear infinite;margin-bottom:3px;">∆° · Creaxion Papiro © 2026</div>
-    <div id="sello2" style="font-family:'Special Elite',serif;font-size:15px;letter-spacing:2px;background:linear-gradient(90deg,
-    #CC2200,#E83000,#FF4500,
-    #FF6B00,#FF8C00,#FF6B00,
-    #FF4500,#E83000,#CC2200);
-  background-size:500% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:lavaFlow 14s linear infinite;">X-7777777-LC7° · SI° · 350 · 777</div>
-  </div>
-
-  <!-- FLECHA (tras login) -->
-  <div class="flecha" id="flechaWrap">
-    <span class="flecha-ico oro" style="animation:oroV 4s linear infinite,bajar 1.5s ease-in-out infinite;">↓</span>
-    <span class="flecha-t1 oro">Ahora baja a tu Baúl</span>
-    <span class="flecha-t2">presiona tu nombre · ya tienes ingreso</span>
-    <span class="flecha-t3 oro">Felicidades ∆°</span>
-  </div>
-
-  <!-- ══ BAÚL ══ -->
-  <div class="baul">
-    <div class="baul-rule"></div>
-    <span id="bLbl" style="font-family:'Cinzel',serif;font-size:14px;letter-spacing:4px;display:block;margin-bottom:20px;background:linear-gradient(90deg,
-    #CC2200,#E83000,#FF4500,
-    #FF6B00,#FF8C00,#FF6B00,
-    #FF4500,#E83000,#CC2200);
-  background-size:500% auto;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;
-  animation:lavaFlow 14s linear infinite;">· EL BAÚL · Tu primera recompensa ·</span>
-
-    <!-- ARCO ESTRELLAS — usuario recurrente con código estelar -->
-    <div class="arco-baul" id="arcoWrap" style="width:260px;height:100px;margin:0 auto 20px;">
-      <svg viewBox="0 0 260 100" width="260" height="100">
-        <text id="as1" x="21.2" y="94.3" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(1)" ontouchend="event.preventDefault();cEstelar(1)">★</text>
-        <text id="as2" x="47.7" y="57.7" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(2)" ontouchend="event.preventDefault();cEstelar(2)">★</text>
-        <text id="as3" x="85.7" y="33.5" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(3)" ontouchend="event.preventDefault();cEstelar(3)">★</text>
-        <text id="as4" x="130.0" y="25.0" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(4)" ontouchend="event.preventDefault();cEstelar(4)">★</text>
-        <text id="as5" x="174.3" y="33.5" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(5)" ontouchend="event.preventDefault();cEstelar(5)">★</text>
-        <text id="as6" x="212.3" y="57.7" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(6)" ontouchend="event.preventDefault();cEstelar(6)">★</text>
-        <text id="as7" x="238.8" y="94.3" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="cEstelar(7)" ontouchend="event.preventDefault();cEstelar(7)">★</text>
-      </svg>
-    </div>
-
-    <!-- NOMBRE -->
-    <span class="baul-n" id="bN" style="margin-top:16px;"
-      onclick="entrarNombre()" ontouchend="event.preventDefault();entrarNombre();">
-      ∆°
-    </span>
-    <span class="baul-s" id="bS1">Tu nombre aparecerá aquí</span>
-    <span class="baul-s" id="bS2" style="transition-delay:0.5s;">Toca para entrar al ecosistema</span>
-
-    <!-- DOTS código estelar -->
-    <div class="cod-entrada" id="codEntrada">
-      <div class="dots">
-        <div class="dot" id="bd1"></div>
-        <div class="dot" id="bd2"></div>
-        <div class="dot" id="bd3"></div>
-        <div class="dot" id="bd4"></div>
-      </div>
-      <div class="cod-msg" id="codMsg">Ingresa tu código estelar</div>
-    </div>
-
-    <!-- CREAR CÓDIGO — primera vez -->
-    <div class="crear" id="crearDiv">
-      <span class="crear-t">★ CREA TU CÓDIGO ESTELAR</span>
-      <span class="crear-s">Elige 4 estrellas en tu orden secreto.<br>Ese será tu acceso rápido para siempre.</span>
-      <!-- Arco idéntico para crear -->
-      <svg viewBox="0 0 260 100" width="240" height="92" style="display:block;margin:0 auto 10px;">
-        <text id="cc1" x="21.2" y="94.3" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(1)" ontouchend="event.preventDefault();crearC(1)">★</text>
-        <text id="cc2" x="47.7" y="57.7" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(2)" ontouchend="event.preventDefault();crearC(2)">★</text>
-        <text id="cc3" x="85.7" y="33.5" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(3)" ontouchend="event.preventDefault();crearC(3)">★</text>
-        <text id="cc4" x="130.0" y="25.0" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(4)" ontouchend="event.preventDefault();crearC(4)">★</text>
-        <text id="cc5" x="174.3" y="33.5" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(5)" ontouchend="event.preventDefault();crearC(5)">★</text>
-        <text id="cc6" x="212.3" y="57.7" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(6)" ontouchend="event.preventDefault();crearC(6)">★</text>
-        <text id="cc7" x="238.8" y="94.3" text-anchor="middle" font-size="36" fill="rgba(201,168,76,0.4)" style="cursor:pointer;" onclick="crearC(7)" ontouchend="event.preventDefault();crearC(7)">★</text>
-      </svg>
-      <div class="dots">
-        <div class="dot" id="cd1"></div>
-        <div class="dot" id="cd2"></div>
-        <div class="dot" id="cd3"></div>
-        <div class="dot" id="cd4"></div>
-      </div>
-      <div class="crear-msg" id="cMsg"></div>
-    </div>
-
-  </div><!-- /baul -->
-</div><!-- /wrap -->
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-/* COSMOS */
-function cosmos(id,n,op){
-  var c=document.getElementById(id);if(!c)return;
-  var ctx=c.getContext('2d');
-  function r(){c.width=window.innerWidth;c.height=window.innerHeight;}r();
-  if(id==='cosmos')window.addEventListener('resize',r);
-  var s=[];
-  for(var i=0;i<n;i++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.7+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.003+0.001});
-  var cl=['#A8D4FF','#FFE8A0','#C8A0FF','#A0FFD0'];
-  for(var j=0;j<30;j++)s.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*0.4+0.1,ph:Math.random()*Math.PI*2,sp:Math.random()*0.002+0.0005,color:cl[j%4]});
-  c.style.opacity=op;
-  function d(){requestAnimationFrame(d);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
-    s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=Math.min(a*a*1.5,1);
-    ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle=st.color||'#FFF';ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}d();
+var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
+var lang=localStorage.getItem('pap_lang')||'es';
+var modo='',captchaOk=false,captcha2Ok=false;
+
+window.addEventListener('load',function(){document.body.style.transition='opacity 0.4s';document.body.style.opacity='1';});
+
+function setTab(t){
+  document.getElementById('form-crear').style.display=t==='crear'?'block':'none';
+  document.getElementById('form-iniciar').style.display=t==='iniciar'?'block':'none';
+  document.getElementById('otp-wrap').style.display='none';
+  document.getElementById('new-pass-wrap').style.display='none';
+  document.getElementById('tabs').style.display='flex';
+  document.getElementById('tab-c').className='tab'+(t==='crear'?' on':'');
+  document.getElementById('tab-i').className='tab'+(t==='iniciar'?' on':'');
 }
-
-function init(){
-  document.body.style.opacity='1';
-  cosmos('cosmos',280,0.35);
-  /* TEST — eliminar en producción */
-  if(!localStorage.getItem('papiro_usuario')){
-    localStorage.setItem('papiro_usuario',JSON.stringify({
-      nombre:'Luis Castillejo',codigo:'Creax@P\u2206p.Luis',
-      password:'1234',pixel:'LC7-7777777'
-    }));
-  }
+function toggleCaptcha(){captchaOk=!captchaOk;var c=document.getElementById('captchaCheck');c.className='captcha-check'+(captchaOk?' ok':'');c.textContent=captchaOk?'✓':'';}
+function toggleCaptcha2(){captcha2Ok=!captcha2Ok;var c=document.getElementById('captchaCheck2');c.className='captcha-check'+(captcha2Ok?' ok':'');c.textContent=captcha2Ok?'✓':'';}
+function checkPass(v,barId,hintId){
+  barId=barId||'passBar';hintId=hintId||'passHint';
+  var bar=document.getElementById(barId),hint=document.getElementById(hintId);
+  var score=0;
+  if(v.length>=8)score++;if(/[A-Z]/.test(v))score++;if(/[a-z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^A-Za-z0-9]/.test(v))score++;
+  var colors=['#E0E0E0','#FF4444','#FF8800','#FFD700','#00BB44','#00CC66'];
+  var labels=['','Muy débil','Débil','Media','Fuerte','Muy fuerte'];
+  if(bar){bar.style.background=colors[score];bar.style.width=(score*20)+'%';}
+  if(hint&&score>0)hint.textContent=labels[score];
 }
-
-/* CREAR CUENTA / VISITANTE */
-function crearCuenta(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_corazon.html';},300);}
-function entrarVisitante(){localStorage.setItem('papiro_visitante','true');document.body.style.opacity='0';setTimeout(function(){window.location.href='splash.html';},300);}
-function irSalon(){var s=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){window.location.href=s?'salon.html':'papiro_corazon.html';},300);}
-function irSoporte(){document.body.style.opacity='0';setTimeout(function(){window.location.href='papiro_guia_maestro.html';},300);}
-
-/* SPLASH */
-function splash(nombre){
-  var sp=document.getElementById('splash');
-  document.getElementById('spN').textContent=nombre;
-  sp.style.display='flex';cosmos('cosmosSp',180,1);
-  setTimeout(function(){sp.classList.add('on');},50);
-  setTimeout(function(){document.getElementById('spN').classList.add('on');},300);
-  setTimeout(function(){document.getElementById('spS').classList.add('on');},700);
-  setTimeout(function(){document.getElementById('spSe').classList.add('on');},1100);
-  if(navigator.vibrate)navigator.vibrate([40,20,40,20,100]);
-  setTimeout(function(){
-    sp.style.opacity='0';
-    setTimeout(function(){
-      sp.style.display='none';
-      document.getElementById('flechaWrap').style.display='block';
-    },600);
-  },4000);
+async function crearCuenta(){
+  var n=document.getElementById('c-nombre').value.trim();
+  var e=document.getElementById('c-email').value.trim();
+  var p=document.getElementById('c-pass').value;
+  var p2=document.getElementById('c-pass2').value;
+  if(!n){alert('Ingresa tu nombre');return;}
+  if(!e){alert('Ingresa tu correo');return;}
+  if(!p||p.length<8){alert('La contraseña debe tener al menos 8 caracteres');return;}
+  if(!/[A-Z]/.test(p)||!/[a-z]/.test(p)||!/[0-9]/.test(p)||!/[^A-Za-z0-9]/.test(p)){alert('La contraseña debe tener: mayúscula, minúscula, número y símbolo');return;}
+  if(p!==p2){alert('Las contraseñas no coinciden');return;}
+  if(!captchaOk){alert('Confirma que no eres un robot');return;}
+  localStorage.setItem('pap_nombre',n);
+  var btn=document.getElementById('btn-crear');btn.textContent='Enviando...';btn.disabled=true;
+  if(sb){
+    var{data,error}=await sb.auth.signUp({email:e,password:p,options:{data:{display_name:n}}});
+    if(error){alert('Error: '+error.message);btn.textContent='CREAR MI CUENTA ✦';btn.disabled=false;}
+    else showOTP('crear','Código de verificación enviado a tu correo');
+  }else{localStorage.setItem('pap_email',e);showOTP('crear','(Demo) Ingresa cualquier 6 dígitos');}
 }
-
-/* SCROLL — BAÚL */
-window.addEventListener('scroll',function(){
-  if((window.scrollY||window.pageYOffset)>window.innerHeight*4.5){
-    var ses=localStorage.getItem('papiro_usuario');
-    if(!ses)return;
-    try{
-      var u=JSON.parse(ses);
-      var tieneC=localStorage.getItem('papiro_sena');
-      // Personalizar
-      var nb=document.getElementById('bN');
-      var s1=document.getElementById('bS1');
-      var s2=document.getElementById('bS2');
-      var lb=document.getElementById('bLbl');
-      if(nb)nb.textContent=u.nombre||'∆°';
-      if(s1)s1.textContent=u.codigo||'∆° · Creaxion Papiro';
-      if(lb)lb.textContent=tieneC?'· ∆° · Ingresa tu código estelar ·':'· ∆° · Tu primera recompensa ·';
-      if(s2)s2.textContent=tieneC?'Presiona las estrellas arriba':'Toca tu nombre para entrar';
-      ['bN','bS1','bS2'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
-      if(tieneC){
-        document.getElementById('arcoWrap').style.display='block';
-        document.getElementById('codEntrada').style.display='block';
-        document.getElementById('crearDiv').style.display='none';
-      } else {
-        document.getElementById('arcoWrap').style.display='none';
-        document.getElementById('codEntrada').style.display='none';
-        document.getElementById('crearDiv').style.display='block';
-      }
-      if(navigator.vibrate)navigator.vibrate([30,20,30,20,80]);
-    }catch(e){}
-  }
-});
-
-/* ENTRAR CON NOMBRE */
-function entrarNombre(){
-  var tieneC=localStorage.getItem('papiro_sena');
-  var cOk=localStorage.getItem('papiro_cod_ok');
-  if(tieneC&&!cOk){
-    document.getElementById('codMsg').textContent='↑ Ingresa tu código estelar primero';
-    document.getElementById('codMsg').style.color='rgba(255,180,0,0.7)';
-    if(navigator.vibrate)navigator.vibrate([50,30,50]);
-    return;
-  }
-  localStorage.removeItem('papiro_cod_ok');
-  document.body.style.opacity='0';
-  setTimeout(function(){window.location.href='splash.html';},300);
+async function iniciarSesion(){
+  var e=document.getElementById('i-email').value.trim();
+  var p=document.getElementById('i-pass').value;
+  if(!e){alert('Ingresa tu correo');return;}
+  if(!p){alert('Ingresa tu contraseña');return;}
+  if(!captcha2Ok){alert('Confirma que no eres un robot');return;}
+  var btn=document.getElementById('btn-iniciar');btn.textContent='Verificando...';btn.disabled=true;
+  if(sb){
+    var{data,error}=await sb.auth.signInWithPassword({email:e,password:p});
+    if(error){
+      if(error.message.includes('Invalid')){var ok=confirm('Contraseña incorrecta. ¿Enviar código a tu correo?');if(ok){await sb.auth.signInWithOtp({email:e});showOTP('login','Código enviado a tu correo');}}
+      else alert('Error: '+error.message);
+      btn.textContent='ENTRAR ✦';btn.disabled=false;
+    }else window.location.href='portada_es.html';
+  }else{showOTP('login','(Demo) Ingresa cualquier 6 dígitos');}
 }
-
-/* INGRESAR CÓDIGO ESTELAR */
-var _in=[];
-function cEstelar(n){
-  if(_in.length>=4)return;
-  _in.push(n);
-  var el=document.getElementById('as'+n);
-  if(el){el.style.fill='#FFD700';el.style.filter='drop-shadow(0 0 8px rgba(255,180,0,0.9))';
-    setTimeout(function(){el.style.fill='rgba(201,168,76,0.4)';el.style.filter='none';},400);}
-  if(navigator.vibrate)navigator.vibrate([25,10,25]);
-  for(var i=1;i<=4;i++){var d=document.getElementById('bd'+i);if(d){if(i<=_in.length)d.classList.add('on');else d.classList.remove('on');}}
-  if(_in.length===4){
-    var ing=_in.join('-');var g=localStorage.getItem('papiro_sena');_in=[];
-    if(ing===g){
-      localStorage.setItem('papiro_cod_ok','true');
-      document.getElementById('codMsg').textContent='✦ Correcto · presiona tu nombre';
-      document.getElementById('codMsg').style.color='#90D890';
-      var nb=document.getElementById('bN');
-      if(nb)nb.style.filter='drop-shadow(0 0 24px rgba(255,180,0,0.9))';
-      if(navigator.vibrate)navigator.vibrate([50,20,100]);
-    } else {
-      document.getElementById('codMsg').textContent='Código incorrecto · intenta de nuevo';
-      document.getElementById('codMsg').style.color='rgba(255,100,100,0.7)';
-      if(navigator.vibrate)navigator.vibrate([100,50,200]);
-      for(var j=1;j<=4;j++){var dd=document.getElementById('bd'+j);if(dd)dd.classList.remove('on');}
-      setTimeout(function(){document.getElementById('codMsg').textContent='Ingresa tu código estelar';document.getElementById('codMsg').style.color='';},1500);
-    }
-  } else {
-    document.getElementById('codMsg').textContent=_in.length+' de 4 · continúa...';
-    document.getElementById('codMsg').style.color='rgba(201,168,76,0.6)';
-  }
+async function olvidoPass(){
+  var e=document.getElementById('i-email').value.trim();
+  if(!e){alert('Primero ingresa tu correo');return;}
+  if(sb)await sb.auth.resetPasswordForEmail(e,{redirectTo:window.location.href+'?reset=1'});
+  showOTP('reset','Enlace de recuperación enviado a tu correo');
 }
-
-/* CREAR CÓDIGO ESTELAR */
-var _cr=[];
-function crearC(n){
-  if(_cr.length>=4)return;
-  _cr.push(n);
-  var el=document.getElementById('cc'+n);
-  if(el){el.style.fill='#FFD700';el.style.filter='drop-shadow(0 0 8px rgba(255,180,0,0.9))';
-    setTimeout(function(){el.style.fill='rgba(201,168,76,0.4)';el.style.filter='none';},400);}
-  if(navigator.vibrate)navigator.vibrate([25,10,25]);
-  for(var i=1;i<=4;i++){var d=document.getElementById('cd'+i);if(d){if(i<=_cr.length)d.classList.add('on');else d.classList.remove('on');}}
-  var msg=document.getElementById('cMsg');
-  if(_cr.length===4){
-    var cod=_cr.join('-');localStorage.setItem('papiro_sena',cod);
-    if(msg){msg.textContent='✦ Código creado · '+cod.replace(/-/g,'★');msg.style.color='#90D890';}
-    if(navigator.vibrate)navigator.vibrate([50,20,100]);
-    var u=localStorage.getItem('papiro_usuario');
-    if(u){try{var uo=JSON.parse(u);uo.tiene_codigo_estelar=true;localStorage.setItem('papiro_usuario',JSON.stringify(uo));}catch(e){}}
-    setTimeout(function(){document.getElementById('crearDiv').style.display='none';},2200);
-    _cr=[];
-  } else {
-    if(msg){msg.textContent=_cr.length+' de 4 · sigue...';msg.style.color='';}
-  }
+function showOTP(m,msg){
+  modo=m;
+  document.getElementById('tabs').style.display='none';
+  document.getElementById('form-crear').style.display='none';
+  document.getElementById('form-iniciar').style.display='none';
+  document.getElementById('new-pass-wrap').style.display='none';
+  document.getElementById('otp-wrap').style.display='flex';
+  document.getElementById('otp-sub').textContent=msg;
+  setTimeout(function(){document.getElementById('o0').focus();},100);
 }
-
-console.log('∆° Login v2 · Capa 5 activa');
+function nextBox(i){
+  var v=document.getElementById('o'+i).value;
+  if(v&&i<5)document.getElementById('o'+(i+1)).focus();
+  var code='';for(var j=0;j<6;j++)code+=document.getElementById('o'+j).value;
+  if(code.length===6)setTimeout(verificarOTP,200);
+}
+function prevBox(e,i){if(e.key==='Backspace'&&!document.getElementById('o'+i).value&&i>0)document.getElementById('o'+(i-1)).focus();}
+async function verificarOTP(){
+  var code='';for(var i=0;i<6;i++)code+=document.getElementById('o'+i).value;
+  if(code.length<6){alert('Ingresa los 6 dígitos');return;}
+  if(sb){
+    var email=document.getElementById(modo==='crear'?'c-email':'i-email').value.trim();
+    var{data,error}=await sb.auth.verifyOtp({email:email,token:code,type:modo==='reset'?'recovery':'email'});
+    if(error)alert('Código incorrecto: '+error.message);
+    else if(modo==='reset')showNewPass();
+    else window.location.href='portada_es.html';
+  }else{if(modo==='reset')showNewPass();else window.location.href='portada_es.html';}
+}
+function showNewPass(){document.getElementById('otp-wrap').style.display='none';document.getElementById('new-pass-wrap').style.display='block';}
+async function cambiarPassword(){
+  var p1=document.getElementById('np1').value;
+  var p2=document.getElementById('np2').value;
+  if(!p1||p1.length<8){alert('Mínimo 8 caracteres');return;}
+  if(!/[A-Z]/.test(p1)||!/[a-z]/.test(p1)||!/[0-9]/.test(p1)||!/[^A-Za-z0-9]/.test(p1)){alert('Debe tener mayúscula, minúscula, número y símbolo');return;}
+  if(p1!==p2){alert('Las contraseñas no coinciden');return;}
+  if(sb){var{error}=await sb.auth.updateUser({password:p1});
+    if(error)alert('Error: '+error.message);
+    else{alert('✦ Contraseña cambiada exitosamente · Es un placer para Creax@P∆PIR° ser útil para ti');window.location.href='portada_es.html';}}
+  else{alert('✦ Contraseña cambiada (Demo)');window.location.href='portada_es.html';}
+}
+async function reenviarOTP(){
+  var email=document.getElementById(modo==='crear'?'c-email':'i-email').value.trim();
+  if(sb&&email)await sb.auth.resend({type:'signup',email:email});
+  alert('Código reenviado · Revisa tu correo');
+}
+function cancelarOTP(){setTab('iniciar');}
+function back(){document.body.style.opacity='0';setTimeout(function(){location.href='recepcion_'+(lang||'es')+'.html';},280);}
+if(window.location.search.includes('reset=1')||window.location.hash.includes('type=recovery')){showNewPass();}
 </script>
 </body>
 </html>
