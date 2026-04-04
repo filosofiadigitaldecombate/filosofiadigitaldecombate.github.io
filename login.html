@@ -9,60 +9,43 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{background:#FFF;min-height:100vh;overflow-x:hidden;}
 @keyframes comandoEsp{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
-@keyframes margenFlow{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
+@keyframes margenFlow{0%{background-position:0% 0%;}100%{background-position:0% 200px;}}
 .ml{position:fixed;top:0;bottom:0;width:5px;z-index:100;cursor:pointer;pointer-events:all;
-  background:linear-gradient(180deg,#000,#0A0A0A,#111,#050505,#000,#0D0D0D,#000,#080808,#111,#000);
-  background-size:100% 400%;animation:margenFlow 35s ease-in-out infinite;}
+  background:repeating-linear-gradient(180deg,#000 0px,#000 80px,#444 80px,#444 100px,#000 100px);
+  background-size:100% 100px;animation:margenFlow 6s linear infinite;}
 .ml.L{left:36px;}.ml.R{right:36px;}
-.pano{margin:0 41px;min-height:100vh;background:#FEFEFE;display:flex;flex-direction:column;
-  align-items:center;justify-content:flex-start;padding:32px 20px 60px;}
+.pano{margin:0 41px;min-height:100vh;background:#FEFEFE;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding:32px 20px 60px;}
 .logo{font-family:'Cinzel',serif;font-size:42px;font-weight:900;letter-spacing:8px;margin-bottom:4px;
   background:linear-gradient(180deg,#000,#050505,#0A0A0A,#000,#080808,#111,#050505,#000,#0D0D0D,#030303,#161616,#000);
   background-size:100% 600%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:comandoEsp 30s ease-in-out infinite;-webkit-text-stroke:1px #C9A84C;text-align:center;}
+  animation:comandoEsp 20s ease-in-out infinite;-webkit-text-stroke:1px #C9A84C;text-align:center;}
 .logo-delta{-webkit-text-stroke:1px #E8C97A;}
 .logo-sub{font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;color:rgba(0,0,0,.3);text-align:center;margin-bottom:24px;}
-.tabs{display:flex;width:100%;max-width:320px;margin-bottom:20px;
-  border-radius:50px;overflow:hidden;border:2px solid rgba(0,0,0,.1);background:#F8F8F8;}
-.tab{flex:1;padding:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;
-  text-align:center;cursor:pointer;color:rgba(0,0,0,.35);border:none;background:transparent;transition:all .25s;}
+.tabs{display:flex;width:100%;max-width:320px;margin-bottom:20px;border-radius:50px;overflow:hidden;border:2px solid rgba(0,0,0,.1);background:#F8F8F8;}
+.tab{flex:1;padding:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-align:center;cursor:pointer;color:rgba(0,0,0,.35);border:none;background:transparent;transition:all .25s;}
 .tab.on{background:#000;color:#FFF;border-radius:48px;}
 .form{width:100%;max-width:320px;}
 .campo{margin-bottom:14px;}
 .lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(0,0,0,.4);display:block;margin-bottom:5px;}
-.inp{width:100%;padding:14px 16px;background:#FAFAFA;border:1px solid rgba(0,0,0,.12);
-  border-radius:14px;color:#000;font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;transition:border-color .2s;}
+.inp{width:100%;padding:14px 16px;background:#FAFAFA;border:1px solid rgba(0,0,0,.12);border-radius:14px;color:#000;font-family:'Cormorant Garamond',serif;font-size:16px;outline:none;transition:border-color .2s;}
 .inp:focus{border-color:#000;background:#FFF;}
 .inp::placeholder{color:rgba(0,0,0,.25);}
 .pass-bar{height:4px;border-radius:4px;margin-top:6px;transition:all .3s;background:#E0E0E0;width:0%;}
 .pass-hint{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(0,0,0,.35);margin-top:4px;}
-.captcha{background:#F8F8F8;border:1px solid rgba(0,0,0,.1);border-radius:14px;
-  padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:12px;cursor:pointer;}
-.captcha-check{width:20px;height:20px;border:2px solid rgba(0,0,0,.25);border-radius:4px;
-  flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.captcha-check.ok{background:#000;border-color:#000;color:#FFF;font-size:12px;}
-.captcha-label{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(0,0,0,.5);}
-.btn-main{width:100%;padding:16px;margin-top:6px;border-radius:50px;border:none;cursor:pointer;
-  font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;
-  background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;
-  box-shadow:0 4px 15px rgba(0,0,0,.3);transition:all .2s;}
+.btn-main{width:100%;padding:16px;margin-top:6px;border-radius:50px;border:none;cursor:pointer;font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;box-shadow:0 4px 15px rgba(0,0,0,.3);transition:all .2s;}
 .btn-main:active{transform:translateY(2px);}
 .btn-main:disabled{opacity:.4;cursor:not-allowed;}
 .otp-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:320px;}
 .otp-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:#000;text-align:center;}
 .otp-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:rgba(0,0,0,.4);text-align:center;line-height:1.7;}
 .otp-boxes{display:flex;gap:8px;justify-content:center;}
-.otp-box{width:44px;height:56px;border:2px solid rgba(0,0,0,.15);border-radius:12px;
-  background:#FAFAFA;font-family:'Cinzel',serif;font-size:22px;font-weight:900;
-  text-align:center;color:#000;outline:none;transition:all .2s;}
+.otp-box{width:44px;height:56px;border:2px solid rgba(0,0,0,.15);border-radius:12px;background:#FAFAFA;font-family:'Cinzel',serif;font-size:22px;font-weight:900;text-align:center;color:#000;outline:none;transition:all .2s;}
 .otp-box:focus{border-color:#000;background:#FFF;box-shadow:0 0 0 3px rgba(0,0,0,.1);}
-.otp-note{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:12px;color:rgba(0,0,0,.3);}
-.link-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
-  color:rgba(0,0,0,.4);text-align:center;cursor:pointer;margin-top:8px;text-decoration:underline;}
-.msg{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;
-  color:rgba(0,0,0,.4);text-align:center;margin-top:10px;line-height:1.7;}
-.new-pass-wrap{width:100%;max-width:320px;text-align:center;}
-.np-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:#000;margin-bottom:16px;}
+.link-text{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:13px;color:rgba(0,0,0,.4);text-align:center;cursor:pointer;margin-top:8px;text-decoration:underline;}
+.msg-box{background:#F0F8F0;border:1px solid rgba(0,150,0,.2);border-radius:12px;padding:14px 16px;margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#2A6A2A;text-align:center;line-height:1.7;display:none;}
+.msg-err{background:#FFF0F0;border:1px solid rgba(200,0,0,.2);border-radius:12px;padding:14px 16px;margin-top:12px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:14px;color:#8A2020;text-align:center;line-height:1.7;display:none;}
+.new-pass-wrap{width:100%;max-width:320px;}
+.np-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;color:#000;margin-bottom:16px;text-align:center;}
 </style>
 </head>
 <body>
@@ -87,30 +70,25 @@ html,body{background:#FFF;min-height:100vh;overflow-x:hidden;}
       <div class="pass-hint" id="passHint">Mayúscula, minúscula, número y símbolo</div>
     </div>
     <div class="campo"><label class="lbl">CONFIRMAR CONTRASEÑA</label><input class="inp" id="c-pass2" type="password" placeholder="Repite la contraseña" autocomplete="new-password"></div>
-    <div class="captcha" id="captcha" onclick="toggleCaptcha()">
-      <div class="captcha-check" id="captchaCheck"></div>
-      <div class="captcha-label">No soy un robot</div>
-    </div>
     <button class="btn-main" id="btn-crear" onclick="crearCuenta()">CREAR MI CUENTA ✦</button>
-    <div class="msg">Recibirás un enlace en tu correo para verificar tu cuenta.</div>
+    <div class="msg-box" id="msg-crear"></div>
+    <div class="msg-err" id="err-crear"></div>
   </div>
 
   <!-- INICIAR SESIÓN -->
   <div class="form" id="form-iniciar">
-    <div class="campo"><label class="lbl">TU CORREO</label><input class="inp" id="i-email" type="email" placeholder="correo@ejemplo.com"></div>
+    <div class="campo"><label class="lbl">TU CORREO</label><input class="inp" id="i-email" type="email" placeholder="correo@ejemplo.com" autocomplete="email"></div>
     <div class="campo"><label class="lbl">CONTRASEÑA</label><input class="inp" id="i-pass" type="password" placeholder="Tu contraseña" autocomplete="current-password"></div>
-    <div class="captcha" id="captcha2" onclick="toggleCaptcha2()">
-      <div class="captcha-check" id="captchaCheck2"></div>
-      <div class="captcha-label">No soy un robot</div>
-    </div>
     <button class="btn-main" id="btn-iniciar" onclick="iniciarSesion()">ENTRAR ✦</button>
     <div class="link-text" onclick="olvidoPass()">Olvidé mi contraseña</div>
+    <div class="msg-box" id="msg-login"></div>
+    <div class="msg-err" id="err-login"></div>
   </div>
 
-  <!-- OTP -->
+  <!-- OTP 6 CASILLAS -->
   <div class="otp-wrap" id="otp-wrap" style="display:none;">
-    <div class="otp-title">VERIFICACIÓN</div>
-    <div class="otp-sub" id="otp-sub">Tu código fue enviado a tu correo</div>
+    <div class="otp-title">CÓDIGO DE VERIFICACIÓN</div>
+    <div class="otp-sub" id="otp-sub">Ingresa el código de 6 dígitos enviado a tu correo</div>
     <div class="otp-boxes">
       <input class="otp-box" id="o0" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(0)" onkeydown="prevBox(event,0)">
       <input class="otp-box" id="o1" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(1)" onkeydown="prevBox(event,1)">
@@ -119,9 +97,11 @@ html,body{background:#FFF;min-height:100vh;overflow-x:hidden;}
       <input class="otp-box" id="o4" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(4)" onkeydown="prevBox(event,4)">
       <input class="otp-box" id="o5" type="text" maxlength="1" inputmode="numeric" oninput="nextBox(5)" onkeydown="prevBox(event,5)">
     </div>
-    <button class="btn-main" onclick="verificarOTP()">VERIFICAR CÓDIGO</button>
-    <div class="otp-note">¿No llegó? <span class="link-text" style="display:inline;" onclick="reenviarOTP()">Reenviar código</span></div>
+    <button class="btn-main" onclick="verificarOTP()">VERIFICAR ✦</button>
+    <div class="link-text" onclick="reenviarOTP()">No llegó · Reenviar código</div>
     <div class="link-text" onclick="cancelarOTP()">← Volver</div>
+    <div class="msg-box" id="msg-otp"></div>
+    <div class="msg-err" id="err-otp"></div>
   </div>
 
   <!-- NUEVA CONTRASEÑA -->
@@ -131,6 +111,7 @@ html,body{background:#FFF;min-height:100vh;overflow-x:hidden;}
     <div class="campo"><label class="lbl">CONFIRMAR</label><input class="inp" id="np2" type="password" placeholder="Repite la contraseña" autocomplete="new-password"></div>
     <button class="btn-main" onclick="cambiarPassword()">CAMBIAR CONTRASEÑA ✦</button>
     <div class="link-text" onclick="cancelarOTP()">← Volver</div>
+    <div class="msg-err" id="err-np"></div>
   </div>
 </div>
 
@@ -140,9 +121,29 @@ var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
 var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
 var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
 var lang=localStorage.getItem('pap_lang')||'es';
-var modo='',captchaOk=false,captcha2Ok=false;
+var modo='';
 
 window.addEventListener('load',function(){document.body.style.transition='opacity 0.4s';document.body.style.opacity='1';});
+
+/* Si viene de link de reset */
+if(window.location.hash.includes('type=recovery')||window.location.search.includes('reset=1')){
+  document.getElementById('tabs').style.display='none';
+  document.getElementById('form-iniciar').style.display='none';
+  document.getElementById('new-pass-wrap').style.display='block';
+  modo='reset';
+}
+
+/* Si viene de link de confirmación */
+if(sb){
+  sb.auth.onAuthStateChange(function(event,session){
+    if(event==='SIGNED_IN'&&session){
+      var nombre=session.user.user_metadata?.display_name||session.user.email?.split('@')[0]||'P∆plover';
+      localStorage.setItem('pap_nombre',nombre);
+      localStorage.setItem('pap_usuario',session.user.id);
+      ir('portada_es.html');
+    }
+  });
+}
 
 function setTab(t){
   document.getElementById('form-crear').style.display=t==='crear'?'block':'none';
@@ -153,8 +154,6 @@ function setTab(t){
   document.getElementById('tab-c').className='tab'+(t==='crear'?' on':'');
   document.getElementById('tab-i').className='tab'+(t==='iniciar'?' on':'');
 }
-function toggleCaptcha(){captchaOk=!captchaOk;var c=document.getElementById('captchaCheck');c.className='captcha-check'+(captchaOk?' ok':'');c.textContent=captchaOk?'✓':'';}
-function toggleCaptcha2(){captcha2Ok=!captcha2Ok;var c=document.getElementById('captchaCheck2');c.className='captcha-check'+(captcha2Ok?' ok':'');c.textContent=captcha2Ok?'✓':'';}
 function checkPass(v,barId,hintId){
   barId=barId||'passBar';hintId=hintId||'passHint';
   var bar=document.getElementById(barId),hint=document.getElementById(hintId);
@@ -165,47 +164,68 @@ function checkPass(v,barId,hintId){
   if(bar){bar.style.background=colors[score];bar.style.width=(score*20)+'%';}
   if(hint&&score>0)hint.textContent=labels[score];
 }
+function showMsg(id,txt){var el=document.getElementById(id);if(el){el.textContent=txt;el.style.display='block';}}
+function hideMsg(id){var el=document.getElementById(id);if(el)el.style.display='none';}
+
 async function crearCuenta(){
   var n=document.getElementById('c-nombre').value.trim();
   var e=document.getElementById('c-email').value.trim();
   var p=document.getElementById('c-pass').value;
   var p2=document.getElementById('c-pass2').value;
-  if(!n){alert('Ingresa tu nombre');return;}
-  if(!e){alert('Ingresa tu correo');return;}
-  if(!p||p.length<8){alert('La contraseña debe tener al menos 8 caracteres');return;}
-  if(!/[A-Z]/.test(p)||!/[a-z]/.test(p)||!/[0-9]/.test(p)||!/[^A-Za-z0-9]/.test(p)){alert('La contraseña debe tener: mayúscula, minúscula, número y símbolo');return;}
-  if(p!==p2){alert('Las contraseñas no coinciden');return;}
-  if(!captchaOk){alert('Confirma que no eres un robot');return;}
-  localStorage.setItem('pap_nombre',n);
-  var btn=document.getElementById('btn-crear');btn.textContent='Enviando...';btn.disabled=true;
+  hideMsg('msg-crear');hideMsg('err-crear');
+  if(!n){showMsg('err-crear','Ingresa tu nombre');return;}
+  if(!e){showMsg('err-crear','Ingresa tu correo');return;}
+  if(!p||p.length<8){showMsg('err-crear','La contraseña debe tener al menos 8 caracteres');return;}
+  if(!/[A-Z]/.test(p)||!/[a-z]/.test(p)||!/[0-9]/.test(p)||!/[^A-Za-z0-9]/.test(p)){showMsg('err-crear','Necesita: mayúscula, minúscula, número y símbolo');return;}
+  if(p!==p2){showMsg('err-crear','Las contraseñas no coinciden');return;}
+  localStorage.setItem('pap_nombre',n);localStorage.setItem('pap_email',e);
+  var btn=document.getElementById('btn-crear');btn.textContent='Creando cuenta...';btn.disabled=true;
   if(sb){
-    var{data,error}=await sb.auth.signUp({email:e,password:p,options:{data:{display_name:n}}});
-    if(error){alert('Error: '+error.message);btn.textContent='CREAR MI CUENTA ✦';btn.disabled=false;}
-    else showOTP('crear','Código de verificación enviado a tu correo');
-  }else{localStorage.setItem('pap_email',e);showOTP('crear','(Demo) Ingresa cualquier 6 dígitos');}
+    var{data,error}=await sb.auth.signUp({email:e,password:p,options:{emailRedirectTo:window.location.origin+'/portada_es.html',data:{display_name:n}}});
+    btn.textContent='CREAR MI CUENTA ✦';btn.disabled=false;
+    if(error){showMsg('err-crear','Error: '+error.message);}
+    else{showMsg('msg-crear','✦ Cuenta creada. Revisa tu correo para verificarla y luego inicia sesión.');}
+  }else{showMsg('msg-crear','(Demo) Cuenta creada. Inicia sesión para continuar.');}
 }
+
 async function iniciarSesion(){
   var e=document.getElementById('i-email').value.trim();
   var p=document.getElementById('i-pass').value;
-  if(!e){alert('Ingresa tu correo');return;}
-  if(!p){alert('Ingresa tu contraseña');return;}
-  if(!captcha2Ok){alert('Confirma que no eres un robot');return;}
+  hideMsg('msg-login');hideMsg('err-login');
+  if(!e){showMsg('err-login','Ingresa tu correo');return;}
+  if(!p){showMsg('err-login','Ingresa tu contraseña');return;}
   var btn=document.getElementById('btn-iniciar');btn.textContent='Verificando...';btn.disabled=true;
   if(sb){
     var{data,error}=await sb.auth.signInWithPassword({email:e,password:p});
+    btn.textContent='ENTRAR ✦';btn.disabled=false;
     if(error){
-      if(error.message.includes('Invalid')){var ok=confirm('Contraseña incorrecta. ¿Enviar código a tu correo?');if(ok){await sb.auth.signInWithOtp({email:e});showOTP('login','Código enviado a tu correo');}}
-      else alert('Error: '+error.message);
-      btn.textContent='ENTRAR ✦';btn.disabled=false;
-    }else window.location.href='portada_es.html';
-  }else{showOTP('login','(Demo) Ingresa cualquier 6 dígitos');}
+      if(error.message.includes('Email not confirmed')){
+        showMsg('err-login','Confirma tu correo primero. ¿Reenviar confirmación?');
+        /* Reenviar confirmación automáticamente */
+        await sb.auth.resend({type:'signup',email:e});
+        showMsg('msg-login','Correo de confirmación reenviado. Revisa tu bandeja.');
+      }else if(error.message.includes('Invalid login')){
+        showMsg('err-login','Correo o contraseña incorrectos.');
+      }else{showMsg('err-login','Error: '+error.message);}
+    }else{
+      var nombre=data.user.user_metadata?.display_name||data.user.email?.split('@')[0]||'P∆plover';
+      localStorage.setItem('pap_nombre',nombre);localStorage.setItem('pap_usuario',data.user.id);
+      ir('portada_es.html');
+    }
+  }else{ir('portada_es.html');}
 }
+
 async function olvidoPass(){
   var e=document.getElementById('i-email').value.trim();
-  if(!e){alert('Primero ingresa tu correo');return;}
-  if(sb)await sb.auth.resetPasswordForEmail(e,{redirectTo:window.location.href+'?reset=1'});
-  showOTP('reset','Enlace de recuperación enviado a tu correo');
+  hideMsg('msg-login');hideMsg('err-login');
+  if(!e){showMsg('err-login','Primero ingresa tu correo');return;}
+  if(sb){
+    var{error}=await sb.auth.resetPasswordForEmail(e,{redirectTo:window.location.origin+'/login.html?reset=1'});
+    if(error)showMsg('err-login','Error: '+error.message);
+    else showMsg('msg-login','✦ Enlace de recuperación enviado a tu correo. Revisa también el spam.');
+  }
 }
+
 function showOTP(m,msg){
   modo=m;
   document.getElementById('tabs').style.display='none';
@@ -225,35 +245,36 @@ function nextBox(i){
 function prevBox(e,i){if(e.key==='Backspace'&&!document.getElementById('o'+i).value&&i>0)document.getElementById('o'+(i-1)).focus();}
 async function verificarOTP(){
   var code='';for(var i=0;i<6;i++)code+=document.getElementById('o'+i).value;
-  if(code.length<6){alert('Ingresa los 6 dígitos');return;}
+  hideMsg('msg-otp');hideMsg('err-otp');
+  if(code.length<6){showMsg('err-otp','Ingresa los 6 dígitos');return;}
   if(sb){
-    var email=document.getElementById(modo==='crear'?'c-email':'i-email').value.trim();
+    var email=localStorage.getItem('pap_email')||'';
     var{data,error}=await sb.auth.verifyOtp({email:email,token:code,type:modo==='reset'?'recovery':'email'});
-    if(error)alert('Código incorrecto: '+error.message);
-    else if(modo==='reset')showNewPass();
-    else window.location.href='portada_es.html';
-  }else{if(modo==='reset')showNewPass();else window.location.href='portada_es.html';}
-}
-function showNewPass(){document.getElementById('otp-wrap').style.display='none';document.getElementById('new-pass-wrap').style.display='block';}
-async function cambiarPassword(){
-  var p1=document.getElementById('np1').value;
-  var p2=document.getElementById('np2').value;
-  if(!p1||p1.length<8){alert('Mínimo 8 caracteres');return;}
-  if(!/[A-Z]/.test(p1)||!/[a-z]/.test(p1)||!/[0-9]/.test(p1)||!/[^A-Za-z0-9]/.test(p1)){alert('Debe tener mayúscula, minúscula, número y símbolo');return;}
-  if(p1!==p2){alert('Las contraseñas no coinciden');return;}
-  if(sb){var{error}=await sb.auth.updateUser({password:p1});
-    if(error)alert('Error: '+error.message);
-    else{alert('✦ Contraseña cambiada exitosamente · Es un placer para Creax@P∆PIR° ser útil para ti');window.location.href='portada_es.html';}}
-  else{alert('✦ Contraseña cambiada (Demo)');window.location.href='portada_es.html';}
+    if(error)showMsg('err-otp','Código incorrecto o expirado');
+    else if(modo==='reset'){document.getElementById('otp-wrap').style.display='none';document.getElementById('new-pass-wrap').style.display='block';}
+    else ir('portada_es.html');
+  }else{if(modo==='reset'){document.getElementById('otp-wrap').style.display='none';document.getElementById('new-pass-wrap').style.display='block';}else ir('portada_es.html');}
 }
 async function reenviarOTP(){
-  var email=document.getElementById(modo==='crear'?'c-email':'i-email').value.trim();
+  var email=localStorage.getItem('pap_email')||'';
   if(sb&&email)await sb.auth.resend({type:'signup',email:email});
-  alert('Código reenviado · Revisa tu correo');
+  showMsg('msg-otp','Código reenviado · Revisa tu correo');
 }
 function cancelarOTP(){setTab('iniciar');}
+async function cambiarPassword(){
+  var p1=document.getElementById('np1').value;var p2=document.getElementById('np2').value;
+  hideMsg('err-np');
+  if(!p1||p1.length<8){showMsg('err-np','Mínimo 8 caracteres');return;}
+  if(!/[A-Z]/.test(p1)||!/[a-z]/.test(p1)||!/[0-9]/.test(p1)||!/[^A-Za-z0-9]/.test(p1)){showMsg('err-np','Mayúscula, minúscula, número y símbolo');return;}
+  if(p1!==p2){showMsg('err-np','Las contraseñas no coinciden');return;}
+  if(sb){
+    var{error}=await sb.auth.updateUser({password:p1});
+    if(error)showMsg('err-np','Error: '+error.message);
+    else ir('portada_es.html');
+  }else ir('portada_es.html');
+}
+function ir(url){document.body.style.opacity='0';setTimeout(function(){location.href=url;},280);}
 function back(){document.body.style.opacity='0';setTimeout(function(){location.href='recepcion_'+(lang||'es')+'.html';},280);}
-if(window.location.search.includes('reset=1')||window.location.hash.includes('type=recovery')){showNewPass();}
 </script>
 </body>
 </html>
