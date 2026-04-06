@@ -3,122 +3,122 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>P∆PIR° · Recepción</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<title>Recepción P∆PIR° · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;background:#FFF;}
-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;}
-@keyframes comandoEsp{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
-@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:300% center;}}
-.screen{position:fixed;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;background:#FFF;}
-.lang-badge{position:fixed;top:14px;right:14px;z-index:10;display:flex;align-items:center;gap:6px;padding:5px 12px;border:1px solid rgba(0,0,0,.1);border-radius:20px;cursor:pointer;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(0,0,0,.35);background:#FFF;}
-.logo{font-family:'Cinzel',serif;font-size:68px;font-weight:900;letter-spacing:10px;-webkit-text-stroke:1.2px #C9A84C;background:linear-gradient(180deg,#000 0%,#050505 8%,#0A0A0A 16%,#000 24%,#111 32%,#030303 40%,#161616 48%,#000 56%,#0A0A0A 64%,#050505 72%,#111 80%,#000 88%,#080808 100%);background-size:100% 800%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:comandoEsp 20s ease-in-out infinite;line-height:1;margin-bottom:8px;text-align:center;}
-.logo-delta{-webkit-text-stroke:1.2px #E8C97A;}
-.logo-sub{font-family:'Cinzel',serif;font-size:13px;letter-spacing:6px;color:rgba(0,0,0,.28);text-align:center;margin-bottom:5px;}
-.logo-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:rgba(0,0,0,.4);margin-bottom:32px;text-align:center;}
-.botones{width:100%;max-width:300px;display:flex;flex-direction:column;gap:14px;}
-.btn-sesion{width:100%;padding:17px 28px;font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;border:none;cursor:pointer;border-radius:50px;background:linear-gradient(135deg,#111 0%,#000 50%,#1A1A1A 100%);color:#FFF;box-shadow:0 5px 18px rgba(0,0,0,.32);transition:all .2s;}
-.btn-sesion:active{transform:translateY(2px);}
-.btn-visitante{width:100%;padding:15px 28px;font-family:'Cinzel',serif;font-size:15px;letter-spacing:4px;cursor:pointer;border-radius:50px;background:#FFF;border:2px solid #000;color:#000;box-shadow:0 4px 14px rgba(0,0,0,.1);transition:all .2s;}
-.btn-visitante:active{transform:translateY(2px);}
-.contador{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:2px;font-family:'Cinzel',serif;font-size:12px;color:rgba(0,0,0,.4);letter-spacing:2px;}
-.num{font-size:15px;font-weight:900;color:#000;}
-/* LIBRO */
-.libro-bio{position:fixed;bottom:24px;left:24px;z-index:20;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;}
-.libro-ico{width:44px;height:58px;position:relative;transition:transform .3s;}
-.libro-ico:hover{transform:rotate(-5deg) scale(1.08);}
-.libro-portada{width:100%;height:100%;background:linear-gradient(145deg,#1A1208,#0A0806);border-radius:2px 6px 6px 2px;border:1px solid rgba(201,168,76,.4);box-shadow:-2px 0 0 #080604,-4px 2px 10px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:14px;font-weight:900;background-clip:text;-webkit-text-fill-color:transparent;background:linear-gradient(90deg,#C9A84C,#FFFACD,#C9A84C);background-size:300% auto;animation:oroVivo 8s linear infinite;}
-.libro-lomo{position:absolute;left:-4px;top:0;width:4px;height:100%;background:#030201;border-radius:2px 0 0 2px;}
-.libro-sym{font-family:'Cinzel',serif;font-size:14px;font-weight:900;color:#C9A84C;}
-.libro-label{font-family:'Cinzel',serif;font-size:8px;letter-spacing:.5px;color:rgba(0,0,0,.35);text-align:center;max-width:70px;line-height:1.3;}
-/* MODAL BIO */
-.modal-bio{display:none;position:fixed;inset:0;z-index:500;background:rgba(10,8,6,.95);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
-.modal-bio.activo{display:flex;}
-.mc{position:relative;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;background:linear-gradient(160deg,#2A1F0E,#1E1508,#160F06);border:1px solid rgba(201,168,76,.3);border-radius:8px;padding:32px 24px;}
-.mc::-webkit-scrollbar{width:4px;}.mc::-webkit-scrollbar-thumb{background:rgba(201,168,76,.3);border-radius:2px;}
-.mcx{position:absolute;top:12px;right:12px;background:none;border:1px solid rgba(201,168,76,.3);color:rgba(201,168,76,.6);width:28px;height:28px;border-radius:6px;cursor:pointer;font-size:12px;display:flex;align-items:center;justify-content:center;}
-.bt{font-family:'Cinzel',serif;font-size:clamp(14px,3vw,20px);font-weight:900;background:linear-gradient(90deg,#7A5A00,#C9A84C,#FFFACD,#C9A84C,#7A5A00);background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:oroVivo 10s linear infinite;text-align:center;margin-bottom:5px;}
-.bs{font-style:italic;color:rgba(200,188,168,.5);font-size:13px;text-align:center;margin-bottom:14px;}
-.bl{height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,.4),transparent);margin:12px 0;}
-.btx{font-family:'Cormorant Garamond',serif;font-size:15px;line-height:1.95;color:#C8BCA8;}
-.btx p{margin-bottom:14px;text-indent:2em;}
-.btx em{color:#E8C97A;}.btx strong{color:#FFFACD;}
-.bf{text-align:center;margin-top:14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.4);}
-.sello{position:fixed;bottom:14px;left:0;right:0;text-align:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:11px;color:rgba(0,0,0,.16);pointer-events:none;}
+html,body{height:100%;overflow:hidden;}
+body{background:#000;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .4s;}
+canvas#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 18px rgba(201,168,76,.3));}50%{filter:drop-shadow(0 0 45px rgba(201,168,76,.7));}}
+
+.rec-wrap{position:relative;z-index:10;text-align:center;padding:28px 24px;width:100%;max-width:340px;}
+
+.rec-logo{font-family:'Cinzel',serif;font-size:clamp(52px,16vw,86px);font-weight:900;
+  letter-spacing:clamp(6px,3vw,14px);color:#FFF;-webkit-text-stroke:1.8px #C9A84C;
+  animation:logoGlow 4s ease-in-out infinite;display:block;margin-bottom:8px;}
+.rec-logo-delta{-webkit-text-stroke:1.8px #E8C97A;}
+.rec-sub{font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;
+  color:rgba(201,168,76,.45);margin-bottom:4px;}
+.rec-slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
+  color:rgba(255,255,255,.22);margin-bottom:32px;}
+
+/* CONTADOR DE VISITAS */
+.rec-counter{font-family:'Special Elite',serif;font-size:13px;letter-spacing:2px;
+  color:rgba(201,168,76,.35);margin-bottom:28px;}
+.rec-counter span{color:rgba(201,168,76,.7);font-size:16px;}
+
+/* BOTONES */
+.rec-btns{display:flex;flex-direction:column;gap:14px;width:100%;}
+.btn-rec{width:100%;padding:18px 24px;border-radius:50px;
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:4px;
+  cursor:pointer;border:none;transition:all .2s;}
+.btn-rec:active{transform:scale(.97);}
+.btn-visitante{
+  background:transparent;
+  border:1.5px solid rgba(201,168,76,.35);
+  color:rgba(201,168,76,.7);}
+.btn-visitante:active{background:rgba(201,168,76,.1);}
+.btn-sesion{
+  background:linear-gradient(135deg,#111,#000);
+  color:#FFF;
+  box-shadow:0 4px 20px rgba(0,0,0,.5);}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
-<div class="lang-badge" onclick="location.href='banderas.html'">🌐 ES</div>
-<div class="screen">
-  <div class="logo">P<span class="logo-delta">∆</span>PIR°</div>
-  <div class="logo-sub">CREAXION PAPIRO</div>
-  <div class="logo-slogan">Digitalidad Sana y Segura</div>
-  <div class="botones">
-    <button class="btn-sesion" onclick="go('login.html')">INICIAR SESIÓN</button>
-    <button class="btn-visitante" id="btnVisitante" onclick="goVisitante()">VISITANTE</button>
-    <div class="contador"><span>👁</span><span class="num" id="cnt">—</span><span>visitantes totales</span></div>
+
+<div class="rec-wrap">
+  <span class="rec-logo">P<span class="rec-logo-delta">∆</span>PIR°</span>
+  <div class="rec-sub">CREAXION PAPIRO</div>
+  <div class="rec-slogan">Digitalidad Sana y Segura</div>
+
+  <div class="rec-counter">
+    <span id="contVisitas">···</span> visitantes
+  </div>
+
+  <div class="rec-btns">
+    <button class="btn-rec btn-visitante" onclick="irVisitante()">
+      VISITANTE
+    </button>
+    <button class="btn-rec btn-sesion" onclick="irLogin()">
+      INICIAR SESIÓN
+    </button>
   </div>
 </div>
-<!-- LIBRO BIOGRAFÍA -->
-<div class="libro-bio" onclick="abrirBio()">
-  <div class="libro-ico">
-    <div class="libro-lomo"></div>
-    <div class="libro-portada"><span class="libro-sym">∆°</span></div>
-  </div>
-  <div class="libro-label">Biografía del Creador</div>
-</div>
-<!-- MODAL BIOGRAFÍA -->
-<div class="modal-bio" id="mBio">
-  <div class="mc">
-    <button class="mcx" onclick="cerrarBio()">✕</button>
-    <div style="text-align:center;font-family:'Cinzel',serif;font-size:16px;color:rgba(201,168,76,.6);margin-bottom:6px;">✦ ∆° ✦</div>
-    <div class="bt">Luis Alfonso Castillejo Ventura</div>
-    <div class="bs">Una vida preparada para servir · Venezuela · Brasil</div>
-    <div class="bl"></div>
-    <div class="btx">
-      <p>Soy margariteño, porque nací en la isla de Margarita, en Venezuela. Salí de la isla a los once años para pasar por el oncológico de Valencia y, gracias a Dios, terminé viviendo en Punto Fijo, estado Falcón.</p>
-      <p>Estudié Humanidades. Filosofía, psicología, sociología, historia y música se convirtieron en pasiones para toda la vida. En el año 2000, los debates políticos me llevaron a una aspiración secreta: <em>llegar a ser algún día presidente de Venezuela.</em></p>
-      <p>Trabajé en PDVSA, bancos, hotéles, restaurantes, construcción, eventos. Soy músico, estudié Teología, soy bailarín profesional de salsa. En 2015 entré a la <strong>Unidad de Comandos de Mar en Turiamo, Curso Comando número 56.</strong></p>
-      <p>Mi madre —Narcisa del Carmen Ventura López— falleció del cáncer que le habían dado veinte años atrás. Sus últimas palabras: <em>"Regresa con la madre de tu hija."</em> Murió con una sonrisa, con el pulgar arriba.</p>
-      <p><strong>P∆PIR°</strong> nació del exilio. Un venezolano en Brasil, con un teléfono en la mano y la fe intacta, construyendo la plataforma donde tu verdad no sea silenciada.</p>
-    </div>
-    <div class="bl"></div>
-    <div class="bf">X-7777777-LC7° · SI° · 350 · 777 · En el nombre de Jesús 🙏</div>
-  </div>
-</div>
-<div class="sello">∆° · Creaxion Papiro © 2026 · C.E.O Luis Alfonso Castillejo Ventura</div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co',SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
 var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
-localStorage.setItem('pap_lang','es');
-window.addEventListener('load',function(){document.body.style.transition='opacity 0.4s';document.body.style.opacity='1';loadCount();});
 
-async function loadCount(){
-  var local=parseInt(localStorage.getItem('pap_vis_total')||'0');
-  document.getElementById('cnt').textContent=fmt(local);
+window.addEventListener('load',function(){
+  document.body.style.opacity='1';
+  cargarContador();
+});
+
+async function cargarContador(){
+  if(!sb){document.getElementById('contVisitas').textContent='···';return;}
+  try{
+    var{data,error}=await sb.from('config_sistema').select('valor').eq('clave','visitas_total').single();
+    if(data)document.getElementById('contVisitas').textContent=Number(data.valor).toLocaleString();
+  }catch(e){document.getElementById('contVisitas').textContent='···';}
+}
+
+async function incrementarVisita(){
   if(!sb)return;
-  try{var{data}=await sb.from('config_sistema').select('valor').eq('clave','visitas_total').single();if(data&&data.valor){var n=parseInt(data.valor)||0;document.getElementById('cnt').textContent=fmt(n);localStorage.setItem('pap_vis_total',n);}}catch(e){}
+  try{
+    await sb.rpc('incrementar_visitas',{p_clave:'visitas_total'});
+  }catch(e){}
 }
-function fmt(n){if(n>=1000000)return(n/1000000).toFixed(1)+'M';if(n>=1000)return(n/1000).toFixed(1)+'K';return n||'—';}
-function go(url){document.body.style.opacity='0';setTimeout(function(){location.href=url;},280);}
-function goVisitante(){
-  /* Incrementar contador */
-  var n=parseInt(localStorage.getItem('pap_vis_total')||'0')+1;
-  localStorage.setItem('pap_vis_total',n);
-  document.getElementById('cnt').textContent=fmt(n);
-  if(sb)sb.rpc('incrementar_visitas',{p_clave:'visitas_total'}).catch(function(){});
-  /* Ir a visitante */
-  go('visitante_es.html');
+
+function irVisitante(){
+  /* 1) Incrementa el contador */
+  incrementarVisita();
+  /* 2) Guarda idioma */
+  localStorage.setItem('pap_lang','es');
+  /* 3) Navega a la página de visitante */
+  document.body.style.opacity='0';
+  setTimeout(function(){
+    location.href='visitante_es.html';
+  },280);
 }
-function abrirBio(){document.getElementById('mBio').classList.add('activo');}
-function cerrarBio(){document.getElementById('mBio').classList.remove('activo');}
-document.getElementById('mBio').addEventListener('click',function(e){if(e.target===this)cerrarBio();});
+
+function irLogin(){
+  document.body.style.opacity='0';
+  setTimeout(function(){location.href='login.html';},280);
+}
+
 /* COSMOS */
-(function(){var c=document.getElementById('c'),ctx=c.getContext('2d');function r(){c.width=innerWidth;c.height=innerHeight;}r();addEventListener('resize',r);var s=[];for(var i=0;i<80;i++)s.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.001+.0003});function d(){requestAnimationFrame(d);ctx.fillStyle='rgba(255,255,255,.6)';ctx.fillRect(0,0,c.width,c.height);s.forEach(function(st){st.ph+=st.sp;var a=Math.max(0,Math.sin(st.ph));a=a*a*.22;if(a<.01)return;ctx.beginPath();ctx.arc(st.x,st.y,st.r,0,Math.PI*2);ctx.fillStyle='rgba(0,0,0,'+a+')';ctx.fill();});}d();})();
+(function(){
+  var c=document.getElementById('c'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var i=0;i<200;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.002+.0004,col:cols[Math.floor(Math.random()*cols.length)]});
+  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=a;ctx.fill();});ctx.globalAlpha=1;}draw();
+})();
 </script>
 </body>
 </html>
