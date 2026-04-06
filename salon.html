@@ -3,184 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Salón P∆PIR° · ∆ · Creaxion Papiro</title>
+<title>Salón P∆PIR°</title>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;overflow:hidden;background:#000;}
-canvas#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
-@keyframes girar{to{transform:rotate(360deg);}}
+body{background:#000;height:100vh;display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;overflow:hidden;opacity:0;transition:opacity .4s;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(.9);}50%{opacity:1;transform:scale(1.2);}}
 @keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
-@keyframes haloBreath{0%,100%{opacity:.4;transform:scale(.95);}50%{opacity:.9;transform:scale(1.05);}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* PORTAL PRINCIPAL */
-.portal-wrap{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;}
-
-.portal{position:relative;width:220px;height:220px;border-radius:50%;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  margin-bottom:28px;}
-
-/* Borde giratorio dorado */
-.portal-ring{position:absolute;inset:-4px;border-radius:50%;
-  background:conic-gradient(#C9A84C,#FFD700,#FFFACD,#C9A84C,#8A6A00,#C9A84C,#FFD700,#C9A84C);
-  animation:girar 4s linear infinite;
-  filter:drop-shadow(0 0 12px rgba(201,168,76,.6));}
-.portal-ring-inner{position:absolute;inset:3px;border-radius:50%;background:#000;}
-
-/* Disco giratorio */
-.portal-disco{position:absolute;inset:12px;border-radius:50%;
-  background:conic-gradient(#3a1f0f,#6a3b1e,#9a5a2a,#c47a3a,#C9A84C,#FFD700,#c47a3a,#6a3b1e,#3a1f0f);
-  animation:girar 7s linear infinite;
-  filter:drop-shadow(0 0 8px rgba(201,168,76,.3));}
-
-/* Centro negro con símbolo */
-.portal-nucleo{position:absolute;inset:35px;border-radius:50%;background:#000;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+/* ===== PORTAL ===== */
+.portal{position:relative;width:320px;height:320px;border-radius:50%;cursor:pointer;background:#000;display:flex;align-items:center;justify-content:center;transition:transform .4s ease,opacity .4s ease;}
+.portal::before{content:"";position:absolute;inset:0;border-radius:50%;padding:2px;
+  background:linear-gradient(90deg,#5a4324,#8c6a3d,#c8a96a,#e6c27a,#b08d57,#6e552f);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;}
+.disco{position:absolute;inset:10%;border-radius:50%;
+  background:conic-gradient(#3a1f0f,#6a3b1e,#9a5a2a,#c47a3a,#e6c27a,#c8a96a,#b87333,#8a4b2a,#3a1f0f);
+  animation:spin 7s linear infinite;}
+.nucleo{position:absolute;inset:30%;border-radius:50%;background:#000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  color:#F8F3E6;font-size:18px;font-weight:600;letter-spacing:3px;line-height:1.4;
   border:1px solid rgba(201,168,76,.2);}
-.nucleo-delta{font-family:'Cinzel',serif;font-size:40px;font-weight:900;
-  background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFFACD,#C9A84C,#8A6A00);
-  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroVivo 6s linear infinite;}
-.nucleo-texto{font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:rgba(201,168,76,.5);}
+.portal:active{transform:scale(.97);}
 
-/* Halo exterior */
-.portal-halo{position:absolute;inset:-20px;border-radius:50%;
-  background:radial-gradient(circle,transparent 50%,rgba(201,168,76,.08) 70%,transparent 85%);
-  animation:haloBreath 3s ease-in-out infinite;}
+/* ESTRELLAS OVERLAY */
+.star{position:absolute;color:#F8F3E6;font-size:14px;opacity:.85;animation:twinkle 3s infinite ease-in-out;text-shadow:0 0 4px rgba(255,255,255,.6),0 0 10px rgba(212,175,55,.5);}
+.star-small{position:absolute;font-size:10px;opacity:.85;animation:twinkle 2.5s infinite ease-in-out;}
+.gold{color:#ffd86b;text-shadow:0 0 6px rgba(255,216,107,.9),0 0 14px rgba(212,175,55,.7);}
+.blue{color:#4da3ff;text-shadow:0 0 6px rgba(77,163,255,.9),0 0 14px rgba(0,140,255,.7);}
+.red{color:#ff4d4d;text-shadow:0 0 6px rgba(255,77,77,.9),0 0 14px rgba(255,0,0,.7);}
 
-/* Hint de toque */
-.portal-hint{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;
-  color:rgba(201,168,76,.5);animation:haloBreath 2s ease-in-out infinite;margin-bottom:32px;}
+/* FADE NEGRO */
+.fade-black{position:fixed;inset:0;background:#000;opacity:0;z-index:998;transition:opacity 1s ease;pointer-events:none;}
+.fade-black.active{opacity:1;}
 
-/* TÍTULO */
-.salon-titulo{font-family:'Cinzel',serif;font-size:clamp(22px,6vw,36px);font-weight:900;
-  letter-spacing:clamp(4px,2vw,10px);text-align:center;
-  background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFFACD,#E8C97A,#C9A84C,#8A6A00);
-  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroVivo 8s linear infinite;
-  animation:fadeUp .8s ease forwards;
-  filter:drop-shadow(0 0 20px rgba(201,168,76,.3));margin-bottom:8px;}
-.salon-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
-  color:rgba(201,168,76,.4);text-align:center;margin-bottom:40px;
-  animation:fadeUp .8s ease .2s both;}
+/* OVERLAY TRANSICIÓN */
+#transitionOverlay{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:1001;opacity:0;pointer-events:none;transition:opacity .5s ease;}
+#transitionOverlay.active{opacity:1;}
+.transition-logo{font-family:'Cinzel',serif;font-size:64px;font-weight:900;letter-spacing:10px;color:#fff;-webkit-text-stroke:1px #C9A84C;text-shadow:0 0 20px rgba(180,140,60,.7);}
+.transition-logo .delta{-webkit-text-stroke:1px #B8962E;}
 
-/* OVERLAY de transición */
-.trans-overlay{position:fixed;inset:0;z-index:100;background:#000;opacity:0;pointer-events:none;transition:opacity .5s;}
-.trans-overlay.activo{opacity:1;pointer-events:all;}
+/* MENÚ DEL SALÓN */
+#salonMenu{position:fixed;inset:0;z-index:1000;background:#000;
+  display:none;flex-direction:column;align-items:center;justify-content:center;padding:28px;}
+#salonMenu.visible{display:flex;}
 
-/* CONTENIDO DEL SALÓN — aparece después de la animación */
-.salon-content{position:fixed;inset:0;z-index:50;
-  display:none;flex-direction:column;align-items:center;justify-content:center;
-  padding:28px;background:#000;}
-.salon-content.visible{display:flex;}
-
-.salon-logo{font-family:'Cinzel',serif;font-size:56px;font-weight:900;letter-spacing:10px;
+.salon-logo{font-family:'Cinzel',serif;font-size:52px;font-weight:900;letter-spacing:10px;
   -webkit-text-stroke:1.5px #C9A84C;
   background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFFACD,#C9A84C,#8A6A00);
   background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroVivo 8s linear infinite;margin-bottom:12px;}
+  background-clip:text;animation:oroVivo 8s linear infinite;
+  margin-bottom:6px;text-align:center;}
+.salon-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;
+  color:rgba(201,168,76,.4);margin-bottom:32px;text-align:center;letter-spacing:3px;}
 
-.salon-welcome{font-family:'Cinzel',serif;font-size:14px;letter-spacing:5px;
-  color:rgba(201,168,76,.5);margin-bottom:40px;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:320px;margin-bottom:24px;}
+.m-btn{padding:22px 12px;border-radius:14px;border:1px solid rgba(201,168,76,.2);
+  background:rgba(201,168,76,.04);cursor:pointer;text-align:center;
+  transition:all .2s;-webkit-tap-highlight-color:transparent;}
+.m-btn:active{background:rgba(201,168,76,.15);transform:scale(.97);}
+.m-btn-ico{font-size:28px;display:block;margin-bottom:6px;}
+.m-btn-txt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.7);}
+.m-btn-sub{font-family:'Crimson Pro',serif;font-size:11px;color:rgba(255,255,255,.25);margin-top:3px;display:block;}
 
-.salon-menu{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:340px;margin-bottom:32px;}
-.s-btn{padding:20px 14px;border-radius:12px;background:rgba(201,168,76,.05);
-  border:1px solid rgba(201,168,76,.2);cursor:pointer;text-align:center;transition:all .2s;}
-.s-btn:active{background:rgba(201,168,76,.15);transform:scale(.97);}
-.s-btn-ico{font-size:28px;display:block;margin-bottom:6px;}
-.s-btn-txt{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:rgba(201,168,76,.7);}
+.salon-pronto{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;
+  color:rgba(255,255,255,.2);text-align:center;line-height:2;margin-bottom:20px;}
 
-.salon-pronto{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;
-  color:rgba(255,255,255,.25);text-align:center;margin-bottom:20px;}
-
-.btn-volver{font-family:'Cinzel',serif;font-size:12px;letter-spacing:3px;
-  color:rgba(201,168,76,.4);cursor:pointer;padding:10px 24px;
-  border:1px solid rgba(201,168,76,.15);border-radius:20px;}
-.btn-volver:active{color:#C9A84C;border-color:#C9A84C;}
+.btn-volver{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;
+  color:rgba(201,168,76,.35);cursor:pointer;padding:12px 24px;
+  border:1px solid rgba(201,168,76,.12);border-radius:20px;}
+.btn-volver:active{color:#C9A84C;border-color:rgba(201,168,76,.4);}
 </style>
 </head>
 <body>
-<canvas id="c"></canvas>
 
-<!-- PORTAL DE ENTRADA -->
-<div class="portal-wrap" id="portalWrap">
-  <div class="salon-titulo">SALÓN P∆PIR°</div>
-  <div class="salon-sub">El corazón del ecosistema · Toca para entrar</div>
-  <div class="portal" onclick="entrarSalon()">
-    <div class="portal-halo"></div>
-    <div class="portal-ring"></div>
-    <div class="portal-ring-inner"></div>
-    <div class="portal-disco"></div>
-    <div class="portal-nucleo">
-      <span class="nucleo-delta">∆</span>
-      <span class="nucleo-texto">ENTRAR</span>
-    </div>
-  </div>
-  <div class="portal-hint">↑ · TOCA PARA INGRESAR · ↑</div>
+<!-- PORTAL -->
+<div class="portal" id="portal" onclick="entrarSalon()">
+  <div class="disco"></div>
+  <div class="nucleo">SALÓN<br>P∆PIR°<br>∆</div>
 </div>
 
-<!-- OVERLAY TRANSICIÓN -->
-<div class="trans-overlay" id="transOverlay"></div>
+<!-- FADE -->
+<div class="fade-black" id="fadeBlack"></div>
 
-<!-- CONTENIDO DEL SALÓN -->
-<div class="salon-content" id="salonContent">
+<!-- OVERLAY TRANSICIÓN CON ESTRELLAS -->
+<div id="transitionOverlay">
+  <span class="star" style="top:10%;left:15%;animation-delay:.2s">✦</span>
+  <span class="star" style="top:20%;left:70%;animation-delay:.5s">◆</span>
+  <span class="star" style="top:35%;left:40%;animation-delay:.1s">✦</span>
+  <span class="star" style="top:50%;left:80%;animation-delay:.7s">◆</span>
+  <span class="star" style="top:65%;left:20%;animation-delay:.3s">✦</span>
+  <span class="star" style="top:75%;left:60%;animation-delay:.6s">◆</span>
+  <span class="star-small gold" style="top:12%;left:50%;animation-delay:.4s">✦</span>
+  <span class="star-small blue" style="top:25%;left:30%;animation-delay:.8s">◆</span>
+  <span class="star-small red" style="top:30%;left:75%;animation-delay:.2s">✦</span>
+  <span class="star-small gold" style="top:45%;left:10%;animation-delay:.9s">◆</span>
+  <span class="star-small blue" style="top:55%;left:65%;animation-delay:.1s">✦</span>
+  <span class="star-small red" style="top:60%;left:85%;animation-delay:.5s">◆</span>
+  <span class="star-small gold" style="top:70%;left:40%;animation-delay:.3s">✦</span>
+  <span class="star-small blue" style="top:80%;left:25%;animation-delay:.7s">◆</span>
+  <span class="star-small red" style="top:85%;left:70%;animation-delay:.4s">✦</span>
+  <div style="text-align:center;z-index:2;">
+    <div class="transition-logo">P<span class="delta">∆</span>PIR°</div>
+  </div>
+</div>
+
+<!-- MENÚ DEL SALÓN -->
+<div id="salonMenu">
   <div class="salon-logo">∆°</div>
-  <div class="salon-welcome">BIENVENIDO AL SALÓN</div>
-  <div class="salon-menu">
-    <div class="s-btn">
-      <span class="s-btn-ico">🎮</span>
-      <span class="s-btn-txt">JUEGOS</span>
+  <div class="salon-sub">BIENVENIDO AL SALÓN · P∆PIR°</div>
+  <div class="menu-grid">
+    <div class="m-btn" onclick="irA('papiro_juegos.html')">
+      <span class="m-btn-ico">🎮</span>
+      <span class="m-btn-txt">JUEGOS</span>
+      <span class="m-btn-sub">Dominó · Truco · Más</span>
     </div>
-    <div class="s-btn">
-      <span class="s-btn-ico">💬</span>
-      <span class="s-btn-txt">CHAT</span>
+    <div class="m-btn" onclick="irA('papiro_chat.html')">
+      <span class="m-btn-ico">💬</span>
+      <span class="m-btn-txt">CHAT</span>
+      <span class="m-btn-sub">Tiempo real · Comunidad</span>
     </div>
-    <div class="s-btn">
-      <span class="s-btn-ico">🔴</span>
-      <span class="s-btn-txt">EN VIVO</span>
+    <div class="m-btn" onclick="irA('papiro_tvpap.html')">
+      <span class="m-btn-ico">🔴</span>
+      <span class="m-btn-txt">TvP∆p EN VIVO</span>
+      <span class="m-btn-sub">Transmisiones · Eventos</span>
     </div>
-    <div class="s-btn">
-      <span class="s-btn-ico">📜</span>
-      <span class="s-btn-txt">PAPIROS</span>
+    <div class="m-btn" onclick="irA('papiro_pixel.html')">
+      <span class="m-btn-ico">⭐</span>
+      <span class="m-btn-txt">PIXEL CÓSMICO</span>
+      <span class="m-btn-sub">Tu coordenada única</span>
     </div>
   </div>
-  <div class="salon-pronto">Juegos · Chat · TvP∆p en vivo · Próximamente activos<br>
-  En el nombre de Jesús · 26 de octubre · SI°</div>
+  <div class="salon-pronto">Los juegos se activan el 26 de octubre.<br>En el nombre de Jesús · SI° · 🙏</div>
   <div class="btn-volver" onclick="volver()">← VOLVER</div>
 </div>
 
 <script>
-window.addEventListener('load',function(){document.body.style.transition='opacity .4s';document.body.style.opacity='1';});
-
-/* COSMOS */
-(function(){
-  var c=document.getElementById('c'),ctx=c.getContext('2d');
-  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
-  var S=[],cols=['rgba(201,168,76,','rgba(232,201,122,','rgba(255,215,0,','rgba(255,255,255,'];
-  for(var i=0;i<250;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.002+.0005,col:cols[Math.floor(Math.random()*cols.length)]});
-  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.6,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col+a+')';ctx.globalAlpha=1;ctx.fill();});ctx.globalAlpha=1;}draw();
-})();
+window.addEventListener('load',function(){document.body.style.opacity='1';});
 
 function entrarSalon(){
-  var overlay=document.getElementById('transOverlay');
-  var portal=document.getElementById('portalWrap');
-  var salon=document.getElementById('salonContent');
-  
-  /* Animar portal */
-  portal.style.transition='opacity .4s,transform .4s';
-  portal.style.transform='scale(3)';
+  var portal=document.getElementById('portal');
+  var fadeBlack=document.getElementById('fadeBlack');
+  var overlay=document.getElementById('transitionOverlay');
+  var menu=document.getElementById('salonMenu');
+  portal.style.transform='scale(2.5)';
   portal.style.opacity='0';
-  
-  /* Fade negro */
-  setTimeout(function(){overlay.classList.add('activo');},200);
-  
-  /* Mostrar salón */
+  setTimeout(function(){overlay.classList.add('active');},300);
+  setTimeout(function(){fadeBlack.classList.add('active');},500);
   setTimeout(function(){
     portal.style.display='none';
-    salon.classList.add('visible');
-    overlay.classList.remove('activo');
-  },800);
+    overlay.classList.remove('active');
+    menu.classList.add('visible');
+    fadeBlack.classList.remove('active');
+  },1400);
+}
+
+function irA(url){
+  document.body.style.opacity='0';
+  setTimeout(function(){
+    /* Por ahora muestra mensaje amigable — se activará el 26 de octubre */
+    alert('Próximamente · 26 de octubre · En el nombre de Jesús 🙏');
+    document.body.style.opacity='1';
+  },200);
 }
 
 function volver(){
