@@ -7,104 +7,114 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{scroll-behavior:smooth;}
-body{background:#000;opacity:0;transition:opacity .4s;}
-/* El body necesita ser scrollable — altura real del contenido */
+html,body{background:#000;}
+/* CLAVE: el body tiene altura real — scrollable */
+body{min-height:200vh;opacity:0;transition:opacity .4s;}
+
 @keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
-@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 20px rgba(201,168,76,.3)) drop-shadow(0 0 40px rgba(201,168,76,.15));}50%{filter:drop-shadow(0 0 50px rgba(201,168,76,.7)) drop-shadow(0 0 90px rgba(201,168,76,.35));}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 20px rgba(201,168,76,.3));}50%{filter:drop-shadow(0 0 50px rgba(201,168,76,.7));}}
 @keyframes hintPulse{0%,100%{opacity:.25;}50%{opacity:.8;}}
-@keyframes fadeUpIn{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
 
 canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
 
-/* TOP BAR */
-.top-bar{position:fixed;top:0;left:0;right:0;z-index:50;padding:16px 20px;
-  display:flex;align-items:center;justify-content:space-between;}
+/* TOP BAR — fija */
+.top-bar{position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
 .btn-instrucciones{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
   color:rgba(201,168,76,.55);background:rgba(0,0,0,.5);
   border:1px solid rgba(201,168,76,.2);padding:8px 14px;border-radius:20px;
-  cursor:pointer;backdrop-filter:blur(8px);transition:all .2s;}
-.btn-instrucciones:active{background:rgba(201,168,76,.15);color:#C9A84C;}
+  cursor:pointer;backdrop-filter:blur(8px);}
+.btn-instrucciones:active{background:rgba(201,168,76,.15);}
 .btn-salir{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
   color:rgba(255,255,255,.25);cursor:pointer;padding:8px 14px;}
 
-/* LOGO — FIJO en centro pantalla */
-.logo-centro{position:fixed;inset:0;z-index:10;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  pointer-events:none;}
-.logo-txt{font-family:'Cinzel',serif;font-size:clamp(48px,14vw,96px);font-weight:900;
-  letter-spacing:clamp(8px,2vw,18px);
-  color:#FFF;-webkit-text-stroke:1.8px #C9A84C;
+/* LOGO — FIJO al centro de la PANTALLA, nunca se mueve */
+.logo-fijo{
+  position:fixed; /* ← fijo. siempre en pantalla */
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  z-index:10;
+  pointer-events:none;
+  text-align:center;
+  width:90%;
+}
+.logo-txt{font-family:'Cinzel',serif;
+  font-size:clamp(52px,15vw,100px);font-weight:900;
+  letter-spacing:clamp(8px,3vw,20px);
+  color:#FFF;-webkit-text-stroke:2px #C9A84C;
   animation:logoGlow 4s ease-in-out infinite;
-  line-height:1;text-align:center;}
-.logo-delta{-webkit-text-stroke:1.8px #E8C97A;}
-.logo-sub{font-family:'Cinzel',serif;font-size:clamp(9px,2.5vw,13px);letter-spacing:clamp(5px,2vw,10px);
-  color:rgba(201,168,76,.4);margin-top:14px;text-align:center;}
+  line-height:1;display:block;}
+.logo-delta{-webkit-text-stroke:2px #E8C97A;}
+.logo-sub{font-family:'Cinzel',serif;
+  font-size:clamp(9px,2.8vw,14px);letter-spacing:clamp(5px,2vw,12px);
+  color:rgba(201,168,76,.4);margin-top:16px;display:block;}
 .logo-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(13px,3.5vw,18px);color:rgba(255,255,255,.25);margin-top:8px;text-align:center;}
+  font-size:clamp(14px,3.5vw,19px);color:rgba(255,255,255,.22);
+  margin-top:10px;display:block;}
 
-/* HINT SCROLL */
-.hint-scroll{position:fixed;bottom:30px;left:0;right:0;z-index:20;
+/* HINT SCROLL — fijo abajo */
+.hint-scroll{position:fixed;bottom:28px;left:0;right:0;z-index:20;
   text-align:center;pointer-events:none;animation:hintPulse 2.5s ease-in-out infinite;}
 .hint-txt{font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:rgba(201,168,76,.7);}
-.hint-arrow{font-size:12px;color:rgba(201,168,76,.5);display:block;margin-top:5px;}
+.hint-arrow{font-size:14px;color:rgba(201,168,76,.5);display:block;margin-top:4px;}
 
-/* SECCIÓN BAÚL — la que hace scroll real */
+/* SPACER — crea el espacio para que el logo fijo se vea antes de scrollear */
+.spacer{height:100vh;/* este espacio vacío es donde vive el logo fijo */}
+
+/* BAÚL — viene DESPUÉS del spacer, en flujo normal del documento */
 .baul-section{
-  /* Ocupa 100vh de espacio vacío (donde está el logo fijo) + contenido del baúl */
-  padding-top:100vh;
-  position:relative;z-index:10;
-  background:linear-gradient(to bottom,transparent,rgba(0,0,0,.98) 12%,#000 22%);
+  position:relative;
+  z-index:10;
   min-height:100vh;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding-bottom:80px;}
-
+  background:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.97) 8%,#000 15%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:60px 28px 80px;
+}
 .baul-linea{width:60px;height:1px;background:linear-gradient(to right,transparent,#C9A84C,transparent);margin:0 auto 40px;}
-
-.nombre-usuario{font-family:'Cinzel',serif;
-  font-size:clamp(24px,7vw,52px);font-weight:900;letter-spacing:clamp(4px,2vw,10px);
+.usuario-code{font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;
+  color:rgba(201,168,76,.3);text-align:center;margin-bottom:10px;
+  opacity:0;transition:opacity 1s ease .1s;}
+.usuario-code.vis{opacity:1;}
+/* NOMBRE — estático en el baul, NO se mueve */
+.nombre-usuario{
+  font-family:'Cinzel',serif;
+  font-size:clamp(26px,8vw,56px);font-weight:900;
+  letter-spacing:clamp(4px,2vw,12px);
   background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFFACD,#E8C97A,#C9A84C,#8A6A00);
   background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
   background-clip:text;animation:oroVivo 7s linear infinite;
-  text-align:center;cursor:pointer;
-  padding:22px 20px;
+  text-align:center;cursor:pointer;padding:20px;
   filter:drop-shadow(0 0 14px rgba(201,168,76,.4));
-  opacity:0;transform:translateY(40px);
-  transition:opacity 1s ease,transform 1s ease;}
-.nombre-usuario.vis{opacity:1;transform:translateY(0);}
+  opacity:0;transition:opacity 1s ease .2s;}
+.nombre-usuario.vis{opacity:1;}
 .nombre-usuario:active{filter:drop-shadow(0 0 30px rgba(201,168,76,.9));}
-
-.usuario-code{font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;
-  color:rgba(201,168,76,.35);text-align:center;margin-bottom:8px;
-  opacity:0;transition:opacity 1s ease .15s;}
-.usuario-code.vis{opacity:1;}
-
 .toca-hint{font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:15px;color:rgba(255,255,255,.2);text-align:center;margin-bottom:40px;
-  opacity:0;transition:opacity 1s ease .3s;}
+  font-size:15px;color:rgba(255,255,255,.18);text-align:center;margin-bottom:40px;
+  opacity:0;transition:opacity 1s ease .4s;}
 .toca-hint.vis{opacity:1;}
-
-.baul-firma{font-family:'Special Elite',serif;font-size:12px;letter-spacing:2px;
-  color:rgba(201,168,76,.2);text-align:center;line-height:2.2;margin-top:30px;
-  opacity:0;transition:opacity 1s ease .5s;}
+.baul-firma{font-family:'Special Elite',serif;font-size:11px;letter-spacing:2px;
+  color:rgba(201,168,76,.2);text-align:center;line-height:2.4;margin-top:28px;
+  opacity:0;transition:opacity 1s ease .6s;}
 .baul-firma.vis{opacity:1;}
 
 /* MENÚ OVERLAY */
 .menu-overlay{display:none;position:fixed;inset:0;z-index:200;
   background:rgba(0,0,0,.96);backdrop-filter:blur(16px);
-  flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:32px 28px;}
+  flex-direction:column;align-items:center;justify-content:center;
+  gap:14px;padding:32px 28px;}
 .menu-overlay.activo{display:flex;}
-.menu-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;color:rgba(201,168,76,.4);margin-bottom:10px;}
+.menu-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;
+  color:rgba(201,168,76,.4);margin-bottom:10px;}
 .menu-cerrar{position:absolute;top:20px;right:20px;background:none;
   border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.35);
-  width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:16px;
+  width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:18px;
   display:flex;align-items:center;justify-content:center;}
-.m-btn{width:100%;max-width:290px;padding:16px 24px;border-radius:50px;
+.m-btn{width:100%;max-width:290px;padding:17px 24px;border-radius:50px;
   font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;
   cursor:pointer;text-align:center;transition:all .2s;border:none;}
-.m-negro{background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;
-  box-shadow:0 4px 20px rgba(0,0,0,.5);}
-.m-negro:active{transform:scale(.97);}
+.m-btn:active{transform:scale(.97);}
+.m-negro{background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;box-shadow:0 4px 20px rgba(0,0,0,.5);}
 .m-oro{background:transparent;border:1.5px solid rgba(201,168,76,.35);color:rgba(201,168,76,.75);}
 .m-rojo{background:transparent;border:1.5px solid rgba(160,50,50,.4);color:rgba(200,80,80,.75);}
 </style>
@@ -117,19 +127,23 @@ canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-ev
   <div class="btn-salir" onclick="cerrarSesion()">SALIR</div>
 </div>
 
-<!-- LOGO FIJO — siempre centrado, no se mueve -->
-<div class="logo-centro">
-  <div class="logo-txt">P<span class="logo-delta">∆</span>PIR°</div>
-  <div class="logo-sub">CREAXION PAPIRO</div>
-  <div class="logo-slogan">Digitalidad Sana y Segura</div>
+<!-- LOGO FIJO — siempre centrado en pantalla, nunca se mueve -->
+<div class="logo-fijo">
+  <span class="logo-txt">P<span class="logo-delta">∆</span>PIR°</span>
+  <span class="logo-sub">CREAXION PAPIRO</span>
+  <span class="logo-slogan">Digitalidad Sana y Segura</span>
 </div>
 
+<!-- HINT -->
 <div class="hint-scroll" id="hintScroll">
-  <div class="hint-txt">DESLIZA HACIA ABAJO</div>
+  <div class="hint-txt">DESLIZA</div>
   <span class="hint-arrow">↓</span>
 </div>
 
-<!-- BAÚL — aparece al hacer scroll. padding-top:100vh crea el espacio del logo -->
+<!-- SPACER — espacio vacío donde se ve el logo. Al scrollear se pasa al baúl -->
+<div class="spacer"></div>
+
+<!-- BAÚL — aparece abajo al scrollear -->
 <div class="baul-section">
   <div class="baul-linea"></div>
   <div class="usuario-code" id="uCode">CREAXION PAPIRO</div>
@@ -165,36 +179,32 @@ window.addEventListener('load',function(){
 });
 
 async function cargarUsuario(){
-  /* Usar datos locales primero para velocidad */
-  var nombreLocal=localStorage.getItem('pap_nombre');
-  if(nombreLocal)document.getElementById('uNombre').textContent=nombreLocal;
-  
+  var n=localStorage.getItem('pap_nombre');
+  if(n)document.getElementById('uNombre').textContent=n;
   if(!sb)return;
   try{
-    var s=await sb.auth.getSession();
-    if(!s.data.session){ir('login.html');return;}
-    var u=s.data.session.user;
+    var{data:{session}}=await sb.auth.getSession();
+    if(!session){ir('login.html');return;}
+    var u=session.user;
     var nombre=u.user_metadata?.display_name||u.email?.split('@')[0]||'P∆plover';
     document.getElementById('uNombre').textContent=nombre;
-    document.getElementById('uCode').textContent=u.email;
+    document.getElementById('uCode').textContent=u.email||'CREAXION PAPIRO';
     localStorage.setItem('pap_nombre',nombre);
     localStorage.setItem('pap_usuario',u.id);
-  }catch(e){
-    var n=localStorage.getItem('pap_nombre')||'P∆plover';
-    document.getElementById('uNombre').textContent=n;
-  }
+  }catch(e){}
 }
 
-/* Scroll → revelar baúl cuando se empieza a bajar */
-var baulVisible=false;
+/* SCROLL — revela el baúl cuando el usuario llega a él */
+var baulVis=false;
 window.addEventListener('scroll',function(){
   var sy=window.scrollY||window.pageYOffset;
-  /* Apenas empieza a bajar, ocultar hint */
-  if(sy>30)document.getElementById('hintScroll').style.opacity='0';
-  /* Cuando ya llega al baúl, revelar */
-  var triggerY=window.innerHeight*.3;
-  if(sy>triggerY&&!baulVisible){
-    baulVisible=true;
+  var vh=window.innerHeight;
+  /* Ocultar hint cuando empieza a bajar */
+  if(sy>20)document.getElementById('hintScroll').style.opacity='0';
+  else document.getElementById('hintScroll').style.opacity='1';
+  /* Revelar baúl cuando se pasa el spacer */
+  if(sy>vh*.5&&!baulVis){
+    baulVis=true;
     ['uCode','uNombre','uHint','uFirma'].forEach(function(id){
       var el=document.getElementById(id);if(el)el.classList.add('vis');
     });
@@ -209,7 +219,6 @@ function ir(url){
   document.body.style.opacity='0';
   setTimeout(function(){location.href=url;},280);
 }
-
 async function cerrarSesion(){
   if(sb)await sb.auth.signOut().catch(function(){});
   localStorage.removeItem('pap_usuario');localStorage.removeItem('pap_nombre');
@@ -219,21 +228,20 @@ async function cerrarSesion(){
 /* COSMOS */
 (function(){
   var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
-  function resize(){c.width=window.innerWidth;c.height=window.innerHeight;}resize();window.addEventListener('resize',resize);
-  var stars=[],colores=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#FF8888','#C8A0FF'];
-  for(var i=0;i<280;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,g:1});
-  for(var j=0;j<80;j++){var calm=j<40;stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*.5+.15,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.002,col:colores[Math.floor(Math.random()*colores.length)],df:Math.random()*.02+.005,dp:Math.random()*Math.PI*2,g:2,calm:calm,vx:calm?0:(Math.random()-.5)*.08,vy:calm?0:(Math.random()-.5)*.05});}
-  for(var k=0;k<25;k++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*.7+.4,ph:Math.random()*Math.PI*2,sp:Math.random()*.0005+.0001,col:colores[Math.floor(Math.random()*colores.length)],g:3,ci:Math.random()*800+400,vx:(Math.random()-.5)*.04,vy:(Math.random()-.5)*.03});
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var stars=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var i=0;i<280;i++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,g:1});
+  for(var j=0;j<80;j++){var c2=j<40;stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.15,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.002,col:cols[Math.floor(Math.random()*cols.length)],df:Math.random()*.02+.005,dp:Math.random()*Math.PI*2,g:2,calm:c2,vx:c2?0:(Math.random()-.5)*.08,vy:c2?0:(Math.random()-.5)*.05});}
+  for(var k=0;k<25;k++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.7+.4,ph:Math.random()*Math.PI*2,sp:Math.random()*.0005+.0001,col:cols[Math.floor(Math.random()*cols.length)],g:3,ci:Math.random()*800+400,vx:(Math.random()-.5)*.04,vy:(Math.random()-.5)*.03});
   var t=0,camT=0;
-  function draw(){requestAnimationFrame(draw);t++;camT+=.004;
-    var cx=Math.sin(camT)*1.2+Math.sin(camT*2.3)*.5;
-    var cy=Math.sin(camT*.8)+Math.sin(camT*1.9)*.4;
+  function draw(){
+    requestAnimationFrame(draw);t++;camT+=.004;
+    var cx=Math.sin(camT)*1.2,cy=Math.sin(camT*.8);
     ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);ctx.save();ctx.translate(cx,cy);
     stars.forEach(function(s){
-      if(s.g===1){s.ph+=s.sp;var raw=Math.sin(s.ph);var a=raw>0?Math.min(raw*raw*1.8,1):0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.shadowColor='#FFF';ctx.shadowBlur=a>.7?a*5:0;ctx.fill();}
-      else if(s.g===2){if(s.calm){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=.35;ctx.shadowBlur=0;ctx.fill();}
-        else{s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;s.ph+=s.sp;var base=(Math.sin(s.ph)+1)/2;var pulso=Math.sin(t*s.df+s.dp);var dest=pulso>.88?(pulso-.88)*8:0;dest=Math.min(dest,1);var a=Math.min(base*.55+dest*.45+.08,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r+dest*.8,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=a;ctx.shadowColor=s.col;ctx.shadowBlur=dest>.3?dest*12:0;ctx.fill();}}
-      else if(s.g===3){var fase=(t%s.ci)/s.ci;var cur=fase<.3?fase/.3:Math.max(0,1-(fase-.3)/.7);var a=Math.min(cur*.85+.04,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r*(.7+cur*.3),0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=a;ctx.shadowColor=s.col;ctx.shadowBlur=cur>.6?cur*15:0;ctx.fill();}
+      if(s.g===1){s.ph+=s.sp;var a=Math.sin(s.ph);a=a>0?Math.min(a*a*1.8,1):0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.shadowColor='#FFF';ctx.shadowBlur=a>.7?a*5:0;ctx.fill();}
+      else if(s.g===2){if(s.calm){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=.35;ctx.shadowBlur=0;ctx.fill();}else{s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;s.ph+=s.sp;var base=(Math.sin(s.ph)+1)/2;var pulso=Math.sin(t*s.df+s.dp);var dest=pulso>.88?(pulso-.88)*8:0;dest=Math.min(dest,1);var aa=Math.min(base*.55+dest*.45+.08,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r+dest*.8,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=dest>.3?dest*12:0;ctx.fill();}}
+      else if(s.g===3){var fase=(t%s.ci)/s.ci;var cur=fase<.3?fase/.3:Math.max(0,1-(fase-.3)/.7);var aa=Math.min(cur*.85+.04,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r*(.7+cur*.3),0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=cur>.6?cur*15:0;ctx.fill();}
     });ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();}draw();
 })();
 </script>
