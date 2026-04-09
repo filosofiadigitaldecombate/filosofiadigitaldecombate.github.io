@@ -4,129 +4,127 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>P∆PIR° · Recepción</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;overflow:hidden;}
-body{background:#000;opacity:0;transition:opacity .4s;}
+/* opacity:0 desde el inicio — cosmos dibuja primero, sin flash */
+body{background:#000;opacity:0;transition:opacity .5s;}
 canvas#c{position:fixed;inset:0;width:100%;height:100%;z-index:0;}
-@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
-@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 18px rgba(201,168,76,.3));}50%{filter:drop-shadow(0 0 45px rgba(201,168,76,.7));}}
-@keyframes libroFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-4px);}}
-@keyframes libroBrillo{0%,100%{box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 12px rgba(201,168,76,.1);}50%{box-shadow:0 4px 28px rgba(0,0,0,.6),0 0 20px rgba(201,168,76,.25);}}
+
+@keyframes logoGlow{
+  0%,100%{filter:drop-shadow(0 0 18px rgba(200,169,106,.35));}
+  50%{filter:drop-shadow(0 0 46px rgba(230,194,122,.75));}}
+@keyframes oroDiscoFlow{
+  from{background-position:0% center;}
+  to{background-position:500% center;}}
+@keyframes libroFloat{
+  0%,100%{transform:translateY(0) rotate(-2deg);}
+  50%{transform:translateY(-5px) rotate(-2deg);}}
 
 /* CENTRO */
-.rec-wrap{position:fixed;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 24px;}
+.wrap{position:fixed;inset:0;z-index:10;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:0 28px;}
 
-.rec-logo{font-family:'Cinzel',serif;font-size:clamp(54px,17vw,90px);font-weight:900;
-  letter-spacing:clamp(6px,3vw,16px);color:#FFF;-webkit-text-stroke:1.8px #C9A84C;
-  animation:logoGlow 4s ease-in-out infinite;display:block;margin-bottom:8px;text-align:center;}
-.rec-logo-delta{-webkit-text-stroke:1.8px #E8C97A;}
-.rec-sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;color:rgba(201,168,76,.45);text-align:center;margin-bottom:3px;}
-.rec-slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:rgba(255,255,255,.2);text-align:center;margin-bottom:28px;}
+/* LOGO — Ley: clamp(54px,17vw,90px) inmutable */
+.logo{font-family:'Cinzel',serif;
+  font-size:clamp(54px,17vw,90px);font-weight:900;
+  letter-spacing:clamp(6px,3vw,16px);
+  color:#FFF;-webkit-text-stroke:1.8px #c8a96a;
+  animation:logoGlow 4s ease-in-out infinite;
+  display:block;margin-bottom:8px;text-align:center;}
+.logo .d{-webkit-text-stroke:1.8px #e6c27a;}
 
-/* BOTONES */
-.rec-btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:300px;margin-bottom:14px;}
-.btn-rec{width:100%;padding:17px 24px;border-radius:50px;
+/* CREAXION PAPIRO — Dorado Disco */
+.sub{font-family:'Cinzel',serif;font-size:10px;letter-spacing:7px;
+  background:linear-gradient(90deg,#5a4324,#8c6a3d,#c8a96a,#e6c27a,#b08d57,#6e552f,#c8a96a);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroDiscoFlow 8s linear infinite;
+  text-align:center;margin-bottom:3px;}
+.slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;
+  color:rgba(255,255,255,.22);text-align:center;margin-bottom:30px;}
+
+/* BOTONES — AMBOS transparentes + borde dorado disco + texto blanco */
+.btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:300px;}
+.btn{width:100%;padding:17px 24px;border-radius:50px;
   font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;
-  cursor:pointer;border:none;transition:all .2s;}
-.btn-rec:active{transform:scale(.97);}
-.btn-sesion{background:linear-gradient(135deg,#111,#000);color:#FFF;box-shadow:0 4px 20px rgba(0,0,0,.5);}
-.btn-visitante{background:transparent;border:1.5px solid rgba(201,168,76,.35);color:rgba(201,168,76,.7);}
-.btn-visitante:active{background:rgba(201,168,76,.1);}
+  cursor:pointer;transition:all .2s;
+  background:transparent;          /* se ven las estrellas */
+  border:1.5px solid #c8a96a;      /* Dorado Disco */
+  color:#FFFFFF;                   /* texto blanco legible */
+  text-shadow:0 0 10px rgba(0,0,0,.9),0 1px 3px rgba(0,0,0,.8);}
+.btn:active{background:rgba(200,169,106,.12);transform:scale(.97);}
 
-/* CONTADOR bajo los botones */
-.rec-counter{font-family:'Special Elite',serif;font-size:12px;letter-spacing:2px;
-  color:rgba(201,168,76,.3);text-align:center;}
-.rec-counter strong{color:rgba(201,168,76,.65);font-size:15px;}
+/* CONTADOR — ojo + número blancos */
+.counter{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;}
+.cnt-eye{font-size:20px;filter:drop-shadow(0 0 5px rgba(200,169,106,.4))
+  drop-shadow(0 0 1px rgba(200,169,106,.8));}
+.cnt-num{font-family:'Cinzel',serif;font-size:20px;font-weight:900;
+  color:#FFFFFF;
+  text-shadow:0 0 8px rgba(200,169,106,.5),
+              -1px -1px 0 rgba(200,169,106,.3),
+               1px  1px 0 rgba(200,169,106,.3);}
 
-/* LIBRO AUTOBIOGRAFIA — esquina inferior izquierda */
-.libro-wrap{position:fixed;bottom:20px;left:14px;z-index:20;cursor:pointer;}
-.libro{width:46px;height:58px;border-radius:3px 6px 6px 3px;
-  background:linear-gradient(160deg,#1A1208,#0E0A04);
-  border-left:4px solid #C9A84C;
-  box-shadow:0 4px 20px rgba(0,0,0,.5),0 0 12px rgba(201,168,76,.1);
-  animation:libroFloat 3s ease-in-out infinite,libroBrillo 3s ease-in-out infinite;
+/* LIBRO BIO CEO — esquina inferior izquierda */
+.libro-wrap{position:fixed;bottom:18px;left:12px;z-index:20;
+  cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;}
+.libro{width:48px;height:60px;border-radius:2px 8px 8px 2px;
+  background:rgba(0,0,0,.65);
+  border:1.5px solid #c8a96a;border-left:4px solid #e6c27a;
+  box-shadow:0 4px 20px rgba(0,0,0,.6),0 0 14px rgba(200,169,106,.2);
+  animation:libroFloat 3.5s ease-in-out infinite;
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
   position:relative;overflow:hidden;}
-.libro::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
-  background:linear-gradient(to right,#C9A84C,#E8C97A,#C9A84C);}
-.libro-ico{font-size:18px;filter:drop-shadow(0 0 4px rgba(201,168,76,.5));}
-.libro-txt{font-family:'Cinzel',serif;font-size:6px;letter-spacing:1px;color:rgba(201,168,76,.7);}
-.libro-visit{font-family:'Special Elite',serif;font-size:8px;color:rgba(201,168,76,.45);position:absolute;bottom:3px;}
+.libro::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,#c8a96a,#e6c27a,#c8a96a);}
+.libro-ico{font-size:20px;filter:drop-shadow(0 0 4px rgba(200,169,106,.6));}
+/* Texto BIO CEO — blanco con borde dorado */
+.libro-txt{font-family:'Cinzel',serif;font-size:6px;letter-spacing:1px;
+  color:#FFFFFF;text-align:center;line-height:1.4;
+  text-shadow:-1px 0 2px rgba(200,169,106,.5),1px 0 2px rgba(200,169,106,.5);}
+.libro-cnt{font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;
+  color:#FFFFFF;text-align:center;
+  text-shadow:0 0 6px rgba(200,169,106,.6);}
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 
-<div class="rec-wrap">
-  <span class="rec-logo">P<span class="rec-logo-delta">∆</span>PIR°</span>
-  <div class="rec-sub">CREAXION PAPIRO</div>
-  <div class="rec-slogan">Digitalidad Sana y Segura</div>
+<div class="wrap">
+  <span class="logo">P<span class="d">∆</span>PIR°</span>
+  <div class="sub">CREAXION PAPIRO</div>
+  <div class="slogan">Digitalidad Sana y Segura</div>
 
-  <div class="rec-btns">
-    <button class="btn-rec btn-sesion" onclick="irLogin()">INICIAR SESIÓN</button>
-    <button class="btn-rec btn-visitante" onclick="irVisitante()">VISITANTE</button>
+  <!-- BOTONES: ambos transparentes, borde dorado disco, texto blanco -->
+  <div class="btns">
+    <button class="btn" onclick="irLogin()">INICIAR SESIÓN</button>
+    <button class="btn" onclick="irVisitante()">VISITANTE</button>
   </div>
 
-  <div class="rec-counter">
-    <strong id="contVisitas">···</strong> visitantes
+  <!-- CONTADOR: ojo blanco + número blanco -->
+  <div class="counter">
+    <span class="cnt-eye">👁️</span>
+    <span class="cnt-num" id="cnt">···</span>
   </div>
 </div>
 
-<!-- LIBRO AUTOBIOGRAFIA — esquina inferior izquierda -->
-<div class="libro-wrap" onclick="abrirLibro()">
+<!-- LIBRO AUTOBIOGRAFÍA CEO — EXCLUSIVO para papiro_bio_ceo.html -->
+<div class="libro-wrap" onclick="abrirBio()">
   <div class="libro">
     <span class="libro-ico">📖</span>
-    <span class="libro-txt">BIO</span>
-    <span class="libro-visit" id="libroVisits"></span>
+    <span class="libro-txt">BIO<br>CEO</span>
   </div>
+  <span class="libro-cnt" id="libCnt"></span>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
-var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
-var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
+var SB='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SK='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB,SK);}catch(e){}
 
-window.addEventListener('load',function(){
-  document.body.style.opacity='1';
-  cargarContadores();
-});
-
-async function cargarContadores(){
-  if(!sb)return;
-  try{
-    var{data}=await sb.from('config_sistema').select('clave,valor').in('clave',['visitas_total','visitas_bio']);
-    if(data)data.forEach(function(r){
-      if(r.clave==='visitas_total')document.getElementById('contVisitas').textContent=Number(r.valor).toLocaleString();
-      if(r.clave==='visitas_bio'&&r.valor>0)document.getElementById('libroVisits').textContent=r.valor;
-    });
-  }catch(e){}
-}
-
-async function incrementar(clave){
-  if(!sb)return;
-  try{await sb.rpc('incrementar_visitas',{p_clave:clave});}catch(e){}
-}
-
-function irVisitante(){
-  incrementar('visitas_total');
-  localStorage.setItem('pap_lang','es');
-  document.body.style.opacity='0';
-  setTimeout(function(){location.href='visitante_es.html';},280);
-}
-function irLogin(){
-  document.body.style.opacity='0';
-  setTimeout(function(){location.href='login.html';},280);
-}
-function abrirLibro(){
-  incrementar('visitas_bio');
-  document.body.style.opacity='0';
-  setTimeout(function(){location.href='papiro_corazon.html';},280);
-}
-
-/* COSMOS */
+/* ═══ COSMOS — se dibuja PRIMERO, luego aparece body ═══ */
 (function(){
   var c=document.getElementById('c'),ctx=c.getContext('2d');
   function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
@@ -134,17 +132,55 @@ function abrirLibro(){
   for(var i=0;i<260;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,g:1});
   for(var j=0;j<70;j++){var calm=j<35;S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.15,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.002,col:cols[Math.floor(Math.random()*cols.length)],df:Math.random()*.02+.005,dp:Math.random()*Math.PI*2,g:2,calm:calm,vx:calm?0:(Math.random()-.5)*.08,vy:calm?0:(Math.random()-.5)*.05});}
   for(var k=0;k<20;k++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.7+.4,ph:Math.random()*Math.PI*2,sp:Math.random()*.0005+.0001,col:cols[Math.floor(Math.random()*cols.length)],g:3,ci:Math.random()*800+400});
-  var t=0,camT=0;
+  var t=0,camT=0,shown=false;
   function draw(){
     requestAnimationFrame(draw);t++;camT+=.004;
     var cx=Math.sin(camT)*1.2,cy=Math.sin(camT*.8);
-    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);ctx.save();ctx.translate(cx,cy);
+    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    ctx.save();ctx.translate(cx,cy);
     S.forEach(function(s){
       if(s.g===1){s.ph+=s.sp;var a=Math.sin(s.ph);a=a>0?Math.min(a*a*1.8,1):0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.shadowColor='#FFF';ctx.shadowBlur=a>.7?a*5:0;ctx.fill();}
       else if(s.g===2){if(s.calm){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=.3;ctx.shadowBlur=0;ctx.fill();}else{s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;s.ph+=s.sp;var base=(Math.sin(s.ph)+1)/2;var pulso=Math.sin(t*s.df+s.dp);var dest=pulso>.88?(pulso-.88)*8:0;dest=Math.min(dest,1);var aa=Math.min(base*.55+dest*.45+.08,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r+dest*.8,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=dest>.3?dest*12:0;ctx.fill();}}
       else if(s.g===3){var fase=(t%s.ci)/s.ci;var cur=fase<.3?fase/.3:Math.max(0,1-(fase-.3)/.7);var aa=Math.min(cur*.85+.04,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r*(.7+cur*.3),0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=cur>.6?cur*15:0;ctx.fill();}
-    });ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();}draw();
+    });
+    ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();
+    /* Mostrar body solo tras primer frame de cosmos — sin flash */
+    if(!shown){shown=true;document.body.style.opacity='1';}
+  }
+  draw();
 })();
+
+/* Contadores */
+async function cargar(){
+  if(!sb)return;
+  try{
+    var{data}=await sb.from('config_sistema').select('clave,valor').in('clave',['visitas_total','visitas_bio']);
+    if(data)data.forEach(function(r){
+      if(r.clave==='visitas_total')document.getElementById('cnt').textContent=Number(r.valor).toLocaleString();
+      if(r.clave==='visitas_bio'&&Number(r.valor)>0)document.getElementById('libCnt').textContent='👁 '+Number(r.valor).toLocaleString();
+    });
+  }catch(e){document.getElementById('cnt').textContent='···';}
+}
+cargar();
+
+async function inc(k){if(!sb)return;try{await sb.rpc('incrementar_visitas',{p_clave:k});}catch(e){}}
+
+function irVisitante(){
+  inc('visitas_total');
+  localStorage.setItem('pap_lang','es');
+  document.body.style.opacity='0';
+  setTimeout(function(){location.href='visitante_es.html';},300);
+}
+function irLogin(){
+  document.body.style.opacity='0';
+  setTimeout(function(){location.href='login.html';},300);
+}
+function abrirBio(){
+  inc('visitas_bio');
+  document.body.style.opacity='0';
+  /* LEY: SOLO va a la autobiografía del CEO */
+  setTimeout(function(){location.href='papiro_bio_ceo.html';},300);
+}
 </script>
 </body>
 </html>
