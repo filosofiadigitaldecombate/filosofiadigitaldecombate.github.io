@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Autobiografía · Luis Alfonso Castillejo · CEO P∆PIR°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,300;1,300;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;max-width:100vw;min-height:100%;}
+body{background:#0A0806;min-height:100vh;opacity:0;transition:opacity .4s;}
+canvas#capa1{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.3;pointer-events:none;}
+#capa2{position:relative;z-index:2;width:100%;overflow-x:hidden;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 5%,rgba(200,169,106,.06) 0%,transparent 35%),
+  linear-gradient(180deg,#0A0806,#120C08 50%,#0A0806);}
+#capa3{position:relative;z-index:4;margin:0 37px;padding:28px 20px 100px;min-height:100vh;overflow-x:hidden;
+  background:
+    repeating-linear-gradient(45deg,rgba(200,169,106,.012) 0px,rgba(200,169,106,.012) 1px,transparent 1px,transparent 22px),
+    linear-gradient(160deg,#130E09,#0E0A06 50%,#130E09);}
+/* BORDES dorado disco 8s */
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:bf 8s linear infinite;
+  box-shadow:inset -2px 0 8px rgba(0,0,0,.8),3px 0 16px rgba(200,169,106,.12);}
+@keyframes bf{from{background-position:0 0%;}to{background-position:0 100%;}}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:bf 8s linear infinite reverse;
+  box-shadow:inset 2px 0 8px rgba(0,0,0,.8),-3px 0 16px rgba(200,169,106,.12);}
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:10;pointer-events:all;cursor:pointer;background:transparent;}
+.ml.L{left:0;}.ml.R{right:0;}
+.ml.L::after{content:'';position:absolute;top:0;bottom:0;right:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;animation:bf 35s linear infinite;box-shadow:0 0 6px rgba(200,169,106,.4);}
+.ml.R::after{content:'';position:absolute;top:0;bottom:0;left:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;animation:bf 35s linear infinite reverse;box-shadow:0 0 6px rgba(200,169,106,.4);}
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1.5px solid #c8a96a;
+  box-shadow:0 0 12px rgba(200,169,106,.25);transition:background .3s;}
+.btn-f:active{background:rgba(200,169,106,.12);transform:scale(.92);}
+.btn-f.izq{bottom:20px;left:42px;}
+.btn-f.der{bottom:20px;right:42px;}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:53px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:bf 35s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:32px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:bf 35s linear infinite reverse;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
+/* CONTENIDO */
+.portada{text-align:center;padding:20px 0 28px;margin-bottom:24px;
+  border-bottom:1px solid rgba(200,169,106,.15);}
+.port-sup{font-family:'Special Elite',serif;font-size:10px;letter-spacing:.25em;color:rgba(200,169,106,.4);margin-bottom:10px;}
+.port-titulo{font-family:'Cinzel',serif;font-size:clamp(20px,5vw,38px);font-weight:900;
+  letter-spacing:.06em;line-height:1.2;
+  background:linear-gradient(90deg,#7A5A00,#C9A84C,#FFFACD,#E8C97A,#C9A84C,#7A5A00);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 12s linear infinite;margin-bottom:6px;}
+.port-sub{font-family:'Crimson Pro',serif;font-style:italic;color:rgba(200,188,168,.4);font-size:16px;margin-bottom:10px;}
+.port-cod{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.18em;color:rgba(200,169,106,.3);}
+/* TESTIGOS */
+.testigos-bar{display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:20px;padding:10px 18px;
+  background:rgba(200,169,106,.04);border:1px solid rgba(200,169,106,.1);border-radius:30px;width:fit-content;margin-left:auto;margin-right:auto;}
+.tst-ico{font-size:16px;}.tst-num{font-family:'Cinzel',serif;font-size:18px;font-weight:900;color:#FFFFFF;text-shadow:0 0 8px rgba(200,169,106,.4);}
+.tst-lbl{font-family:'Special Elite',serif;font-size:10px;color:rgba(200,169,106,.45);letter-spacing:2px;}
+/* VIDEO */
+.video-wrap{background:rgba(200,169,106,.04);border:1px solid rgba(200,169,106,.12);border-radius:10px;padding:14px;margin:18px 0;text-align:center;}
+.video-titulo-txt{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;color:rgba(200,169,106,.55);margin-bottom:8px;display:block;}
+.video-frame{width:100%;border-radius:6px;border:none;display:block;background:#000;}
+.video-frame{aspect-ratio:16/9;}
+.video-cta{display:block;margin-top:10px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(200,169,106,.4);text-decoration:none;padding:8px;border:1px solid rgba(200,169,106,.15);border-radius:20px;}
+/* CAPÍTULOS */
+.page-rule{width:100%;height:1px;margin:18px 0;background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
+.cap-header{text-align:center;padding:24px 0 18px;}
+.cap-n{font-family:'Special Elite',serif;font-size:10px;letter-spacing:.22em;color:rgba(200,169,106,.4);margin-bottom:6px;}
+.cap-titulo{font-family:'Cinzel',serif;font-size:clamp(14px,3.5vw,22px);font-weight:900;
+  letter-spacing:.08em;background:linear-gradient(90deg,#7A5A00,#C9A84C,#FFFACD,#C9A84C,#7A5A00);
+  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroVivo 14s linear infinite;}
+.bio-txt{font-family:'Crimson Pro',serif;font-size:22px;line-height:2.2;color:#C8BCA8;}
+.bio-txt p{margin-bottom:16px;}
+.bio-txt p.primera::first-letter{font-size:56px;float:left;line-height:.82;margin:4px 10px 0 0;
+  font-family:'Cinzel',serif;font-weight:900;color:#C9A84C;filter:drop-shadow(0 0 8px rgba(200,169,106,.4));}
+.bio-txt em{color:#E8C97A;font-style:italic;}
+.bio-txt strong{color:#FFFACD;font-weight:600;}
+.bio-txt blockquote{border-left:3px solid rgba(200,169,106,.4);padding:14px 18px;margin:16px 0;
+  background:rgba(200,169,106,.04);border-radius:0 4px 4px 0;}
+.bio-txt blockquote p{font-style:italic;font-size:20px;color:#D8CCAA;margin:0;}
+.sep{text-align:center;color:rgba(200,169,106,.2);margin:24px 0;letter-spacing:.3em;font-size:11px;}
+/* FIRMA */
+.firma{text-align:center;padding:18px 0;margin-top:18px;border-top:1px solid rgba(200,169,106,.12);}
+.firma-nom{font-family:'Cinzel',serif;font-size:17px;font-weight:900;letter-spacing:3px;color:#e6c27a;display:block;margin-bottom:5px;text-shadow:0 0 12px rgba(200,169,106,.35);}
+.firma-cod{font-family:'Special Elite',serif;font-size:12px;color:rgba(200,169,106,.45);letter-spacing:2px;display:block;margin-bottom:3px;}
+/* BAÚL 1300vh */
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
+.bn{font-family:'Cinzel',serif;font-size:24px;font-weight:900;letter-spacing:6px;display:block;margin-bottom:10px;color:#e6c27a;text-shadow:0 0 12px rgba(200,169,106,.4);opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Special Elite',serif;font-size:13px;letter-spacing:3px;color:rgba(200,169,106,.45);display:block;margin-bottom:6px;opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
+</style>
+</head>
+<body>
+<canvas id="capa1"></canvas>
+<div class="borde-izq"></div>
+<div class="borde-der"></div>
+<div class="ml L" onclick="navAnt()"></div>
+<div class="ml R" onclick="irSalon()"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="navAnt()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa2"><div id="capa3">
+
+  <div class="portada">
+    <div class="port-sup">Memorias · Testimonio · Verdad</div>
+    <div class="port-titulo">Luis Alfonso<br>Castillejo Ventura</div>
+    <div class="port-sub">Una vida preparada para servir</div>
+    <div class="port-cod">X-7777777-LC7° · SI° · 350 · 777</div>
+  </div>
+
+  <!-- TESTIGOS -->
+  <div class="testigos-bar">
+    <span class="tst-ico">👁️</span>
+    <span class="tst-num" id="tst">···</span>
+    <span class="tst-lbl">TESTIGOS DE ESTA HISTORIA</span>
+  </div>
+
+  <!-- VIDEO PASTELITO -->
+  <div class="video-wrap">
+    <span class="video-titulo-txt">LA BATALLA ASÍ COMENZÓ</span>
+    <iframe class="video-frame"
+      src="https://odysee.com/$/embed/Asi-Comienza-la-Historia-%F0%9F%98%89%F0%9F%87%BB%F0%9F%87%AA:9"
+      allowfullscreen frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media">
+    </iframe>
+    <a class="video-cta" href="https://odysee.com/Asi-Comienza-la-Historia-%F0%9F%98%89%F0%9F%87%BB%F0%9F%87%AA:9" target="_blank">✦ VER EN ODYSEE CON AUDIO COMPLETO</a>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- CAPÍTULO I -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo I</div>
+    <div class="cap-titulo">De la Isla al Mundo</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Soy margariteño, porque nací en la isla de Margarita, en Venezuela. Nací en Porlamar, en el hospital Luis Ortega, pero salí de la isla a los once años de edad para pasar por el oncológico de Valencia y, luego, terminar de criarme viviendo en el hermoso pueblo de Punto Fijo, en el estado Falcón.</p>
+    <p>Gracias a Dios, pese a la enfermedad de mi madre, toda nuestra familia son profesionales en su gran mayoría; y en cierta parte los Castillejo son especialistas en algún área del ramo petrolero. Así que, como buena familia, llamaron a mi padre para apoyarnos en aquel momento tan difícil, encontrándole cursos y trabajo en PDVSA —Petróleos de Venezuela, S.A.—, sea en Amuay o en Cardón, en el estado Falcón.</p>
+    <p>Allí comencé a desenvolverme entre una nueva jerga, sociedad y cultura. Estudié de primer a tercer año en el liceo de Creolandia —zona popular donde tuve importantes experiencias y mi primer despertar conductual— y cuarto y quinto año en el liceo Mariano Talavera, donde estudié Humanidades.</p>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO II -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo II</div>
+    <div class="cap-titulo">El Despertar Político</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Para la época —el año 2000, cuando gobernaba el fallecido Chávez— mi joven análisis siempre estudiaba su caso: el porqué de la admiración de muchos hacia él, así como la conducta de quienes no le agradaba.</p>
+    <p>Estando entre estas familias y este ecosistema de debates filosóficos, sociales y políticos, se me ocurrió analizar, estudiar y aprender de todos. <em>"Llegar a ser algún día presidente de la nación"</em> fue mi pensamiento más secreto desde entonces, y así se formó mi objetivo, junto con la frase interna: <em>"Si Chávez pudo, yo también puedo."</em></p>
+    <blockquote><p>"Ser ese personaje histórico, ese presidente inolvidable y ese venezolano que sí transformó a Venezuela realmente en un perfecto modelo de país para bien y ejemplo del mundo entero."</p></blockquote>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO III -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo III</div>
+    <div class="cap-titulo">Entre Dos Bandos</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">En mi vida conocí a muchos opositores y chavistas como nadie. Al conocer el concepto del <em>pensamiento paralelo</em> en psicología, se me hizo fácil compartir con todos, escuchar a todas las personas y analizar a los políticos con objetividad.</p>
+    <p><strong>Yo no quise seguir ese patrón conductual de ninguno.</strong> Decidí seguir preparándome y absorbiendo conocimiento por si algún día pudiera ser ese candidato que realmente uniría a todos, porque conozco a un bando y también al otro, desde su núcleo, su filosofía y su interior.</p>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO IV -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo IV</div>
+    <div class="cap-titulo">La Preparación</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Seguí estudiando y analizando el comportamiento social, la economía, la geografía, la política internacional y el valor del crudo. Trabajé en PDVSA, en el Banco Bicentenario de Caracas, en hoteles, restaurantes, construcción, eventos. Estudié música y soy músico; estudié Teología y griego antes de salir de Venezuela.</p>
+    <p>Soy bailarín de salsa casino —esto fue porque una amiga me insistió y, como militar, primero dije que no; pero luego me dije a mí mismo: <em>"Nada es peor que un presidente que no sepa bailar salsa"</em>, y me inscribí. También soy coctelero profesional.</p>
+    <p>Después de haber leído tantos libros decidí que tenía buen conocimiento y vivencias de todo; pero que si quería ser presidente, necesitaba también conocimiento militar. Así que me fui a la Unidad de Comandos de Mar, en Turiamo, y allí estuve dos años. Participé en el Curso Comando número 56.</p>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO V -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo V</div>
+    <div class="cap-titulo">La Despedida</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Luego de salir de allí, mi cristiana madre —Narcisa del Carmen Ventura López— falleció del cáncer que le había dado veinte años atrás. La despedí en su cama. Me hizo prometer que nunca tendría problemas legales.</p>
+    <p>Lo último que me habló fue: <em>"Regresa con la madre de tu hija."</em> A las pocas horas murió con una sonrisa, diciendo que estaba feliz, con el pulgar arriba.</p>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO VI -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo VI</div>
+    <div class="cap-titulo">El Regreso a la Isla</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Volví a Margarita ya adulto. Pensé que ya estaba preparado, a mis treinta y dos años. Me sentí listo para inscribirme en las siguientes elecciones cuando fuesen. Volví a la isla de Margarita para hacer tiempo y esperar el anuncio de las fechas de postulaciones por parte del CNE.</p>
+  </div>
+
+  <div class="sep">· · ∆° · ·</div>
+
+  <!-- CAPÍTULO VII -->
+  <div class="cap-header">
+    <div class="cap-n">Capítulo VII</div>
+    <div class="cap-titulo">El Restaurante Amaranto</div>
+  </div>
+  <div class="bio-txt">
+    <p class="primera">Estando allá en Margarita, vi un restaurante llamado <em>Amaranto</em>, ubicado en la avenida Joaquín Maneiro, en Pampatar. Un local lujoso que, aparte de restaurante, vendía libros. Me pareció buena idea trabajar allí: podía hacer un dinero mientras esperaba la fecha del CNE, podía leer todos los libros que quisiera, y el lugar era visitado por muchos personajes públicos relevantes para la política y la sociedad.</p>
+    <p>Allí hice de todo: portero, mesero, seguridad de carros, barista, barman, mayordomo. Lo curioso de este restaurante es que al entrar tiene un cuadro gigante de una mujer tapándose un ojo. Solo observé, guardé silencio y comencé a trabajar.</p>
+  </div>
+
+  <div class="firma">
+    <span class="firma-nom">Luis Alfonso Castillejo Ventura</span>
+    <span class="firma-cod">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="firma-cod">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="firma-cod">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="firma-cod">CÓDIGO DE HONOR IM. #7 — Así lo he hecho!</span>
+    <div style="margin-top:10px;font-family:'Cinzel',serif;font-size:12px;color:rgba(200,169,106,.4);">En el nombre de Jesús · SI° · 🙏</div>
+  </div>
+
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <div style="font-family:'Special Elite',serif;font-size:10px;letter-spacing:6px;color:rgba(200,169,106,.25);text-align:center;margin-bottom:16px;">EL BAÚL DE LOS TESTIGOS</div>
+    <span class="bn" id="bN">Luis Castillejo</span>
+    <span class="bs" id="bS1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS2" style="word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="bs" id="bS3">Fundador · Creaxion Papiro © 2026</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
+  </div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+window.addEventListener('load',function(){document.body.style.opacity='1';});
+var SB='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SK='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB,SK);}catch(e){}
+async function cargar(){
+  if(!sb)return;
+  try{var{data}=await sb.from('config_sistema').select('valor').eq('clave','visitas_bio').single();
+    if(data)document.getElementById('tst').textContent=Number(data.valor).toLocaleString();}catch(e){}
+}
+cargar();
+(function(){
+  var c=document.getElementById('capa1'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['rgba(200,169,106,','rgba(230,194,122,','rgba(90,67,36,','rgba(255,255,255,'];
+  for(var i=0;i<200;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.001+.0003,col:cols[Math.floor(Math.random()*cols.length)]});
+  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#0A0806';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col+a+')';ctx.globalAlpha=1;ctx.fill();});ctx.globalAlpha=1;}draw();
+})();
+function navAnt(){document.body.style.opacity='0';setTimeout(function(){location.href='recepcion_es.html';},280);}
+function irSalon(){var u=localStorage.getItem('papiro_usuario');document.body.style.opacity='0';setTimeout(function(){location.href=u?'salon.html':'login.html';},280);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*13)
+    ['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+},{passive:true});
+</script>
+</body>
+</html>
