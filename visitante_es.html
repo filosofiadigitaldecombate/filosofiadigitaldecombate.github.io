@@ -3,96 +3,268 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>P&#x394;PIR&deg; &middot; Visitante &middot; ES</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<title>P∆PIR° · Visitante</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html{background:#FFF;}body{background:#FFF;min-height:100vh;overflow-x:hidden;}
-@keyframes comandoLogo{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
-@keyframes margenFlow{0%{background-position:0% 0%;}50%{background-position:0% 100%;}100%{background-position:0% 0%;}}
-.ml{position:fixed;top:0;bottom:0;width:5px;z-index:100;cursor:pointer;pointer-events:all;
-  background:linear-gradient(180deg,#000,#0A0A0A,#111,#050505,#000,#0D0D0D,#000,#080808,#111,#000);
-  background-size:100% 200px;animation:margenFlow 6s linear infinite;}
-.ml.L{left:36px;}.ml.R{right:36px;}
-.pano{margin:0 41px;min-height:100vh;background:#FEFEFE;}
-.contenido{padding:26px 18px 0;}
-.logo-wrap{text-align:center;margin-bottom:8px;}
-.logo{font-size:30px;font-weight:900;font-family:"Cinzel",serif;letter-spacing:5px;display:inline-block;margin-bottom:3px;
-  background:linear-gradient(180deg,#000,#050505,#0A0A0A,#000,#111,#000);background-size:100% 400%;
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:comandoLogo 20s ease-in-out infinite;-webkit-text-stroke:.8px #C9A84C;}
-.logo-sub{font-family:"Cinzel",serif;font-size:10px;letter-spacing:4px;color:rgba(0,0,0,.3);}
-.hr{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(0,0,0,.18),transparent);margin:13px 0;}
-/* VIDEO 9:16 shorts */
-.video-box{position:relative;width:100%;max-width:360px;margin:0 auto;padding-bottom:177.78%;background:#000;overflow:hidden;border-radius:8px;}
-.video-box iframe{position:absolute;inset:0;width:100%;height:100%;border:none;}
-.vid-titulo{font-family:"Cinzel",serif;font-size:16px;font-weight:600;letter-spacing:2px;color:#000;margin:10px 0 3px;}
-.vid-desc{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:16px;color:#444;line-height:1.7;}
-.sec-titulo{font-family:"Cinzel",serif;font-size:19px;font-weight:600;letter-spacing:2px;color:#000;padding:8px 0;margin:16px 0 8px;border-bottom:1px solid rgba(0,0,0,.1);}
-.cuerpo{font-family:"Cormorant Garamond",serif;font-size:22px;line-height:2.2;color:#1A1A1A;}
-.cuerpo p{margin-bottom:12px;text-indent:1.5em;}
-.quote{border-left:4px solid #000;padding:12px 16px;margin:14px 0;background:rgba(0,0,0,.03);}
-.qt{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:18px;color:#111;line-height:2;}
-.qf{font-family:"Cinzel",serif;font-size:11px;color:#666;margin-top:6px;display:block;letter-spacing:1px;}
-.btn-p{border-radius:50px;font-family:"Cinzel",serif;letter-spacing:3px;cursor:pointer;transition:all .2s;text-align:center;border:none;padding:16px 28px;width:100%;display:block;font-size:14px;}
-.btn-negro{background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;box-shadow:0 4px 15px rgba(0,0,0,.3);}
-.btn-negro:active{transform:translateY(2px);}
-.btn-outline{background:rgba(255,255,255,.95);border:2px solid #000;color:#000;}
-.btn-outline:active{transform:translateY(1px);}
-.sello{text-align:center;padding:10px 0;margin-top:16px;border-top:1px solid rgba(0,0,0,.08);}
-.s1{font-family:"Cinzel",serif;font-size:17px;letter-spacing:2px;color:#111;}
-.s2{font-family:"Cinzel",serif;font-size:13px;color:#888;margin-top:2px;letter-spacing:1px;}
-.baul{padding-top:max(80vh,700px);padding-bottom:60px;text-align:center;}
-.baul-hr{width:60%;height:1px;margin:0 auto 18px;background:linear-gradient(to right,transparent,rgba(0,0,0,.2),transparent);}
-.baul-n{font-family:"Cinzel",serif;font-size:26px;font-weight:900;letter-spacing:5px;color:#000;display:block;margin-bottom:10px;}
-.baul-s{font-family:"Cinzel",serif;font-size:13px;letter-spacing:2px;color:#888;display:block;margin:3px 0;word-break:break-all;}
+html,body{overflow-x:hidden;max-width:100vw;min-height:100%;}
+body{background:#000;min-height:100vh;opacity:0;transition:opacity .4s;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.4;pointer-events:none;}
+
+/* CAPA 3 */
+#capa3{position:relative;z-index:4;margin:0 37px;padding:28px 20px 100px;min-height:100vh;}
+
+/* BORDES dorado disco */
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:fl 8s linear infinite;
+  box-shadow:inset -2px 0 8px rgba(0,0,0,.8),3px 0 16px rgba(200,169,106,.15);}
+@keyframes fl{from{background-position:0 0%;}to{background-position:0 100%;}}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:fl 8s linear infinite reverse;
+  box-shadow:inset 2px 0 8px rgba(0,0,0,.8),-3px 0 16px rgba(200,169,106,.15);}
+
+/* MÁRGENES */
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:10;pointer-events:all;cursor:pointer;background:transparent;}
+.ml.L{left:0;}.ml.R{right:0;}
+.ml.L::after{content:'';position:absolute;top:0;bottom:0;right:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;animation:fl 35s linear infinite;box-shadow:0 0 6px rgba(200,169,106,.45);}
+.ml.R::after{content:'';position:absolute;top:0;bottom:0;left:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;animation:fl 35s linear infinite reverse;box-shadow:0 0 6px rgba(200,169,106,.45);}
+
+/* BOTONES 58×58 */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;
+  width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1.5px solid #c8a96a;
+  box-shadow:0 0 12px rgba(200,169,106,.3);transition:background .3s;}
+.btn-f:active{background:rgba(200,169,106,.12);transform:scale(.92);}
+.btn-f.izq{bottom:20px;left:42px;}
+.btn-f.der{bottom:20px;right:42px;}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:53px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:fl 35s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:32px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:fl 35s linear infinite reverse;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+@keyframes oroDiscoFlow{from{background-position:0% center;}to{background-position:500% center;}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(200,169,106,.35));}50%{filter:drop-shadow(0 0 36px rgba(230,194,122,.75));}}
+
+/* CONTENIDO */
+.vis-logo{font-family:'Cinzel',serif;font-size:clamp(36px,10vw,62px);font-weight:900;
+  letter-spacing:clamp(4px,2vw,10px);color:#FFF;-webkit-text-stroke:1.5px #c8a96a;
+  animation:logoGlow 4s ease-in-out infinite;display:block;text-align:center;margin-bottom:4px;}
+.vis-logo .d{-webkit-text-stroke:1.5px #e6c27a;}
+.vis-sub{font-family:'Cinzel',serif;font-size:9px;letter-spacing:6px;
+  background:linear-gradient(90deg,#5a4324,#8c6a3d,#c8a96a,#e6c27a,#b08d57,#6e552f,#c8a96a);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroDiscoFlow 8s linear infinite;
+  text-align:center;margin-bottom:3px;}
+.vis-slogan{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;
+  color:rgba(255,255,255,.2);text-align:center;margin-bottom:6px;}
+.vis-badge{font-family:'Special Elite',serif;font-size:10px;letter-spacing:3px;
+  color:rgba(200,169,106,.5);text-align:center;margin-bottom:20px;}
+
+/* CONTADOR */
+.vis-counter{display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-bottom:20px;padding:8px 16px;
+  background:rgba(200,169,106,.04);border:1px solid rgba(200,169,106,.12);border-radius:30px;width:fit-content;margin-left:auto;margin-right:auto;}
+.cnt-eye{font-size:16px;}
+.cnt-num{font-family:'Cinzel',serif;font-size:18px;font-weight:900;
+  color:#FFFFFF;text-shadow:0 0 8px rgba(200,169,106,.4);}
+.cnt-lbl{font-family:'Special Elite',serif;font-size:9px;letter-spacing:3px;color:rgba(200,169,106,.4);}
+
+.page-rule{width:100%;height:1px;margin:16px 0;
+  background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
+
+/* SECCIÓN BATALLA */
+.batalla-titulo{font-family:'Cinzel',serif;font-size:13px;letter-spacing:5px;
+  color:rgba(200,169,106,.5);text-align:center;margin-bottom:6px;}
+.batalla-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
+  color:rgba(255,255,255,.4);text-align:center;margin-bottom:20px;line-height:1.6;}
+
+/* GRID DE VIDEOS */
+.videos-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.video-card{border-radius:10px;overflow:hidden;border:1px solid rgba(200,169,106,.15);
+  background:rgba(200,169,106,.04);}
+.video-titulo{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;
+  color:rgba(200,169,106,.6);padding:10px 10px 6px;text-align:center;display:block;}
+.video-frame{width:100%;border:none;display:block;background:#000;}
+.video-frame{aspect-ratio:9/16;}
+.video-link{display:block;font-family:'Special Elite',serif;font-size:9px;letter-spacing:2px;
+  color:rgba(200,169,106,.4);text-align:center;padding:8px;text-decoration:none;}
+.video-link:active{color:#c8a96a;}
+
+/* TEXTO BATALLA */
+.batalla-txt{font-family:'Crimson Pro',serif;font-size:21px;line-height:2.2;
+  color:rgba(200,188,168,.85);margin-bottom:16px;}
+.batalla-txt p{margin-bottom:14px;text-indent:1.5em;}
+.batalla-txt em{color:#e6c27a;font-style:italic;}
+.batalla-txt strong{color:#FFF;}
+
+.firma-batalla{font-family:'Special Elite',serif;font-size:13px;letter-spacing:2px;
+  color:rgba(200,169,106,.4);text-align:center;margin:14px 0 20px;font-style:italic;}
+
+/* CTA */
+.vis-cta{text-align:center;margin:20px 0;}
+.btn-registrar{display:inline-block;padding:16px 32px;border-radius:50px;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;cursor:pointer;
+  background:transparent;border:1.5px solid #c8a96a;color:#FFF;
+  text-shadow:0 0 8px rgba(0,0,0,.8);text-decoration:none;transition:all .2s;}
+.btn-registrar:active{background:rgba(200,169,106,.12);}
+.btn-volver{display:block;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
+  color:rgba(200,169,106,.35);text-align:center;margin-top:14px;cursor:pointer;padding:10px;}
+.btn-volver:active{color:#c8a96a;}
+
+.vis-sello{text-align:center;margin-top:20px;padding:14px 0;
+  border-top:1px solid rgba(200,169,106,.12);}
+.sello-txt{font-family:'Special Elite',serif;font-size:14px;letter-spacing:2px;
+  color:rgba(200,169,106,.5);}
+.sello-sub{font-family:'Special Elite',serif;font-size:12px;color:rgba(200,169,106,.3);
+  margin-top:4px;letter-spacing:1px;}
+
+/* BAÚL 1300vh */
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,#c8a96a,transparent);}
+.bn{font-family:'Cinzel',serif;font-size:24px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:12px;color:#e6c27a;
+  opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Special Elite',serif;font-size:13px;letter-spacing:3px;
+  color:rgba(200,169,106,.45);display:block;margin-bottom:6px;
+  opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis-cls{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
 </style>
 </head>
 <body>
-<div class="ml L" onclick="back()"></div>
-<div class="ml R" onclick="back()"></div>
-<div class="pano"><div class="contenido">
-  <div class="logo-wrap">
-    <span class="logo">P&#x394;PIR&deg;</span>
-    <div class="logo-sub">Visitante &middot; Digitalidad Sana y Segura</div>
+<canvas id="cosmos"></canvas>
+<div class="borde-izq"></div>
+<div class="borde-der"></div>
+<div class="ml L" onclick="volver()"></div>
+<div class="ml R" onclick="irRegistro()"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="volver()"><span>°</span></div>
+  <div class="btn-f der" onclick="irRegistro()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa3">
+
+  <span class="vis-logo">P<span class="d">∆</span>PIR°</span>
+  <div class="vis-sub">VISITANTE · DIGITALIDAD SANA Y SEGURA</div>
+  <div class="vis-slogan">Bienvenido al ecosistema que te protege</div>
+  <div class="vis-badge">Creaxion Papiro © 2026 · X-7777777-LC7°</div>
+
+  <!-- CONTADOR DE VISITANTES -->
+  <div class="vis-counter">
+    <span class="cnt-eye">👁️</span>
+    <span class="cnt-num" id="cnt">···</span>
+    <span class="cnt-lbl">TESTIGOS</span>
   </div>
-  <div class="hr"></div>
-  <!-- VIDEO: YouTube Short del pastelito JtaS_EIdGeA -->
-  <div class="video-box">
-    <iframe src="https://www.youtube.com/embed/JtaS_EIdGeA?autoplay=1&mute=1&loop=1&playlist=JtaS_EIdGeA&playsinline=1&controls=1&modestbranding=1&rel=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+  <div class="page-rule"></div>
+
+  <div class="batalla-titulo">LA BATALLA ACTUAL</div>
+  <div class="batalla-sub">Luis Alfonso Castillejo · Venezuela<br>La verdad que no se puede silenciar · ∆° · LC7°</div>
+
+  <!-- DOS VIDEOS DE ODYSEE -->
+  <div class="videos-grid">
+    <!-- Video 1: El Pastelito -->
+    <div class="video-card">
+      <span class="video-titulo">LA BATALLA<br>ASÍ COMENZÓ</span>
+      <iframe class="video-frame"
+        src="https://odysee.com/$/embed/Asi-Comienza-la-Historia-%F0%9F%98%89%F0%9F%87%BB%F0%9F%87%AA:9"
+        allowfullscreen frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media">
+      </iframe>
+      <a class="video-link" href="https://odysee.com/Asi-Comienza-la-Historia-%F0%9F%98%89%F0%9F%87%BB%F0%9F%87%AA:9" target="_blank">▶ VER EN ODYSEE</a>
+    </div>
+    <!-- Video 2: El Vino -->
+    <div class="video-card">
+      <span class="video-titulo">DESPUÉS DEL<br>SORBO · PRESTOS</span>
+      <iframe class="video-frame"
+        src="https://odysee.com/$/embed/VID_20260226_052315638-3:9"
+        allowfullscreen frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media">
+      </iframe>
+      <a class="video-link" href="https://odysee.com/@LuisAlfonsoCastillejo:2/VID_20260226_052315638-3:9" target="_blank">▶ VER EN ODYSEE</a>
+    </div>
   </div>
-  <div class="vid-titulo">La Batalla Actual</div>
-  <div class="vid-desc">Luis Alfonso Castillejo · Venezuela · La verdad que no se puede silenciar · ∆° · LC7°</div>
-  <div class="hr"></div>
-  <div class="sec-titulo">P∆PIR° · Tu espacio real</div>
-  <div class="cuerpo">
-    <p>Aquí puedes hacer <em>reclamos públicos reales</em>. Donde si tienes la razón, <strong>no te juzgaremos, no te polarizaremos</strong> y mucho menos maquillaremos tu mensaje.</p>
-    <p>Sabemos que las redes sociales son cruciales. Para los asuntos de vital importancia, mucho más — porque muchas veces la vida depende de <em>una buena y verdadera información bien proyectada al mundo entero</em>.</p>
+
+  <div class="page-rule"></div>
+
+  <!-- TEXTO P∆PIR° -->
+  <div class="batalla-txt">
+    <p><strong>P∆PIR° · Tu espacio real</strong></p>
+    <p>Aquí puedes hacer reclamos públicos reales. Donde si tienes la razón, no te juzgaremos, no te polarizaremos y mucho menos maquillaremos tu mensaje.</p>
+    <p>Sabemos que las redes sociales son cruciales. Para los asuntos de vital importancia, mucho más — porque muchas veces la vida depende de una buena y verdadera información bien proyectada al mundo entero.</p>
+    <p>Así como aquí lo comprueba nuestro CEO Luis Alfonso Castillejo — venezolano, exiliado, candidato presidencial, militar retirado — que desde el exilio en Brasil sigue alzando la voz por Venezuela y por el mundo.</p>
   </div>
-  <div class="quote">
-    <div class="qt">Así como aquí lo comprueba nuestro CEO Luis Alfonso Castillejo — venezolano, exiliado, candidato presidencial, militar retirado — que desde el exilio en Brasil sigue alzando la voz por Venezuela y por el mundo.</div>
-    <span class="qf">&mdash; &Delta;&deg; &middot; Creaxion Papiro &middot; X-7777777-LC7&deg; &middot; En el nombre de Jes&uacute;s</span>
+
+  <div class="firma-batalla">— ∆° · Creaxion Papiro · X-7777777-LC7° · En el nombre de Jesús</div>
+
+  <div class="vis-cta">
+    <a class="btn-registrar" href="login.html">✦ REGISTRARME EN P∆PIR°</a>
+    <div class="btn-volver" onclick="volver()">← VOLVER A LA RECEPCIÓN</div>
   </div>
-  <button class="btn-p btn-negro" onclick="go('login.html')" style="margin:20px 0 10px;">✦ REGISTRARME EN P∆PIR°</button>
-  <button class="btn-p btn-outline" onclick="back()" style="margin-bottom:16px;">← VOLVER A LA RECEPCIÓN</button>
-  <div class="sello">
-    <div class="s1">Panajpe Eneeru Moorukajpo Pariipo</div>
-    <div class="s2">CÓDIGO DE HONOR IM. #7 — Así lo he hecho</div>
+
+  <div class="vis-sello">
+    <div class="sello-txt">Panajpe Eneeru Moorukajpo Pariipo</div>
+    <div class="sello-sub">CÓDIGO DE HONOR IM. #7 — Así lo he hecho!</div>
   </div>
+
+  <!-- BAÚL 1300vh -->
   <div class="baul">
-    <div class="baul-hr"></div>
-    <span style="font-family:Cinzel,serif;font-size:13px;letter-spacing:3px;color:rgba(0,0,0,.2);display:block;margin-bottom:14px;">&middot; &Delta;&deg; &middot; Creaxion Papiro &copy; 2026 &middot;</span>
-    <span class="baul-n">Luis Castillejo</span>
-    <span class="baul-s">X-7777777-LC7&deg; &middot; SI&deg; &middot; 350 &middot; 777</span>
-    <span class="baul-s">Creax@P&Delta;p.LuisAlfonsoCastillejoVentura</span>
-    <span class="baul-s">Fundador &middot; Creaxion Papiro &copy; 2026</span>
-    <span class="baul-s" style="margin-top:10px;">En el nombre de Jes&uacute;s &middot; SI&deg; &middot; &#128591;</span>
+    <div class="baul-rule"></div>
+    <span class="bn" id="bN">Luis Castillejo</span>
+    <span class="bs" id="bS1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS2" style="word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="bs" id="bS3">Fundador · Creaxion Papiro © 2026</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
   </div>
-</div></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-window.addEventListener('load',function(){document.body.style.transition='opacity 0.4s';document.body.style.opacity='1';});
-function go(url){document.body.style.opacity='0';setTimeout(function(){location.href=url;},280);}
-function back(){go('recepcion_es.html');}
+window.addEventListener('load',function(){document.body.style.opacity='1';});
+var SB='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SK='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB,SK);}catch(e){}
+
+/* COSMOS */
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var i=0;i<220;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,col:cols[Math.floor(Math.random()*cols.length)]});
+  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=a;ctx.shadowColor=s.col;ctx.shadowBlur=a>.7?a*5:0;ctx.fill();});ctx.globalAlpha=1;ctx.shadowBlur=0;}draw();
+})();
+
+/* CARGAR CONTADOR */
+async function cargarContador(){
+  if(!sb){document.getElementById('cnt').textContent='···';return;}
+  try{
+    var{data}=await sb.from('config_sistema').select('valor').eq('clave','visitas_total').single();
+    if(data)document.getElementById('cnt').textContent=Number(data.valor).toLocaleString();
+  }catch(e){document.getElementById('cnt').textContent='···';}
+}
+cargarContador();
+
+function volver(){document.body.style.opacity='0';setTimeout(function(){location.href='recepcion_es.html';},280);}
+function irRegistro(){document.body.style.opacity='0';setTimeout(function(){location.href='login.html';},280);}
+
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*13)
+    ['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis-cls');});
+},{passive:true});
 </script>
 </body>
 </html>
