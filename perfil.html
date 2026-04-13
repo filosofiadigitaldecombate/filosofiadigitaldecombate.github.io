@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Mi Perfil · P∆PIR°</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;max-width:100vw;min-height:100%;}
+body{background:#080610;min-height:100vh;opacity:0;transition:opacity .4s;}
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.4;pointer-events:none;}
+#capa2{position:relative;z-index:2;width:100%;overflow-x:hidden;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 0%,rgba(80,50,180,.08) 0%,transparent 40%),
+  linear-gradient(160deg,#080610,#0A0814,#060410);}
+#capa3{position:relative;z-index:4;margin:0 37px;padding:28px 18px 100px;min-height:100vh;}
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#1A0040,#5500AA 20%,#8800CC 40%,#c8a96a 55%,#8800CC 70%,#5500AA 85%,#1A0040);
+  background-size:100% 300%;animation:fl 8s linear infinite;
+  box-shadow:inset -2px 0 8px rgba(0,0,0,.8),3px 0 14px rgba(100,0,200,.15);}
+@keyframes fl{from{background-position:0 0%;}to{background-position:0 100%;}}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#1A0040,#5500AA 20%,#8800CC 40%,#c8a96a 55%,#8800CC 70%,#5500AA 85%,#1A0040);
+  background-size:100% 300%;animation:fl 8s linear infinite reverse;
+  box-shadow:inset 2px 0 8px rgba(0,0,0,.8),-3px 0 14px rgba(100,0,200,.15);}
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:10;pointer-events:all;cursor:pointer;background:transparent;}
+.ml.L{left:0;}.ml.R{right:0;}
+.ml.L::after,.ml.R::after{content:'';position:absolute;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 25%,#e6c27a 50%,#c8a96a 75%,#5a4324);
+  background-size:100% 300%;animation:fl 35s linear infinite;box-shadow:0 0 6px rgba(200,169,106,.45);}
+.ml.L::after{right:0;}.ml.R::after{left:0;animation-direction:reverse;}
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:58px;height:58px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:transparent;
+  border:1.5px solid #c8a96a;box-shadow:0 0 12px rgba(200,169,106,.3);}
+.btn-f:active{background:rgba(200,169,106,.12);transform:scale(.92);}
+.btn-f.izq{bottom:20px;left:42px;}
+.btn-f.der{bottom:20px;right:42px;}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:53px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 25%,#e6c27a 50%,#c8a96a 75%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:fl 35s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:32px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 25%,#e6c27a 50%,#c8a96a 75%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:fl 35s linear infinite reverse;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+@keyframes arc{from{background-position:0% center;}to{background-position:500% center;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+/* PERFIL */
+.perfil-header{text-align:center;margin-bottom:20px;}
+.perfil-titulo{font-family:'Cinzel',serif;font-size:clamp(18px,5vw,30px);font-weight:900;letter-spacing:5px;
+  background:linear-gradient(90deg,#5500AA,#8800CC,#c8a96a,#e6c27a,#c8a96a,#8800CC,#5500AA);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:arc 10s linear infinite;display:block;margin-bottom:4px;}
+.perfil-sub{font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:rgba(200,169,106,.4);}
+/* FOTO DE PERFIL */
+.foto-wrap{text-align:center;margin:18px 0;}
+.foto-circulo{width:100px;height:100px;border-radius:50%;border:2.5px solid #c8a96a;
+  background:rgba(200,169,106,.08);display:flex;align-items:center;justify-content:center;
+  margin:0 auto 10px;overflow:hidden;cursor:pointer;position:relative;
+  box-shadow:0 0 20px rgba(200,169,106,.2);}
+.foto-circulo img{width:100%;height:100%;object-fit:cover;display:none;}
+.foto-icono{font-size:40px;}
+.foto-hint{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:rgba(200,169,106,.4);}
+#fotoInput{display:none;}
+.page-rule{width:100%;height:1px;margin:14px 0;background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
+/* CAMPOS DE PERFIL */
+.campo-wrap{margin-bottom:14px;}
+.campo-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(200,169,106,.5);display:block;margin-bottom:6px;}
+.campo-input{width:100%;padding:14px 18px;border-radius:12px;
+  background:rgba(200,169,106,.05);border:1px solid rgba(200,169,106,.2);
+  color:#FFF;font-family:'Crimson Pro',serif;font-size:18px;outline:none;
+  -webkit-appearance:none;}
+.campo-input::placeholder{color:rgba(255,255,255,.2);}
+.campo-input:focus{border-color:rgba(200,169,106,.6);}
+textarea.campo-input{resize:none;height:80px;line-height:1.7;}
+/* IDENTIDAD */
+.id-box{background:rgba(200,169,106,.04);border:1px solid rgba(200,169,106,.1);border-radius:12px;padding:14px 16px;margin:14px 0;}
+.id-lbl{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:rgba(200,169,106,.4);display:block;margin-bottom:6px;}
+.id-val{font-family:'Special Elite',serif;font-size:14px;color:rgba(200,169,106,.65);letter-spacing:2px;display:block;word-break:break-all;}
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:14px 0;}
+.stat{background:rgba(200,169,106,.04);border:1px solid rgba(200,169,106,.1);border-radius:10px;padding:12px 8px;text-align:center;}
+.stat-num{font-family:'Cinzel',serif;font-size:20px;font-weight:900;color:#FFF;text-shadow:0 0 8px rgba(200,169,106,.3);display:block;}
+.stat-lbl{font-family:'Special Elite',serif;font-size:8px;letter-spacing:2px;color:rgba(200,169,106,.4);}
+/* BOTONES */
+.btn-guardar{width:100%;padding:16px;border-radius:50px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;cursor:pointer;
+  background:transparent;border:1.5px solid #c8a96a;color:#FFF;margin-top:16px;transition:all .2s;
+  text-shadow:0 0 8px rgba(0,0,0,.8);}
+.btn-guardar:active{background:rgba(200,169,106,.12);transform:scale(.97);}
+.btn-peligro{width:100%;padding:14px;border-radius:50px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;cursor:pointer;
+  background:transparent;border:1px solid rgba(200,0,0,.3);color:rgba(255,80,80,.5);margin-top:10px;}
+.btn-peligro:active{background:rgba(200,0,0,.1);}
+.msg-ok{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(0,255,136,.7);text-align:center;margin-top:8px;min-height:18px;}
+/* BAÚL */
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;background:linear-gradient(to right,transparent,#c8a96a,transparent);}
+.bn{font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:6px;display:block;margin-bottom:10px;
+  color:#e6c27a;text-shadow:0 0 12px rgba(200,169,106,.4);
+  opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Special Elite',serif;font-size:12px;letter-spacing:3px;display:block;margin-bottom:6px;
+  color:rgba(200,169,106,.4);opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
+</style>
+</head>
+<body>
+<canvas id="cosmos"></canvas>
+<div class="borde-izq"></div>
+<div class="borde-der"></div>
+<div class="ml L" onclick="navAnt()"></div>
+<div class="ml R" onclick="irSalon()"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="navAnt()"><span>°</span></div>
+  <div class="btn-f der" onclick="irSalon()"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa2"><div id="capa3">
+
+  <div class="perfil-header">
+    <span class="perfil-titulo">MI PERFIL</span>
+    <div class="perfil-sub">CREAXION PAPIRO · TU IDENTIDAD DIGITAL</div>
+  </div>
+
+  <!-- FOTO -->
+  <div class="foto-wrap">
+    <div class="foto-circulo" onclick="document.getElementById('fotoInput').click()">
+      <img id="fotoImg" src="" alt="">
+      <span class="foto-icono" id="fotoIco">👤</span>
+    </div>
+    <div class="foto-hint">TOCA PARA CAMBIAR FOTO</div>
+    <input type="file" id="fotoInput" accept="image/*" onchange="cambiarFoto(this)">
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- DATOS -->
+  <div class="campo-wrap">
+    <span class="campo-lbl">NOMBRE DE PANTALLA</span>
+    <input type="text" class="campo-input" id="campoNombre" placeholder="Tu nombre en P∆PIR°" maxlength="40">
+  </div>
+
+  <div class="campo-wrap">
+    <span class="campo-lbl">MI PENSAMIENTO DEL DÍA</span>
+    <textarea class="campo-input" id="campoPensamiento" placeholder="Comparte tu filosofía de hoy..." maxlength="280"></textarea>
+  </div>
+
+  <!-- IDENTIDAD -->
+  <div class="id-box">
+    <span class="id-lbl">TU CÓDIGO ÚNICO</span>
+    <span class="id-val" id="idCodigo">Creax@P∆p.···</span>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat"><span class="stat-num" id="statPapiros">0</span><span class="stat-lbl">PAPIROS</span></div>
+    <div class="stat"><span class="stat-num" id="statBolivares">0</span><span class="stat-lbl">Bs.D</span></div>
+    <div class="stat"><span class="stat-num" id="statDias">0</span><span class="stat-lbl">DÍAS</span></div>
+  </div>
+
+  <!-- GUARDAR -->
+  <button class="btn-guardar" onclick="guardarPerfil()">✦ GUARDAR PERFIL</button>
+  <div class="msg-ok" id="msgOk"></div>
+  <button class="btn-peligro" onclick="cerrarSesion()">CERRAR SESIÓN</button>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span class="bn" id="bN">Luis Castillejo</span>
+    <span class="bs" id="bS1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS2" style="word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="bs" id="bS3">Fundador · Creaxion Papiro © 2026</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
+  </div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+window.addEventListener('load',function(){document.body.style.opacity='1';cargarPerfil();});
+var SB='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SK='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB,SK);}catch(e){}
+var USER=null;
+
+async function cargarPerfil(){
+  if(!sb){alert('Sin conexión Supabase');return;}
+  try{
+    var{data:{session}}=await sb.auth.getSession();
+    if(!session){location.href='login.html';return;}
+    USER=session.user;
+    var email=USER.email||'';
+    var nombreBase=email.split('@')[0]||'P∆plover';
+    document.getElementById('idCodigo').textContent='Creax@P∆p.'+nombreBase;
+    // Calcular días desde creación
+    var diasMiembro=Math.floor((Date.now()-new Date(USER.created_at).getTime())/(1000*60*60*24));
+    document.getElementById('statDias').textContent=diasMiembro;
+    // Cargar perfil de Supabase
+    var{data:p}=await sb.from('perfiles').select('*').eq('user_id',USER.id).single().catch(function(){return{data:null};});
+    if(p){
+      if(p.display_name)document.getElementById('campoNombre').value=p.display_name;
+      if(p.pensamiento)document.getElementById('campoPensamiento').value=p.pensamiento;
+      if(p.foto_url){
+        document.getElementById('fotoImg').src=p.foto_url;
+        document.getElementById('fotoImg').style.display='block';
+        document.getElementById('fotoIco').style.display='none';
+      }
+      document.getElementById('statBolivares').textContent=p.bolivares_digitales||100;
+    }else{
+      // Crear perfil con 100 Bs.D iniciales
+      await sb.from('perfiles').insert({user_id:USER.id,display_name:nombreBase,bolivares_digitales:100}).catch(function(){});
+      document.getElementById('statBolivares').textContent=100;
+    }
+    document.getElementById('campoNombre').placeholder=nombreBase;
+  }catch(e){console.log(e);}
+}
+
+function cambiarFoto(input){
+  var file=input.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onloadend=function(){
+    var img=document.getElementById('fotoImg');
+    img.src=reader.result;img.style.display='block';
+    document.getElementById('fotoIco').style.display='none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function guardarPerfil(){
+  if(!sb||!USER){mostrarMsg('Sin conexión');return;}
+  var nombre=document.getElementById('campoNombre').value.trim()||USER.email?.split('@')[0];
+  var pensamiento=document.getElementById('campoPensamiento').value.trim();
+  try{
+    await sb.from('perfiles').upsert({
+      user_id:USER.id,display_name:nombre,pensamiento:pensamiento,
+      updated_at:new Date().toISOString()
+    });
+    await sb.auth.updateUser({data:{display_name:nombre}});
+    localStorage.setItem('pap_nombre',nombre);
+    mostrarMsg('✦ Perfil guardado!');
+  }catch(e){mostrarMsg('Error al guardar');}
+}
+
+function mostrarMsg(txt){
+  var el=document.getElementById('msgOk');
+  el.textContent=txt;
+  setTimeout(function(){el.textContent='';},3000);
+}
+
+async function cerrarSesion(){
+  if(sb)await sb.auth.signOut().catch(function(){});
+  localStorage.removeItem('pap_usuario');localStorage.removeItem('pap_nombre');
+  document.body.style.opacity='0';
+  setTimeout(function(){location.href='banderas.html';},280);
+}
+
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['rgba(85,0,170,','rgba(136,0,204,','rgba(200,169,106,','rgba(230,194,122,','rgba(255,255,255,'];
+  for(var i=0;i<220;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0004,col:cols[Math.floor(Math.random()*cols.length)]});
+  function draw(){requestAnimationFrame(draw);ctx.fillStyle='#080610';ctx.fillRect(0,0,c.width,c.height);S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col+a+')';ctx.globalAlpha=1;ctx.fill();});ctx.globalAlpha=1;}draw();
+})();
+function navAnt(){document.body.style.opacity='0';setTimeout(function(){location.href='portada_es.html';},280);}
+function irSalon(){document.body.style.opacity='0';setTimeout(function(){location.href='salon.html';},280);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*13)
+    ['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){var el=document.getElementById(id);if(el)el.classList.add('vis');});
+},{passive:true});
+</script>
+</body>
+</html>
