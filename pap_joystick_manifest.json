@@ -1,0 +1,33 @@
+{
+  "name": "P∆P Joystick",
+  "short_name": "P∆P",
+  "description": "Tu compañero de voz digital · Creaxion Papiro",
+  "start_url": "/pap_joystick.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#c8a96a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "pap_icon_192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "pap_icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["communication", "social"],
+  "lang": "es",
+  "shortcuts": [
+    {
+      "name": "Enviar nota de voz",
+      "url": "/pap_joystick.html?accion=voz",
+      "description": "Grabar y enviar nota de voz"
+    }
+  ]
+}
