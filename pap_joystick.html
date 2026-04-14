@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#c8a96a">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="P∆P Joystick">
+<link rel="manifest" href="pap_joystick_manifest.json">
+<title>P∆P Joystick · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;}
+html,body{height:100%;overflow:hidden;background:#000;}
+body{font-family:'Cinzel',serif;color:#FFF;opacity:0;transition:opacity .4s;}
+
+@keyframes oroDiscoFlow{from{background-position:0% center;}to{background-position:500% center;}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 14px rgba(200,169,106,.4));}50%{filter:drop-shadow(0 0 30px rgba(230,194,122,.8));}}
+@keyframes pulseVoz{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(200,169,106,.7);}50%{transform:scale(1.05);box-shadow:0 0 0 12px rgba(200,169,106,0);}}
+@keyframes titilarVerde{0%,100%{opacity:1;}50%{opacity:.3;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.4;}
+
+/* PANTALLAS */
+.pantalla{position:fixed;inset:0;z-index:10;display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:28px 24px;}
+.pantalla.activa{display:flex;animation:fadeIn .35s ease;}
+
+/* ═══ PANTALLA 1: SPLASH / LOGIN ═══ */
+#p-splash{background:transparent;}
+.logo-pap{font-size:clamp(48px,15vw,80px);font-weight:900;letter-spacing:clamp(4px,3vw,12px);
+  color:#FFF;-webkit-text-stroke:1.8px #c8a96a;animation:logoGlow 4s ease-in-out infinite;
+  display:block;text-align:center;margin-bottom:6px;}
+.logo-d{-webkit-text-stroke:1.8px #e6c27a;}
+.logo-sub{font-size:10px;letter-spacing:6px;text-align:center;margin-bottom:4px;
+  background:linear-gradient(90deg,#5a4324,#8c6a3d,#c8a96a,#e6c27a,#b08d57,#6e552f,#c8a96a);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroDiscoFlow 8s linear infinite;}
+.logo-slogan{font-size:13px;color:rgba(255,255,255,.2);font-family:'Crimson Pro',serif;
+  font-style:italic;text-align:center;margin-bottom:32px;}
+.input-wrap{width:100%;max-width:300px;margin-bottom:12px;}
+.input-label{font-size:9px;letter-spacing:4px;color:rgba(200,169,106,.5);display:block;margin-bottom:6px;}
+.input-field{width:100%;padding:15px 18px;border-radius:50px;
+  background:rgba(255,255,255,.04);border:1.5px solid #c8a96a;
+  color:#FFF;font-family:'Cinzel',serif;font-size:13px;letter-spacing:2px;
+  outline:none;-webkit-appearance:none;}
+.input-field::placeholder{color:rgba(255,255,255,.2);}
+.btn-pap{width:100%;max-width:300px;padding:16px 24px;border-radius:50px;
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;cursor:pointer;
+  background:transparent;border:1.5px solid #c8a96a;color:#FFF;
+  transition:all .2s;margin-top:8px;
+  text-shadow:0 0 8px rgba(0,0,0,.8);}
+.btn-pap:active{background:rgba(200,169,106,.15);transform:scale(.97);}
+.btn-pap.primario{background:rgba(200,169,106,.08);}
+.error-txt{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;
+  color:rgba(255,80,80,.8);text-align:center;margin-top:10px;min-height:20px;}
+
+/* ═══ PANTALLA 2: INVITACIÓN PENDIENTE ═══ */
+#p-invitacion{background:transparent;}
+.inv-titulo{font-size:18px;letter-spacing:4px;color:#e6c27a;text-align:center;margin-bottom:8px;}
+.inv-remitente{font-size:24px;font-weight:900;color:#FFF;text-align:center;margin-bottom:6px;}
+.inv-msg{font-family:'Crimson Pro',serif;font-style:italic;font-size:18px;
+  color:rgba(255,255,255,.55);text-align:center;line-height:1.8;margin-bottom:32px;}
+.btns-inv{display:flex;gap:14px;width:100%;max-width:300px;}
+.btn-si{flex:1;padding:18px;border-radius:50px;font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:3px;cursor:pointer;background:rgba(0,200,100,.1);
+  border:1.5px solid rgba(0,200,100,.6);color:#00FF88;}
+.btn-no{flex:1;padding:18px;border-radius:50px;font-family:'Cinzel',serif;font-size:14px;
+  letter-spacing:3px;cursor:pointer;background:rgba(200,0,0,.1);
+  border:1.5px solid rgba(200,0,0,.4);color:rgba(255,100,100,.8);}
+.btn-si:active{background:rgba(0,200,100,.25);transform:scale(.97);}
+.btn-no:active{background:rgba(200,0,0,.25);transform:scale(.97);}
+
+/* ═══ PANTALLA 3: PRINCIPAL (emparejados) ═══ */
+#p-main{background:transparent;justify-content:space-between;padding-top:48px;padding-bottom:32px;}
+.main-header{width:100%;text-align:center;}
+.pair-info{font-size:10px;letter-spacing:4px;color:rgba(200,169,106,.5);margin-bottom:4px;}
+.pair-nombre{font-size:22px;font-weight:900;color:#FFF;margin-bottom:2px;}
+.pair-correo{font-size:11px;color:rgba(255,255,255,.3);letter-spacing:1px;}
+
+/* JOYSTICK CENTRAL */
+.joystick-area{display:flex;flex-direction:column;align-items:center;gap:0;}
+.joy-row{display:flex;align-items:center;gap:0;}
+/* Botón central VOZ */
+.btn-voz{width:100px;height:100px;border-radius:50%;cursor:pointer;
+  background:rgba(200,169,106,.08);border:2px solid #c8a96a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 20px rgba(200,169,106,.25),0 0 40px rgba(200,169,106,.1);
+  transition:all .15s;position:relative;}
+.btn-voz.grabando{animation:pulseVoz 1s ease-in-out infinite;
+  background:rgba(200,169,106,.2);border-color:#e6c27a;}
+.btn-voz-ico{font-size:36px;pointer-events:none;}
+.btn-voz-txt{font-size:8px;letter-spacing:3px;color:rgba(200,169,106,.7);margin-top:4px;pointer-events:none;}
+/* Botones SI/NO */
+.btn-joy{width:68px;height:68px;border-radius:50%;cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;transition:all .15s;}
+.btn-joy:active{transform:scale(.93);}
+.btn-joy-si{background:rgba(0,200,100,.08);border:1.5px solid rgba(0,200,100,.5);}
+.btn-joy-no{background:rgba(200,0,0,.08);border:1.5px solid rgba(200,0,0,.4);}
+.btn-joy-lbl{font-size:16px;font-weight:900;}
+.btn-joy-sub{font-size:7px;letter-spacing:2px;margin-top:2px;}
+.btn-joy-si .btn-joy-lbl{color:#00FF88;}
+.btn-joy-no .btn-joy-lbl{color:rgba(255,100,100,.9);}
+.btn-joy-si .btn-joy-sub{color:rgba(0,255,136,.4);}
+.btn-joy-no .btn-joy-sub{color:rgba(255,100,100,.4);}
+/* Separadores del joystick */
+.joy-sep{width:20px;height:20px;}
+
+/* NOTA DE VOZ RECIBIDA */
+.nota-recibida{width:100%;max-width:300px;background:rgba(200,169,106,.06);
+  border:1px solid rgba(200,169,106,.2);border-radius:16px;
+  padding:16px;display:none;margin-top:12px;}
+.nota-recibida.visible{display:block;animation:fadeIn .4s ease;}
+.nota-remite{font-size:10px;letter-spacing:3px;color:rgba(200,169,106,.5);margin-bottom:8px;}
+.nota-barra{display:flex;align-items:center;gap:12px;}
+.nota-play{width:44px;height:44px;border-radius:50%;cursor:pointer;
+  background:rgba(200,169,106,.12);border:1.5px solid #c8a96a;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.nota-play:active{background:rgba(200,169,106,.25);}
+.nota-progreso{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden;}
+.nota-fill{height:100%;width:0%;background:linear-gradient(to right,#c8a96a,#e6c27a);transition:width .1s;}
+.nota-tiempo{font-size:11px;color:rgba(255,255,255,.4);min-width:32px;text-align:right;}
+.nota-borrar{font-size:9px;letter-spacing:2px;color:rgba(255,80,80,.5);cursor:pointer;
+  text-align:center;margin-top:8px;padding:6px;}
+.nota-borrar:active{color:rgba(255,80,80,.9);}
+
+/* FOOTER */
+.main-footer{width:100%;display:flex;justify-content:space-around;align-items:center;}
+.foot-btn{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding:8px;}
+.foot-btn:active{opacity:.6;}
+.foot-ico{font-size:22px;}
+.foot-lbl{font-size:7px;letter-spacing:2px;color:rgba(200,169,106,.4);}
+
+/* PANTALLA 4: SONIDOS */
+#p-sonidos{background:transparent;}
+.son-titulo{font-size:16px;letter-spacing:4px;color:#e6c27a;text-align:center;margin-bottom:20px;}
+.son-lista{width:100%;max-width:300px;display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.son-item{display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-radius:12px;background:rgba(200,169,106,.05);
+  border:1px solid rgba(200,169,106,.15);cursor:pointer;}
+.son-item:active{background:rgba(200,169,106,.15);}
+.son-nombre{font-size:13px;color:#FFF;letter-spacing:1px;}
+.son-check{font-size:16px;}
+.son-custom{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.son-file-label{flex:1;padding:14px;border-radius:50px;font-family:'Cinzel',serif;
+  font-size:11px;letter-spacing:3px;cursor:pointer;text-align:center;
+  background:transparent;border:1.5px solid rgba(200,169,106,.4);color:rgba(200,169,106,.8);}
+#son-file{display:none;}
+
+/* MODAL ESTADO */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.92);
+  backdrop-filter:blur(12px);display:none;
+  flex-direction:column;align-items:center;justify-content:center;padding:28px;}
+.modal.activo{display:flex;animation:fadeIn .3s ease;}
+.modal-txt{font-size:16px;letter-spacing:3px;color:#FFF;text-align:center;margin-bottom:8px;}
+.modal-sub{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
+  color:rgba(200,169,106,.6);text-align:center;line-height:1.8;}
+
+/* LÍNEA SEPARADORA */
+.sep{width:60px;height:1px;
+  background:linear-gradient(to right,transparent,#c8a96a,transparent);margin:16px auto;}
+</style>
+</head>
+<body>
+<canvas id="cosmos"></canvas>
+
+<!-- ═══ PANTALLA 1: SPLASH / CORREO ═══ -->
+<div class="pantalla activa" id="p-splash">
+  <span class="logo-pap">P<span class="logo-d">∆</span>P</span>
+  <div class="logo-sub">JOYSTICK · CREAXION PAPIRO</div>
+  <div class="logo-slogan">Tu compañero de voz digital</div>
+  <div class="sep"></div>
+  <div class="input-wrap">
+    <span class="input-label">TU CORREO ELECTRÓNICO</span>
+    <input type="email" class="input-field" id="correoInput"
+      placeholder="tunombre@correo.com"
+      autocomplete="email" inputmode="email">
+  </div>
+  <button class="btn-pap primario" onclick="entrar()">ENTRAR AL JOYSTICK</button>
+  <div class="error-txt" id="errTxt"></div>
+  <div style="margin-top:28px;font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.18);text-align:center;line-height:1.8;">
+    Solo necesitas tu correo.<br>Nadie más puede verte.
+  </div>
+</div>
+
+<!-- ═══ PANTALLA 2: INVITACIÓN ENTRANTE ═══ -->
+<div class="pantalla" id="p-invitacion">
+  <div class="inv-titulo">ALGUIEN TE SELECCIONÓ</div>
+  <div class="sep"></div>
+  <div class="inv-remitente" id="invRemitente">Rosa Villalba</div>
+  <div class="inv-msg" id="invMsg">
+    te seleccionó para enviarte un P∆P Joystick.<br>
+    ¿Aceptas ser su P∆P?
+  </div>
+  <div class="btns-inv">
+    <button class="btn-si" onclick="aceptarInvitacion()">SI</button>
+    <button class="btn-no" onclick="rechazarInvitacion()">NO</button>
+  </div>
+</div>
+
+<!-- ═══ PANTALLA 3: PRINCIPAL ═══ -->
+<div class="pantalla" id="p-main">
+  <div class="main-header">
+    <div class="pair-info">TU P∆P ACTUAL</div>
+    <div class="pair-nombre" id="pairNombre">···</div>
+    <div class="pair-correo" id="pairCorreo">···</div>
+  </div>
+
+  <div class="joystick-area">
+    <!-- Nota de voz recibida -->
+    <div class="nota-recibida" id="notaRecibida">
+      <div class="nota-remite" id="notaRemite">NOTA DE VOZ</div>
+      <div class="nota-barra">
+        <div class="nota-play" id="notaPlay" onclick="reproducirNota()">▶</div>
+        <div class="nota-progreso"><div class="nota-fill" id="notaFill"></div></div>
+        <div class="nota-tiempo" id="notaTiempo">0:00</div>
+      </div>
+      <div class="nota-borrar" onclick="borrarNota()">✕ ESCUCHADO · BORRAR</div>
+    </div>
+
+    <!-- Joystick -->
+    <div class="joy-row">
+      <div class="joy-sep"></div>
+    </div>
+    <div class="joy-row">
+      <button class="btn-joy btn-joy-si" onclick="enviarSI()">
+        <span class="btn-joy-lbl">SI</span>
+        <span class="btn-joy-sub">ACEPTO</span>
+      </button>
+      <div class="joy-sep" style="width:28px;"></div>
+      <!-- BOTÓN VOZ CENTRAL -->
+      <div class="btn-voz" id="btnVoz"
+        ontouchstart="iniciarGrabacion(event)"
+        ontouchend="detenerGrabacion(event)"
+        onmousedown="iniciarGrabacion(event)"
+        onmouseup="detenerGrabacion(event)">
+        <span class="btn-voz-ico">🎙️</span>
+        <span class="btn-voz-txt" id="vozTxt">MANTÉN</span>
+      </div>
+      <div class="joy-sep" style="width:28px;"></div>
+      <button class="btn-joy btn-joy-no" onclick="enviarNO()">
+        <span class="btn-joy-lbl">NO</span>
+        <span class="btn-joy-sub">RECHAZO</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="main-footer">
+    <div class="foot-btn" onclick="irPantalla('p-invitar')">
+      <span class="foot-ico">➕</span>
+      <span class="foot-lbl">INVITAR</span>
+    </div>
+    <div class="foot-btn" onclick="irPantalla('p-sonidos')">
+      <span class="foot-ico">🔊</span>
+      <span class="foot-lbl">SONIDOS</span>
+    </div>
+    <div class="foot-btn" onclick="abrirPapiro()">
+      <span class="foot-ico">📜</span>
+      <span class="foot-lbl">PAPIRO</span>
+    </div>
+    <div class="foot-btn" onclick="cerrarSesionApp()">
+      <span class="foot-ico">🚪</span>
+      <span class="foot-lbl">SALIR</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PANTALLA INVITAR ═══ -->
+<div class="pantalla" id="p-invitar">
+  <div class="son-titulo">ENVIAR JOYSTICK</div>
+  <div class="sep"></div>
+  <div class="input-wrap">
+    <span class="input-label">CORREO DE TU P∆P</span>
+    <input type="email" class="input-field" id="invCorreoInput"
+      placeholder="correo@destino.com" inputmode="email">
+  </div>
+  <button class="btn-pap primario" onclick="enviarInvitacion()">ENVIAR JOYSTICK ∆</button>
+  <div class="error-txt" id="invErr"></div>
+  <div class="sep"></div>
+  <button class="btn-pap" onclick="irPantalla('p-main')" style="max-width:200px;font-size:10px;">← VOLVER</button>
+</div>
+
+<!-- ═══ PANTALLA SONIDOS ═══ -->
+<div class="pantalla" id="p-sonidos">
+  <div class="son-titulo">PERSONALIZAR SONIDOS</div>
+  <div class="sep"></div>
+  <div class="son-lista" id="sonLista">
+    <div class="son-item" onclick="selSonido('campana')">
+      <span class="son-nombre">🔔 Campana dorada</span>
+      <span class="son-check" id="chk-campana">✓</span>
+    </div>
+    <div class="son-item" onclick="selSonido('gong')">
+      <span class="son-nombre">🎵 Gong oriental</span>
+      <span class="son-check" id="chk-gong"></span>
+    </div>
+    <div class="son-item" onclick="selSonido('silencio')">
+      <span class="son-nombre">🔇 Sin sonido</span>
+      <span class="son-check" id="chk-silencio"></span>
+    </div>
+  </div>
+  <label class="son-file-label" for="son-file">📁 DESDE MI TELÉFONO</label>
+  <input type="file" id="son-file" accept="audio/*" onchange="cargarSonidoPersonal(this)">
+  <div class="sep"></div>
+  <button class="btn-pap" onclick="irPantalla('p-main')" style="max-width:200px;font-size:10px;">← VOLVER</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-txt" id="modalTxt">Enviando...</div>
+  <div class="modal-sub" id="modalSub"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+/* ═══════════════════════════════════
+   P∆P JOYSTICK v1.0
+   X-7777777-LC7° · Creaxion Papiro
+   ═══════════════════════════════════ */
+'use strict';
+
+var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
+
+var APP={
+  correo: localStorage.getItem('pap_joy_correo')||'',
+  pair:   JSON.parse(localStorage.getItem('pap_joy_pair')||'null'),
+  sonido: localStorage.getItem('pap_joy_sonido')||'campana',
+  mediaRecorder: null,
+  audioChunks: [],
+  grabando: false,
+  audioActual: null,
+  channel: null
+};
+
+/* COSMOS */
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var i=0;i<220;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005});
+  for(var j=0;j<40;j++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.2,ph:Math.random()*Math.PI*2,sp:Math.random()*.003+.001,col:cols[j%5],vx:(Math.random()-.5)*.04,vy:(Math.random()-.5)*.03});
+  var t=0;
+  function draw(){requestAnimationFrame(draw);t++;ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.6,1);
+      if(s.vx){s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;}
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col||'#FFF';ctx.globalAlpha=a;ctx.shadowColor=s.col||'#FFF';ctx.shadowBlur=a>.7?a*6:0;ctx.fill();});
+    ctx.globalAlpha=1;ctx.shadowBlur=0;}draw();
+})();
+
+/* INIT */
+window.addEventListener('load',function(){
+  document.body.style.opacity='1';
+  if(APP.correo){
+    if(APP.pair){
+      mostrarMain();
+    } else {
+      // Buscar si hay invitación pendiente
+      buscarInvitacion();
+    }
+  }
+});
+
+/* PWA install */
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/pap_sw.js').catch(function(){});
+}
+
+/* ═══ NAVEGACIÓN ═══ */
+function irPantalla(id){
+  document.querySelectorAll('.pantalla').forEach(function(p){p.classList.remove('activa');});
+  document.getElementById(id).classList.add('activa');
+}
+
+/* ═══ ENTRAR ═══ */
+function entrar(){
+  var correo=document.getElementById('correoInput').value.trim().toLowerCase();
+  if(!correo||!correo.includes('@')){
+    document.getElementById('errTxt').textContent='Ingresa un correo válido';return;}
+  APP.correo=correo;
+  localStorage.setItem('pap_joy_correo',correo);
+  document.getElementById('errTxt').textContent='';
+  mostrarModal('Buscando tu Joystick...','');
+  setTimeout(function(){
+    cerrarModal();
+    if(APP.pair){mostrarMain();}
+    else{buscarInvitacion();}
+  },1200);
+}
+
+/* ═══ BUSCAR INVITACIÓN ═══ */
+async function buscarInvitacion(){
+  if(!sb){irPantalla('p-invitar');return;}
+  try{
+    var{data}=await sb.from('pap_invitaciones')
+      .select('*').eq('destinatario',APP.correo).eq('estado','pendiente').single();
+    if(data){
+      document.getElementById('invRemitente').textContent=data.remitente;
+      document.getElementById('invMsg').innerHTML=
+        '<strong>'+data.remitente+'</strong> te seleccionó para enviarte un P∆P Joystick.<br>¿Aceptas ser su P∆P?';
+      irPantalla('p-invitacion');
+    } else {
+      irPantalla('p-invitar');
+    }
+  }catch(e){irPantalla('p-invitar');}
+}
+
+/* ═══ ACEPTAR/RECHAZAR ═══ */
+async function aceptarInvitacion(){
+  var remitente=document.getElementById('invRemitente').textContent;
+  APP.pair={correo:remitente,nombre:remitente.split('@')[0]};
+  localStorage.setItem('pap_joy_pair',JSON.stringify(APP.pair));
+  if(sb){
+    await sb.from('pap_invitaciones').update({estado:'aceptada'})
+      .eq('destinatario',APP.correo).eq('remitente',remitente).catch(function(){});
+    await sb.from('pap_parejas').upsert({
+      correoA:APP.correo,correoB:remitente,activo:true
+    }).catch(function(){});
+  }
+  reproducirSonido();
+  mostrarMain();
+}
+
+function rechazarInvitacion(){
+  irPantalla('p-invitar');
+}
+
+/* ═══ ENVIAR INVITACIÓN ═══ */
+async function enviarInvitacion(){
+  var dest=document.getElementById('invCorreoInput').value.trim().toLowerCase();
+  if(!dest||!dest.includes('@')){
+    document.getElementById('invErr').textContent='Correo inválido';return;}
+  if(dest===APP.correo){
+    document.getElementById('invErr').textContent='No puedes invitarte a ti mismo';return;}
+  mostrarModal('Enviando Joystick...','');
+  if(sb){
+    try{
+      await sb.from('pap_invitaciones').upsert({
+        remitente:APP.correo,destinatario:dest,estado:'pendiente',
+        created_at:new Date().toISOString()
+      });
+      cerrarModal();
+      document.getElementById('invErr').textContent='';
+      mostrarModal('✦ Enviado!','Cuando '+dest+' lo acepte quedarán emparejados.');
+      setTimeout(cerrarModal,3000);
+    }catch(e){cerrarModal();document.getElementById('invErr').textContent='Error. Intenta de nuevo.';}
+  } else {
+    cerrarModal();
+    mostrarModal('Sin conexión','Verifica tu internet e intenta de nuevo.');
+    setTimeout(cerrarModal,2500);
+  }
+}
+
+/* ═══ MAIN ═══ */
+function mostrarMain(){
+  if(APP.pair){
+    document.getElementById('pairNombre').textContent=
+      APP.pair.nombre||(APP.pair.correo?APP.pair.correo.split('@')[0]:'···');
+    document.getElementById('pairCorreo').textContent=APP.pair.correo||'···';
+  }
+  irPantalla('p-main');
+  escucharMensajes();
+}
+
+/* ═══ GRABACIÓN DE VOZ ═══ */
+function iniciarGrabacion(e){
+  e.preventDefault();
+  if(!navigator.mediaDevices){alert('Tu dispositivo no soporta grabación');return;}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    APP.mediaRecorder=new MediaRecorder(stream);
+    APP.audioChunks=[];
+    APP.grabando=true;
+    document.getElementById('btnVoz').classList.add('grabando');
+    document.getElementById('vozTxt').textContent='GRABANDO';
+    APP.mediaRecorder.ondataavailable=function(ev){APP.audioChunks.push(ev.data);};
+    APP.mediaRecorder.start();
+  }).catch(function(){alert('Necesito permiso para el micrófono');});
+}
+
+function detenerGrabacion(e){
+  e.preventDefault();
+  if(!APP.grabando||!APP.mediaRecorder)return;
+  APP.grabando=false;
+  document.getElementById('btnVoz').classList.remove('grabando');
+  document.getElementById('vozTxt').textContent='MANTÉN';
+  APP.mediaRecorder.stop();
+  APP.mediaRecorder.onstop=function(){
+    var blob=new Blob(APP.audioChunks,{type:'audio/webm'});
+    APP.mediaRecorder.stream.getTracks().forEach(function(t){t.stop();});
+    enviarNota(blob);
+  };
+}
+
+async function enviarNota(blob){
+  if(!APP.pair){mostrarModal('Sin P∆P','Invita a alguien primero');setTimeout(cerrarModal,2000);return;}
+  mostrarModal('Enviando nota de voz...','');
+  var reader=new FileReader();
+  reader.onloadend=async function(){
+    var base64=reader.result.split(',')[1];
+    if(sb){
+      try{
+        await sb.from('pap_mensajes').insert({
+          remitente:APP.correo,destinatario:APP.pair.correo,
+          tipo:'voz',audio_b64:base64,leido:false,
+          created_at:new Date().toISOString()
+        });
+        cerrarModal();
+        mostrarModal('✦ Nota enviada!','');setTimeout(cerrarModal,1500);
+      }catch(er){cerrarModal();mostrarModal('Error al enviar','');setTimeout(cerrarModal,2000);}
+    } else {
+      cerrarModal();mostrarModal('Sin conexión','');setTimeout(cerrarModal,2000);
+    }
+  };
+  reader.readAsDataURL(blob);
+}
+
+/* ═══ ESCUCHAR MENSAJES REALTIME ═══ */
+function escucharMensajes(){
+  if(!sb||!APP.pair)return;
+  if(APP.channel)APP.channel.unsubscribe();
+  APP.channel=sb.channel('pap-mensajes-'+APP.correo)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'pap_mensajes',
+      filter:'destinatario=eq.'+APP.correo},function(payload){
+        recibirNota(payload.new);
+    }).subscribe();
+}
+
+function recibirNota(msg){
+  reproducirSonido();
+  if(msg.tipo==='voz'&&msg.audio_b64){
+    var bytes=atob(msg.audio_b64),arr=[];
+    for(var i=0;i<bytes.length;i++)arr.push(bytes.charCodeAt(i));
+    var blob=new Blob([new Uint8Array(arr)],{type:'audio/webm'});
+    APP.audioActual=URL.createObjectURL(blob);
+    var remiteNombre=msg.remitente?msg.remitente.split('@')[0]:msg.remitente;
+    document.getElementById('notaRemite').textContent='VOZ DE '+remiteNombre.toUpperCase();
+    document.getElementById('notaRecibida').classList.add('visible');
+  }
+}
+
+/* ═══ REPRODUCIR NOTA ═══ */
+var audioEl=null;
+function reproducirNota(){
+  if(!APP.audioActual)return;
+  var btn=document.getElementById('notaPlay');
+  var fill=document.getElementById('notaFill');
+  var tiempo=document.getElementById('notaTiempo');
+  if(audioEl&&!audioEl.paused){audioEl.pause();btn.textContent='▶';return;}
+  audioEl=new Audio(APP.audioActual);
+  btn.textContent='⏸';
+  audioEl.ontimeupdate=function(){
+    var p=(audioEl.currentTime/audioEl.duration)*100||0;
+    fill.style.width=p+'%';
+    var s=Math.floor(audioEl.currentTime);
+    tiempo.textContent='0:'+(s<10?'0':'')+s;
+  };
+  audioEl.onended=function(){btn.textContent='▶';fill.style.width='100%';};
+  audioEl.play();
+}
+
+function borrarNota(){
+  if(audioEl){audioEl.pause();audioEl=null;}
+  if(APP.audioActual){URL.revokeObjectURL(APP.audioActual);APP.audioActual=null;}
+  document.getElementById('notaRecibida').classList.remove('visible');
+  document.getElementById('notaFill').style.width='0%';
+  document.getElementById('notaTiempo').textContent='0:00';
+  document.getElementById('notaPlay').textContent='▶';
+}
+
+/* ═══ SI / NO ═══ */
+async function enviarSI(){
+  if(!APP.pair)return;
+  mostrarModal('Enviando SI...','');
+  if(sb)await sb.from('pap_mensajes').insert({
+    remitente:APP.correo,destinatario:APP.pair.correo,
+    tipo:'texto',contenido:'SI',leido:false,created_at:new Date().toISOString()
+  }).catch(function(){});
+  reproducirSonido();
+  setTimeout(function(){cerrarModal();mostrarModal('✦ SI enviado!','');setTimeout(cerrarModal,1200);},500);
+}
+
+async function enviarNO(){
+  if(!APP.pair)return;
+  mostrarModal('Enviando NO...','');
+  if(sb)await sb.from('pap_mensajes').insert({
+    remitente:APP.correo,destinatario:APP.pair.correo,
+    tipo:'texto',contenido:'NO',leido:false,created_at:new Date().toISOString()
+  }).catch(function(){});
+  setTimeout(function(){cerrarModal();mostrarModal('NO enviado','');setTimeout(cerrarModal,1200);},500);
+}
+
+/* ═══ SONIDOS ═══ */
+var sonidoCustom=null;
+function selSonido(nombre){
+  APP.sonido=nombre;localStorage.setItem('pap_joy_sonido',nombre);
+  document.querySelectorAll('.son-check').forEach(function(el){el.textContent='';});
+  var el=document.getElementById('chk-'+nombre);if(el)el.textContent='✓';
+  reproducirSonido();
+}
+
+function cargarSonidoPersonal(input){
+  var file=input.files[0];if(!file)return;
+  var url=URL.createObjectURL(file);
+  sonidoCustom=url;APP.sonido='custom';localStorage.setItem('pap_joy_sonido','custom');
+  reproducirSonido();
+}
+
+function reproducirSonido(){
+  try{
+    var ctx2=new (window.AudioContext||window.webkitAudioContext)();
+    if(sonidoCustom&&APP.sonido==='custom'){new Audio(sonidoCustom).play().catch(function(){});}
+    else if(APP.sonido==='silencio'){}
+    else{
+      var osc=ctx2.createOscillator();var gain=ctx2.createGain();
+      osc.connect(gain);gain.connect(ctx2.destination);
+      osc.frequency.setValueAtTime(APP.sonido==='gong'?220:528,ctx2.currentTime);
+      gain.gain.setValueAtTime(.4,ctx2.currentTime);
+      gain.gain.exponentialRampToValueAtTime(.001,ctx2.currentTime+1.2);
+      osc.start();osc.stop(ctx2.currentTime+1.2);
+    }
+  }catch(e){}
+}
+
+/* ═══ MODAL ═══ */
+function mostrarModal(txt,sub){
+  document.getElementById('modalTxt').textContent=txt;
+  document.getElementById('modalSub').textContent=sub;
+  document.getElementById('modal').classList.add('activo');
+}
+function cerrarModal(){document.getElementById('modal').classList.remove('activo');}
+
+/* ═══ OTROS ═══ */
+function abrirPapiro(){window.open('https://filosofiadigitaldecombate.github.io','_blank');}
+function cerrarSesionApp(){
+  localStorage.removeItem('pap_joy_correo');localStorage.removeItem('pap_joy_pair');
+  APP.correo='';APP.pair=null;irPantalla('p-splash');
+}
+
+/* Check correo guardado */
+if(APP.correo){document.getElementById('correoInput').value=APP.correo;}
+</script>
+</body>
+</html>
