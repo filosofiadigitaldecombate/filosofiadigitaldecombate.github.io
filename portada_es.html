@@ -3,247 +3,297 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>P∆PIR° · Inicio</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<title>P∆PIR° · Tu espacio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Special+Elite&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{background:#000;}
-/* CLAVE: el body tiene altura real — scrollable */
-body{min-height:200vh;opacity:0;transition:opacity .4s;}
+html,body{overflow-x:hidden;min-height:100%;}
+/* Sin flash: opacity:0 hasta que cosmos cargue */
+body{background:#000;opacity:0;transition:opacity .5s;}
 
-@keyframes oroVivo{0%{background-position:0% center;}100%{background-position:500% center;}}
-@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 20px rgba(201,168,76,.3));}50%{filter:drop-shadow(0 0 50px rgba(201,168,76,.7));}}
-@keyframes hintPulse{0%,100%{opacity:.25;}50%{opacity:.8;}}
+canvas#cosmos{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;}
 
-canvas#cosmos{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+@keyframes oroFlow{from{background-position:0% center;}to{background-position:500% center;}}
+@keyframes logoGlow{0%,100%{filter:drop-shadow(0 0 16px rgba(200,169,106,.35));}50%{filter:drop-shadow(0 0 40px rgba(230,194,122,.75));}}
+@keyframes bf{from{background-position:0 0%;}to{background-position:0 100%;}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
 
-/* TOP BAR — fija */
-.top-bar{position:fixed;top:0;left:0;right:0;z-index:50;
-  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;}
-.btn-instrucciones{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
-  color:rgba(201,168,76,.55);background:rgba(0,0,0,.5);
-  border:1px solid rgba(201,168,76,.2);padding:8px 14px;border-radius:20px;
-  cursor:pointer;backdrop-filter:blur(8px);}
-.btn-instrucciones:active{background:rgba(201,168,76,.15);}
-.btn-salir{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
-  color:rgba(255,255,255,.25);cursor:pointer;padding:8px 14px;}
+/* CAPAS */
+#capa2{position:relative;z-index:2;width:100%;min-height:100vh;
+  background:radial-gradient(ellipse at 50% 10%,rgba(200,169,106,.06) 0%,transparent 40%),
+  linear-gradient(180deg,#050408,#080610 50%,#050408);}
+#capa3{position:relative;z-index:4;margin:0 37px;padding:0 0 120px;min-height:100vh;
+  background:linear-gradient(160deg,rgba(8,6,16,.95),rgba(5,4,8,.98) 50%,rgba(8,6,16,.95));}
 
-/* LOGO — FIJO al centro de la PANTALLA, nunca se mueve */
-.logo-fijo{
-  position:fixed; /* ← fijo. siempre en pantalla */
-  top:50%; left:50%;
-  transform:translate(-50%,-50%);
-  z-index:10;
-  pointer-events:none;
-  text-align:center;
-  width:90%;
-}
-.logo-txt{font-family:'Cinzel',serif;
-  font-size:clamp(52px,15vw,100px);font-weight:900;
-  letter-spacing:clamp(8px,3vw,20px);
-  color:#FFF;-webkit-text-stroke:2px #C9A84C;
-  animation:logoGlow 4s ease-in-out infinite;
-  line-height:1;display:block;}
-.logo-delta{-webkit-text-stroke:2px #E8C97A;}
-.logo-sub{font-family:'Cinzel',serif;
-  font-size:clamp(9px,2.8vw,14px);letter-spacing:clamp(5px,2vw,12px);
-  color:rgba(201,168,76,.4);margin-top:16px;display:block;}
-.logo-slogan{font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:clamp(14px,3.5vw,19px);color:rgba(255,255,255,.22);
-  margin-top:10px;display:block;}
+/* BORDES dorado disco */
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:bf 8s linear infinite;
+  box-shadow:inset -2px 0 8px rgba(0,0,0,.8),3px 0 16px rgba(200,169,106,.12);}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#2A1800,#8c6a3d 20%,#c8a96a 35%,#e6c27a 50%,#c8a96a 65%,#8c6a3d 80%,#2A1800);
+  background-size:100% 300%;animation:bf 8s linear infinite reverse;
+  box-shadow:inset 2px 0 8px rgba(0,0,0,.8),-3px 0 16px rgba(200,169,106,.12);}
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:10;pointer-events:none;background:transparent;}
+.ml.L{left:0;}.ml.R{right:0;}
+.ml.L::after,.ml.R::after{content:'';position:absolute;top:0;bottom:0;width:5px;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;animation:bf 35s linear infinite;box-shadow:0 0 6px rgba(200,169,106,.4);}
+.ml.L::after{right:0;}.ml.R::after{left:0;animation-direction:reverse;}
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:58px;height:58px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:transparent;
+  border:1.5px solid #c8a96a;box-shadow:0 0 12px rgba(200,169,106,.3);transition:background .3s;}
+.btn-f:active{background:rgba(200,169,106,.12);transform:scale(.92);}
+.btn-f.izq{bottom:20px;left:42px;}
+.btn-f.der{bottom:20px;right:42px;}
+.btn-f.izq span{font-family:'Cinzel',serif;font-size:53px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:bf 35s linear infinite;}
+.btn-f.der span{font-family:'Cinzel',serif;font-size:32px;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:bf 35s linear infinite reverse;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
 
-/* HINT SCROLL — fijo abajo */
-.hint-scroll{position:fixed;bottom:28px;left:0;right:0;z-index:20;
-  text-align:center;pointer-events:none;animation:hintPulse 2.5s ease-in-out infinite;}
-.hint-txt{font-family:'Cinzel',serif;font-size:9px;letter-spacing:5px;color:rgba(201,168,76,.7);}
-.hint-arrow{font-size:14px;color:rgba(201,168,76,.5);display:block;margin-top:4px;}
+/* CABECERA */
+.cab{padding:28px 20px 20px;text-align:center;}
+.cab-logo{font-family:'Cinzel',serif;font-size:clamp(38px,10vw,64px);font-weight:900;
+  letter-spacing:clamp(4px,2vw,10px);color:#FFF;-webkit-text-stroke:1.5px #c8a96a;
+  animation:logoGlow 4s ease-in-out infinite;display:block;margin-bottom:4px;}
+.cab-logo .d{-webkit-text-stroke:1.5px #e6c27a;}
+.cab-sub{font-family:'Cinzel',serif;font-size:9px;letter-spacing:6px;
+  background:linear-gradient(90deg,#5a4324,#8c6a3d,#c8a96a,#e6c27a,#b08d57,#6e552f,#c8a96a);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 8s linear infinite;margin-bottom:4px;}
+.cab-user{font-family:'Special Elite',serif;font-size:13px;color:rgba(200,169,106,.5);letter-spacing:2px;}
 
-/* SPACER — crea el espacio para que el logo fijo se vea antes de scrollear */
-.spacer{height:100vh;/* este espacio vacío es donde vive el logo fijo */}
+.page-rule{width:100%;height:1px;margin:14px 0;
+  background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
 
-/* BAÚL — viene DESPUÉS del spacer, en flujo normal del documento */
-.baul-section{
-  position:relative;
-  z-index:10;
-  min-height:100vh;
-  background:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.97) 8%,#000 15%);
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:60px 28px 80px;
-}
-.baul-linea{width:60px;height:1px;background:linear-gradient(to right,transparent,#C9A84C,transparent);margin:0 auto 40px;}
-.usuario-code{font-family:'Cinzel',serif;font-size:11px;letter-spacing:5px;
-  color:rgba(201,168,76,.3);text-align:center;margin-bottom:10px;
-  opacity:0;transition:opacity 1s ease .1s;}
-.usuario-code.vis{opacity:1;}
-/* NOMBRE — estático en el baul, NO se mueve */
-.nombre-usuario{
-  font-family:'Cinzel',serif;
-  font-size:clamp(26px,8vw,56px);font-weight:900;
-  letter-spacing:clamp(4px,2vw,12px);
-  background:linear-gradient(90deg,#8A6A00,#C9A84C,#FFFACD,#E8C97A,#C9A84C,#8A6A00);
-  background-size:500% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
-  background-clip:text;animation:oroVivo 7s linear infinite;
-  text-align:center;cursor:pointer;padding:20px;
-  filter:drop-shadow(0 0 14px rgba(201,168,76,.4));
-  opacity:0;transition:opacity 1s ease .2s;}
-.nombre-usuario.vis{opacity:1;}
-.nombre-usuario:active{filter:drop-shadow(0 0 30px rgba(201,168,76,.9));}
-.toca-hint{font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:15px;color:rgba(255,255,255,.18);text-align:center;margin-bottom:40px;
-  opacity:0;transition:opacity 1s ease .4s;}
-.toca-hint.vis{opacity:1;}
-.baul-firma{font-family:'Special Elite',serif;font-size:11px;letter-spacing:2px;
-  color:rgba(201,168,76,.2);text-align:center;line-height:2.4;margin-top:28px;
-  opacity:0;transition:opacity 1s ease .6s;}
-.baul-firma.vis{opacity:1;}
+/* MENÚ ¿ADÓNDE VAS? */
+.menu-titulo{font-family:'Cinzel',serif;font-size:10px;letter-spacing:6px;
+  color:rgba(200,169,106,.35);text-align:center;padding:0 20px;margin-bottom:14px;}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 18px 6px;}
+.menu-item{border:1px solid rgba(200,169,106,.18);padding:14px 12px;border-radius:8px;
+  cursor:pointer;transition:all .2s;background:rgba(200,169,106,.03);
+  display:flex;flex-direction:column;gap:5px;text-decoration:none;}
+.menu-item:active{background:rgba(200,169,106,.1);transform:scale(.97);}
+.mi-ico{font-size:22px;line-height:1;}
+.mi-sym{font-family:'Cinzel',serif;font-size:11px;font-weight:900;
+  background:linear-gradient(90deg,#c8a96a,#e6c27a,#c8a96a);
+  background-size:300% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 8s linear infinite;}
+.mi-nom{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.7);}
+.mi-desc{font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:rgba(255,255,255,.25);line-height:1.4;}
+/* item ancho completo */
+.menu-item.full{grid-column:1/-1;}
+/* cerrar sesión */
+.btn-cerrar{width:100%;margin:10px 0 0;padding:14px;border:1px solid rgba(200,0,0,.2);
+  background:transparent;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;
+  color:rgba(255,80,80,.4);cursor:pointer;border-radius:6px;}
+.btn-cerrar:active{background:rgba(200,0,0,.08);}
 
-/* MENÚ OVERLAY */
-.menu-overlay{display:none;position:fixed;inset:0;z-index:200;
-  background:rgba(0,0,0,.96);backdrop-filter:blur(16px);
-  flex-direction:column;align-items:center;justify-content:center;
-  gap:14px;padding:32px 28px;}
-.menu-overlay.activo{display:flex;}
-.menu-titulo{font-family:'Cinzel',serif;font-size:11px;letter-spacing:6px;
-  color:rgba(201,168,76,.4);margin-bottom:10px;}
-.menu-cerrar{position:absolute;top:20px;right:20px;background:none;
-  border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.35);
-  width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:18px;
-  display:flex;align-items:center;justify-content:center;}
-.m-btn{width:100%;max-width:290px;padding:17px 24px;border-radius:50px;
-  font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;
-  cursor:pointer;text-align:center;transition:all .2s;border:none;}
-.m-btn:active{transform:scale(.97);}
-.m-negro{background:linear-gradient(135deg,#111,#000,#1A1A1A);color:#FFF;box-shadow:0 4px 20px rgba(0,0,0,.5);}
-.m-oro{background:transparent;border:1.5px solid rgba(201,168,76,.35);color:rgba(201,168,76,.75);}
-.m-rojo{background:transparent;border:1.5px solid rgba(160,50,50,.4);color:rgba(200,80,80,.75);}
+/* P∆PPER°S — feed de papiros de amigos */
+.peppers-titulo{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;
+  color:rgba(200,169,106,.4);padding:0 18px;margin:20px 0 12px;}
+.peppers-scroll{overflow-x:auto;padding:0 18px 10px;white-space:nowrap;
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;}
+.peppers-scroll::-webkit-scrollbar{display:none;}
+.pepper-card{display:inline-block;width:120px;height:160px;margin-right:12px;
+  border-radius:10px;overflow:hidden;vertical-align:top;cursor:pointer;
+  border:1px solid rgba(200,169,106,.15);background:rgba(200,169,106,.04);
+  position:relative;flex-shrink:0;}
+.pepper-card:active{opacity:.8;}
+.pepper-usuario{position:absolute;bottom:0;left:0;right:0;padding:6px 8px;
+  background:linear-gradient(to top,rgba(0,0,0,.9),transparent);
+  font-family:'Cinzel',serif;font-size:8px;letter-spacing:1px;color:rgba(200,169,106,.7);}
+.pepper-tipo{position:absolute;top:6px;right:6px;font-size:10px;
+  background:rgba(0,0,0,.6);padding:2px 6px;border-radius:10px;
+  color:rgba(200,169,106,.6);font-family:monospace;font-size:8px;}
+.pepper-empty{display:inline-flex;width:120px;height:160px;margin-right:12px;
+  border-radius:10px;vertical-align:top;border:1px dashed rgba(200,169,106,.1);
+  align-items:center;justify-content:center;flex-direction:column;gap:6px;cursor:default;}
+.pepper-empty-ico{font-size:24px;opacity:.2;}
+.pepper-empty-txt{font-family:'Cinzel',serif;font-size:8px;letter-spacing:2px;
+  color:rgba(200,169,106,.15);text-align:center;line-height:1.5;}
+
+/* BAÚL */
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;
+  background:linear-gradient(to right,transparent,#c8a96a,#e6c27a,#c8a96a,transparent);}
+.bn{font-family:'Cinzel',serif;font-size:24px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:10px;color:#e6c27a;
+  opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Special Elite',serif;font-size:12px;letter-spacing:3px;
+  color:rgba(200,169,106,.4);display:block;margin-bottom:6px;
+  opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
 </style>
 </head>
 <body>
 <canvas id="cosmos"></canvas>
-
-<div class="top-bar">
-  <div class="btn-instrucciones" onclick="ir('instrucciones.html')">INSTRUCCIONES DE USO</div>
-  <div class="btn-salir" onclick="cerrarSesion()">SALIR</div>
+<div class="borde-izq"></div><div class="borde-der"></div>
+<div class="ml L"></div><div class="ml R"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="ir('papiro_biblioteca.html')"><span>°</span></div>
+  <div class="btn-f der" onclick="ir('salon.html')"><span>∆</span></div>
 </div>
+<div id="capa5"></div>
 
-<!-- LOGO FIJO — siempre centrado en pantalla, nunca se mueve -->
-<div class="logo-fijo">
-  <span class="logo-txt">P<span class="logo-delta">∆</span>PIR°</span>
-  <span class="logo-sub">CREAXION PAPIRO</span>
-  <span class="logo-slogan">Digitalidad Sana y Segura</span>
-</div>
+<div id="capa2"><div id="capa3">
 
-<!-- HINT -->
-<div class="hint-scroll" id="hintScroll">
-  <div class="hint-txt">DESLIZA</div>
-  <span class="hint-arrow">↓</span>
-</div>
-
-<!-- SPACER — espacio vacío donde se ve el logo. Al scrollear se pasa al baúl -->
-<div class="spacer"></div>
-
-<!-- BAÚL — aparece abajo al scrollear -->
-<div class="baul-section">
-  <div class="baul-linea"></div>
-  <div class="usuario-code" id="uCode">CREAXION PAPIRO</div>
-  <div class="nombre-usuario" id="uNombre" onclick="abrirMenu()">P∆plover</div>
-  <div class="toca-hint" id="uHint">Toca tu nombre para entrar al ecosistema</div>
-  <div class="baul-firma" id="uFirma">
-    Creaxion Papiro © 2026<br>
-    Panajpe Eneeru Moorukajpo Pariipo<br>
-    En el nombre de Jesús · SI° · 🙏
+  <div class="cab">
+    <span class="cab-logo">P<span class="d">∆</span>PIR°</span>
+    <div class="cab-sub">CREAXION PAPIRO · DIGITALIDAD SANA Y SEGURA</div>
+    <div class="cab-user">Bienvenido, <span id="userNom">LC7°</span></div>
   </div>
-</div>
+  <div class="page-rule"></div>
 
-<!-- MENÚ -->
-<div class="menu-overlay" id="menuOver">
-  <button class="menu-cerrar" onclick="cerrarMenu()">✕</button>
+  <!-- ¿ADÓNDE VAS? -->
   <div class="menu-titulo">¿ADÓNDE VAS?</div>
-  <button class="m-btn m-negro" onclick="ir('papiro_grado.html')">° · MI PAPIRO</button>
-  <button class="m-btn m-negro" onclick="ir('salon.html')">∆ · SALÓN DE JUEGOS</button>
-  <button class="m-btn m-negro" onclick="ir('zona_papiro.html')">✦ · ZONA P∆PIR°</button>
-  <button class="m-btn m-oro" onclick="ir('perfil.html')">◆ · MI PERFIL</button>
-  <button class="m-btn m-rojo" onclick="cerrarSesion()">CERRAR SESIÓN</button>
-</div>
+  <div class="menu-grid">
+
+    <div class="menu-item" onclick="ir('grado.html')">
+      <span class="mi-ico">📜</span>
+      <span class="mi-sym">°</span>
+      <span class="mi-nom">MI PAPIRO</span>
+      <span class="mi-desc">Tu espacio personal</span>
+    </div>
+
+    <div class="menu-item" onclick="ir('salon.html')">
+      <span class="mi-ico">🎰</span>
+      <span class="mi-sym">∆</span>
+      <span class="mi-nom">SALÓN</span>
+      <span class="mi-desc">Juegos y comunidad</span>
+    </div>
+
+    <div class="menu-item" onclick="ir('zona_papiro.html')">
+      <span class="mi-ico">✦</span>
+      <span class="mi-sym">✦</span>
+      <span class="mi-nom">ZONA P∆PIR°</span>
+      <span class="mi-desc">Todos los papiros</span>
+    </div>
+
+    <div class="menu-item" onclick="ir('perfil.html')">
+      <span class="mi-ico">👤</span>
+      <span class="mi-sym">◆</span>
+      <span class="mi-nom">MI PERFIL</span>
+      <span class="mi-desc">Foto, datos, stats</span>
+    </div>
+
+    <div class="menu-item" onclick="ir('papiro_biblioteca.html')">
+      <span class="mi-ico">📚</span>
+      <span class="mi-sym">§</span>
+      <span class="mi-nom">BIBLIOTECA</span>
+      <span class="mi-desc">Guías y descargas</span>
+    </div>
+
+    <div class="menu-item" onclick="ir('papiro_corazon.html')">
+      <span class="mi-ico">💜</span>
+      <span class="mi-sym">♡</span>
+      <span class="mi-nom">PAP FANS</span>
+      <span class="mi-desc">Tu comunidad</span>
+    </div>
+
+    <!-- APPS P∆P — ancho completo -->
+    <div class="menu-item full" onclick="ir('papiro_apps.html')">
+      <span class="mi-ico">🚀</span>
+      <span class="mi-sym">APPS-P∆P'S</span>
+      <span class="mi-nom">APLICACIONES DEL ECOSISTEMA</span>
+      <span class="mi-desc">P∆P Joystick · Ippun Han · y las que vienen</span>
+    </div>
+
+    <button class="btn-cerrar full" onclick="cerrarSesion()">CERRAR SESIÓN</button>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- P∆PPER°S — feed horizontal de papiros de amigos -->
+  <div class="peppers-titulo">P∆PPER°S · LO RECIENTE</div>
+  <div class="peppers-scroll" id="peppers-container">
+    <!-- Los papiros de amigos se cargan aquí -->
+    <!-- Mientras no hay amigos, se muestran placeholders -->
+    <div class="pepper-empty">
+      <span class="pepper-empty-ico">📜</span>
+      <span class="pepper-empty-txt">SIGUE<br>PERSONAS<br>PARA VER<br>SUS PAPIROS</span>
+    </div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span class="bn" id="bN">P∆PIR°</span>
+    <span class="bs" id="bS1">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS2" style="word-break:break-all;">Creax@P∆p.LuisAlfonsoCastillejoVentura</span>
+    <span class="bs" id="bS3">Creaxion Papiro © 2026</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
+  </div>
+</div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
-var SB_URL='https://vdtdrijfcmttssfdtgva.supabase.co';
-var SB_KEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
-var sb=null;try{sb=window.supabase.createClient(SB_URL,SB_KEY);}catch(e){}
+var SB='https://vdtdrijfcmttssfdtgva.supabase.co';
+var SK='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
+var sb=null;try{sb=window.supabase.createClient(SB,SK);}catch(e){}
 
-window.addEventListener('load',function(){
-  document.body.style.opacity='1';
-  cargarUsuario();
-});
+/* COSMOS — dibuja primero, luego muestra body */
+(function(){
+  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
+  for(var i=0;i<220;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,
+    col:cols[i%5]});
+  var shown=false;
+  function draw(){
+    requestAnimationFrame(draw);
+    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);
+    S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));
+      a=Math.min(a*a*1.5,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=s.col;ctx.globalAlpha=a;ctx.shadowColor=s.col;
+      ctx.shadowBlur=a>.7?a*5:0;ctx.fill();});
+    ctx.globalAlpha=1;ctx.shadowBlur=0;
+    if(!shown){shown=true;document.body.style.opacity='1';}
+  }draw();
+})();
 
+/* Cargar usuario */
 async function cargarUsuario(){
-  var n=localStorage.getItem('pap_nombre');
-  if(n)document.getElementById('uNombre').textContent=n;
   if(!sb)return;
   try{
     var{data:{session}}=await sb.auth.getSession();
-    if(!session){ir('login.html');return;}
+    if(!session){location.href='login.html';return;}
     var u=session.user;
-    var nombre=u.user_metadata?.display_name||u.email?.split('@')[0]||'P∆plover';
-    document.getElementById('uNombre').textContent=nombre;
-    document.getElementById('uCode').textContent=u.email||'CREAXION PAPIRO';
-    localStorage.setItem('pap_nombre',nombre);
-    localStorage.setItem('pap_usuario',u.id);
+    var nom=u.user_metadata?.display_name||u.email?.split('@')[0]||'P∆plover';
+    document.getElementById('userNom').textContent=nom;
+    localStorage.setItem('papiro_usuario',u.id);
+    localStorage.setItem('pap_nombre',nom);
   }catch(e){}
 }
-
-/* SCROLL — revela el baúl cuando el usuario llega a él */
-var baulVis=false;
-window.addEventListener('scroll',function(){
-  var sy=window.scrollY||window.pageYOffset;
-  var vh=window.innerHeight;
-  /* Ocultar hint cuando empieza a bajar */
-  if(sy>20)document.getElementById('hintScroll').style.opacity='0';
-  else document.getElementById('hintScroll').style.opacity='1';
-  /* Revelar baúl cuando se pasa el spacer */
-  if(sy>vh*.5&&!baulVis){
-    baulVis=true;
-    ['uCode','uNombre','uHint','uFirma'].forEach(function(id){
-      var el=document.getElementById(id);if(el)el.classList.add('vis');
-    });
-  }
-},{passive:true});
-
-function abrirMenu(){document.getElementById('menuOver').classList.add('activo');}
-function cerrarMenu(){document.getElementById('menuOver').classList.remove('activo');}
-document.getElementById('menuOver').addEventListener('click',function(e){if(e.target===this)cerrarMenu();});
+cargarUsuario();
 
 function ir(url){
   document.body.style.opacity='0';
   setTimeout(function(){location.href=url;},280);
 }
+
 async function cerrarSesion(){
   if(sb)await sb.auth.signOut().catch(function(){});
-  localStorage.removeItem('pap_usuario');localStorage.removeItem('pap_nombre');
-  ir('banderas.html');
+  localStorage.clear();
+  ir('recepcion_es.html');
 }
 
-/* COSMOS */
-(function(){
-  var c=document.getElementById('cosmos'),ctx=c.getContext('2d');
-  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
-  var stars=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
-  for(var i=0;i<280;i++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0015+.0005,g:1});
-  for(var j=0;j<80;j++){var c2=j<40;stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.5+.15,ph:Math.random()*Math.PI*2,sp:Math.random()*.006+.002,col:cols[Math.floor(Math.random()*cols.length)],df:Math.random()*.02+.005,dp:Math.random()*Math.PI*2,g:2,calm:c2,vx:c2?0:(Math.random()-.5)*.08,vy:c2?0:(Math.random()-.5)*.05});}
-  for(var k=0;k<25;k++)stars.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*.7+.4,ph:Math.random()*Math.PI*2,sp:Math.random()*.0005+.0001,col:cols[Math.floor(Math.random()*cols.length)],g:3,ci:Math.random()*800+400,vx:(Math.random()-.5)*.04,vy:(Math.random()-.5)*.03});
-  var t=0,camT=0;
-  function draw(){
-    requestAnimationFrame(draw);t++;camT+=.004;
-    var cx=Math.sin(camT)*1.2,cy=Math.sin(camT*.8);
-    ctx.fillStyle='#000';ctx.fillRect(0,0,c.width,c.height);ctx.save();ctx.translate(cx,cy);
-    stars.forEach(function(s){
-      if(s.g===1){s.ph+=s.sp;var a=Math.sin(s.ph);a=a>0?Math.min(a*a*1.8,1):0;ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=a;ctx.shadowColor='#FFF';ctx.shadowBlur=a>.7?a*5:0;ctx.fill();}
-      else if(s.g===2){if(s.calm){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle='#FFF';ctx.globalAlpha=.35;ctx.shadowBlur=0;ctx.fill();}else{s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=c.width;if(s.x>c.width)s.x=0;if(s.y<0)s.y=c.height;if(s.y>c.height)s.y=0;s.ph+=s.sp;var base=(Math.sin(s.ph)+1)/2;var pulso=Math.sin(t*s.df+s.dp);var dest=pulso>.88?(pulso-.88)*8:0;dest=Math.min(dest,1);var aa=Math.min(base*.55+dest*.45+.08,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r+dest*.8,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=dest>.3?dest*12:0;ctx.fill();}}
-      else if(s.g===3){var fase=(t%s.ci)/s.ci;var cur=fase<.3?fase/.3:Math.max(0,1-(fase-.3)/.7);var aa=Math.min(cur*.85+.04,1);ctx.beginPath();ctx.arc(s.x,s.y,s.r*(.7+cur*.3),0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=aa;ctx.shadowColor=s.col;ctx.shadowBlur=cur>.6?cur*15:0;ctx.fill();}
-    });ctx.globalAlpha=1;ctx.shadowBlur=0;ctx.restore();}draw();
-})();
+/* Baúl trigger */
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*13)
+    ['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){
+      var el=document.getElementById(id);if(el)el.classList.add('vis');});
+},{passive:true});
 </script>
 </body>
 </html>
