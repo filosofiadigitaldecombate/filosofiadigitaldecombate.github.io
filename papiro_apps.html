@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>APPS-P∆P'S · Creaxion Papiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{overflow-x:hidden;max-width:100vw;min-height:100%;}
+body{background:#03060F;min-height:100vh;opacity:0;transition:opacity .4s;}
+
+canvas#capa1{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:none;opacity:.25;}
+
+/* CAPA 2 — azul Oxford profundo */
+#capa2{position:relative;z-index:2;width:100%;overflow-x:hidden;min-height:100vh;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(0,40,100,.12) 0%,transparent 50%),
+    linear-gradient(180deg,#03060F,#050A18 50%,#03060F);}
+
+/* CAPA 3 — paño tecnológico Oxford */
+#capa3{position:relative;z-index:4;margin:0 37px;padding:28px 20px 100px;min-height:100vh;
+  background:
+    repeating-linear-gradient(0deg,rgba(0,60,140,.015) 0px,rgba(0,60,140,.015) 1px,transparent 1px,transparent 40px),
+    repeating-linear-gradient(90deg,rgba(0,60,140,.015) 0px,rgba(0,60,140,.015) 1px,transparent 1px,transparent 40px),
+    linear-gradient(160deg,rgba(3,8,20,.97),rgba(5,10,24,.98) 50%,rgba(3,8,20,.97));}
+
+/* BORDES — azul Oxford + dorado (8s) */
+.borde-izq{position:fixed;top:0;bottom:0;left:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#001030,#003080 20%,#0050C0 35%,#c8a96a 50%,#0050C0 65%,#003080 80%,#001030);
+  background-size:100% 300%;animation:bf 8s linear infinite;
+  box-shadow:inset -2px 0 8px rgba(0,0,0,.9),3px 0 14px rgba(0,80,192,.15);}
+@keyframes bf{from{background-position:0 0%;}to{background-position:0 100%;}}
+.borde-der{position:fixed;top:0;bottom:0;right:0;width:32px;z-index:9;pointer-events:none;
+  background:linear-gradient(180deg,#001030,#003080 20%,#0050C0 35%,#c8a96a 50%,#0050C0 65%,#003080 80%,#001030);
+  background-size:100% 300%;animation:bf 8s linear infinite reverse;
+  box-shadow:inset 2px 0 8px rgba(0,0,0,.9),-3px 0 14px rgba(0,80,192,.15);}
+
+/* MÁRGENES 37px */
+.ml{position:fixed;top:0;bottom:0;width:37px;z-index:10;background:transparent;pointer-events:none;}
+.ml.L{left:0;}.ml.R{right:0;}
+.ml.L::after{content:'';position:absolute;top:0;bottom:0;right:0;width:5px;
+  background:linear-gradient(180deg,#003080,#0050C0 20%,#c8a96a 40%,#0050C0 60%,#003080 80%,#001030);
+  background-size:100% 300%;animation:bf 35s linear infinite;box-shadow:0 0 6px rgba(0,80,192,.4);}
+.ml.R::after{content:'';position:absolute;top:0;bottom:0;left:0;width:5px;
+  background:linear-gradient(180deg,#003080,#0050C0 20%,#c8a96a 40%,#0050C0 60%,#003080 80%,#001030);
+  background-size:100% 300%;animation:bf 35s linear infinite reverse;box-shadow:0 0 6px rgba(0,80,192,.4);}
+
+/* BOTONES 58×58 */
+#capa4{position:fixed;inset:0;z-index:6;pointer-events:none;}
+.btn-f{position:absolute;pointer-events:all;cursor:pointer;width:58px;height:58px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;background:transparent;
+  border:1.5px solid #c8a96a;box-shadow:0 0 12px rgba(200,169,106,.25);transition:background .3s;}
+.btn-f:active{background:rgba(200,169,106,.12);transform:scale(.92);}
+.btn-f.izq{bottom:20px;left:42px;}
+.btn-f.der{bottom:20px;right:42px;}
+.btn-f.izq span,.btn-f.der span{font-family:'Cinzel',serif;font-weight:900;pointer-events:none;
+  background:linear-gradient(180deg,#5a4324,#c8a96a 20%,#e6c27a 40%,#c8a96a 60%,#8c6a3d 80%,#5a4324);
+  background-size:100% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:bf 35s linear infinite;}
+.btn-f.izq span{font-size:53px;}.btn-f.der span{font-size:32px;animation-direction:reverse;}
+#capa5{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:0;visibility:hidden;}
+
+@keyframes oroFlow{from{background-position:0% center;}to{background-position:500% center;}}
+
+/* CONTENIDO */
+.apps-header{text-align:center;padding:0 0 22px;border-bottom:1px solid rgba(0,80,192,.2);}
+.apps-logo{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:6px;
+  color:rgba(0,120,255,.5);display:block;margin-bottom:10px;}
+.apps-titulo{font-family:'Cinzel',serif;font-size:clamp(18px,5vw,30px);font-weight:900;
+  letter-spacing:4px;background:linear-gradient(90deg,#003080,#0060CC,#c8a96a,#0060CC,#003080);
+  background-size:400% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:oroFlow 8s linear infinite;display:block;margin-bottom:4px;}
+.apps-desc{font-family:'Crimson Pro',serif;font-style:italic;font-size:16px;
+  color:rgba(100,160,255,.35);line-height:1.7;margin-top:6px;}
+
+.page-rule{width:100%;height:1px;margin:18px 0;
+  background:linear-gradient(to right,transparent,#0050C0,#c8a96a,#0050C0,transparent);}
+
+/* TARJETAS DE APPS */
+.app-card{border:1px solid rgba(0,80,192,.2);border-radius:10px;padding:18px 16px;
+  margin-bottom:14px;background:rgba(0,40,100,.05);position:relative;overflow:hidden;
+  cursor:pointer;transition:all .2s;}
+.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(to right,transparent,rgba(0,80,192,.4),rgba(200,169,106,.4),transparent);}
+.app-card:active{background:rgba(0,80,192,.1);}
+.app-card.disponible{border-color:rgba(0,80,192,.35);}
+.app-card.pronto{border-color:rgba(200,169,106,.15);opacity:.7;}
+.app-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px;}
+.app-ico{font-size:36px;flex-shrink:0;filter:drop-shadow(0 0 8px rgba(0,80,192,.4));}
+.app-info{flex:1;}
+.app-nom{font-family:'Cinzel',serif;font-size:15px;font-weight:900;letter-spacing:2px;
+  color:#FFF;display:block;margin-bottom:3px;}
+.app-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:2px;
+  padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px;}
+.badge-live{background:rgba(0,200,100,.12);color:rgba(0,255,136,.7);border:1px solid rgba(0,255,136,.2);}
+.badge-dev{background:rgba(200,169,106,.08);color:rgba(200,169,106,.5);border:1px solid rgba(200,169,106,.15);}
+.badge-soon{background:rgba(100,100,100,.08);color:rgba(200,200,200,.3);border:1px solid rgba(200,200,200,.1);}
+.app-subtitulo{font-family:'Crimson Pro',serif;font-style:italic;font-size:15px;color:rgba(100,160,255,.5);}
+.app-cuerpo{font-family:'Crimson Pro',serif;font-size:19px;line-height:2;color:rgba(200,210,230,.65);}
+.app-cuerpo strong{color:rgba(200,169,106,.8);}
+.app-cuerpo em{color:rgba(100,160,255,.6);font-style:normal;}
+.app-footer{display:flex;justify-content:space-between;align-items:center;margin-top:10px;
+  padding-top:10px;border-top:1px solid rgba(0,80,192,.1);}
+.app-tech{font-family:'Space Mono',monospace;font-size:9px;color:rgba(0,120,255,.35);letter-spacing:1px;}
+.app-btn{padding:8px 16px;border:1px solid rgba(0,80,192,.3);border-radius:20px;
+  font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;
+  color:rgba(0,120,255,.6);background:transparent;cursor:pointer;}
+.app-btn:active{background:rgba(0,80,192,.1);}
+.app-btn.dorado{border-color:rgba(200,169,106,.3);color:rgba(200,169,106,.6);}
+
+/* BAÚL */
+.baul{padding-top:1300vh;padding-bottom:50vh;text-align:center;}
+.baul-rule{width:60%;height:1px;margin:0 auto 20px;
+  background:linear-gradient(to right,transparent,#0050C0,#c8a96a,#0050C0,transparent);}
+.bn{font-family:'Cinzel',serif;font-size:22px;font-weight:900;letter-spacing:6px;
+  display:block;margin-bottom:10px;color:#c8a96a;
+  opacity:0;transform:translateY(30px);transition:opacity .8s,transform .8s;}
+.bs{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:2px;
+  color:rgba(0,80,192,.4);display:block;margin-bottom:6px;
+  opacity:0;transform:translateY(20px);transition:opacity .8s .3s,transform .8s .3s;}
+.vis{opacity:1!important;transform:translateY(0)!important;}
+#bS1{transition-delay:.15s!important;}#bS2{transition-delay:.30s!important;}
+#bS3{transition-delay:.45s!important;}#bI{transition-delay:.60s!important;}#bF{transition-delay:.75s!important;}
+</style>
+</head>
+<body>
+<canvas id="capa1"></canvas>
+<div class="borde-izq"></div><div class="borde-der"></div>
+<div class="ml L"></div><div class="ml R"></div>
+<div id="capa4">
+  <div class="btn-f izq" onclick="ir('portada_es.html')"><span>°</span></div>
+  <div class="btn-f der" onclick="ir('salon.html')"><span>∆</span></div>
+</div>
+<div id="capa5"></div>
+<div id="capa2"><div id="capa3">
+
+  <div class="apps-header">
+    <span class="apps-logo">CREAXION PAPIRO · ECOSYSTEM APPS</span>
+    <span class="apps-titulo">APPS-P∆P'S</span>
+    <div class="apps-desc">El ecosistema de aplicaciones que se conectan a tu P∆PIR°.<br>Una identidad. Todas las herramientas.</div>
+  </div>
+
+  <div class="page-rule"></div>
+
+  <!-- P∆P JOYSTICK -->
+  <div class="app-card disponible" onclick="ir('pap_joystick.html')">
+    <div class="app-top">
+      <span class="app-ico">🕹️</span>
+      <div class="app-info">
+        <span class="app-nom">P∆P JOYSTICK</span>
+        <span class="app-badge badge-live">● DISPONIBLE</span>
+        <div class="app-subtitulo">Mensajería de voz entre dos personas emparejadas</div>
+      </div>
+    </div>
+    <div class="app-cuerpo">
+      Conecta dos teléfonos. Graba y envía notas de voz que se <strong>escuchan y se borran</strong>. Responde con <strong>SI</strong> o <strong>NO</strong>. El sonido es personalizable desde tu galería.
+    </div>
+    <div class="app-footer">
+      <span class="app-tech">PWA · Supabase Realtime · WebAudio</span>
+      <button class="app-btn dorado" onclick="event.stopPropagation();ir('pap_joystick.html')">ABRIR →</button>
+    </div>
+  </div>
+
+  <!-- IPPUN HAN -->
+  <div class="app-card disponible" onclick="ir('ippun-han/index.html')">
+    <div class="app-top">
+      <span class="app-ico">🎮</span>
+      <div class="app-info">
+        <span class="app-nom">IPPUN HAN · 一分半</span>
+        <span class="app-badge badge-dev">⚙ EN DESARROLLO</span>
+        <div class="app-subtitulo">En un minuto y medio, todo puede cambiar</div>
+      </div>
+    </div>
+    <div class="app-cuerpo">
+      Juego multijugador pixel art. <strong>13 jugadores</strong> en una arena planetaria. Memoriza, corre, compra, completa la receta antes de que el reloj llegue a cero. Si fallas: <em>RESET TOTAL</em>. Sin checkpoints.
+    </div>
+    <div class="app-footer">
+      <span class="app-tech">Phaser 3 · Supabase Presence · WebAudio 8-bit</span>
+      <button class="app-btn" onclick="event.stopPropagation();ir('ippun-han/index.html')">JUGAR →</button>
+    </div>
+  </div>
+
+  <!-- PRÓXIMAS APPS -->
+  <div class="app-card pronto">
+    <div class="app-top">
+      <span class="app-ico">🔮</span>
+      <div class="app-info">
+        <span class="app-nom">ALADÍN</span>
+        <span class="app-badge badge-soon">PRÓXIMAMENTE</span>
+        <div class="app-subtitulo">Mensajes de voz con genio que sincroniza labios</div>
+      </div>
+    </div>
+    <div class="app-cuerpo">El genio habla con tu voz. Mensajes efímeros con animación de lipsync. La intimidad digital de otra dimensión.</div>
+    <div class="app-footer">
+      <span class="app-tech">Flutter · Lottie · WebRTC Opus</span>
+      <button class="app-btn" disabled style="opacity:.3;cursor:default;">PRONTO</button>
+    </div>
+  </div>
+
+  <div class="app-card pronto">
+    <div class="app-top">
+      <span class="app-ico">📡</span>
+      <div class="app-info">
+        <span class="app-nom">LINETALKE</span>
+        <span class="app-badge badge-soon">PRÓXIMAMENTE</span>
+        <div class="app-subtitulo">Walkie-talkie táctico multijugador</div>
+      </div>
+    </div>
+    <div class="app-cuerpo">Push-to-talk. Notas de 15 segundos. Mesh offline hasta 600m. Para quienes necesitan coordinación real.</div>
+    <div class="app-footer">
+      <span class="app-tech">WebRTC · Mesh P2P · Supabase</span>
+      <button class="app-btn" disabled style="opacity:.3;cursor:default;">PRONTO</button>
+    </div>
+  </div>
+
+  <!-- BAÚL -->
+  <div class="baul">
+    <div class="baul-rule"></div>
+    <span class="bn" id="bN">APPS-P∆P'S</span>
+    <span class="bs" id="bS1">Creaxion Papiro © 2026</span>
+    <span class="bs" id="bS2">X-7777777-LC7° · SI° · 350 · 777</span>
+    <span class="bs" id="bS3">Digitalidad Sana y Segura</span>
+    <span class="bs" id="bI">Panajpe Eneeru Moorukajpo Pariipo</span>
+    <span class="bs" id="bF">En el nombre de Jesús · SI° · 🙏</span>
+  </div>
+</div></div>
+
+<script>
+window.addEventListener('load',function(){document.body.style.opacity='1';});
+(function(){
+  var c=document.getElementById('capa1'),ctx=c.getContext('2d');
+  function rz(){c.width=innerWidth;c.height=innerHeight;}rz();addEventListener('resize',rz);
+  var S=[];
+  for(var i=0;i<180;i++)S.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
+    r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.001+.0003,
+    col:['rgba(0,80,192,','rgba(0,120,255,','rgba(200,169,106,','rgba(255,255,255,'][i%4]});
+  function draw(){
+    requestAnimationFrame(draw);ctx.fillStyle='#03060F';ctx.fillRect(0,0,c.width,c.height);
+    S.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a,1);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col+a+')';ctx.globalAlpha=1;ctx.fill();});
+    ctx.globalAlpha=1;}draw();
+})();
+function ir(url){document.body.style.opacity='0';setTimeout(function(){location.href=url;},280);}
+window.addEventListener('scroll',function(){
+  if((window.scrollY||window.pageYOffset)>window.innerHeight*13)
+    ['bN','bS1','bS2','bS3','bI','bF'].forEach(function(id){
+      var el=document.getElementById(id);if(el)el.classList.add('vis');});
+},{passive:true});
+</script>
+</body>
+</html>
