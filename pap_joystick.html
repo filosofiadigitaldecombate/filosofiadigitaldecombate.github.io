@@ -31,7 +31,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .bt.s{max-width:260px;font-size:10px;}
 .er{font-family:'Crimson Pro',serif;font-style:italic;font-size:13px;color:rgba(255,80,80,.8);text-align:center;min-height:20px;max-width:300px;word-break:break-word;line-height:1.5;}
 .sp{width:60px;height:1px;background:linear-gradient(to right,transparent,#c8a96a,transparent);margin:14px auto;}
-/* invitación */
 .it{font-size:14px;letter-spacing:4px;color:#e6c27a;text-align:center;margin-bottom:4px;}
 .iq{font-size:17px;font-weight:900;color:#FFF;text-align:center;margin-bottom:6px;word-break:break-all;max-width:300px;}
 .im{font-family:'Crimson Pro',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,.45);text-align:center;line-height:1.8;margin-bottom:28px;max-width:300px;}
@@ -40,11 +39,10 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .bno{flex:1;padding:18px;border-radius:50px;font-family:'Cinzel',serif;font-size:14px;letter-spacing:3px;cursor:pointer;background:rgba(200,0,0,.08);border:1.5px solid rgba(200,0,0,.4);color:rgba(255,100,100,.8);}
 .bsi:active{background:rgba(0,200,100,.2);transform:scale(.97);}
 .bno:active{background:rgba(200,0,0,.2);transform:scale(.97);}
-/* main */
 #pmain{justify-content:space-between;padding-top:44px;padding-bottom:28px;}
 .pl{font-size:9px;letter-spacing:4px;color:rgba(200,169,106,.4);text-align:center;}
 .pnm{font-size:22px;font-weight:900;color:#FFF;text-align:center;margin:4px 0 2px;}
-.pc{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:1px;text-align:center;word-break:break-all;}
+.pco{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:1px;text-align:center;word-break:break-all;}
 .zo{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;}
 .nb{width:100%;max-width:300px;background:rgba(200,169,106,.05);border:1px solid rgba(200,169,106,.18);border-radius:16px;padding:14px 16px;display:none;}
 .nb.v{display:block;animation:fI .4s ease;}
@@ -53,7 +51,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .np{width:44px;height:44px;border-radius:50%;cursor:pointer;flex-shrink:0;background:rgba(200,169,106,.1);border:1.5px solid #c8a96a;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .np:active{background:rgba(200,169,106,.25);}
 .nba{flex:1;height:3px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;}
-.nf{height:100%;width:0%;background:linear-gradient(to right,#c8a96a,#e6c27a);transition:width .1s;}
+.nfi{height:100%;width:0%;background:linear-gradient(to right,#c8a96a,#e6c27a);transition:width .1s;}
 .nt{font-size:11px;color:rgba(255,255,255,.35);min-width:32px;text-align:right;}
 .nbo{font-size:9px;letter-spacing:2px;color:rgba(255,80,80,.4);text-align:center;margin-top:8px;padding:6px;cursor:pointer;}
 .nbo:active{color:rgba(255,80,80,.9);}
@@ -80,7 +78,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 <body>
 <canvas id="cv"></canvas>
 
-<!-- LOGIN -->
 <div class="pn on" id="plogin">
   <span class="logo">P<span class="ld">∆</span>P</span>
   <div class="sub">JOYSTICK · CREAXION PAPIRO</div>
@@ -90,7 +87,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="el"></div>
 </div>
 
-<!-- SIN PAREJA -->
 <div class="pn" id="pespera">
   <div style="font-size:13px;letter-spacing:5px;color:rgba(200,169,106,.6);text-align:center;margin-bottom:6px;">BIENVENIDO</div>
   <div style="font-size:14px;color:#FFF;text-align:center;margin-bottom:18px;word-break:break-all;max-width:300px;" id="ec">···</div>
@@ -106,7 +102,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   </div>
 </div>
 
-<!-- INVITACIÓN RECIBIDA -->
 <div class="pn" id="pinv">
   <div class="it">ALGUIEN TE SELECCIONÓ</div>
   <div class="sp"></div>
@@ -119,19 +114,18 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="ea" style="margin-top:14px;"></div>
 </div>
 
-<!-- PRINCIPAL -->
 <div class="pn" id="pmain">
   <div style="width:100%;text-align:center;">
     <div class="pl">TU P∆P</div>
     <div class="pnm" id="pnm">···</div>
-    <div class="pc" id="pco">···</div>
+    <div class="pco" id="pco">···</div>
   </div>
   <div class="zo">
     <div class="nb" id="nbox">
       <div class="nd" id="nd">VOZ DE ···</div>
       <div class="nr">
         <div class="np" id="np" onclick="playAudio()">▶</div>
-        <div class="nba"><div class="nf" id="nfi"></div></div>
+        <div class="nba"><div class="nfi" id="nfi"></div></div>
         <div class="nt" id="ntm">0:00</div>
       </div>
       <div class="nbo" onclick="borrar()">✕ ESCUCHADO · BORRAR</div>
@@ -152,7 +146,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="md" id="mmodal" onclick="if(event.target===this)cm()">
   <div class="mt" id="mtt">···</div>
   <div class="ms" id="mss"></div>
@@ -163,20 +156,24 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 <script>
 'use strict';
 
-/* ── CONFIG ── */
+// ── LA CLAVE DEL FIX: persistSession:false elimina el error de Lock ──
 var SBURL='https://vdtdrijfcmttssfdtgva.supabase.co';
 var SBKEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
 var sb=null;
-try{sb=window.supabase.createClient(SBURL,SBKEY);}catch(x){console.error(x);}
+try{
+  sb=window.supabase.createClient(SBURL,SBKEY,{
+    auth:{persistSession:false, autoRefreshToken:false, detectSessionInUrl:false}
+  });
+}catch(x){console.error('Supabase init error:',x);}
 
 var A={
-  c: localStorage.getItem('pjc')||'',          // mi correo
-  p: JSON.parse(localStorage.getItem('pjp')||'null'), // mi pareja
-  inv: null, rec: null, chk: [], grab: false,
-  aurl: null, ael: null, tid: null
+  c:localStorage.getItem('pjc')||'',
+  p:JSON.parse(localStorage.getItem('pjp')||'null'),
+  inv:null, rec:null, chk:[], grab:false,
+  aurl:null, ael:null, tid:null
 };
 
-/* ── COSMOS ── */
+/* COSMOS */
 (function(){
   var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
   function rz(){cv.width=innerWidth;cv.height=innerHeight;}rz();
@@ -189,31 +186,30 @@ var A={
     requestAnimationFrame(draw);
     ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height);
     st.forEach(function(s){
-      s.ph+=s.sp;
-      var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);
+      s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);
       ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
       ctx.fillStyle=s.col;ctx.globalAlpha=a;
-      ctx.shadowColor=s.col;ctx.shadowBlur=a>.7?a*5:0;
-      ctx.fill();
+      ctx.shadowColor=s.col;ctx.shadowBlur=a>.7?a*5:0;ctx.fill();
     });
     ctx.globalAlpha=1;ctx.shadowBlur=0;
     if(!shown){shown=true;document.body.style.opacity='1';}
-  }
-  draw();
+  }draw();
 })();
 
-/* ── INIT ── */
 window.addEventListener('load',function(){
+  if(A.c)document.getElementById('fc').value=A.c;
   if(A.c&&A.p){mostrarMain();}
   else if(A.c){goA('pespera');document.getElementById('ec').textContent=A.c;}
-  if(A.c)document.getElementById('fc').value=A.c;
 });
 
-function goA(id){document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});document.getElementById(id).classList.add('on');}
+function goA(id){
+  document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});
+  document.getElementById(id).classList.add('on');
+}
 function m(t,s){document.getElementById('mtt').textContent=t;document.getElementById('mss').textContent=s||'';document.getElementById('mmodal').classList.add('on');}
 function cm(){document.getElementById('mmodal').classList.remove('on');}
 
-/* ── ENTRAR ── */
+/* ENTRAR */
 function entrar(){
   var c=document.getElementById('fc').value.trim().toLowerCase();
   if(!c||!c.includes('@')){document.getElementById('el').textContent='Correo inválido';return;}
@@ -223,33 +219,28 @@ function entrar(){
   else{goA('pespera');document.getElementById('ec').textContent=c;}
 }
 
-/* ── VERIFICAR INVITACIONES ── */
+/* VERIFICAR INVITACIONES */
 async function verificar(){
   if(!sb){m('Sin conexión','Verifica tu internet.');return;}
   m('Buscando invitaciones...','');
   try{
-    var r=await sb.from('pap_invitaciones')
+    var r=await sb
+      .from('pap_invitaciones')
       .select('id,de_correo,estado')
       .eq('para_correo',A.c)
       .eq('estado','pendiente')
       .order('creado_en',{ascending:false})
       .limit(1);
     cm();
-    if(r.error){
-      m('Error al buscar',''+r.error.message+'\n\nAsegúrate de haber ejecutado el SQL nuclear en Supabase.');
-      return;
-    }
-    if(!r.data||r.data.length===0){
-      m('Sin invitaciones','Pide a tu P∆P que te envíe el Joystick primero.');
-      return;
-    }
+    if(r.error){m('Error al buscar',r.error.message);return;}
+    if(!r.data||r.data.length===0){m('Sin invitaciones','Pide a tu P∆P que te envíe el Joystick primero.');return;}
     A.inv=r.data[0];
     document.getElementById('iqn').textContent=r.data[0].de_correo;
     goA('pinv');
-  }catch(x){cm();m('Error',''+x);}
+  }catch(x){cm();m('Error de red',''+x);}
 }
 
-/* ── ENVIAR INVITACIÓN ── */
+/* ENVIAR INVITACIÓN */
 async function enviarInv(){
   var dest=document.getElementById('fi').value.trim().toLowerCase();
   var el=document.getElementById('ei');
@@ -259,18 +250,14 @@ async function enviarInv(){
   if(!sb){el.textContent='Sin conexión';return;}
   m('Enviando...','');
   try{
-    // Borrar invitaciones previas
     await sb.from('pap_invitaciones').delete().eq('de_correo',A.c).eq('para_correo',dest);
-    // Insertar nueva
     var ins=await sb.from('pap_invitaciones').insert({
-      de_correo: A.c,
-      para_correo: dest,
-      estado: 'pendiente'
+      de_correo:A.c, para_correo:dest, estado:'pendiente'
     });
-    if(ins.error){cm();el.textContent='Error: '+ins.error.message;return;}
+    if(ins.error){cm();el.textContent=ins.error.message;return;}
     cm();
-    m('✦ Invitación enviada!',dest+' debe abrir el Joystick y presionar:\n"YA ME ENVIARON INVITACIÓN"');
-    // Polling: esperar aceptación
+    m('✦ Invitación enviada!',dest+'\n\nDebe abrir el Joystick y presionar:\n"YA ME ENVIARON INVITACIÓN"');
+    /* Polling: esperar que la otra persona acepte */
     if(A.tid)clearInterval(A.tid);
     A.tid=setInterval(async function(){
       if(A.p)return;
@@ -291,45 +278,32 @@ async function enviarInv(){
   }catch(x){cm();el.textContent=''+x;}
 }
 
-/* ── ACEPTAR ── */
+/* ACEPTAR */
 async function aceptar(){
   if(!A.inv||!sb)return;
-  var el=document.getElementById('ea');
-  el.textContent='';
+  var el=document.getElementById('ea');el.textContent='';
   m('Conectando...','');
   try{
-    // Marcar como aceptada
-    var r1=await sb.from('pap_invitaciones')
-      .update({estado:'aceptada'})
-      .eq('id',A.inv.id);
-    if(r1.error){cm();el.textContent='Paso 1 falló: '+r1.error.message;return;}
-    
-    // Insertar pareja
-    var r2=await sb.from('pap_parejas').insert({
-      correo_a: A.c,
-      correo_b: A.inv.de_correo,
-      activo: true
-    });
-    if(r2.error){cm();el.textContent='Paso 2 falló: '+r2.error.message;return;}
-    
-    // Guardar y entrar
+    /* Paso 1: marcar como aceptada */
+    var r1=await sb.from('pap_invitaciones').update({estado:'aceptada'}).eq('id',A.inv.id);
+    if(r1.error){cm();el.textContent='Paso 1: '+r1.error.message;return;}
+    /* Paso 2: crear pareja */
+    var r2=await sb.from('pap_parejas').insert({correo_a:A.c,correo_b:A.inv.de_correo,activo:true});
+    if(r2.error){cm();el.textContent='Paso 2: '+r2.error.message;return;}
+    /* Guardar y entrar */
     A.p={correo:A.inv.de_correo,nombre:A.inv.de_correo.split('@')[0]};
     localStorage.setItem('pjp',JSON.stringify(A.p));
     cm();sonar();mostrarMain();
-  }catch(x){cm();el.textContent='Error inesperado: '+x;}
+  }catch(x){cm();el.textContent=''+x;}
 }
 
 function rechazar(){A.inv=null;goA('pespera');}
 
-/* ── MAIN ── */
+/* MAIN */
 function mostrarMain(){
   document.getElementById('pnm').textContent=A.p.nombre||A.p.correo.split('@')[0];
   document.getElementById('pco').textContent=A.p.correo;
   goA('pmain');
-  iniciarPollingMensajes();
-}
-
-function iniciarPollingMensajes(){
   if(A.tid)clearInterval(A.tid);
   A.tid=setInterval(async function(){
     if(!sb||!A.p)return;
@@ -345,9 +319,8 @@ function iniciarPollingMensajes(){
   },3000);
 }
 
-/* ── RECIBIR MENSAJE ── */
+/* RECIBIR MENSAJE */
 function recibirMsg(msg){
-  // Marcar leído inmediatamente
   if(sb)sb.from('pap_mensajes').update({leido:true}).eq('id',msg.id).catch(function(){});
   sonar();
   if(msg.tipo==='voz'&&msg.audio_b64&&msg.audio_b64.length>100){
@@ -358,27 +331,25 @@ function recibirMsg(msg){
       A.aurl=URL.createObjectURL(new Blob([arr],{type:'audio/webm'}));
       document.getElementById('nd').textContent='VOZ DE '+msg.de_correo.split('@')[0].toUpperCase();
       document.getElementById('nbox').classList.add('v');
-    }catch(x){m('Error reproduciendo',''+x);}
+    }catch(x){m('Error audio',''+x);}
   }else if(msg.tipo==='texto'){
-    if(msg.contenido==='SI'){m('✅ TU P∆P DIJO SI','');}
-    else if(msg.contenido==='NO'){m('❌ TU P∆P DIJO NO','');}
+    m(msg.contenido==='SI'?'✅ TU P∆P DIJO SI':'❌ TU P∆P DIJO NO','');
     setTimeout(cm,3000);
   }
 }
 
-/* ── GRABAR ── */
+/* GRABAR */
 function startRec(e){
   e.preventDefault();
-  if(!navigator.mediaDevices){m('Sin micrófono','Tu dispositivo no permite grabar.');return;}
+  if(!navigator.mediaDevices){m('Sin micrófono','');return;}
   navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(function(st){
     A.rec=new MediaRecorder(st);A.chk=[];A.grab=true;
     document.getElementById('bvoz').classList.add('r');
     document.getElementById('vtxt').textContent='GRABANDO';
     A.rec.ondataavailable=function(ev){if(ev.data&&ev.data.size>0)A.chk.push(ev.data);};
-    A.rec.start(100); // cada 100ms para no perder datos
-  }).catch(function(err){m('Permiso denegado','Acepta el permiso del micrófono.\n'+err.message);});
+    A.rec.start(100);
+  }).catch(function(err){m('Permiso denegado',err.message);});
 }
-
 function stopRec(e){
   e.preventDefault();
   if(!A.grab||!A.rec)return;
@@ -388,41 +359,32 @@ function stopRec(e){
   A.rec.stop();
   A.rec.onstop=function(){
     A.rec.stream.getTracks().forEach(function(t){t.stop();});
-    if(!A.chk||A.chk.length===0){m('Sin audio','Mantén presionado mientras hablas.');return;}
+    if(!A.chk||!A.chk.length){m('Sin audio','Mantén presionado mientras hablas.');return;}
     var blob=new Blob(A.chk,{type:'audio/webm'});
-    if(blob.size<200){m('Audio muy corto','Habla por al menos 1 segundo.');return;}
+    if(blob.size<200){m('Audio muy corto','Habla al menos 1 segundo.');return;}
     enviarVoz(blob);
   };
 }
-
 async function enviarVoz(blob){
-  if(!A.p){m('Sin P∆P','Invita a alguien primero.');return;}
-  if(!sb){m('Sin conexión','');return;}
+  if(!A.p){m('Sin P∆P','');return;}
   m('Enviando nota de voz...','');
   try{
     var b64=await new Promise(function(res,rej){
       var rd=new FileReader();
-      rd.onloadend=function(){
-        var result=rd.result.split(',')[1];
-        if(!result||result.length<50){rej('Audio vacío');}
-        else res(result);
-      };
-      rd.onerror=function(){rej('Error leyendo audio');};
+      rd.onloadend=function(){var r=rd.result.split(',')[1];r&&r.length>50?res(r):rej('vacío');};
+      rd.onerror=function(){rej('Error leyendo');};
       rd.readAsDataURL(blob);
     });
     var ins=await sb.from('pap_mensajes').insert({
-      de_correo:   A.c,
-      para_correo: A.p.correo,
-      tipo:        'voz',
-      audio_b64:   b64,
-      leido:       false
+      de_correo:A.c, para_correo:A.p.correo,
+      tipo:'voz', audio_b64:b64, leido:false
     });
-    if(ins.error){cm();m('Error al enviar',''+ins.error.message);}
-    else{cm();m('✦ Nota de voz enviada!','');setTimeout(cm,1500);}
+    if(ins.error){cm();m('Error al enviar',ins.error.message);}
+    else{cm();m('✦ Nota enviada!','');setTimeout(cm,1500);}
   }catch(x){cm();m('Error',''+x);}
 }
 
-/* ── REPRODUCIR ── */
+/* REPRODUCIR */
 function playAudio(){
   if(!A.aurl)return;
   if(A.ael&&!A.ael.paused){A.ael.pause();document.getElementById('np').textContent='▶';return;}
@@ -437,7 +399,6 @@ function playAudio(){
   A.ael.onended=function(){document.getElementById('np').textContent='▶';};
   A.ael.play().catch(function(x){m('No se puede reproducir',''+x);});
 }
-
 function borrar(){
   if(A.ael){A.ael.pause();A.ael=null;}
   if(A.aurl){URL.revokeObjectURL(A.aurl);A.aurl=null;}
@@ -447,39 +408,38 @@ function borrar(){
   document.getElementById('np').textContent='▶';
 }
 
-/* ── SI / NO ── */
+/* SI / NO */
 async function envSI(){
-  if(!A.p||!sb){m('Sin P∆P','');return;}
+  if(!A.p||!sb)return;
   var r=await sb.from('pap_mensajes').insert({
-    de_correo:A.c, para_correo:A.p.correo, tipo:'texto', contenido:'SI', leido:false
+    de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'SI',leido:false
   }).catch(function(x){return{error:x};});
-  if(r&&r.error){m('Error',''+r.error.message);return;}
+  if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
   sonar();m('✅ SI enviado!','');setTimeout(cm,1500);
 }
-
 async function envNO(){
-  if(!A.p||!sb){m('Sin P∆P','');return;}
+  if(!A.p||!sb)return;
   var r=await sb.from('pap_mensajes').insert({
-    de_correo:A.c, para_correo:A.p.correo, tipo:'texto', contenido:'NO', leido:false
+    de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'NO',leido:false
   }).catch(function(x){return{error:x};});
-  if(r&&r.error){m('Error',''+r.error.message);return;}
+  if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
   m('❌ NO enviado','');setTimeout(cm,1500);
 }
 
-/* ── SONIDO ── */
+/* SONIDO */
 function sonar(){
   try{
-    var ctx2=new(window.AudioContext||window.webkitAudioContext)();
-    var o=ctx2.createOscillator(),g=ctx2.createGain();
-    o.connect(g);g.connect(ctx2.destination);
-    o.frequency.setValueAtTime(528,ctx2.currentTime);o.type='triangle';
-    g.gain.setValueAtTime(.3,ctx2.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,ctx2.currentTime+1.2);
-    o.start();o.stop(ctx2.currentTime+1.2);
+    var c2=new(window.AudioContext||window.webkitAudioContext)();
+    var o=c2.createOscillator(),g=c2.createGain();
+    o.connect(g);g.connect(c2.destination);
+    o.frequency.setValueAtTime(528,c2.currentTime);o.type='triangle';
+    g.gain.setValueAtTime(.3,c2.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001,c2.currentTime+1.2);
+    o.start();o.stop(c2.currentTime+1.2);
   }catch(x){}
 }
 
-/* ── SALIR ── */
+/* SALIR */
 function salir(){
   if(A.tid)clearInterval(A.tid);
   localStorage.removeItem('pjc');localStorage.removeItem('pjp');
