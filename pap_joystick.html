@@ -73,11 +73,16 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .mt{font-size:16px;letter-spacing:3px;color:#FFF;text-align:center;}
 .ms{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:rgba(200,169,106,.5);text-align:center;line-height:1.8;max-width:290px;word-break:break-word;}
 .mb{padding:10px 24px;border:1px solid rgba(200,169,106,.3);border-radius:30px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(200,169,106,.6);background:transparent;cursor:pointer;}
+/* DEBUG BAR - solo visible para diagnóstico */
+#debug{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(0,0,0,.9);
+  font-family:monospace;font-size:10px;color:#00ff66;padding:4px 8px;
+  display:none;pointer-events:none;line-height:1.6;}
 </style>
 </head>
 <body>
 <canvas id="cv"></canvas>
 
+<!-- LOGIN -->
 <div class="pn on" id="plogin">
   <span class="logo">P<span class="ld">∆</span>P</span>
   <div class="sub">JOYSTICK · CREAXION PAPIRO</div>
@@ -87,6 +92,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="el"></div>
 </div>
 
+<!-- SIN PAREJA -->
 <div class="pn" id="pespera">
   <div style="font-size:13px;letter-spacing:5px;color:rgba(200,169,106,.6);text-align:center;margin-bottom:6px;">BIENVENIDO</div>
   <div style="font-size:14px;color:#FFF;text-align:center;margin-bottom:18px;word-break:break-all;max-width:300px;" id="ec">···</div>
@@ -97,11 +103,9 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="ei"></div>
   <div class="sp"></div>
   <button class="bt s" onclick="verificar()">🔄 YA ME ENVIARON INVITACIÓN</button>
-  <div style="font-family:'Crimson Pro',serif;font-style:italic;font-size:12px;color:rgba(255,255,255,.15);text-align:center;margin-top:14px;line-height:1.8;max-width:280px;">
-    La otra persona abre el Joystick con su correo<br>y presiona el botón de arriba.
-  </div>
 </div>
 
+<!-- INVITACIÓN -->
 <div class="pn" id="pinv">
   <div class="it">ALGUIEN TE SELECCIONÓ</div>
   <div class="sp"></div>
@@ -114,6 +118,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="ea" style="margin-top:14px;"></div>
 </div>
 
+<!-- PRINCIPAL -->
 <div class="pn" id="pmain">
   <div style="width:100%;text-align:center;">
     <div class="pl">TU P∆P</div>
@@ -121,6 +126,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
     <div class="pco" id="pco">···</div>
   </div>
   <div class="zo">
+    <!-- NOTA RECIBIDA -->
     <div class="nb" id="nbox">
       <div class="nd" id="nd">VOZ DE ···</div>
       <div class="nr">
@@ -130,6 +136,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
       </div>
       <div class="nbo" onclick="borrar()">✕ ESCUCHADO · BORRAR</div>
     </div>
+    <!-- JOYSTICK -->
     <div class="jy">
       <button class="bj bs2" onclick="envSI()"><span class="jl">SI</span><span class="js">ACEPTO</span></button>
       <div class="bv" id="bvoz"
@@ -146,51 +153,56 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   </div>
 </div>
 
+<!-- MODAL -->
 <div class="md" id="mmodal" onclick="if(event.target===this)cm()">
   <div class="mt" id="mtt">···</div>
   <div class="ms" id="mss"></div>
   <button class="mb" onclick="cm()">OK</button>
 </div>
 
+<!-- DEBUG (activar con ?debug en la URL) -->
+<div id="debug"></div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 'use strict';
 
-// ── LA CLAVE DEL FIX: persistSession:false elimina el error de Lock ──
+// Activar debug con ?debug en la URL
+var DEBUG=window.location.search.includes('debug');
+var dbg=document.getElementById('debug');
+if(DEBUG)dbg.style.display='block';
+function log(txt){if(DEBUG){dbg.textContent=txt;console.log(txt);}}
+
 var SBURL='https://vdtdrijfcmttssfdtgva.supabase.co';
 var SBKEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
 var sb=null;
 try{
   sb=window.supabase.createClient(SBURL,SBKEY,{
-    auth:{persistSession:false, autoRefreshToken:false, detectSessionInUrl:false}
+    auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}
   });
-}catch(x){console.error('Supabase init error:',x);}
+  log('Supabase OK');
+}catch(x){log('Supabase ERROR: '+x);}
 
 var A={
   c:localStorage.getItem('pjc')||'',
   p:JSON.parse(localStorage.getItem('pjp')||'null'),
-  inv:null, rec:null, chk:[], grab:false,
-  aurl:null, ael:null, tid:null
+  inv:null,rec:null,chk:[],grab:false,
+  aurl:null,ael:null,tid:null
 };
 
 /* COSMOS */
 (function(){
   var cv=document.getElementById('cv'),ctx=cv.getContext('2d');
-  function rz(){cv.width=innerWidth;cv.height=innerHeight;}rz();
-  addEventListener('resize',rz);
+  function rz(){cv.width=innerWidth;cv.height=innerHeight;}rz();addEventListener('resize',rz);
   var st=[],cols=['#A8D4FF','#FFFFFF','#FFE8A0','#FFB347','#C8A0FF'];
   for(var i=0;i<180;i++)st.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,
     r:Math.random()*.4+.1,ph:Math.random()*Math.PI*2,sp:Math.random()*.0012+.0004,col:cols[i%5]});
   var shown=false;
   function draw(){
-    requestAnimationFrame(draw);
-    ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height);
-    st.forEach(function(s){
-      s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=s.col;ctx.globalAlpha=a;
-      ctx.shadowColor=s.col;ctx.shadowBlur=a>.7?a*5:0;ctx.fill();
-    });
+    requestAnimationFrame(draw);ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height);
+    st.forEach(function(s){s.ph+=s.sp;var a=Math.max(0,Math.sin(s.ph));a=Math.min(a*a*1.5,1);
+      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=s.col;ctx.globalAlpha=a;
+      ctx.shadowColor=s.col;ctx.shadowBlur=a>.7?a*5:0;ctx.fill();});
     ctx.globalAlpha=1;ctx.shadowBlur=0;
     if(!shown){shown=true;document.body.style.opacity='1';}
   }draw();
@@ -202,14 +214,10 @@ window.addEventListener('load',function(){
   else if(A.c){goA('pespera');document.getElementById('ec').textContent=A.c;}
 });
 
-function goA(id){
-  document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});
-  document.getElementById(id).classList.add('on');
-}
+function goA(id){document.querySelectorAll('.pn').forEach(function(p){p.classList.remove('on');});document.getElementById(id).classList.add('on');}
 function m(t,s){document.getElementById('mtt').textContent=t;document.getElementById('mss').textContent=s||'';document.getElementById('mmodal').classList.add('on');}
 function cm(){document.getElementById('mmodal').classList.remove('on');}
 
-/* ENTRAR */
 function entrar(){
   var c=document.getElementById('fc').value.trim().toLowerCase();
   if(!c||!c.includes('@')){document.getElementById('el').textContent='Correo inválido';return;}
@@ -219,19 +227,19 @@ function entrar(){
   else{goA('pespera');document.getElementById('ec').textContent=c;}
 }
 
-/* VERIFICAR INVITACIONES */
 async function verificar(){
-  if(!sb){m('Sin conexión','Verifica tu internet.');return;}
-  m('Buscando invitaciones...','');
+  if(!sb){m('Sin conexión','');return;}
+  m('Buscando...','');
+  log('Verificando invitaciones para: '+A.c);
   try{
-    var r=await sb
-      .from('pap_invitaciones')
+    var r=await sb.from('pap_invitaciones')
       .select('id,de_correo,estado')
       .eq('para_correo',A.c)
       .eq('estado','pendiente')
       .order('creado_en',{ascending:false})
       .limit(1);
     cm();
+    log('Result: '+JSON.stringify(r.data));
     if(r.error){m('Error al buscar',r.error.message);return;}
     if(!r.data||r.data.length===0){m('Sin invitaciones','Pide a tu P∆P que te envíe el Joystick primero.');return;}
     A.inv=r.data[0];
@@ -240,7 +248,6 @@ async function verificar(){
   }catch(x){cm();m('Error de red',''+x);}
 }
 
-/* ENVIAR INVITACIÓN */
 async function enviarInv(){
   var dest=document.getElementById('fi').value.trim().toLowerCase();
   var el=document.getElementById('ei');
@@ -249,48 +256,39 @@ async function enviarInv(){
   el.textContent='';
   if(!sb){el.textContent='Sin conexión';return;}
   m('Enviando...','');
+  log('Enviando invitación a: '+dest);
   try{
     await sb.from('pap_invitaciones').delete().eq('de_correo',A.c).eq('para_correo',dest);
-    var ins=await sb.from('pap_invitaciones').insert({
-      de_correo:A.c, para_correo:dest, estado:'pendiente'
-    });
+    var ins=await sb.from('pap_invitaciones').insert({de_correo:A.c,para_correo:dest,estado:'pendiente'});
     if(ins.error){cm();el.textContent=ins.error.message;return;}
     cm();
     m('✦ Invitación enviada!',dest+'\n\nDebe abrir el Joystick y presionar:\n"YA ME ENVIARON INVITACIÓN"');
-    /* Polling: esperar que la otra persona acepte */
     if(A.tid)clearInterval(A.tid);
     A.tid=setInterval(async function(){
       if(A.p)return;
-      try{
-        var r2=await sb.from('pap_invitaciones')
-          .select('para_correo')
-          .eq('de_correo',A.c)
-          .eq('estado','aceptada')
-          .limit(1);
-        if(r2.data&&r2.data.length>0){
-          clearInterval(A.tid);
-          A.p={correo:r2.data[0].para_correo,nombre:r2.data[0].para_correo.split('@')[0]};
-          localStorage.setItem('pjp',JSON.stringify(A.p));
-          sonar();cm();mostrarMain();
-        }
-      }catch(x){}
+      var r2=await sb.from('pap_invitaciones')
+        .select('para_correo').eq('de_correo',A.c).eq('estado','aceptada').limit(1)
+        .catch(function(){return{data:null};});
+      if(r2.data&&r2.data.length>0){
+        clearInterval(A.tid);
+        A.p={correo:r2.data[0].para_correo,nombre:r2.data[0].para_correo.split('@')[0]};
+        localStorage.setItem('pjp',JSON.stringify(A.p));
+        sonar();cm();mostrarMain();
+      }
     },3000);
   }catch(x){cm();el.textContent=''+x;}
 }
 
-/* ACEPTAR */
 async function aceptar(){
   if(!A.inv||!sb)return;
   var el=document.getElementById('ea');el.textContent='';
   m('Conectando...','');
+  log('Aceptando invitación id:'+A.inv.id);
   try{
-    /* Paso 1: marcar como aceptada */
     var r1=await sb.from('pap_invitaciones').update({estado:'aceptada'}).eq('id',A.inv.id);
     if(r1.error){cm();el.textContent='Paso 1: '+r1.error.message;return;}
-    /* Paso 2: crear pareja */
     var r2=await sb.from('pap_parejas').insert({correo_a:A.c,correo_b:A.inv.de_correo,activo:true});
     if(r2.error){cm();el.textContent='Paso 2: '+r2.error.message;return;}
-    /* Guardar y entrar */
     A.p={correo:A.inv.de_correo,nombre:A.inv.de_correo.split('@')[0]};
     localStorage.setItem('pjp',JSON.stringify(A.p));
     cm();sonar();mostrarMain();
@@ -299,7 +297,6 @@ async function aceptar(){
 
 function rechazar(){A.inv=null;goA('pespera');}
 
-/* MAIN */
 function mostrarMain(){
   document.getElementById('pnm').textContent=A.p.nombre||A.p.correo.split('@')[0];
   document.getElementById('pco').textContent=A.p.correo;
@@ -307,19 +304,18 @@ function mostrarMain(){
   if(A.tid)clearInterval(A.tid);
   A.tid=setInterval(async function(){
     if(!sb||!A.p)return;
-    try{
-      var r=await sb.from('pap_mensajes')
-        .select('id,de_correo,tipo,contenido,audio_b64')
-        .eq('para_correo',A.c)
-        .eq('leido',false)
-        .order('creado_en',{ascending:false})
-        .limit(1);
-      if(r.data&&r.data.length>0)recibirMsg(r.data[0]);
-    }catch(x){}
+    var r=await sb.from('pap_mensajes')
+      .select('id,de_correo,tipo,contenido,audio_b64')
+      .eq('para_correo',A.c).eq('leido',false)
+      .order('creado_en',{ascending:false}).limit(1)
+      .catch(function(){return{data:null};});
+    if(r&&r.data&&r.data.length>0){
+      log('Mensaje recibido: tipo='+r.data[0].tipo+' audio_bytes='+(r.data[0].audio_b64?r.data[0].audio_b64.length:0));
+      recibirMsg(r.data[0]);
+    }
   },3000);
 }
 
-/* RECIBIR MENSAJE */
 function recibirMsg(msg){
   if(sb)sb.from('pap_mensajes').update({leido:true}).eq('id',msg.id).catch(function(){});
   sonar();
@@ -328,9 +324,17 @@ function recibirMsg(msg){
       var raw=atob(msg.audio_b64);
       var arr=new Uint8Array(raw.length);
       for(var i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
-      A.aurl=URL.createObjectURL(new Blob([arr],{type:'audio/webm'}));
+      // Intentar varios codecs
+      var tipos=['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'];
+      var blob=null;
+      for(var t=0;t<tipos.length;t++){
+        try{blob=new Blob([arr],{type:tipos[t]});break;}catch(e){}
+      }
+      if(!blob)blob=new Blob([arr]);
+      A.aurl=URL.createObjectURL(blob);
       document.getElementById('nd').textContent='VOZ DE '+msg.de_correo.split('@')[0].toUpperCase();
       document.getElementById('nbox').classList.add('v');
+      log('Audio listo: '+blob.size+' bytes tipo:'+blob.type);
     }catch(x){m('Error audio',''+x);}
   }else if(msg.tipo==='texto'){
     m(msg.contenido==='SI'?'✅ TU P∆P DIJO SI':'❌ TU P∆P DIJO NO','');
@@ -338,18 +342,32 @@ function recibirMsg(msg){
   }
 }
 
-/* GRABAR */
+/* GRABACIÓN — con soporte para múltiples codecs */
 function startRec(e){
   e.preventDefault();
   if(!navigator.mediaDevices){m('Sin micrófono','');return;}
-  navigator.mediaDevices.getUserMedia({audio:true,video:false}).then(function(st){
-    A.rec=new MediaRecorder(st);A.chk=[];A.grab=true;
+  navigator.mediaDevices.getUserMedia({audio:{channelCount:1,sampleRate:16000},video:false}).then(function(st){
+    // Detectar codec disponible
+    var tipos=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
+    var tipoOk='audio/webm';
+    for(var t=0;t<tipos.length;t++){
+      if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(tipos[t])){
+        tipoOk=tipos[t];break;
+      }
+    }
+    log('Usando codec: '+tipoOk);
+    try{A.rec=new MediaRecorder(st,{mimeType:tipoOk});}
+    catch(e){A.rec=new MediaRecorder(st);}
+    A.chk=[];A.grab=true;
     document.getElementById('bvoz').classList.add('r');
     document.getElementById('vtxt').textContent='GRABANDO';
-    A.rec.ondataavailable=function(ev){if(ev.data&&ev.data.size>0)A.chk.push(ev.data);};
-    A.rec.start(100);
+    A.rec.ondataavailable=function(ev){
+      if(ev.data&&ev.data.size>0){A.chk.push(ev.data);log('Chunk: '+ev.data.size+' bytes');}
+    };
+    A.rec.start(200); // chunk cada 200ms
   }).catch(function(err){m('Permiso denegado',err.message);});
 }
+
 function stopRec(e){
   e.preventDefault();
   if(!A.grab||!A.rec)return;
@@ -359,15 +377,19 @@ function stopRec(e){
   A.rec.stop();
   A.rec.onstop=function(){
     A.rec.stream.getTracks().forEach(function(t){t.stop();});
-    if(!A.chk||!A.chk.length){m('Sin audio','Mantén presionado mientras hablas.');return;}
-    var blob=new Blob(A.chk,{type:'audio/webm'});
-    if(blob.size<200){m('Audio muy corto','Habla al menos 1 segundo.');return;}
+    var totalChunks=A.chk.length;
+    log('Chunks totales: '+totalChunks);
+    if(!totalChunks){m('Sin audio','Mantén presionado mientras hablas.');return;}
+    var blob=new Blob(A.chk,{type:A.rec.mimeType||'audio/webm'});
+    log('Blob size: '+blob.size+' tipo: '+blob.type);
+    if(blob.size<500){m('Audio muy corto','Habla por al menos 2 segundos.');return;}
     enviarVoz(blob);
   };
 }
+
 async function enviarVoz(blob){
   if(!A.p){m('Sin P∆P','');return;}
-  m('Enviando nota de voz...','');
+  m('Enviando nota de voz... ('+Math.round(blob.size/1024)+'KB)','');
   try{
     var b64=await new Promise(function(res,rej){
       var rd=new FileReader();
@@ -375,16 +397,17 @@ async function enviarVoz(blob){
       rd.onerror=function(){rej('Error leyendo');};
       rd.readAsDataURL(blob);
     });
+    log('base64 length: '+b64.length);
+    if(!sb){cm();m('Sin conexión','');return;}
     var ins=await sb.from('pap_mensajes').insert({
-      de_correo:A.c, para_correo:A.p.correo,
-      tipo:'voz', audio_b64:b64, leido:false
+      de_correo:A.c,para_correo:A.p.correo,
+      tipo:'voz',audio_b64:b64,leido:false
     });
     if(ins.error){cm();m('Error al enviar',ins.error.message);}
     else{cm();m('✦ Nota enviada!','');setTimeout(cm,1500);}
   }catch(x){cm();m('Error',''+x);}
 }
 
-/* REPRODUCIR */
 function playAudio(){
   if(!A.aurl)return;
   if(A.ael&&!A.ael.paused){A.ael.pause();document.getElementById('np').textContent='▶';return;}
@@ -397,7 +420,7 @@ function playAudio(){
     document.getElementById('ntm').textContent='0:'+(s<10?'0':'')+s;
   };
   A.ael.onended=function(){document.getElementById('np').textContent='▶';};
-  A.ael.play().catch(function(x){m('No se puede reproducir',''+x);});
+  A.ael.play().catch(function(x){m('No se puede reproducir','Intenta tocar el botón de nuevo. '+x);});
 }
 function borrar(){
   if(A.ael){A.ael.pause();A.ael=null;}
@@ -408,44 +431,27 @@ function borrar(){
   document.getElementById('np').textContent='▶';
 }
 
-/* SI / NO */
 async function envSI(){
   if(!A.p||!sb)return;
-  var r=await sb.from('pap_mensajes').insert({
-    de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'SI',leido:false
-  }).catch(function(x){return{error:x};});
+  var r=await sb.from('pap_mensajes').insert({de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'SI',leido:false}).catch(function(x){return{error:x};});
   if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
   sonar();m('✅ SI enviado!','');setTimeout(cm,1500);
 }
 async function envNO(){
   if(!A.p||!sb)return;
-  var r=await sb.from('pap_mensajes').insert({
-    de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'NO',leido:false
-  }).catch(function(x){return{error:x};});
+  var r=await sb.from('pap_mensajes').insert({de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'NO',leido:false}).catch(function(x){return{error:x};});
   if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
   m('❌ NO enviado','');setTimeout(cm,1500);
 }
 
-/* SONIDO */
 function sonar(){
-  try{
-    var c2=new(window.AudioContext||window.webkitAudioContext)();
-    var o=c2.createOscillator(),g=c2.createGain();
-    o.connect(g);g.connect(c2.destination);
-    o.frequency.setValueAtTime(528,c2.currentTime);o.type='triangle';
-    g.gain.setValueAtTime(.3,c2.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,c2.currentTime+1.2);
-    o.start();o.stop(c2.currentTime+1.2);
-  }catch(x){}
+  try{var c2=new(window.AudioContext||window.webkitAudioContext)();var o=c2.createOscillator(),g=c2.createGain();o.connect(g);g.connect(c2.destination);o.frequency.setValueAtTime(528,c2.currentTime);o.type='triangle';g.gain.setValueAtTime(.3,c2.currentTime);g.gain.exponentialRampToValueAtTime(.001,c2.currentTime+1.2);o.start();o.stop(c2.currentTime+1.2);}catch(x){}
 }
 
-/* SALIR */
 function salir(){
   if(A.tid)clearInterval(A.tid);
   localStorage.removeItem('pjc');localStorage.removeItem('pjp');
-  A.c='';A.p=null;
-  document.getElementById('fc').value='';
-  goA('plogin');
+  A.c='';A.p=null;document.getElementById('fc').value='';goA('plogin');
 }
 
 if('serviceWorker' in navigator)navigator.serviceWorker.register('pap_sw.js').catch(function(){});
