@@ -44,6 +44,8 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .pnm{font-size:22px;font-weight:900;color:#FFF;text-align:center;margin:4px 0 2px;}
 .pco{font-size:11px;color:rgba(255,255,255,.25);letter-spacing:1px;text-align:center;word-break:break-all;}
 .zo{display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;}
+
+/* Nota recibida */
 .nb{width:100%;max-width:300px;background:rgba(200,169,106,.05);border:1px solid rgba(200,169,106,.18);border-radius:16px;padding:14px 16px;display:none;}
 .nb.v{display:block;animation:fI .4s ease;}
 .nd{font-size:9px;letter-spacing:3px;color:rgba(200,169,106,.5);margin-bottom:8px;}
@@ -55,6 +57,8 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .nt{font-size:11px;color:rgba(255,255,255,.35);min-width:32px;text-align:right;}
 .nbo{font-size:9px;letter-spacing:2px;color:rgba(255,80,80,.4);text-align:center;margin-top:8px;padding:6px;cursor:pointer;}
 .nbo:active{color:rgba(255,80,80,.9);}
+
+/* Joystick */
 .jy{display:flex;align-items:center;justify-content:center;gap:20px;}
 .bj{width:68px;height:68px;border-radius:50%;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Cinzel',serif;}
 .bj:active{transform:scale(.92);}
@@ -73,16 +77,11 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
 .mt{font-size:16px;letter-spacing:3px;color:#FFF;text-align:center;}
 .ms{font-family:'Crimson Pro',serif;font-style:italic;font-size:14px;color:rgba(200,169,106,.5);text-align:center;line-height:1.8;max-width:290px;word-break:break-word;}
 .mb{padding:10px 24px;border:1px solid rgba(200,169,106,.3);border-radius:30px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(200,169,106,.6);background:transparent;cursor:pointer;}
-/* DEBUG BAR - solo visible para diagnóstico */
-#debug{position:fixed;bottom:0;left:0;right:0;z-index:200;background:rgba(0,0,0,.9);
-  font-family:monospace;font-size:10px;color:#00ff66;padding:4px 8px;
-  display:none;pointer-events:none;line-height:1.6;}
 </style>
 </head>
 <body>
 <canvas id="cv"></canvas>
 
-<!-- LOGIN -->
 <div class="pn on" id="plogin">
   <span class="logo">P<span class="ld">∆</span>P</span>
   <div class="sub">JOYSTICK · CREAXION PAPIRO</div>
@@ -92,7 +91,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="el"></div>
 </div>
 
-<!-- SIN PAREJA -->
 <div class="pn" id="pespera">
   <div style="font-size:13px;letter-spacing:5px;color:rgba(200,169,106,.6);text-align:center;margin-bottom:6px;">BIENVENIDO</div>
   <div style="font-size:14px;color:#FFF;text-align:center;margin-bottom:18px;word-break:break-all;max-width:300px;" id="ec">···</div>
@@ -105,7 +103,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <button class="bt s" onclick="verificar()">🔄 YA ME ENVIARON INVITACIÓN</button>
 </div>
 
-<!-- INVITACIÓN -->
 <div class="pn" id="pinv">
   <div class="it">ALGUIEN TE SELECCIONÓ</div>
   <div class="sp"></div>
@@ -118,7 +115,6 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   <div class="er" id="ea" style="margin-top:14px;"></div>
 </div>
 
-<!-- PRINCIPAL -->
 <div class="pn" id="pmain">
   <div style="width:100%;text-align:center;">
     <div class="pl">TU P∆P</div>
@@ -126,7 +122,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
     <div class="pco" id="pco">···</div>
   </div>
   <div class="zo">
-    <!-- NOTA RECIBIDA -->
+    <!-- Nota recibida -->
     <div class="nb" id="nbox">
       <div class="nd" id="nd">VOZ DE ···</div>
       <div class="nr">
@@ -136,7 +132,7 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
       </div>
       <div class="nbo" onclick="borrar()">✕ ESCUCHADO · BORRAR</div>
     </div>
-    <!-- JOYSTICK -->
+    <!-- Joystick de voz -->
     <div class="jy">
       <button class="bj bs2" onclick="envSI()"><span class="jl">SI</span><span class="js">ACEPTO</span></button>
       <div class="bv" id="bvoz"
@@ -153,26 +149,15 @@ canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%;pointer-events:no
   </div>
 </div>
 
-<!-- MODAL -->
 <div class="md" id="mmodal" onclick="if(event.target===this)cm()">
   <div class="mt" id="mtt">···</div>
   <div class="ms" id="mss"></div>
   <button class="mb" onclick="cm()">OK</button>
 </div>
 
-<!-- DEBUG (activar con ?debug en la URL) -->
-<div id="debug"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script>
 'use strict';
-
-// Activar debug con ?debug en la URL
-var DEBUG=window.location.search.includes('debug');
-var dbg=document.getElementById('debug');
-if(DEBUG)dbg.style.display='block';
-function log(txt){if(DEBUG){dbg.textContent=txt;console.log(txt);}}
-
 var SBURL='https://vdtdrijfcmttssfdtgva.supabase.co';
 var SBKEY='sb_publishable_PwlfxDM8vqAB_-LsJVMouw_Arg6epEB';
 var sb=null;
@@ -180,14 +165,14 @@ try{
   sb=window.supabase.createClient(SBURL,SBKEY,{
     auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:false}
   });
-  log('Supabase OK');
-}catch(x){log('Supabase ERROR: '+x);}
+}catch(x){console.error('SB init:',x);}
 
 var A={
   c:localStorage.getItem('pjc')||'',
   p:JSON.parse(localStorage.getItem('pjp')||'null'),
-  inv:null,rec:null,chk:[],grab:false,
-  aurl:null,ael:null,tid:null
+  inv:null, rec:null, chk:[], grab:false,
+  aurl:null, ael:null, tid:null,
+  ultimoMsgId:null   // ← NUEVO: evita re-procesar el mismo mensaje
 };
 
 /* COSMOS */
@@ -230,18 +215,16 @@ function entrar(){
 async function verificar(){
   if(!sb){m('Sin conexión','');return;}
   m('Buscando...','');
-  log('Verificando invitaciones para: '+A.c);
   try{
     var r=await sb.from('pap_invitaciones')
-      .select('id,de_correo,estado')
+      .select('id,de_correo')
       .eq('para_correo',A.c)
       .eq('estado','pendiente')
       .order('creado_en',{ascending:false})
       .limit(1);
     cm();
-    log('Result: '+JSON.stringify(r.data));
-    if(r.error){m('Error al buscar',r.error.message);return;}
-    if(!r.data||r.data.length===0){m('Sin invitaciones','Pide a tu P∆P que te envíe el Joystick primero.');return;}
+    if(r.error){m('Error',r.error.message);return;}
+    if(!r.data||!r.data.length){m('Sin invitaciones','Pide a tu P∆P que te envíe el Joystick primero.');return;}
     A.inv=r.data[0];
     document.getElementById('iqn').textContent=r.data[0].de_correo;
     goA('pinv');
@@ -256,7 +239,6 @@ async function enviarInv(){
   el.textContent='';
   if(!sb){el.textContent='Sin conexión';return;}
   m('Enviando...','');
-  log('Enviando invitación a: '+dest);
   try{
     await sb.from('pap_invitaciones').delete().eq('de_correo',A.c).eq('para_correo',dest);
     var ins=await sb.from('pap_invitaciones').insert({de_correo:A.c,para_correo:dest,estado:'pendiente'});
@@ -269,7 +251,7 @@ async function enviarInv(){
       var r2=await sb.from('pap_invitaciones')
         .select('para_correo').eq('de_correo',A.c).eq('estado','aceptada').limit(1)
         .catch(function(){return{data:null};});
-      if(r2.data&&r2.data.length>0){
+      if(r2.data&&r2.data.length){
         clearInterval(A.tid);
         A.p={correo:r2.data[0].para_correo,nombre:r2.data[0].para_correo.split('@')[0]};
         localStorage.setItem('pjp',JSON.stringify(A.p));
@@ -283,7 +265,6 @@ async function aceptar(){
   if(!A.inv||!sb)return;
   var el=document.getElementById('ea');el.textContent='';
   m('Conectando...','');
-  log('Aceptando invitación id:'+A.inv.id);
   try{
     var r1=await sb.from('pap_invitaciones').update({estado:'aceptada'}).eq('id',A.inv.id);
     if(r1.error){cm();el.textContent='Paso 1: '+r1.error.message;return;}
@@ -301,23 +282,36 @@ function mostrarMain(){
   document.getElementById('pnm').textContent=A.p.nombre||A.p.correo.split('@')[0];
   document.getElementById('pco').textContent=A.p.correo;
   goA('pmain');
+  // Reiniciar polling
   if(A.tid)clearInterval(A.tid);
-  A.tid=setInterval(async function(){
-    if(!sb||!A.p)return;
+  A.ultimoMsgId=null;
+  A.tid=setInterval(checkMensajes,3000);
+}
+
+async function checkMensajes(){
+  if(!sb||!A.p)return;
+  try{
     var r=await sb.from('pap_mensajes')
       .select('id,de_correo,tipo,contenido,audio_b64')
-      .eq('para_correo',A.c).eq('leido',false)
-      .order('creado_en',{ascending:false}).limit(1)
-      .catch(function(){return{data:null};});
-    if(r&&r.data&&r.data.length>0){
-      log('Mensaje recibido: tipo='+r.data[0].tipo+' audio_bytes='+(r.data[0].audio_b64?r.data[0].audio_b64.length:0));
-      recibirMsg(r.data[0]);
-    }
-  },3000);
+      .eq('para_correo',A.c)
+      .eq('leido',false)
+      .order('creado_en',{ascending:true}) // ← más antiguo primero
+      .limit(1);
+    if(!r.data||!r.data.length)return;
+    var msg=r.data[0];
+    // Evitar procesar el mismo mensaje dos veces
+    if(msg.id===A.ultimoMsgId)return;
+    A.ultimoMsgId=msg.id;
+    // Marcar como leído DESPUÉS de procesar (no antes)
+    recibirMsg(msg);
+    // Marcar leído con delay para dar tiempo a procesar
+    setTimeout(function(){
+      if(sb)sb.from('pap_mensajes').update({leido:true}).eq('id',msg.id).catch(function(){});
+    },500);
+  }catch(x){}
 }
 
 function recibirMsg(msg){
-  if(sb)sb.from('pap_mensajes').update({leido:true}).eq('id',msg.id).catch(function(){});
   sonar();
   if(msg.tipo==='voz'&&msg.audio_b64&&msg.audio_b64.length>100){
     try{
@@ -325,49 +319,43 @@ function recibirMsg(msg){
       var arr=new Uint8Array(raw.length);
       for(var i=0;i<raw.length;i++)arr[i]=raw.charCodeAt(i);
       // Intentar varios codecs
-      var tipos=['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4'];
-      var blob=null;
+      var blob;
+      var tipos=['audio/webm;codecs=opus','audio/webm','audio/ogg','audio/mp4','audio/mpeg'];
       for(var t=0;t<tipos.length;t++){
+        try{if(MediaRecorder.isTypeSupported&&!MediaRecorder.isTypeSupported(tipos[t]))continue;}catch(e){}
         try{blob=new Blob([arr],{type:tipos[t]});break;}catch(e){}
       }
       if(!blob)blob=new Blob([arr]);
       A.aurl=URL.createObjectURL(blob);
-      document.getElementById('nd').textContent='VOZ DE '+msg.de_correo.split('@')[0].toUpperCase();
+      document.getElementById('nd').textContent='🎙️ VOZ DE '+msg.de_correo.split('@')[0].toUpperCase();
       document.getElementById('nbox').classList.add('v');
-      log('Audio listo: '+blob.size+' bytes tipo:'+blob.type);
     }catch(x){m('Error audio',''+x);}
   }else if(msg.tipo==='texto'){
-    m(msg.contenido==='SI'?'✅ TU P∆P DIJO SI':'❌ TU P∆P DIJO NO','');
+    if(msg.contenido==='SI')m('✅ TU P∆P DIJO SI','');
+    else if(msg.contenido==='NO')m('❌ TU P∆P DIJO NO','');
     setTimeout(cm,3000);
   }
 }
 
-/* GRABACIÓN — con soporte para múltiples codecs */
+/* GRABACIÓN */
 function startRec(e){
   e.preventDefault();
   if(!navigator.mediaDevices){m('Sin micrófono','');return;}
-  navigator.mediaDevices.getUserMedia({audio:{channelCount:1,sampleRate:16000},video:false}).then(function(st){
-    // Detectar codec disponible
+  navigator.mediaDevices.getUserMedia({audio:{channelCount:1},video:false}).then(function(st){
     var tipos=['audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus','audio/mp4'];
     var tipoOk='audio/webm';
     for(var t=0;t<tipos.length;t++){
-      if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(tipos[t])){
-        tipoOk=tipos[t];break;
-      }
+      try{if(MediaRecorder.isTypeSupported&&MediaRecorder.isTypeSupported(tipos[t])){tipoOk=tipos[t];break;}}catch(e){}
     }
-    log('Usando codec: '+tipoOk);
     try{A.rec=new MediaRecorder(st,{mimeType:tipoOk});}
     catch(e){A.rec=new MediaRecorder(st);}
     A.chk=[];A.grab=true;
     document.getElementById('bvoz').classList.add('r');
     document.getElementById('vtxt').textContent='GRABANDO';
-    A.rec.ondataavailable=function(ev){
-      if(ev.data&&ev.data.size>0){A.chk.push(ev.data);log('Chunk: '+ev.data.size+' bytes');}
-    };
-    A.rec.start(200); // chunk cada 200ms
+    A.rec.ondataavailable=function(ev){if(ev.data&&ev.data.size>0)A.chk.push(ev.data);};
+    A.rec.start(200);
   }).catch(function(err){m('Permiso denegado',err.message);});
 }
-
 function stopRec(e){
   e.preventDefault();
   if(!A.grab||!A.rec)return;
@@ -377,16 +365,12 @@ function stopRec(e){
   A.rec.stop();
   A.rec.onstop=function(){
     A.rec.stream.getTracks().forEach(function(t){t.stop();});
-    var totalChunks=A.chk.length;
-    log('Chunks totales: '+totalChunks);
-    if(!totalChunks){m('Sin audio','Mantén presionado mientras hablas.');return;}
+    if(!A.chk||!A.chk.length){m('Sin audio','Mantén presionado mientras hablas.');return;}
     var blob=new Blob(A.chk,{type:A.rec.mimeType||'audio/webm'});
-    log('Blob size: '+blob.size+' tipo: '+blob.type);
-    if(blob.size<500){m('Audio muy corto','Habla por al menos 2 segundos.');return;}
+    if(blob.size<500){m('Audio muy corto','Habla al menos 2 segundos.');return;}
     enviarVoz(blob);
   };
 }
-
 async function enviarVoz(blob){
   if(!A.p){m('Sin P∆P','');return;}
   m('Enviando nota de voz... ('+Math.round(blob.size/1024)+'KB)','');
@@ -394,20 +378,20 @@ async function enviarVoz(blob){
     var b64=await new Promise(function(res,rej){
       var rd=new FileReader();
       rd.onloadend=function(){var r=rd.result.split(',')[1];r&&r.length>50?res(r):rej('vacío');};
-      rd.onerror=function(){rej('Error leyendo');};
+      rd.onerror=function(){rej('Error leyendo audio');};
       rd.readAsDataURL(blob);
     });
-    log('base64 length: '+b64.length);
     if(!sb){cm();m('Sin conexión','');return;}
     var ins=await sb.from('pap_mensajes').insert({
-      de_correo:A.c,para_correo:A.p.correo,
-      tipo:'voz',audio_b64:b64,leido:false
+      de_correo:A.c, para_correo:A.p.correo,
+      tipo:'voz', audio_b64:b64, leido:false
     });
     if(ins.error){cm();m('Error al enviar',ins.error.message);}
-    else{cm();m('✦ Nota enviada!','');setTimeout(cm,1500);}
+    else{cm();m('✦ Nota de voz enviada!','🎙️ '+Math.round(blob.size/1024)+'KB enviados a '+A.p.nombre);setTimeout(cm,2500);}
   }catch(x){cm();m('Error',''+x);}
 }
 
+/* REPRODUCIR */
 function playAudio(){
   if(!A.aurl)return;
   if(A.ael&&!A.ael.paused){A.ael.pause();document.getElementById('np').textContent='▶';return;}
@@ -420,7 +404,7 @@ function playAudio(){
     document.getElementById('ntm').textContent='0:'+(s<10?'0':'')+s;
   };
   A.ael.onended=function(){document.getElementById('np').textContent='▶';};
-  A.ael.play().catch(function(x){m('No se puede reproducir','Intenta tocar el botón de nuevo. '+x);});
+  A.ael.play().catch(function(x){m('No se puede reproducir','Intenta tocar ▶ de nuevo. Error: '+x);});
 }
 function borrar(){
   if(A.ael){A.ael.pause();A.ael=null;}
@@ -429,19 +413,27 @@ function borrar(){
   document.getElementById('nfi').style.width='0%';
   document.getElementById('ntm').textContent='0:00';
   document.getElementById('np').textContent='▶';
+  A.ultimoMsgId=null; // ← Permite recibir el siguiente mensaje
 }
 
+/* SI / NO */
 async function envSI(){
-  if(!A.p||!sb)return;
-  var r=await sb.from('pap_mensajes').insert({de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'SI',leido:false}).catch(function(x){return{error:x};});
+  if(!A.p||!sb){m('Sin P∆P','Invita a alguien primero.');return;}
+  var r=await sb.from('pap_mensajes').insert({
+    de_correo:A.c, para_correo:A.p.correo,
+    tipo:'texto', contenido:'SI', leido:false
+  }).catch(function(x){return{error:x};});
   if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
-  sonar();m('✅ SI enviado!','');setTimeout(cm,1500);
+  sonar();m('✅ SI enviado a '+A.p.nombre,'');setTimeout(cm,1500);
 }
 async function envNO(){
-  if(!A.p||!sb)return;
-  var r=await sb.from('pap_mensajes').insert({de_correo:A.c,para_correo:A.p.correo,tipo:'texto',contenido:'NO',leido:false}).catch(function(x){return{error:x};});
+  if(!A.p||!sb){m('Sin P∆P','Invita a alguien primero.');return;}
+  var r=await sb.from('pap_mensajes').insert({
+    de_correo:A.c, para_correo:A.p.correo,
+    tipo:'texto', contenido:'NO', leido:false
+  }).catch(function(x){return{error:x};});
   if(r&&r.error){m('Error',r.error.message||''+r.error);return;}
-  m('❌ NO enviado','');setTimeout(cm,1500);
+  m('❌ NO enviado a '+A.p.nombre,'');setTimeout(cm,1500);
 }
 
 function sonar(){
